@@ -9,20 +9,23 @@ public class PlayerControl : MonoBehaviour {
 	public float rotSpeed;
 
 	public int playerNumber;
-
+	private string moveAxisName;
+	private string turnAxisName;
+	private Animator ani;
 	void Awake(){
 		rb = GetComponent<Rigidbody> ();
-
+		ani = GetComponent<Animator> ();
 	}
 
 	// Use this for initialization
 	void Start () {
-		horizontalMovement = Input.GetAxis ("Horizontal" + playerNumber);
-		verticalMovement = Input.GetAxis ("Vertical" + playerNumber);
+		
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		horizontalMovement = Input.GetAxis ("Horizontal" + playerNumber);
+		verticalMovement = Input.GetAxis ("Vertical" + playerNumber);
 		Move ();
 	}
 
@@ -41,7 +44,8 @@ public class PlayerControl : MonoBehaviour {
 		//da vedere Quaternion.LookRotation
 		Quaternion turnRotationHorizontal = Quaternion.Euler (0f, horizontalMovement * rotSpeed * Time.deltaTime, 0f);
 		rb.MoveRotation (rb.rotation * turnRotationHorizontal);
-
+		ani.SetFloat ("Movement", horizontalMovement);
+		ani.SetFloat ("Movement", verticalMovement);
 	}
 
 

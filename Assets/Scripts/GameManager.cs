@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
 	/*[HideInInspector]*/ public PlayerControl player1Control;
 	/*[HideInInspector]*/ public PlayerControl player2Control;
 
-	//da nascondere in inspector probs
+
 
 
 	void Awake(){

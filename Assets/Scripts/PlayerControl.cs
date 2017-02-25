@@ -9,8 +9,6 @@ public class PlayerControl : MonoBehaviour {
 	public float rotSpeed;
 
 	public int playerNumber;
-	private string moveAxisName;
-	private string turnAxisName;
 	private Animator ani;
 	void Awake(){
 		rb = GetComponent<Rigidbody> ();

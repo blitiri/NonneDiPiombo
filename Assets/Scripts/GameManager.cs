@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
 	/*[HideInInspector]*/ public PlayerControl player1Control;
 	/*[HideInInspector]*/ public PlayerControl player2Control;
 
-
+    public Transform[] respawn;
 
 
 	void Awake(){
@@ -33,5 +33,9 @@ public class GameManager : MonoBehaviour {
 	
 	}
 
+    public void RespawnPlayer()
+    {
+        
+    }
 
 }

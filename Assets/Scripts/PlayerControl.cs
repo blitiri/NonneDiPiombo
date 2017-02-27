@@ -1,33 +1,61 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerControl : MonoBehaviour {
+public class PlayerControl : MonoBehaviour
+{
+	private const float maxLifeValue = 100;
 	private float horizontalMovement;
 	private float verticalMovement;
 	private Rigidbody rb;
-	public float speed;
-	public float rotSpeed;
-
+	public float speed = 2;
+	public float rotSpeed = 2;
+	public GameObject bulletPrefab;
+	public Transform gunSpawnpoint;
+	public float bulletLifeTime = 2;
+	public float bulletInitialForce = 2;
+	public float underAttackInactivityTime = 3;
+	public int life = 100;
+	public int stress = 0;
+	public int bulletDamage = 5;
+	public bool stopped = false;
+	public bool underAttack;
+	public IList otherConnectedPlayers;
 	public int playerNumber;
 	private Animator ani;
-	void Awake(){
+	private float shot;
+	private float melee;
+
+	void Awake ()
+	{
+		underAttack = false;
 		rb = GetComponent<Rigidbody> ();
 		ani = GetComponent<Animator> ();
+		otherConnectedPlayers = new ArrayList ();
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
-		horizontalMovement = Input.GetAxis ("Horizontal" + playerNumber);
-		verticalMovement = Input.GetAxis ("Vertical" + playerNumber);
-		Move ();
+	void Update ()
+	{
+		if (!underAttack) {
+			if (!stopped) {
+				horizontalMovement = Input.GetAxis ("Horizontal" + playerNumber);
+				verticalMovement = Input.GetAxis ("Vertical" + playerNumber);
+				shot = Input.GetAxis ("Shot" + playerNumber);
+				melee = Input.GetAxis ("Melee" + playerNumber);
+				Move ();
+				Shot ();
+				Melee ();
+			}
+		}
 	}
 
-	public void Move()
+	public void Move ()
 	{
 		//DA APPROFONDIRE MEGLIO
 
@@ -46,5 +74,87 @@ public class PlayerControl : MonoBehaviour {
 		ani.SetFloat ("Movement", verticalMovement);
 	}
 
+	private void Melee ()
+	{
+		PlayerControl control;
 
+		if ((otherConnectedPlayers.Count > 0) && (melee > 0)) {
+			Debug.Log ("Contacted players: " + otherConnectedPlayers.Count + " - Melee: " + melee);
+			foreach (GameObject otherPlayer in otherConnectedPlayers) {
+				control = otherPlayer.GetComponent<PlayerControl> ();
+				control.Attacked (20);
+			}
+		}
+	}
+
+	public void Attacked (int damage)
+	{
+		underAttack = true;
+		StartCoroutine (AttackAnimation (damage));
+	}
+
+	IEnumerator AttackAnimation (int damage)
+	{
+		Vector3 animation;
+		float startTime;
+
+		animation = new Vector3 (0.2f, 0, 0);
+		startTime = Time.time;
+		while (Time.time - startTime < underAttackInactivityTime) {
+			transform.Translate (animation);
+			yield return null;
+			animation = -animation;
+		}
+		AddDamage (damage);
+		underAttack = false;
+	}
+
+	private void Shot ()
+	{
+		GameObject bullet;
+		Rigidbody bulletRigidbody;
+
+		if (shot > 0) {
+			bullet = Instantiate (bulletPrefab) as GameObject;
+			bullet.transform.rotation = gunSpawnpoint.rotation;
+			bullet.transform.position = gunSpawnpoint.position;
+			bulletRigidbody = bullet.GetComponent<Rigidbody> ();
+			bulletRigidbody.AddForce (bullet.transform.forward * bulletInitialForce, ForceMode.Impulse);
+			Destroy (bullet, bulletLifeTime);
+		}
+	}
+
+	void OnCollisionEnter (Collision collision)
+	{
+		Debug.Log ("Collision enter detected: " + collision.gameObject.tag);
+		if (collision.gameObject.tag.StartsWith ("Player")) {
+			otherConnectedPlayers.Add (collision.gameObject);
+		}
+	}
+
+	void OnCollisionExit (Collision collision)
+	{
+		Debug.Log ("Collision exit detected: " + collision.gameObject.tag);
+		if (collision.gameObject.tag.StartsWith ("Player")) {
+			otherConnectedPlayers.Remove (collision.gameObject);
+		}
+	}
+
+	void OnTriggerEnter (Collider other)
+	{
+		Debug.Log ("Trigger detected: " + other.gameObject.tag);
+		if (other.gameObject.tag.Equals ("Bullet")) {
+			Destroy (other.gameObject);
+			AddDamage (bulletDamage);
+		}
+	}
+
+	private void AddDamage (int damage)
+	{
+		life -= bulletDamage;
+		if (life <= 0) {
+			gameObject.SetActive (false);
+		}
+		UIManager.instance.setLife (life / maxLifeValue, playerNumber);
+	}
 }

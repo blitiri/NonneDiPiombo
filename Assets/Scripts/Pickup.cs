@@ -33,7 +33,7 @@ public class Pickup : MonoBehaviour
         if (other.gameObject.tag == "Player1" && this.gameObject.tag == "Medikit")
         {
             Destroy(this.gameObject);
-            GameManager.instance.lifePlayer1 += 20;
+            GameManager.instance.player1Control.life += 20;
         }
 
         //Player2
@@ -45,7 +45,7 @@ public class Pickup : MonoBehaviour
         if (other.gameObject.tag == "Player2" && this.gameObject.tag == "Medikit")
         {
             Destroy(this.gameObject);
-            GameManager.instance.lifePlayer2 += 20;
+            GameManager.instance.player2Control.life += 20;
         }
     }
 

@@ -1,22 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerControl : MonoBehaviour {
+public class PlayerControl : MonoBehaviour
+{
 	private float horizontalMovement;
 	private float verticalMovement;
 	private Rigidbody rb;
 	public float speed;
 	public float rotSpeed;
+    public int ammo = 20;
 
 	public int playerNumber;
 	private Animator ani;
-	void Awake(){
+
+	void Awake()
+    {
 		rb = GetComponent<Rigidbody> ();
 		ani = GetComponent<Animator> ();
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		
 	}
 	
@@ -46,5 +51,20 @@ public class PlayerControl : MonoBehaviour {
 		ani.SetFloat ("Movement", verticalMovement);
 	}
 
+    //controllo collisione con il proiettile 
+    public void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.tag=="Bullet" && this.gameObject.tag=="Player1")
+        {
+            Destroy(other.gameObject);
+            GameManager.instance.lifePlayer1 -= 10;
+        }
+
+        if (other.gameObject.tag == "Bullet" && this.gameObject.tag == "Player2")
+        {
+            Destroy(other.gameObject);
+            GameManager.instance.lifePlayer2 -= 10;
+        }
+    }
 
 }

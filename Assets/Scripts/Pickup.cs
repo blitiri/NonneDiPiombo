@@ -3,50 +3,30 @@ using System.Collections;
 
 public class Pickup : MonoBehaviour
 {
-    public Transform transformPickUp;
+	public Transform transformPickUp;
+	public int ammoBonus = 10;
+	public int lifeBonus = 10;
 
-	// Use this for initialization
-	void Start ()
-    {
-	
-	}
-	
 	// Update is called once per frame
 	void Update ()
-    {
-        if(this.gameObject.tag=="BulletPickUp")
-        {
-            transform.RotateAround(transform.position, Vector3.up, 5.0f);
-        }
-       
+	{
+		if (gameObject.tag == "BulletPickUp") {
+			transform.RotateAround (transform.position, Vector3.up, 5.0f);
+		}
 	}
 
-    //effetti dei PickUp
-    public void OnTriggerEnter(Collider other)
-    {
-        //Player1
-        if(other.gameObject.tag=="Player1" && this.gameObject.tag=="BulletPickUp")
-        {
-            Destroy(this.gameObject);
-            GameManager.instance.player1Control.ammo += 10;
-        }
-        if (other.gameObject.tag == "Player1" && this.gameObject.tag == "Medikit")
-        {
-            Destroy(this.gameObject);
-            GameManager.instance.player1Control.life += 20;
-        }
+	//effetti dei PickUp
+	public void OnTriggerEnter (Collider other)
+	{
+		PlayerControl playerControl;
 
-        //Player2
-        if (other.gameObject.tag == "Player2" && this.gameObject.tag == "BulletPickUp")
-        {
-            Destroy(this.gameObject);
-            GameManager.instance.player2Control.ammo += 10;
-        }
-        if (other.gameObject.tag == "Player2" && this.gameObject.tag == "Medikit")
-        {
-            Destroy(this.gameObject);
-            GameManager.instance.player2Control.life += 20;
-        }
-    }
-
+		if (other.gameObject.tag.StartsWith ("Player")) {
+			playerControl = other.gameObject.GetComponent<PlayerControl> ();
+			if (gameObject.tag.Equals ("BulletPickUp")) {
+				playerControl.addAmmo (ammoBonus);
+			} else if (gameObject.tag.Equals ("Medikit")) {
+				playerControl.addLife (lifeBonus);
+			}
+		}
+	}
 }

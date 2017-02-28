@@ -3,46 +3,39 @@ using System.Collections;
 
 public class PlayerControl : MonoBehaviour
 {
-    public int ammo = 20;
-	private const float maxLifeValue = 100;
+	public GameObject bulletPrefab;
+	public Transform gunSpawnpoint;
+	public int startingAmmo = 20;
+	public int maxLifeValue = 100;
+	public float speed = 2;
+	public float rotSpeed = 2;
+	public float bulletLifeTime = 2;
+	public float bulletInitialForce = 2;
+	public float underAttackInactivityTime = 2;
+	public float maxTimeToShoot = 1.0f;
+	public int bulletDamage = 5;
+	public int playerNumber;
 	private float horizontalMovement;
 	private float verticalMovement;
 	private Rigidbody rb;
-	public float speed;
-	public float rotSpeed;
-	public GameObject bulletPrefab;
-	public Transform gunSpawnpoint;
-	public float bulletLifeTime = 2;
-	public float bulletInitialForce = 2;
-	public float underAttackInactivityTime;
-	public int life = 100;
-	public int stress = 0;
-	public int bulletDamage = 5;
-	public bool stopped = false;
-	public bool underAttack;
-	public IList otherConnectedPlayers;
-	public int playerNumber;
+	private IList otherConnectedPlayers;
 	private Animator ani;
 	private float shot;
 	private float melee;
-    private float timerToShoot;
-    public float maxTimeToShoot=1.0f;
-    
+	private float timerToShoot;
+	private bool underAttack;
+	private bool stopped;
+	private int ammo;
+	private int life;
+	private int stress;
 
 	void Awake ()
 	{
-		underAttack = false;
 		rb = GetComponent<Rigidbody> ();
 		ani = GetComponent<Animator> ();
-		otherConnectedPlayers = new ArrayList ();
+		Reset ();
 	}
 
-	// Use this for initialization
-	void Start ()
-    {
-	
-	}
-	
 	// Update is called once per frame
 	void Update ()
 	{
@@ -57,6 +50,21 @@ public class PlayerControl : MonoBehaviour
 				Melee ();
 			}
 		}
+	}
+
+	public void Reset ()
+	{
+		if (otherConnectedPlayers == null) {
+			otherConnectedPlayers = new ArrayList ();
+		} else {
+			otherConnectedPlayers.Clear ();
+		}
+		ammo = startingAmmo;
+		life = maxLifeValue;
+		stress = 0;
+		stopped = false;
+		underAttack = false;
+		timerToShoot = maxTimeToShoot;
 	}
 
 	public void Move ()
@@ -85,9 +93,9 @@ public class PlayerControl : MonoBehaviour
 		if ((otherConnectedPlayers.Count > 0) && (melee > 0)) {
 			Debug.Log ("Contacted players: " + otherConnectedPlayers.Count + " - Melee: " + melee);
 			foreach (GameObject otherPlayer in otherConnectedPlayers) {  
-                    control = otherPlayer.GetComponent<PlayerControl>();
-                    control.Attacked(20);
-            }
+				control = otherPlayer.GetComponent<PlayerControl> ();
+				control.Attacked (20);
+			}
 		}
 	}
 
@@ -95,8 +103,7 @@ public class PlayerControl : MonoBehaviour
 	{
 		underAttack = true;
 		StartCoroutine (AttackAnimation (damage));
-        underAttack = false;
-    }
+	}
 
 	IEnumerator AttackAnimation (int damage)
 	{
@@ -111,7 +118,7 @@ public class PlayerControl : MonoBehaviour
 			animation = -animation;
 		}
 		AddDamage (damage);
-		//underAttack = false;
+		underAttack = false;
 	}
 
 	private void Shot ()
@@ -119,20 +126,17 @@ public class PlayerControl : MonoBehaviour
 		GameObject bullet;
 		Rigidbody bulletRigidbody;
 
-        if(timerToShoot<maxTimeToShoot)
-        {
-            timerToShoot += Time.deltaTime;
-        }
-		else if (shot > 0 && ammo>0)
-        {
+		if (timerToShoot < maxTimeToShoot) {
+			timerToShoot += Time.deltaTime;
+		} else if ((shot > 0) && (ammo > 0)) {
 			bullet = Instantiate (bulletPrefab) as GameObject;
 			bullet.transform.rotation = gunSpawnpoint.rotation;
 			bullet.transform.position = gunSpawnpoint.position;
 			bulletRigidbody = bullet.GetComponent<Rigidbody> ();
 			bulletRigidbody.AddForce (bullet.transform.forward * bulletInitialForce, ForceMode.Impulse);
 			Destroy (bullet, bulletLifeTime);
-            ammo--;
-            timerToShoot = 0.0f;
+			ammo--;
+			timerToShoot = 0.0f;
 		}
 	}
 
@@ -146,7 +150,7 @@ public class PlayerControl : MonoBehaviour
 
 	void OnCollisionExit (Collision collision)
 	{
-		//Debug.Log ("Collision exit detected: " + collision.gameObject.tag);
+		Debug.Log ("Collision exit detected: " + collision.gameObject.tag);
 		if (collision.gameObject.tag.StartsWith ("Player")) {
 			otherConnectedPlayers.Remove (collision.gameObject);
 		}
@@ -164,6 +168,27 @@ public class PlayerControl : MonoBehaviour
 	private void AddDamage (int damage)
 	{
 		life -= bulletDamage;
+		if (life < 0) {
+			life = 0;
+		}
 		UIManager.instance.setLife (life / maxLifeValue, playerNumber);
+	}
+
+	public void addAmmo (int ammo)
+	{
+		this.ammo += ammo;
+	}
+
+	public void addLife (int life)
+	{
+		this.life += life;
+		if (life > maxLifeValue) {
+			life = maxLifeValue;
+		}
+	}
+
+	public int getLife ()
+	{
+		return life;
 	}
 }

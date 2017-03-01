@@ -164,6 +164,6 @@ public class PlayerControl : MonoBehaviour
 	private void AddDamage (int damage)
 	{
 		life -= bulletDamage;
-		UIManager.instance.setLife (life / maxLifeValue, playerNumber);
+//		UIManager.instance.setLife (life / maxLifeValue, playerNumber);
 	}
 }

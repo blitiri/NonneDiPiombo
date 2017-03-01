@@ -36,11 +36,11 @@ public class GameManager : MonoBehaviour
 
 		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
 			player = players [playerIndex];
-			if (playersControls [playerIndex].getLife () <= 0) {
+			if ((playersControls [playerIndex].GetLife () <= 0) && !playersControls [playerIndex].IsUnderAttack ()) {
 				player.GetComponentInChildren<SkinnedMeshRenderer> (false);
 				spawnpointIndex = Random.Range (0, respawnPlayer.Length);
 				player.transform.position = respawnPlayer [spawnpointIndex].position;
-				playersControls [playerIndex].Reset ();
+				playersControls [playerIndex].ResetStatus ();
 				player.GetComponentInChildren<SkinnedMeshRenderer> (true);
 			}
 		}

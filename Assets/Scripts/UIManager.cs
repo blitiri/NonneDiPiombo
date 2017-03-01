@@ -1,59 +1,77 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// User interface manager.
+/// </summary>
 public class UIManager : MonoBehaviour
 {
-
+	/// <summary>
+	/// Current UIManager instance.
+	/// </summary>
 	public static UIManager instance;
-	[Range (0, 1)]
-	public float lifeStartValue;
-	[Range (0, 1)]
-	public float stressStartValue;
+	/// <summary>
+	/// The players life sliders. Important: respect players order (first player1 lifeSlider, then player2 lifeSlider and so on)
+	/// </summary>
+	public UISlider[] lifeSliders;
+	/// <summary>
+	/// The players stress sliders. Important: respect players order (first player1 stressSlider, then player2 stressSlider and so on)
+	/// </summary>
+	public UISlider[] stressSliders;
+	/// <summary>
+	/// The players max ammo labels. Important: respect players order (first player1 maxAmmoLabel, then player2 maxAmmoLabel and so on)
+	/// </summary>
+	public UILabel[] maxAmmoLabels;
+	/// <summary>
+	/// The players ammo labels. Important: respect players order (first player1 ammoLabel, then player2 ammoLabel and so on)
+	/// </summary>
+	public UILabel[] ammoLabels;
 
-	public UISlider life1Slid;
-	public UISlider stress1Slid;
-	public UISlider life2Slid;
-	public UISlider stress2Slid;
-
+	/// <summary>
+	/// Awake this instance.
+	/// </summary>
 	void Awake ()
 	{
 		instance = this;
 	}
 
-	// Use this for initialization
-	void Start ()
+	/// <summary>
+	/// Sets a player life.
+	/// </summary>
+	/// <param name="stress">Level of life (a value between 0 and 1).</param>
+	/// <param name="playerNumber">Player number (a 1-based index).</param>
+	public void SetLife (float life, int playerNumber)
 	{
-		life1Slid.value = lifeStartValue;
-		stress1Slid.value = stressStartValue;
-		life2Slid.value = lifeStartValue;
-		stress2Slid.value = stressStartValue;
+		lifeSliders [playerNumber - 1].value = life;
 	}
 
-	public void setLife (float life, int player)
+	/// <summary>
+	/// Sets a player stress.
+	/// </summary>
+	/// <param name="stress">Level of stress (a value between 0 and 1).</param>
+	/// <param name="playerNumber">Player number (a 1-based index).</param>
+	public void SetStress (float stress, int playerNumber)
 	{
-		switch (player) {
-		case 1:
-			life1Slid.value = life;
-			break;
-		case 2:
-			life2Slid.value = life;
-			break;
-		default:
-			break;
-		}
+		stressSliders [playerNumber - 1].value = stress;
 	}
 
-	public void setStress (float life, int player)
+	/// <summary>
+	/// Sets a player max ammo.
+	/// </summary>
+	/// <param name="maxAmmo">Max ammo.</param>
+	/// <param name="playerNumber">Player number (a 1-based index).</param>
+	public void SetMaxAmmo (int maxAmmo, int playerNumber)
 	{
-		switch (player) {
-		case 1:
-			stress1Slid.value = life;
-			break;
-		case 2:
-			stress2Slid.value = life;
-			break;
-		default:
-			break;
-		}
+		maxAmmoLabels [playerNumber - 1].text = maxAmmo.ToString ();
+	}
+
+	/// <summary>
+	/// Sets a player ammo.
+	/// </summary>
+	/// <param name="ammo">Ammo owned by player.</param>
+	/// <param name="playerNumber">Player number (a 1-based index).</param>
+	public void SetAmmo (int ammo, int playerNumber)
+	{
+		ammoLabels [playerNumber - 1].text = ammo.ToString ();
 	}
 }

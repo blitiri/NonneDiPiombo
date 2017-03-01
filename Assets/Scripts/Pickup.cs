@@ -40,9 +40,11 @@ public class Pickup : MonoBehaviour
 		if (other.gameObject.tag.StartsWith ("Player")) {
 			playerControl = other.gameObject.GetComponent<PlayerControl> ();
 			if (gameObject.tag.Equals ("BulletPickUp")) {
+                Destroy(this.gameObject);
 				playerControl.AddAmmo (ammoBonus);
 			} else if (gameObject.tag.Equals ("Medikit")) {
-				playerControl.AddLife (lifeBonus);
+                Destroy(this.gameObject);
+                playerControl.AddLife (lifeBonus);
 			}
 		}
 	}

@@ -9,14 +9,6 @@ public class GameManager : MonoBehaviour
 	public Transform[] respawnPlayer;
 	public GameObject[] players;
 	private PlayerControl[] playersControls;
-	public GameObject pauseScreen;
-	public GameObject pauseButton;
-	public GameObject quitButton;
-
-	public int player1Kills;	
-	public int player2Kills;
-	public bool isPaused = false;
-	public float roundTimer;
 
 	void Awake ()
 	{
@@ -27,7 +19,6 @@ public class GameManager : MonoBehaviour
 		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
 			playersControls [playerIndex] = players [playerIndex].GetComponent<PlayerControl> ();
 			playersControls [playerIndex].playerNumber = playerIndex + 1;
-
 		}
 	}
 
@@ -35,10 +26,6 @@ public class GameManager : MonoBehaviour
 	void Update ()
 	{
 		RespawnPlayer ();
-		Pause ();
-		TimerSetUp ();
-		UIManager.instance.SetScore ();
-
 	}
 
 	public void RespawnPlayer ()
@@ -55,99 +42,7 @@ public class GameManager : MonoBehaviour
 				player.transform.position = respawnPlayer [spawnpointIndex].position;
 				playersControls [playerIndex].ResetStatus ();
 				player.GetComponentInChildren<SkinnedMeshRenderer> (true);
-
-				if (playerIndex == 0) {
-					player2Kills += 1;
-
-				}
-
-				if (playerIndex == 1) {
-					player1Kills += 1;
-				}
 			}
 		}
-
-
-
-	
-	}
-	/// <summary>
-	//Countdown for round duration, back to menu at the end
-	/// </summary>
-	void TimerSetUp(){
-		roundTimer -= Time.deltaTime;
-		int minutes = Mathf.FloorToInt (roundTimer / 60f);
-		int seconds = Mathf.FloorToInt (roundTimer - minutes * 60);
-
-		string realTime = string.Format ("{0:0}:{1:00}", minutes, seconds);
-		UIManager.timerLabel.text = realTime;
-
-		if (seconds == 0) {
-			Application.LoadLevel ("Menu");
-		}
-	}
-
-	void Pause(){
-		/// <summary>
-		//Pause is on/off
-		/// </summary>
-		if (isPaused == true) {
-			if (Input.GetKeyDown (KeyCode.Escape)) {
-				isPaused = false;
-				Destroy (pauseScreen.GetComponent<TweenAlpha> ());
-				pauseScreen.GetComponent<UISprite> ().enabled = false;
-				pauseButton.GetComponent<BoxCollider> ().enabled = false;
-				pauseButton.GetComponent<UISprite> ().enabled = false;
-				pauseButton.GetComponentInChildren<UILabel> ().enabled = false;
-				quitButton.GetComponent<BoxCollider> ().enabled = false;
-				quitButton.GetComponent<UISprite> ().enabled = false;
-				quitButton.GetComponentInChildren<UILabel> ().enabled = false;
-			}
-
-			Time.timeScale = 0;
-		} else if (isPaused == false) {
-			if (Input.GetKeyDown (KeyCode.Escape)) {
-				isPaused = true;
-				AddTween ();
-				pauseScreen.GetComponent<UISprite> ().enabled = true;
-				pauseButton.GetComponent<BoxCollider> ().enabled = true;
-				pauseButton.GetComponent<UISprite> ().enabled = true;
-				pauseButton.GetComponentInChildren<UILabel> ().enabled = true;
-				quitButton.GetComponent<BoxCollider> ().enabled = true;
-				quitButton.GetComponent<UISprite> ().enabled = true;
-				quitButton.GetComponentInChildren<UILabel> ().enabled = true;
-			}
-			
-			Time.timeScale = 1;
-		}
-	}
-	/// <summary>
-	//Adding tween to screen transition
-	/// </summary>
-	void AddTween(){
-		pauseScreen.AddComponent<TweenAlpha> ().from = 0;
-		pauseScreen.GetComponent<TweenAlpha> ().to = 1;
-		pauseScreen.GetComponent<TweenAlpha> ().duration = 1.7f;
-	}
-	/// <summary>
-	//Clicking on Pause button
-	/// </summary>
-	public void OnClickPauseButton(){
-		isPaused = false;
-		Destroy (pauseScreen.GetComponent<TweenAlpha> ());
-		pauseScreen.GetComponent<UISprite> ().enabled = false;
-		pauseButton.GetComponent<BoxCollider> ().enabled = false;
-		pauseButton.GetComponent<UISprite> ().enabled = false;
-		pauseButton.GetComponentInChildren<UILabel> ().enabled = false;
-		quitButton.GetComponent<BoxCollider> ().enabled = false;
-		quitButton.GetComponent<UISprite> ().enabled = false;
-		quitButton.GetComponentInChildren<UILabel> ().enabled = false;
-	}
-
-	/// <summary>
-	//Clicking on Quit button
-	/// </summary>
-	public void OnClickQuitButton(){
-		Application.Quit ();
 	}
 }

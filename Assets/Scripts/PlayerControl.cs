@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Rewired;
 
 /// <summary>
 /// Player control.
@@ -21,7 +22,7 @@ public class PlayerControl : MonoBehaviour
 	public float underAttackInactivityTime = 2;
 	public float maxTimeToShoot = 1.0f;
 	public int bulletDamage = 5;
-	public int playerNumber;
+	public int playerId;
 	private float horizontalMovement;
 	private float verticalMovement;
 	private Rigidbody rb;
@@ -35,12 +36,19 @@ public class PlayerControl : MonoBehaviour
 	private int ammo;
 	private int life;
 	private int stress;
+	// The Rewired Player
+	private Player player;
+	// Vector indicating player movement direction
+	private Vector3 moveVector;
+	private Vector3 aimVector;
 
 	/// <summary>
 	/// Awake this instance.
 	/// </summary>
 	void Awake ()
 	{
+		// Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
+		player = ReInput.players.GetPlayer(playerId);
 		rb = GetComponent<Rigidbody> ();
 		ani = GetComponent<Animator> ();
 	}
@@ -60,10 +68,13 @@ public class PlayerControl : MonoBehaviour
 	{
 		if (!underAttack) {
 			if (!stopped) {
-				horizontalMovement = Input.GetAxis ("Horizontal" + playerNumber);
-				verticalMovement = Input.GetAxis ("Vertical" + playerNumber);
-				shot = Input.GetAxis ("Shot" + playerNumber);
-				melee = Input.GetAxis ("Melee" + playerNumber);
+				moveVector.z = -player.GetAxis("Move horizontal");
+				moveVector.x = player.GetAxis("Move vertical");
+				aimVector.z = -player.GetAxis("Aim horizontal");
+				aimVector.x = player.GetAxis("Aim vertical");
+				//Debug.Log ("aimVector: " + aimVector);
+				shot = player.GetAxis ("Shoot");
+				melee = player.GetAxis ("Melee");
 				Move ();
 				Shoot ();
 				Melee ();
@@ -95,21 +106,28 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	public void Move ()
 	{
-		//DA APPROFONDIRE MEGLIO
+		Quaternion rotationQuaternion;
 
-		//movement
-		//rb.AddForce (transform.right * horizontalMovement * speed * Time.deltaTime,ForceMode.Impulse);
-		//rb.AddForce (transform.forward * verticalMovement * speed * Time.deltaTime, ForceMode.Impulse);
-
-		Vector3 movePositionForward = transform.forward * verticalMovement * speed * Time.deltaTime;
-		rb.MovePosition (rb.position + movePositionForward);
-
+		rb.MovePosition (rb.position + moveVector * speed * Time.deltaTime);
+		rotationQuaternion = Quaternion.Euler (0f, rotationAngle(), 0f);
+		//rotationQuaternion = Quaternion.Euler (0f, rotationAngle() * rotSpeed * Time.deltaTime, 0f);
+		rb.MoveRotation (rb.rotation * rotationQuaternion);
 		//turning
 		//da vedere Quaternion.LookRotation
-		Quaternion turnRotationHorizontal = Quaternion.Euler (0f, horizontalMovement * rotSpeed * Time.deltaTime, 0f);
-		rb.MoveRotation (rb.rotation * turnRotationHorizontal);
+		//Quaternion turnRotationHorizontal = Quaternion.Euler (0f, horizontalMovement * rotSpeed * Time.deltaTime, 0f);
+		//rb.MoveRotation (rb.rotation * turnRotationHorizontal);
 		ani.SetFloat ("Movement", horizontalMovement);
 		ani.SetFloat ("Movement", verticalMovement);
+	}
+
+	private float rotationAngle() {
+		Vector3 normal;
+		float angle;
+
+		angle = Vector3.Angle (aimVector, transform.forward);
+		Debug.Log ("Angle: " + angle);
+		normal = Vector3.Cross(aimVector, transform.forward);
+		return (normal.y > 0 ? angle : -angle);
 	}
 
 	/// <summary>
@@ -282,10 +300,10 @@ public class PlayerControl : MonoBehaviour
 	private void UpdateUI ()
 	{
 		// Cast to float is required to avoid an integer division
-		UIManager.instance.SetLife ((float)life / maxLifeValue, playerNumber);
+		UIManager.instance.SetLife ((float)life / maxLifeValue, playerId);
 		// Cast to float is required to avoid an integer division
-		UIManager.instance.SetStress ((float)stress / maxStressValue, playerNumber);
-		UIManager.instance.SetMaxAmmo (maxAmmoValue, playerNumber);
-		UIManager.instance.SetAmmo (ammo, playerNumber);
+		UIManager.instance.SetStress ((float)stress / maxStressValue, playerId);
+		UIManager.instance.SetMaxAmmo (maxAmmoValue, playerId);
+		UIManager.instance.SetAmmo (ammo, playerId);
 	}
 }

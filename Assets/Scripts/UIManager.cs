@@ -11,6 +11,14 @@ public class UIManager : MonoBehaviour
 	/// </summary>
 	public static UIManager instance;
 	/// <summary>
+	/// Current player scores.
+	/// </summary>
+	public UILabel[] playerScore;
+	/// <summary>
+	/// The timer label for round countdown.
+	/// </summary>
+	public static UILabel timerLabel;
+	/// <summary>
 	/// The players life sliders. Important: respect players order (first player1 lifeSlider, then player2 lifeSlider and so on)
 	/// </summary>
 	public UISlider[] lifeSliders;
@@ -33,6 +41,7 @@ public class UIManager : MonoBehaviour
 	void Awake ()
 	{
 		instance = this;
+		timerLabel = GameObject.Find("Timer").GetComponent<UILabel> ();
 	}
 
 	/// <summary>
@@ -74,4 +83,13 @@ public class UIManager : MonoBehaviour
 	{
 		ammoLabels [playerNumber - 1].text = ammo.ToString ();
 	}
+
+	/// <summary>
+	/// Sets a player Score.
+	/// </summary>
+	public void SetScore(){
+		GameObject.Find ("Player1Score").GetComponent<UILabel> ().text = GameManager.instance.player1Kills.ToString();
+		GameObject.Find ("Player2Score").GetComponent<UILabel> ().text = GameManager.instance.player2Kills.ToString();
+	}
+		
 }

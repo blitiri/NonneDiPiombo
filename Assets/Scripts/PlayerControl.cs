@@ -287,5 +287,6 @@ public class PlayerControl : MonoBehaviour
 		UIManager.instance.SetStress ((float)stress / maxStressValue, playerNumber);
 		UIManager.instance.SetMaxAmmo (maxAmmoValue, playerNumber);
 		UIManager.instance.SetAmmo (ammo, playerNumber);
+
 	}
 }

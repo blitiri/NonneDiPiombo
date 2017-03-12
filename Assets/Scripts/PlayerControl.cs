@@ -23,7 +23,10 @@ public class PlayerControl : MonoBehaviour
 	public float maxTimeToShoot = 1.0f;
 	public int bulletDamage = 5;
 	public int playerId;
-	private float horizontalMovement;
+    public float stressDecreaseFactor;
+    public float timerToRefillStress;
+    public float weaponStressDamage;
+    private float horizontalMovement;
 	private float verticalMovement;
 	private Rigidbody rb;
 	private IList otherConnectedPlayers;
@@ -35,7 +38,7 @@ public class PlayerControl : MonoBehaviour
 	private bool stopped;
 	private int ammo;
 	private int life;
-	private int stress;
+	private float stress;
 	// The Rewired Player
 	private Player player;
 	// Vector indicating player movement direction
@@ -59,7 +62,8 @@ public class PlayerControl : MonoBehaviour
 	void Start ()
 	{
 		ResetStatus ();
-	}
+        StartCoroutine(RefillStress());
+    }
 
 	/// <summary>
 	/// Updates the player instance.
@@ -195,7 +199,8 @@ public class PlayerControl : MonoBehaviour
 			bulletRigidbody.AddForce (bullet.transform.forward * bulletInitialForce, ForceMode.Impulse);
 			Destroy (bullet, bulletLifeTime);
 			ammo--;
-			timerToShoot = 0.0f;
+            this.stress += weaponStressDamage;
+            timerToShoot = 0.0f;
 			UpdateUI ();
 		}
 	}
@@ -285,11 +290,20 @@ public class PlayerControl : MonoBehaviour
 		return life;
 	}
 
-	/// <summary>
-	/// Determines whether the player is under attack.
+    /// <summary>
+	/// Gets the player's stress.
 	/// </summary>
-	/// <returns><c>true</c> if this instance is under attack; otherwise, <c>false</c>.</returns>
-	public bool IsUnderAttack ()
+	/// <returns>The stress.</returns>
+	public float GetStress()
+    {
+        return stress;
+    }
+
+    /// <summary>
+    /// Determines whether the player is under attack.
+    /// </summary>
+    /// <returns><c>true</c> if this instance is under attack; otherwise, <c>false</c>.</returns>
+    public bool IsUnderAttack ()
 	{
 		return underAttack;
 	}
@@ -302,8 +316,19 @@ public class PlayerControl : MonoBehaviour
 		// Cast to float is required to avoid an integer division
 		UIManager.instance.SetLife ((float)life / maxLifeValue, playerId);
 		// Cast to float is required to avoid an integer division
-		UIManager.instance.SetStress ((float)stress / maxStressValue, playerId);
+		UIManager.instance.SetStress (stress / maxStressValue, playerId);
 		UIManager.instance.SetMaxAmmo (maxAmmoValue, playerId);
 		UIManager.instance.SetAmmo (ammo, playerId);
 	}
+
+    IEnumerator RefillStress()
+    {
+        while (stress < 100)
+        {
+            yield return new WaitForSeconds(timerToRefillStress);
+            this.stress -= stressDecreaseFactor;
+            UpdateUI();
+        }
+
+    }
 }

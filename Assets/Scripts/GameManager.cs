@@ -12,9 +12,9 @@ public class GameManager : MonoBehaviour
 	public GameObject pauseScreen;
 	public GameObject pauseButton;
 	public GameObject quitButton;
-    public float maxTimerBeforeRespawn = 1.0f;
-    public SkinnedMeshRenderer[] mesh;
-    public int player1Kills;	
+	public float maxTimerBeforeRespawn = 1.0f;
+	public SkinnedMeshRenderer[] mesh;
+	public int player1Kills;
 	public int player2Kills;
 	public bool isPaused = false;
 	public float roundTimer;
@@ -27,76 +27,70 @@ public class GameManager : MonoBehaviour
 		playersControls = new PlayerControl[players.Length];
 		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
 			playersControls [playerIndex] = players [playerIndex].GetComponent<PlayerControl> ();
-			playersControls [playerIndex].playerId = playerIndex + 1;
+			playersControls [playerIndex].playerId = playerIndex;
 		}
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
-        CheckRespawnPlayers();
-        Pause ();
+		CheckRespawnPlayers ();
+		Pause ();
 		TimerSetUp ();
 		UIManager.instance.SetScore ();
 
 	}
 
-    public void CheckRespawnPlayers()
-    {
+	public void CheckRespawnPlayers ()
+	{
 
-        int playerIndex;
+		int playerIndex;
 
-        for (playerIndex = 0; playerIndex < players.Length; playerIndex++)
-        {
+		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
 
-            if ((playersControls[playerIndex].GetLife() <= 0) && !playersControls[playerIndex].IsUnderAttack() || (playersControls[playerIndex].GetStress() >= 100))
-            {
-                StartCoroutine(RespawnPlayer(playerIndex));
-                /*player.GetComponentInChildren<SkinnedMeshRenderer> (false);
+			if ((playersControls [playerIndex].GetLife () <= 0) && !playersControls [playerIndex].IsUnderAttack () || (playersControls [playerIndex].GetStress () >= 100)) {
+				StartCoroutine (RespawnPlayer (playerIndex));
+				/*player.GetComponentInChildren<SkinnedMeshRenderer> (false);
                 spawnpointIndex = Random.Range (0, respawnPlayer.Length);
                 player.transform.position = respawnPlayer [spawnpointIndex].position;
                 playersControls [playerIndex].ResetStatus ();
                 player.GetComponentInChildren<SkinnedMeshRenderer> (true);*/
-                if (playerIndex == 0)
-                {
-                    player2Kills += 1;
+				if (playerIndex == 0) {
+					player2Kills += 1;
 
-                }
+				}
 
-                if (playerIndex == 1)
-                {
-                    player1Kills += 1;
-                }
+				if (playerIndex == 1) {
+					player1Kills += 1;
+				}
 
-            }
-        }
-    }
+			}
+		}
+	}
 
-    IEnumerator RespawnPlayer(int playerIndex)
-    {
-        int spawnpointIndex;
-        GameObject player;
+	IEnumerator RespawnPlayer (int playerIndex)
+	{
+		int spawnpointIndex;
+		GameObject player;
 
 
 
-        playersControls[playerIndex].ResetStatus();
-        player = players[playerIndex];
+		playersControls [playerIndex].ResetStatus ();
+		player = players [playerIndex];
 
-        for (int i = 0; i < 2; i++)
-        {
-            player.transform.GetChild(i).gameObject.GetComponent<SkinnedMeshRenderer>().enabled = false;
-        }
-        yield return new WaitForSeconds(maxTimerBeforeRespawn);
-        spawnpointIndex = Random.Range(0, respawnPlayer.Length);
-        player.transform.position = respawnPlayer[spawnpointIndex].position;
-        //playersControls [playerIndex].ResetStatus ();
-        for (int i = 0; i < 2; i++)
-        {
+		for (int i = 0; i < 2; i++) {
+			player.transform.GetChild (i).gameObject.GetComponent<SkinnedMeshRenderer> ().enabled = false;
+		}
+		yield return new WaitForSeconds (maxTimerBeforeRespawn);
+		spawnpointIndex = Random.Range (0, respawnPlayer.Length);
+		player.transform.position = respawnPlayer [spawnpointIndex].position;
+		//playersControls [playerIndex].ResetStatus ();
+		for (int i = 0; i < 2; i++) {
 
-            player.transform.GetChild(i).gameObject.GetComponent<SkinnedMeshRenderer>().enabled = true;
+			player.transform.GetChild (i).gameObject.GetComponent<SkinnedMeshRenderer> ().enabled = true;
 
-        }
-    }
+		}
+	}
 
 
 
@@ -105,7 +99,8 @@ public class GameManager : MonoBehaviour
 	/// <summary>
 	//Countdown for round duration, back to menu at the end
 	/// </summary>
-	void TimerSetUp(){
+	void TimerSetUp ()
+	{
 		roundTimer -= Time.deltaTime;
 		int minutes = Mathf.FloorToInt (roundTimer / 60f);
 		int seconds = Mathf.FloorToInt (roundTimer - minutes * 60);
@@ -118,7 +113,8 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	void Pause(){
+	void Pause ()
+	{
 		/// <summary>
 		//Pause is on/off
 		/// </summary>
@@ -152,18 +148,22 @@ public class GameManager : MonoBehaviour
 			Time.timeScale = 1;
 		}
 	}
+
 	/// <summary>
 	//Adding tween to screen transition
 	/// </summary>
-	void AddTween(){
+	void AddTween ()
+	{
 		pauseScreen.AddComponent<TweenAlpha> ().from = 0;
 		pauseScreen.GetComponent<TweenAlpha> ().to = 1;
 		pauseScreen.GetComponent<TweenAlpha> ().duration = 1.7f;
 	}
+
 	/// <summary>
 	//Clicking on Pause button
 	/// </summary>
-	public void OnClickPauseButton(){
+	public void OnClickPauseButton ()
+	{
 		isPaused = false;
 		Destroy (pauseScreen.GetComponent<TweenAlpha> ());
 		pauseScreen.GetComponent<UISprite> ().enabled = false;
@@ -178,7 +178,8 @@ public class GameManager : MonoBehaviour
 	/// <summary>
 	//Clicking on Quit button
 	/// </summary>
-	public void OnClickQuitButton(){
+	public void OnClickQuitButton ()
+	{
 		Application.Quit ();
 	}
 }

@@ -11,6 +11,36 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1000013708432562}
   m_IsPrefabParent: 1
+--- !u!1 &1000011418624202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000010341198882}
+  m_Layer: 0
+  m_Name: DashTransform2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1000011877256596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012611244544}
+  m_Layer: 0
+  m_Name: DashTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000012282935144
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,6 +108,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4000010341198882
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011418624202}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000011343508674}
+  m_RootOrder: 4
 --- !u!4 &4000011343508674
 Transform:
   m_ObjectHideFlags: 1
@@ -85,13 +128,15 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013708432562}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.588206, y: -1.4436245e-16, z: 6.501507}
+  m_LocalPosition: {x: -3.04, y: -1.4436245e-16, z: 2.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000013436211622}
-  - {fileID: 4000013035433456}
   - {fileID: 4000011655355028}
+  - {fileID: 4000013035433456}
+  - {fileID: 4000012611244544}
+  - {fileID: 4000010341198882}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &4000011655355028
@@ -106,7 +151,20 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011343508674}
-  m_RootOrder: 2
+  m_RootOrder: 1
+--- !u!4 &4000012611244544
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011877256596}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000011343508674}
+  m_RootOrder: 3
 --- !u!4 &4000013035433456
 Transform:
   m_ObjectHideFlags: 1
@@ -119,7 +177,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011343508674}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &4000013436211622
 Transform:
   m_ObjectHideFlags: 1
@@ -169,7 +227,7 @@ Animator:
   m_GameObject: {fileID: 1000013708432562}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f1d84cc28597f5641a3d9cbc4df7e306, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c66fd506afd91e5409799dc921b1b8f4, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -188,22 +246,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3da1c601255c590438c55e83bf0038fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammo: 20
-  speed: 5
-  rotSpeed: 100
-  bulletPrefab: {fileID: 1000014175007762, guid: 58f96ad7a6570412a97f181016b7656c,
-    type: 2}
-  gunSpawnpoint: {fileID: 4000013035433456}
-  bulletLifeTime: 3
+  bulletPrefab: {fileID: 0}
+  levelWallsEmpty: {fileID: 0}
+  gunSpawnpoint: {fileID: 0}
+  startingAmmo: 20
+  startingLife: 100
+  startingStress: 0
+  maxAmmoValue: 20
+  maxLifeValue: 100
+  maxStressValue: 100
+  speed: 2
+  rotSpeed: 2
+  bulletLifeTime: 2
   bulletInitialForce: 2
-  underAttackInactivityTime: 3
-  life: 100
-  stress: 0
+  underAttackInactivityTime: 2
+  maxTimeToShoot: 1
   bulletDamage: 5
-  stopped: 0
-  underAttack: 0
-  playerNumber: 0
-  maxTimeToShoot: 0.5
+  playerId: 0
+  stressDecreaseFactor: 0
+  timerToRefillStress: 0
+  weaponStressDamage: 0
+  dashTime: 0
+  dashDistance: 0
+  stressIncrease: 10
+  environment:
+    serializedVersion: 2
+    m_Bits: 0
+  dashTransform: {fileID: 0}
+  dashTransform2: {fileID: 0}
 --- !u!136 &136000012334825808
 CapsuleCollider:
   m_ObjectHideFlags: 1

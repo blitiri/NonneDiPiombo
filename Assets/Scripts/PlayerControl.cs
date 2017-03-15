@@ -7,7 +7,9 @@ using Rewired;
 /// </summary>
 public class PlayerControl : MonoBehaviour
 {
+	private bool isDashing;
 	public GameObject bulletPrefab;
+	public GameObject levelWallsEmpty;
 	public Transform gunSpawnpoint;
 	public int startingAmmo = 20;
 	public int startingLife = 100;
@@ -23,10 +25,10 @@ public class PlayerControl : MonoBehaviour
 	public float maxTimeToShoot = 1.0f;
 	public int bulletDamage = 5;
 	public int playerId;
-    public float stressDecreaseFactor;
-    public float timerToRefillStress;
-    public float weaponStressDamage;
-    private float horizontalMovement;
+	public float stressDecreaseFactor;
+	public float timerToRefillStress;
+	public float weaponStressDamage;
+	private float horizontalMovement;
 	private float verticalMovement;
 	private Rigidbody rb;
 	private IList otherConnectedPlayers;
@@ -34,15 +36,26 @@ public class PlayerControl : MonoBehaviour
 	private float shot;
 	private float melee;
 	private float timerToShoot;
+	[Range (0, 10)]
+	public float dashTime;
+	[Range (0, 10)]
+	public float dashDistance;
 	private bool underAttack;
 	private bool stopped;
 	private int ammo;
 	private int life;
 	private float stress;
+	public float stressIncrease = 10;
+	private RaycastHit info;
+	public LayerMask environment;
+	public Transform dashTransform;
+	public Transform dashTransform2;
+
 	// The Rewired Player
 	private Player player;
 	// Vector indicating player movement direction
 	private Vector3 moveVector;
+	// Vector indicating player aim direction
 	private Vector3 aimVector;
 
 	/// <summary>
@@ -51,7 +64,7 @@ public class PlayerControl : MonoBehaviour
 	void Awake ()
 	{
 		// Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
-		player = ReInput.players.GetPlayer(playerId);
+		player = ReInput.players.GetPlayer (playerId);
 		rb = GetComponent<Rigidbody> ();
 		ani = GetComponent<Animator> ();
 	}
@@ -62,8 +75,8 @@ public class PlayerControl : MonoBehaviour
 	void Start ()
 	{
 		ResetStatus ();
-        StartCoroutine(RefillStress());
-    }
+		StartCoroutine (RefillStress ());
+	}
 
 	/// <summary>
 	/// Updates the player instance.
@@ -72,16 +85,18 @@ public class PlayerControl : MonoBehaviour
 	{
 		if (!underAttack) {
 			if (!stopped) {
-				moveVector.z = -player.GetAxis("Move horizontal");
-				moveVector.x = player.GetAxis("Move vertical");
-				aimVector.z = -player.GetAxis("Aim horizontal");
-				aimVector.x = player.GetAxis("Aim vertical");
-				//Debug.Log ("aimVector: " + aimVector);
+				moveVector.z = -player.GetAxis ("Move horizontal");
+				moveVector.x = player.GetAxis ("Move vertical");
+				aimVector.z = -player.GetAxis ("Aim horizontal");
+				aimVector.x = player.GetAxis ("Aim vertical");
 				shot = player.GetAxis ("Shoot");
 				melee = player.GetAxis ("Melee");
+				CheckingEnvironment ();
 				Move ();
+				Aim ();
 				Shoot ();
 				Melee ();
+				StartDashing ();
 			}
 		}
 	}
@@ -108,30 +123,34 @@ public class PlayerControl : MonoBehaviour
 	/// <summary>
 	/// Moves the player.
 	/// </summary>
-	public void Move ()
+	private void Move ()
 	{
-		Quaternion rotationQuaternion;
-
 		rb.MovePosition (rb.position + moveVector * speed * Time.deltaTime);
-		rotationQuaternion = Quaternion.Euler (0f, rotationAngle(), 0f);
-		//rotationQuaternion = Quaternion.Euler (0f, rotationAngle() * rotSpeed * Time.deltaTime, 0f);
-		rb.MoveRotation (rb.rotation * rotationQuaternion);
-		//turning
-		//da vedere Quaternion.LookRotation
-		//Quaternion turnRotationHorizontal = Quaternion.Euler (0f, horizontalMovement * rotSpeed * Time.deltaTime, 0f);
-		//rb.MoveRotation (rb.rotation * turnRotationHorizontal);
 		ani.SetFloat ("Movement", horizontalMovement);
 		ani.SetFloat ("Movement", verticalMovement);
 	}
 
-	private float rotationAngle() {
+	private void Aim ()
+	{
+		if (aimVector != Vector3.zero) {
+			transform.forward = Vector3.Normalize (aimVector);
+		}
+	}
+
+	private float RotationAngle ()
+	{
 		Vector3 normal;
 		float angle;
 
-		angle = Vector3.Angle (aimVector, transform.forward);
-		Debug.Log ("Angle: " + angle);
-		normal = Vector3.Cross(aimVector, transform.forward);
-		return (normal.y > 0 ? angle : -angle);
+		if (aimVector != Vector3.zero) {
+			angle = Vector3.Angle (aimVector, transform.forward);
+			//Debug.Log ("Angle: " + angle);
+			normal = Vector3.Cross (aimVector, transform.forward);
+			angle = (normal.y > 0 ? angle : -angle);
+		} else {
+			angle = 0;
+		}
+		return angle;
 	}
 
 	/// <summary>
@@ -147,6 +166,8 @@ public class PlayerControl : MonoBehaviour
 				control = otherPlayer.GetComponent<PlayerControl> ();
 				control.Attacked (20);
 			}
+			AddStress (stressIncrease);
+			UpdateUI ();
 		}
 	}
 
@@ -199,8 +220,8 @@ public class PlayerControl : MonoBehaviour
 			bulletRigidbody.AddForce (bullet.transform.forward * bulletInitialForce, ForceMode.Impulse);
 			Destroy (bullet, bulletLifeTime);
 			ammo--;
-            this.stress += weaponStressDamage;
-            timerToShoot = 0.0f;
+			this.stress += weaponStressDamage;
+			timerToShoot = 0.0f;
 			UpdateUI ();
 		}
 	}
@@ -281,6 +302,16 @@ public class PlayerControl : MonoBehaviour
 		UpdateUI ();
 	}
 
+	public void AddStress (float stressAdd)
+	{
+		if (stress < maxStressValue) {
+			stress += stressAdd;
+		} else if (stress >= maxStressValue) {
+			stress = maxStressValue;
+		}
+		UpdateUI ();
+	}
+
 	/// <summary>
 	/// Gets the player's life.
 	/// </summary>
@@ -290,20 +321,20 @@ public class PlayerControl : MonoBehaviour
 		return life;
 	}
 
-    /// <summary>
+	/// <summary>
 	/// Gets the player's stress.
 	/// </summary>
 	/// <returns>The stress.</returns>
-	public float GetStress()
-    {
-        return stress;
-    }
+	public float GetStress ()
+	{
+		return stress;
+	}
 
-    /// <summary>
-    /// Determines whether the player is under attack.
-    /// </summary>
-    /// <returns><c>true</c> if this instance is under attack; otherwise, <c>false</c>.</returns>
-    public bool IsUnderAttack ()
+	/// <summary>
+	/// Determines whether the player is under attack.
+	/// </summary>
+	/// <returns><c>true</c> if this instance is under attack; otherwise, <c>false</c>.</returns>
+	public bool IsUnderAttack ()
 	{
 		return underAttack;
 	}
@@ -321,14 +352,67 @@ public class PlayerControl : MonoBehaviour
 		UIManager.instance.SetAmmo (ammo, playerId);
 	}
 
-    IEnumerator RefillStress()
-    {
-        while (stress < 100)
-        {
-            yield return new WaitForSeconds(timerToRefillStress);
-            this.stress -= stressDecreaseFactor;
-            UpdateUI();
-        }
+	IEnumerator RefillStress ()
+	{
+		while (stress < 100) {
+			yield return new WaitForSeconds (timerToRefillStress);
+			this.stress -= stressDecreaseFactor;
+			UpdateUI ();
+		}
+	}
 
-    }
+	private void StartDashing ()
+	{
+		if (gameObject.tag == "Player1") {
+			if (Input.GetKeyDown (KeyCode.F)) {
+				if (!isDashing && stress <= maxStressValue - stressIncrease) {
+					StartCoroutine (Dashing ());
+					isDashing = true;
+				}
+			}
+		}
+		if (gameObject.tag == "Player2") {
+			if (Input.GetKeyDown (KeyCode.Backspace)) {
+				if (!isDashing && stress <= maxStressValue - stressIncrease) {
+					StartCoroutine (Dashing ());
+					isDashing = true;
+				}
+			}
+		}
+	}
+
+	private bool CheckingEnvironment ()
+	{
+		Vector3 ray = transform.position;
+
+
+		Debug.DrawRay (ray, transform.forward);
+
+		if (Physics.Raycast (ray, transform.forward, out info, dashDistance, environment))
+			return true;
+
+		return false;
+	}
+
+	private IEnumerator Dashing ()
+	{
+		Vector3 newPosition = Vector3.zero;
+
+		if (!CheckingEnvironment ()) {
+			dashTransform.localPosition = new Vector3 (dashTransform.localPosition.x, dashTransform.localPosition.y, dashTransform.localPosition.z + dashDistance);
+			newPosition = new Vector3 (dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
+		} else if (CheckingEnvironment ()) {
+			dashTransform.position = new Vector3 (info.point.x, dashTransform.position.y, info.point.z);
+			dashTransform.localPosition = new Vector3 (dashTransform.localPosition.x, dashTransform.localPosition.y, dashTransform.localPosition.z - 0.5f);
+			newPosition = new Vector3 (dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
+		}
+		while (Vector3.Distance (transform.position, newPosition) > 1) {
+			transform.position = Vector3.Lerp (transform.position, newPosition, 0.1f);
+			yield return null;
+		}
+		dashTransform.localPosition = dashTransform2.localPosition;
+		AddStress (stressIncrease);
+		yield return new WaitForSeconds (dashTime);
+		isDashing = false;
+	}
 }

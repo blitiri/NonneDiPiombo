@@ -41,55 +41,56 @@ public class UIManager : MonoBehaviour
 	void Awake ()
 	{
 		instance = this;
-		timerLabel = GameObject.Find("Timer").GetComponent<UILabel> ();
+		timerLabel = GameObject.Find ("Timer").GetComponent<UILabel> ();
 	}
 
 	/// <summary>
 	/// Sets a player life.
 	/// </summary>
 	/// <param name="stress">Level of life (a value between 0 and 1).</param>
-	/// <param name="playerNumber">Player number (a 1-based index).</param>
-	public void SetLife (float life, int playerNumber)
+	/// <param name="playerId">Player number (a 1-based index).</param>
+	public void SetLife (float life, int playerId)
 	{
-		lifeSliders [playerNumber - 1].value = life;
+		lifeSliders [playerId].value = life;
 	}
 
 	/// <summary>
 	/// Sets a player stress.
 	/// </summary>
 	/// <param name="stress">Level of stress (a value between 0 and 1).</param>
-	/// <param name="playerNumber">Player number (a 1-based index).</param>
-	public void SetStress (float stress, int playerNumber)
+	/// <param name="playerId">Player number (a 1-based index).</param>
+	public void SetStress (float stress, int playerId)
 	{
-		stressSliders [playerNumber - 1].value = stress;
+		stressSliders [playerId].value = stress;
 	}
 
 	/// <summary>
 	/// Sets a player max ammo.
 	/// </summary>
 	/// <param name="maxAmmo">Max ammo.</param>
-	/// <param name="playerNumber">Player number (a 1-based index).</param>
-	public void SetMaxAmmo (int maxAmmo, int playerNumber)
+	/// <param name="playerId">Player number (a 1-based index).</param>
+	public void SetMaxAmmo (int maxAmmo, int playerId)
 	{
-		maxAmmoLabels [playerNumber - 1].text = maxAmmo.ToString ();
+		maxAmmoLabels [playerId].text = maxAmmo.ToString ();
 	}
 
 	/// <summary>
 	/// Sets a player ammo.
 	/// </summary>
 	/// <param name="ammo">Ammo owned by player.</param>
-	/// <param name="playerNumber">Player number (a 1-based index).</param>
-	public void SetAmmo (int ammo, int playerNumber)
+	/// <param name="playerId">Player number (a 1-based index).</param>
+	public void SetAmmo (int ammo, int playerId)
 	{
-		ammoLabels [playerNumber - 1].text = ammo.ToString ();
+		ammoLabels [playerId].text = ammo.ToString ();
 	}
 
 	/// <summary>
 	/// Sets a player Score.
 	/// </summary>
-	public void SetScore(){
-		GameObject.Find ("Player1Score").GetComponent<UILabel> ().text = GameManager.instance.player1Kills.ToString();
-		GameObject.Find ("Player2Score").GetComponent<UILabel> ().text = GameManager.instance.player2Kills.ToString();
+	public void SetScore ()
+	{
+		GameObject.Find ("Player1Score").GetComponent<UILabel> ().text = GameManager.instance.player1Kills.ToString ();
+		GameObject.Find ("Player2Score").GetComponent<UILabel> ().text = GameManager.instance.player2Kills.ToString ();
 	}
 		
 }

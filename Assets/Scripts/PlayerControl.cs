@@ -7,8 +7,10 @@ using Rewired;
 /// </summary>
 public class PlayerControl : MonoBehaviour
 {
-	public GameObject bulletPrefab;
-	public Transform gunSpawnpoint;
+    private bool isDashing;
+    public GameObject bulletPrefab;
+    public GameObject levelWallsEmpty;
+    public Transform gunSpawnpoint;
 	public int startingAmmo = 20;
 	public int startingLife = 100;
 	public int startingStress = 0;
@@ -34,13 +36,23 @@ public class PlayerControl : MonoBehaviour
 	private float shot;
 	private float melee;
 	private float timerToShoot;
-	private bool underAttack;
+    [Range(0, 10)]
+    public float dashTime;
+    [Range(0, 10)]
+    public float dashDistance;
+    private bool underAttack;
 	private bool stopped;
 	private int ammo;
 	private int life;
 	private float stress;
-	// The Rewired Player
-	private Player player;
+    public float stressIncrease = 10;
+    private RaycastHit info;
+    public LayerMask environment;
+    public Transform dashTransform;
+    public Transform dashTransform2;
+
+    // The Rewired Player
+    private Player player;
 	// Vector indicating player movement direction
 	private Vector3 moveVector;
 	private Vector3 aimVector;
@@ -79,9 +91,11 @@ public class PlayerControl : MonoBehaviour
 				//Debug.Log ("aimVector: " + aimVector);
 				shot = player.GetAxis ("Shoot");
 				melee = player.GetAxis ("Melee");
-				Move ();
+                CheckingEnvironment();
+                Move ();
 				Shoot ();
 				Melee ();
+                StartDashing();
 			}
 		}
 	}
@@ -147,7 +161,9 @@ public class PlayerControl : MonoBehaviour
 				control = otherPlayer.GetComponent<PlayerControl> ();
 				control.Attacked (20);
 			}
-		}
+            AddStress(stressIncrease);
+            UpdateUI();
+        }
 	}
 
 	/// <summary>
@@ -281,11 +297,24 @@ public class PlayerControl : MonoBehaviour
 		UpdateUI ();
 	}
 
-	/// <summary>
-	/// Gets the player's life.
-	/// </summary>
-	/// <returns>The life.</returns>
-	public int GetLife ()
+    public void AddStress(float stressAdd)
+    {
+        if (stress < maxStressValue)
+        {
+            stress += stressAdd;
+        }
+        else if (stress >= maxStressValue)
+        {
+            stress = maxStressValue;
+        }
+        UpdateUI();
+    }
+
+    /// <summary>
+    /// Gets the player's life.
+    /// </summary>
+    /// <returns>The life.</returns>
+    public int GetLife ()
 	{
 		return life;
 	}
@@ -329,6 +358,70 @@ public class PlayerControl : MonoBehaviour
             this.stress -= stressDecreaseFactor;
             UpdateUI();
         }
+    }
 
+    private void StartDashing()
+    {
+        if (gameObject.tag == "Player1")
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (!isDashing && stress <= maxStressValue - stressIncrease)
+                {
+                    StartCoroutine(Dashing());
+                    isDashing = true;
+                }
+            }
+        }
+        if (gameObject.tag == "Player2")
+        {
+            if (Input.GetKeyDown(KeyCode.Backspace))
+            {
+                if (!isDashing && stress <= maxStressValue - stressIncrease)
+                {
+                    StartCoroutine(Dashing());
+                    isDashing = true;
+                }
+            }
+        }
+    }
+
+    private bool CheckingEnvironment()
+    {
+        Vector3 ray = transform.position;
+
+
+        Debug.DrawRay(ray, transform.forward);
+
+        if (Physics.Raycast(ray, transform.forward, out info, dashDistance, environment))
+            return true;
+
+        return false;
+    }
+    
+    private IEnumerator Dashing()
+    {
+        Vector3 newPosition = Vector3.zero;
+
+        if (!CheckingEnvironment())
+        {
+            dashTransform.localPosition = new Vector3(dashTransform.localPosition.x, dashTransform.localPosition.y, dashTransform.localPosition.z + dashDistance);
+            newPosition = new Vector3(dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
+        }
+        else if (CheckingEnvironment())
+        {
+            dashTransform.position = new Vector3(info.point.x, dashTransform.position.y, info.point.z);
+            dashTransform.localPosition = new Vector3(dashTransform.localPosition.x, dashTransform.localPosition.y, dashTransform.localPosition.z - 0.5f);
+            newPosition = new Vector3(dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
+        }
+        while (Vector3.Distance(transform.position, newPosition) > 1)
+        {
+            transform.position = Vector3.Lerp(transform.position, newPosition, 0.1f);
+            yield return null;
+        }
+        dashTransform.localPosition = dashTransform2.localPosition;
+        AddStress(stressIncrease);
+        yield return new WaitForSeconds(dashTime);
+        isDashing = false;
     }
 }

@@ -646,6 +646,17 @@ Prefab:
       propertyPath: dashDistance
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013672523164, guid: d16a27569f79aeb4da1f19fad3b535d1,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1000014175007762, guid: 58f96ad7a6570412a97f181016b7656c,
+        type: 2}
+    - target: {fileID: 114000013672523164, guid: d16a27569f79aeb4da1f19fad3b535d1,
+        type: 2}
+      propertyPath: gunSpawnpoint
+      value: 
+      objectReference: {fileID: 1406646020}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d16a27569f79aeb4da1f19fad3b535d1, type: 2}
   m_IsPrefabParent: 0
@@ -3045,6 +3056,17 @@ Prefab:
       propertyPath: playerId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012697437670, guid: ce69dfee1ff2733449c0065bc7afa243,
+        type: 2}
+      propertyPath: gunSpawnpoint
+      value: 
+      objectReference: {fileID: 1040015747}
+    - target: {fileID: 114000012697437670, guid: ce69dfee1ff2733449c0065bc7afa243,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1000014175007762, guid: 58f96ad7a6570412a97f181016b7656c,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ce69dfee1ff2733449c0065bc7afa243, type: 2}
   m_IsPrefabParent: 0
@@ -3300,6 +3322,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4000013273259388, guid: 6de7d12c41526514fb459629804c210c,
     type: 2}
   m_PrefabInternal: {fileID: 562660341}
+--- !u!4 &1040015747 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4000012994303920, guid: ce69dfee1ff2733449c0065bc7afa243,
+    type: 2}
+  m_PrefabInternal: {fileID: 899833651}
 --- !u!1 &1094134031 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100002, guid: 7c3a28b051e872b448d4808cfcf9199c, type: 2}
@@ -4643,6 +4670,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!4 &1406646020 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4000013035433456, guid: d16a27569f79aeb4da1f19fad3b535d1,
+    type: 2}
+  m_PrefabInternal: {fileID: 245680182}
 --- !u!1 &1430795885
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,6 +24,7 @@ public class PlayerControl : MonoBehaviour
 	public float underAttackInactivityTime = 2;
 	public float maxTimeToShoot = 1.0f;
 	public int bulletDamage = 5;
+	[HideInInspector]
 	public int playerId;
 	public float stressDecreaseFactor;
 	public float timerToRefillStress;
@@ -164,7 +165,7 @@ public class PlayerControl : MonoBehaviour
 			//Debug.Log ("Contacted players: " + otherConnectedPlayers.Count + " - Melee: " + melee);
 			foreach (GameObject otherPlayer in otherConnectedPlayers) {  
 				control = otherPlayer.GetComponent<PlayerControl> ();
-				control.Attacked (20);
+				control.Attacked (20, gameObject.tag);
 			}
 			AddStress (stressIncrease);
 			UpdateUI ();
@@ -175,10 +176,10 @@ public class PlayerControl : MonoBehaviour
 	/// Notifies player is under attack by another.
 	/// </summary>
 	/// <param name="damage">Attack damage.</param>
-	public void Attacked (int damage)
+	public void Attacked (int damage, string killerTag)
 	{
 		underAttack = true;
-		StartCoroutine (AttackAnimation (damage));
+		StartCoroutine (AttackAnimation (damage, killerTag));
 	}
 
 	/// <summary>
@@ -186,7 +187,7 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	/// <returns>The animation.</returns>
 	/// <param name="damage">Attack damage.</param>
-	IEnumerator AttackAnimation (int damage)
+	IEnumerator AttackAnimation (int damage, string killerTag)
 	{
 		Vector3 animation;
 		float startTime;
@@ -198,7 +199,7 @@ public class PlayerControl : MonoBehaviour
 			yield return null;
 			animation = -animation;
 		}
-		AddDamage (damage);
+		AddDamage (damage, killerTag);
 		underAttack = false;
 	}
 
@@ -258,20 +259,22 @@ public class PlayerControl : MonoBehaviour
 	{
 		//Debug.Log ("Trigger detected: " + other.gameObject.tag);
 		if (other.gameObject.tag.Equals ("Bullet")) {
+			AddDamage (bulletDamage, other.gameObject.tag);
 			Destroy (other.gameObject);
-			AddDamage (bulletDamage);
 		}
 	}
 
 	/// <summary>
-	/// Adds the damage to the player.
+	/// Adds the damage.
 	/// </summary>
 	/// <param name="damage">Damage.</param>
-	private void AddDamage (int damage)
+	/// <param name="killerTag">Killer tag.</param>
+	private void AddDamage (int damage, string killerTag)
 	{
 		life -= bulletDamage;
 		if (life < 0) {
 			life = 0;
+			GameManager.instance.KillMe (gameObject.tag, killerTag);
 		}
 		UpdateUI ();
 	}

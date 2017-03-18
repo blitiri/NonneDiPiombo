@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
 	/// <summary>
 	/// Current player scores.
 	/// </summary>
-	public UILabel[] playerScore;
+	public UILabel[] playerScores;
 	/// <summary>
 	/// The timer label for round countdown.
 	/// </summary>
@@ -89,8 +89,10 @@ public class UIManager : MonoBehaviour
 	/// </summary>
 	public void SetScore ()
 	{
-		GameObject.Find ("Player1Score").GetComponent<UILabel> ().text = GameManager.instance.player1Kills.ToString ();
-		GameObject.Find ("Player2Score").GetComponent<UILabel> ().text = GameManager.instance.player2Kills.ToString ();
+		int playerIndex;
+
+		for (playerIndex = 0; playerIndex < playerScores.Length; playerIndex++) {
+			playerScores[playerIndex].text = "" + GameManager.instance.GetPlayerKills (playerIndex);
+		}
 	}
-		
 }

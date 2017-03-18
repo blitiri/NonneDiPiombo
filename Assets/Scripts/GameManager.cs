@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-
+	private const string playerPrefix = "Player";
 	public static GameManager instance;
 	//array di transform per il respawn dei player
 	public Transform[] respawnPlayer;
@@ -14,8 +14,7 @@ public class GameManager : MonoBehaviour
 	public GameObject quitButton;
 	public float maxTimerBeforeRespawn = 1.0f;
 	public SkinnedMeshRenderer[] mesh;
-	public int player1Kills;
-	public int player2Kills;
+	public int[] playersKills;
 	public bool isPaused = false;
 	public float roundTimer;
 
@@ -25,9 +24,12 @@ public class GameManager : MonoBehaviour
 
 		instance = this;
 		playersControls = new PlayerControl[players.Length];
+		playersKills = new int[players.Length];
 		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
 			playersControls [playerIndex] = players [playerIndex].GetComponent<PlayerControl> ();
 			playersControls [playerIndex].playerId = playerIndex;
+			playersControls [playerIndex].tag = playerPrefix + playerIndex;
+			playersKills [playerIndex] = 0;
 		}
 	}
 
@@ -55,17 +57,22 @@ public class GameManager : MonoBehaviour
                 player.transform.position = respawnPlayer [spawnpointIndex].position;
                 playersControls [playerIndex].ResetStatus ();
                 player.GetComponentInChildren<SkinnedMeshRenderer> (true);*/
-				if (playerIndex == 0) {
-					player2Kills += 1;
-
-				}
-
-				if (playerIndex == 1) {
-					player1Kills += 1;
-				}
-
 			}
 		}
+	}
+
+	public void KillMe(string killedTag, string killerTag) {
+		int killerIndex;
+		int killedIndex;
+
+		killedIndex = int.Parse(killedTag.Substring (playerPrefix.Length));
+		killerIndex = int.Parse(killerTag.Substring (playerPrefix.Length));
+		playersKills [killedIndex]--;
+		playersKills [killerIndex] += 2;
+	}
+
+	public int GetPlayerKills(int playerIndex) {
+		return playersKills [playerIndex];
 	}
 
 	IEnumerator RespawnPlayer (int playerIndex)

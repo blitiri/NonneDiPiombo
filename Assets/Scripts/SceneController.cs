@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour {
-
+	private const string levelPrefix = "Level";
     public GameManager myGameManager;
 
 	// Use this for initialization
@@ -15,12 +15,12 @@ public class SceneController : MonoBehaviour {
 	void Update () {
         LoadingEndMenu();
 	}
-
-    public void LoadingScene()
+		
+	public void LoadingScene(GameObject button)
     {
-        if (SceneManager.GetActiveScene().name == "Menu" || SceneManager.GetActiveScene().name == "Ending1" || SceneManager.GetActiveScene().name == "Ending2")
+		if (!SceneManager.GetActiveScene().name.StartsWith(levelPrefix))
         {
-            SceneManager.LoadScene("NonneDiPiombo", LoadSceneMode.Single);
+			SceneManager.LoadScene(button.transform.name, LoadSceneMode.Single);
         }
     }
 
@@ -28,16 +28,9 @@ public class SceneController : MonoBehaviour {
     {
         if (myGameManager)
         {
-            if (SceneManager.GetActiveScene().name == "NonneDiPiombo")
+			if ((GameManager.instance.roundTimer <= 0) && SceneManager.GetActiveScene().name.StartsWith(levelPrefix))
             {
-                if (myGameManager.player1Kills > 2)
-                {
-                    SceneManager.LoadScene("Ending1", LoadSceneMode.Single);
-                }
-                else if (myGameManager.player2Kills > 2)
-                {
-                    SceneManager.LoadScene("Ending2", LoadSceneMode.Single);
-                }
+                   SceneManager.LoadScene("Ending", LoadSceneMode.Single);
             }
         }
     }

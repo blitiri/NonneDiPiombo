@@ -41,6 +41,7 @@ public class PlayerControl : MonoBehaviour
 	public float dashTime;
 	[Range (0, 10)]
 	public float dashDistance;
+    public float dash;
 	private bool underAttack;
 	private bool stopped;
 	private int ammo;
@@ -90,6 +91,7 @@ public class PlayerControl : MonoBehaviour
 				moveVector.x = player.GetAxis ("Move vertical");
 				aimVector.z = -player.GetAxis ("Aim horizontal");
 				aimVector.x = player.GetAxis ("Aim vertical");
+                dash = player.GetAxis("Dash");
 				shot = player.GetAxis ("Shoot");
 				melee = player.GetAxis ("Melee");
 				CheckingEnvironment ();
@@ -366,21 +368,13 @@ public class PlayerControl : MonoBehaviour
 
 	private void StartDashing ()
 	{
-		if (gameObject.tag == "Player0") {
-			if (Input.GetKeyDown (KeyCode.F)) {
-				if (!isDashing && stress <= maxStressValue - stressIncrease) {
-					StartCoroutine (Dashing ());
-					isDashing = true;
-				}
-			}
-		}
-		if (gameObject.tag == "Player1") {
-			if (Input.GetKeyDown (KeyCode.Backspace)) {
-				if (!isDashing && stress <= maxStressValue - stressIncrease) {
-					StartCoroutine (Dashing ());
-					isDashing = true;
-				}
-			}
+        if (dash > 0)
+        {
+            if (!isDashing && stress <= maxStressValue - stressIncrease)
+            {
+                StartCoroutine(Dashing());
+                isDashing = true;
+            }
 		}
 	}
 

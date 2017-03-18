@@ -366,7 +366,7 @@ public class PlayerControl : MonoBehaviour
 
 	private void StartDashing ()
 	{
-		if (gameObject.tag == "Player1") {
+		if (gameObject.tag == "Player0") {
 			if (Input.GetKeyDown (KeyCode.F)) {
 				if (!isDashing && stress <= maxStressValue - stressIncrease) {
 					StartCoroutine (Dashing ());
@@ -374,7 +374,7 @@ public class PlayerControl : MonoBehaviour
 				}
 			}
 		}
-		if (gameObject.tag == "Player2") {
+		if (gameObject.tag == "Player1") {
 			if (Input.GetKeyDown (KeyCode.Backspace)) {
 				if (!isDashing && stress <= maxStressValue - stressIncrease) {
 					StartCoroutine (Dashing ());

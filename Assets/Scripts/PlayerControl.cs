@@ -41,7 +41,7 @@ public class PlayerControl : MonoBehaviour
 	public float dashTime;
 	[Range (0, 10)]
 	public float dashDistance;
-    public float dash;
+    public bool dash;
 	private bool underAttack;
 	private bool stopped;
 	private int ammo;
@@ -91,7 +91,7 @@ public class PlayerControl : MonoBehaviour
 				moveVector.x = player.GetAxis ("Move vertical");
 				aimVector.z = -player.GetAxis ("Aim horizontal");
 				aimVector.x = player.GetAxis ("Aim vertical");
-                dash = player.GetAxis("Dash");
+                dash = player.GetButtonDown("Dash");
 				shot = player.GetAxis ("Shoot");
 				melee = player.GetAxis ("Melee");
 				CheckingEnvironment ();
@@ -366,50 +366,54 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
-	private void StartDashing ()
-	{
-        if (dash > 0)
+    private void StartDashing()
+    {
+        if (dash)
         {
             if (!isDashing && stress <= maxStressValue - stressIncrease)
             {
                 StartCoroutine(Dashing());
                 isDashing = true;
             }
-		}
-	}
+        }
+    }
 
-	private bool CheckingEnvironment ()
-	{
-		Vector3 ray = transform.position;
+    private bool CheckingEnvironment()
+    {
+        Vector3 ray = transform.position;
 
 
-		Debug.DrawRay (ray, transform.forward);
+        Debug.DrawRay(ray, new Vector3(Input.GetAxis("Horizontal1"), 0, Input.GetAxis("Vertical1")));
 
-		if (Physics.Raycast (ray, transform.forward, out info, dashDistance, environment))
-			return true;
+        if (Physics.Raycast(ray, new Vector3(Input.GetAxis("Horizontal1"), 0, Input.GetAxis("Vertical1")), out info, dashDistance, environment))
+            return true;
 
-		return false;
-	}
+        return false;
+    }
 
-	private IEnumerator Dashing ()
-	{
-		Vector3 newPosition = Vector3.zero;
+    private IEnumerator Dashing()
+    {
+        Vector3 newPosition = Vector3.zero;
 
-		if (!CheckingEnvironment ()) {
-			dashTransform.localPosition = new Vector3 (dashTransform.localPosition.x, dashTransform.localPosition.y, dashTransform.localPosition.z + dashDistance);
-			newPosition = new Vector3 (dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
-		} else if (CheckingEnvironment ()) {
-			dashTransform.position = new Vector3 (info.point.x, dashTransform.position.y, info.point.z);
-			dashTransform.localPosition = new Vector3 (dashTransform.localPosition.x, dashTransform.localPosition.y, dashTransform.localPosition.z - 0.5f);
-			newPosition = new Vector3 (dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
-		}
-		while (Vector3.Distance (transform.position, newPosition) > 1) {
-			transform.position = Vector3.Lerp (transform.position, newPosition, 0.1f);
-			yield return null;
-		}
-		dashTransform.localPosition = dashTransform2.localPosition;
-		AddStress (stressIncrease);
-		yield return new WaitForSeconds (dashTime);
-		isDashing = false;
-	}
+        if (!CheckingEnvironment())
+        {
+            dashTransform.localPosition = new Vector3(dashTransform.localPosition.x + (dashDistance * Input.GetAxis("Horizontal1")), dashTransform.localPosition.y, dashTransform.localPosition.z + (dashDistance * Input.GetAxis("Vertical1")));
+            newPosition = new Vector3(dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
+        }
+        else if (CheckingEnvironment())
+        {
+            dashTransform.position = new Vector3(info.point.x, dashTransform.position.y, info.point.z);
+            dashTransform.localPosition = new Vector3(dashTransform.localPosition.x, dashTransform.localPosition.y, dashTransform.localPosition.z);
+            newPosition = new Vector3(dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
+        }
+        while (Vector3.Distance(transform.position, newPosition) > 1)
+        {
+            transform.position = Vector3.Lerp(transform.position, newPosition, 0.2f);
+            yield return null;
+        }
+        dashTransform.localPosition = dashTransform2.localPosition;
+        AddStress(stressIncrease);
+        yield return new WaitForSeconds(dashTime);
+        isDashing = false;
+    }
 }

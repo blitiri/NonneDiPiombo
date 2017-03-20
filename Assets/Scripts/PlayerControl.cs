@@ -10,6 +10,8 @@ public class PlayerControl : MonoBehaviour
 	private const string bulletTagPrefix = "Bullet";
 	private const string playerTagPrefix = "Player";
 	private bool isDashing;
+	public Texture2D crosshairCursor;
+	public Vector2 cursorHotSpot = new Vector2 (16, 16);
 	public GameObject bulletPrefab;
 	public GameObject levelWallsEmpty;
 	public Transform gunSpawnpoint;
@@ -43,7 +45,7 @@ public class PlayerControl : MonoBehaviour
 	public float dashTime;
 	[Range (0, 10)]
 	public float dashDistance;
-    public float dash;
+	public float dash;
 	private bool underAttack;
 	private bool stopped;
 	private int ammo;
@@ -54,6 +56,7 @@ public class PlayerControl : MonoBehaviour
 	public LayerMask environment;
 	public Transform dashTransform;
 	public Transform dashTransform2;
+	public float fixedAimAngleCorrection = 90;
 
 	// The Rewired Player
 	private Player player;
@@ -61,6 +64,7 @@ public class PlayerControl : MonoBehaviour
 	private Vector3 moveVector;
 	// Vector indicating player aim direction
 	private Vector3 aimVector;
+	private float aimAngle;
 
 	/// <summary>
 	/// Awake this instance.
@@ -78,6 +82,10 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	void Start ()
 	{
+		if (player.controllers.hasMouse) {
+			Cursor.visible = false;
+			//Cursor.SetCursor (crosshairCursor, cursorHotSpot, CursorMode.Auto);
+		}
 		ResetStatus ();
 		StartCoroutine (RefillStress ());
 	}
@@ -91,9 +99,8 @@ public class PlayerControl : MonoBehaviour
 			if (!stopped) {
 				moveVector.z = -player.GetAxis ("Move horizontal");
 				moveVector.x = player.GetAxis ("Move vertical");
-				aimVector.z = -player.GetAxis ("Aim horizontal");
-				aimVector.x = player.GetAxis ("Aim vertical");
-                dash = player.GetAxis("Dash");
+				aimVector = GetAim ();
+				dash = player.GetAxis ("Dash");
 				shot = player.GetAxis ("Shoot");
 				melee = player.GetAxis ("Melee");
 				CheckingEnvironment ();
@@ -104,6 +111,38 @@ public class PlayerControl : MonoBehaviour
 				StartDashing ();
 			}
 		}
+	}
+
+	void OnGUI ()
+	{
+		Vector2 mousePosition;
+		Rect cursorRect;
+
+		if (player.controllers.hasMouse) {
+			mousePosition = Event.current.mousePosition;
+			//Input.mousePosition
+			cursorRect = new Rect (mousePosition.x - cursorHotSpot.x, mousePosition.y - cursorHotSpot.y, crosshairCursor.width, crosshairCursor.height);
+			GUI.DrawTexture (cursorRect, crosshairCursor);
+		}
+	}
+
+	private Vector3 GetAim ()
+	{
+		Vector3 aimVector;
+		Vector3 playerScreenPosition;
+		Vector3 forwardDirection;
+
+		aimAngle = 0;
+		aimVector = Vector3.zero;
+		if (player.controllers.hasMouse) {
+			playerScreenPosition = Camera.main.WorldToScreenPoint (transform.position);
+			forwardDirection = Input.mousePosition - playerScreenPosition;
+			aimAngle = -Mathf.Atan2 (forwardDirection.y, forwardDirection.x) * Mathf.Rad2Deg + fixedAimAngleCorrection + Camera.main.transform.rotation.eulerAngles.y;
+		} else {
+			aimVector.z = -player.GetAxis ("Aim horizontal");
+			aimVector.x = player.GetAxis ("Aim vertical");
+		}
+		return aimVector;
 	}
 
 	/// <summary>
@@ -142,6 +181,8 @@ public class PlayerControl : MonoBehaviour
 	{
 		if (aimVector != Vector3.zero) {
 			transform.forward = Vector3.Normalize (aimVector);
+		} else if (aimAngle != 0) {
+			transform.rotation = Quaternion.AngleAxis (aimAngle, Vector3.up); 
 		}
 	}
 
@@ -266,7 +307,7 @@ public class PlayerControl : MonoBehaviour
 		life -= bulletDamage;
 		if (life <= 0) {
 			life = 0;
-			GameManager.instance.PlayerKilled (GetPlayerId(gameObject.tag), GetPlayerId(killerTag));
+			GameManager.instance.PlayerKilled (GetPlayerId (gameObject.tag), GetPlayerId (killerTag));
 		}
 		UpdateUI ();
 	}
@@ -276,7 +317,8 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	/// <returns>The player identifier.</returns>
 	/// <param name="playerTag">Player tag. Manage both player tag and bullet player tag</param>
-	private int GetPlayerId(string playerTag) {
+	private int GetPlayerId (string playerTag)
+	{
 		if (playerTag.StartsWith (bulletTagPrefix)) {
 			playerTag = playerTag.Substring (bulletTagPrefix.Length);
 		}
@@ -315,7 +357,7 @@ public class PlayerControl : MonoBehaviour
 	/// <param name="stressAdd">Stress to add.</param>
 	public void AddStress (float stressToAdd)
 	{
-		stress = Mathf.Clamp(stress + stressToAdd, 0, maxStressValue);
+		stress = Mathf.Clamp (stress + stressToAdd, 0, maxStressValue);
 		UpdateUI ();
 	}
 
@@ -367,7 +409,7 @@ public class PlayerControl : MonoBehaviour
 	{
 		while (stress < 100) {
 			yield return new WaitForSeconds (timerToRefillStress);
-			stress = Mathf.Clamp(stress - stressDecreaseFactor, 0, maxStressValue);
+			stress = Mathf.Clamp (stress - stressDecreaseFactor, 0, maxStressValue);
 			UpdateUI ();
 		}
 	}
@@ -377,12 +419,10 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	private void StartDashing ()
 	{
-        if (dash > 0)
-        {
-			if (!isDashing && (stress <= maxStressValue - stressIncrease))
-            {
-                StartCoroutine(Dashing());
-            }
+		if (dash > 0) {
+			if (!isDashing && (stress <= maxStressValue - stressIncrease)) {
+				StartCoroutine (Dashing ());
+			}
 		}
 	}
 
@@ -430,7 +470,8 @@ public class PlayerControl : MonoBehaviour
 	/// Sets the player identifier.
 	/// </summary>
 	/// <param name="playerId">Player identifier.</param>
-	public void SetPlayerId(int playerId) {
+	public void SetPlayerId (int playerId)
+	{
 		this.playerId = playerId;
 		gameObject.tag = playerTagPrefix + playerId;
 	}

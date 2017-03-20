@@ -7,7 +7,11 @@ using Rewired;
 /// </summary>
 public class PlayerControl : MonoBehaviour
 {
+	private const string bulletTagPrefix = "Bullet";
+	private const string playerTagPrefix = "Player";
 	private bool isDashing;
+	public Texture2D crosshairCursor;
+	public Vector2 cursorHotSpot = new Vector2 (16, 16);
 	public GameObject bulletPrefab;
 	public GameObject levelWallsEmpty;
 	public Transform gunSpawnpoint;
@@ -52,6 +56,7 @@ public class PlayerControl : MonoBehaviour
 	public LayerMask environment;
 	public Transform dashTransform;
 	public Transform dashTransform2;
+	public float fixedAimAngleCorrection = 90;
 
 	// The Rewired Player
 	private Player player;
@@ -59,6 +64,7 @@ public class PlayerControl : MonoBehaviour
 	private Vector3 moveVector;
 	// Vector indicating player aim direction
 	private Vector3 aimVector;
+	private float aimAngle;
 
 	/// <summary>
 	/// Awake this instance.
@@ -76,6 +82,10 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	void Start ()
 	{
+		if (player.controllers.hasMouse) {
+			Cursor.visible = false;
+			//Cursor.SetCursor (crosshairCursor, cursorHotSpot, CursorMode.Auto);
+		}
 		ResetStatus ();
 		StartCoroutine (RefillStress ());
 	}
@@ -92,6 +102,7 @@ public class PlayerControl : MonoBehaviour
 				aimVector.z = -player.GetAxis ("Aim horizontal");
 				aimVector.x = player.GetAxis ("Aim vertical");
                 dash = player.GetButtonDown("Dash");
+				aimVector = GetAim ();
 				shot = player.GetAxis ("Shoot");
 				melee = player.GetAxis ("Melee");
 				CheckingEnvironment ();
@@ -102,6 +113,38 @@ public class PlayerControl : MonoBehaviour
 				StartDashing ();
 			}
 		}
+	}
+
+	void OnGUI ()
+	{
+		Vector2 mousePosition;
+		Rect cursorRect;
+
+		if (player.controllers.hasMouse) {
+			mousePosition = Event.current.mousePosition;
+			//Input.mousePosition
+			cursorRect = new Rect (mousePosition.x - cursorHotSpot.x, mousePosition.y - cursorHotSpot.y, crosshairCursor.width, crosshairCursor.height);
+			GUI.DrawTexture (cursorRect, crosshairCursor);
+		}
+	}
+
+	private Vector3 GetAim ()
+	{
+		Vector3 aimVector;
+		Vector3 playerScreenPosition;
+		Vector3 forwardDirection;
+
+		aimAngle = 0;
+		aimVector = Vector3.zero;
+		if (player.controllers.hasMouse) {
+			playerScreenPosition = Camera.main.WorldToScreenPoint (transform.position);
+			forwardDirection = Input.mousePosition - playerScreenPosition;
+			aimAngle = -Mathf.Atan2 (forwardDirection.y, forwardDirection.x) * Mathf.Rad2Deg + fixedAimAngleCorrection + Camera.main.transform.rotation.eulerAngles.y;
+		} else {
+			aimVector.z = -player.GetAxis ("Aim horizontal");
+			aimVector.x = player.GetAxis ("Aim vertical");
+		}
+		return aimVector;
 	}
 
 	/// <summary>
@@ -133,27 +176,16 @@ public class PlayerControl : MonoBehaviour
 		ani.SetFloat ("Movement", verticalMovement);
 	}
 
+	/// <summary>
+	/// Aim player.
+	/// </summary>
 	private void Aim ()
 	{
 		if (aimVector != Vector3.zero) {
 			transform.forward = Vector3.Normalize (aimVector);
+		} else if (aimAngle != 0) {
+			transform.rotation = Quaternion.AngleAxis (aimAngle, Vector3.up); 
 		}
-	}
-
-	private float RotationAngle ()
-	{
-		Vector3 normal;
-		float angle;
-
-		if (aimVector != Vector3.zero) {
-			angle = Vector3.Angle (aimVector, transform.forward);
-			//Debug.Log ("Angle: " + angle);
-			normal = Vector3.Cross (aimVector, transform.forward);
-			angle = (normal.y > 0 ? angle : -angle);
-		} else {
-			angle = 0;
-		}
-		return angle;
 	}
 
 	/// <summary>
@@ -219,11 +251,12 @@ public class PlayerControl : MonoBehaviour
 			bullet = Instantiate (bulletPrefab) as GameObject;
 			bullet.transform.rotation = gunSpawnpoint.rotation;
 			bullet.transform.position = gunSpawnpoint.position;
+			bullet.tag = bulletTagPrefix + gameObject.tag;
 			bulletRigidbody = bullet.GetComponent<Rigidbody> ();
 			bulletRigidbody.AddForce (bullet.transform.forward * bulletInitialForce, ForceMode.Impulse);
 			Destroy (bullet, bulletLifeTime);
 			ammo--;
-			this.stress += weaponStressDamage;
+			stress += weaponStressDamage;
 			timerToShoot = 0.0f;
 			UpdateUI ();
 		}
@@ -236,7 +269,7 @@ public class PlayerControl : MonoBehaviour
 	void OnCollisionEnter (Collision collision)
 	{
 		//Debug.Log ("Collision enter detected: " + collision.gameObject.tag);
-		if (collision.gameObject.tag.StartsWith ("Player")) {
+		if (collision.gameObject.tag.StartsWith (playerTagPrefix)) {
 			otherConnectedPlayers.Add (collision.gameObject);
 		}
 	}
@@ -248,7 +281,7 @@ public class PlayerControl : MonoBehaviour
 	void OnCollisionExit (Collision collision)
 	{
 		//Debug.Log ("Collision exit detected: " + collision.gameObject.tag);
-		if (collision.gameObject.tag.StartsWith ("Player")) {
+		if (collision.gameObject.tag.StartsWith (playerTagPrefix)) {
 			otherConnectedPlayers.Remove (collision.gameObject);
 		}
 	}
@@ -260,7 +293,7 @@ public class PlayerControl : MonoBehaviour
 	void OnTriggerEnter (Collider other)
 	{
 		//Debug.Log ("Trigger detected: " + other.gameObject.tag);
-		if (other.gameObject.tag.Equals ("Bullet")) {
+		if (other.gameObject.name.StartsWith (bulletTagPrefix)) {
 			AddDamage (bulletDamage, other.gameObject.tag);
 			Destroy (other.gameObject);
 		}
@@ -274,11 +307,24 @@ public class PlayerControl : MonoBehaviour
 	private void AddDamage (int damage, string killerTag)
 	{
 		life -= bulletDamage;
-		if (life < 0) {
+		if (life <= 0) {
 			life = 0;
-			GameManager.instance.KillMe (gameObject.tag, killerTag);
+			GameManager.instance.PlayerKilled (GetPlayerId (gameObject.tag), GetPlayerId (killerTag));
 		}
 		UpdateUI ();
+	}
+
+	/// <summary>
+	/// Gets the player identifier from player tag.
+	/// </summary>
+	/// <returns>The player identifier.</returns>
+	/// <param name="playerTag">Player tag. Manage both player tag and bullet player tag</param>
+	private int GetPlayerId (string playerTag)
+	{
+		if (playerTag.StartsWith (bulletTagPrefix)) {
+			playerTag = playerTag.Substring (bulletTagPrefix.Length);
+		}
+		return int.Parse (playerTag.Substring (playerTagPrefix.Length));
 	}
 
 	/// <summary>
@@ -307,13 +353,13 @@ public class PlayerControl : MonoBehaviour
 		UpdateUI ();
 	}
 
-	public void AddStress (float stressAdd)
+	/// <summary>
+	/// Adds the stress.
+	/// </summary>
+	/// <param name="stressAdd">Stress to add.</param>
+	public void AddStress (float stressToAdd)
 	{
-		if (stress < maxStressValue) {
-			stress += stressAdd;
-		} else if (stress >= maxStressValue) {
-			stress = maxStressValue;
-		}
+		stress = Mathf.Clamp (stress + stressToAdd, 0, maxStressValue);
 		UpdateUI ();
 	}
 
@@ -357,31 +403,41 @@ public class PlayerControl : MonoBehaviour
 		UIManager.instance.SetAmmo (ammo, playerId);
 	}
 
+	/// <summary>
+	/// Refills the stress.
+	/// </summary>
+	/// <returns>The stress.</returns>
 	IEnumerator RefillStress ()
 	{
 		while (stress < 100) {
 			yield return new WaitForSeconds (timerToRefillStress);
-			this.stress -= stressDecreaseFactor;
+			stress = Mathf.Clamp (stress - stressDecreaseFactor, 0, maxStressValue);
 			UpdateUI ();
 		}
 	}
 
-    private void StartDashing()
-    {
-        if (dash)
+	/// <summary>
+	/// Starts dashing.
+	/// </summary>
+	private void StartDashing ()
+	{
+		if (dash)
         {
-            if (!isDashing && stress <= maxStressValue - stressIncrease)
+			if (!isDashing && (stress <= maxStressValue - stressIncrease))
             {
-                StartCoroutine(Dashing());
                 isDashing = true;
-            }
-        }
-    }
+                StartCoroutine (Dashing ());
+			}
+		}
+	}
 
-    private bool CheckingEnvironment()
-    {
-        Vector3 ray = transform.position;
-
+	/// <summary>
+	/// Checkings the environment.
+	/// </summary>
+	/// <returns><c>true</c>, if environment was checkinged, <c>false</c> otherwise.</returns>
+	private bool CheckingEnvironment ()
+	{
+		Vector3 ray = transform.position;
 
         Debug.DrawRay(ray, new Vector3(Input.GetAxis("Horizontal1"), 0, Input.GetAxis("Vertical1")));
 
@@ -416,4 +472,14 @@ public class PlayerControl : MonoBehaviour
         yield return new WaitForSeconds(dashTime);
         isDashing = false;
     }
+
+	/// <summary>
+	/// Sets the player identifier.
+	/// </summary>
+	/// <param name="playerId">Player identifier.</param>
+	public void SetPlayerId (int playerId)
+	{
+		this.playerId = playerId;
+		gameObject.tag = playerTagPrefix + playerId;
+	}
 }

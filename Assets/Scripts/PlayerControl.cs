@@ -97,8 +97,8 @@ public class PlayerControl : MonoBehaviour
 	{
 		if (!underAttack) {
 			if (!stopped) {
-				moveVector.z = -player.GetAxis ("Move horizontal");
-				moveVector.x = player.GetAxis ("Move vertical");
+				moveVector.z = player.GetAxis ("Move vertical");
+				moveVector.x = player.GetAxis ("Move horizontal");
 				aimVector.z = -player.GetAxis ("Aim horizontal");
 				aimVector.x = player.GetAxis ("Aim vertical");
                 dash = player.GetButtonDown("Dash");

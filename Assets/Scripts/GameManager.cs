@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-	private const string playerPrefix = "Player";
 	public static GameManager instance;
 	//array di transform per il respawn dei player
 	public Transform[] respawnPlayer;
@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 	public int[] playersKills;
 	public bool isPaused = false;
 	public float roundTimer;
+	public int killerBonus = 2;
+	public int killedMalus = 1;
 
 	void Awake ()
 	{
@@ -27,8 +29,7 @@ public class GameManager : MonoBehaviour
 		playersKills = new int[players.Length];
 		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
 			playersControls [playerIndex] = players [playerIndex].GetComponent<PlayerControl> ();
-			playersControls [playerIndex].playerId = playerIndex;
-			playersControls [playerIndex].tag = playerPrefix + playerIndex;
+			playersControls [playerIndex].SetPlayerId(playerIndex);
 			playersKills [playerIndex] = 0;
 		}
 	}
@@ -40,7 +41,6 @@ public class GameManager : MonoBehaviour
 		Pause ();
 		TimerSetUp ();
 		UIManager.instance.SetScore ();
-
 	}
 
 	public void CheckRespawnPlayers ()
@@ -49,26 +49,16 @@ public class GameManager : MonoBehaviour
 		int playerIndex;
 
 		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
-
 			if ((playersControls [playerIndex].GetLife () <= 0) && !playersControls [playerIndex].IsUnderAttack () || (playersControls [playerIndex].GetStress () >= 100)) {
 				StartCoroutine (RespawnPlayer (playerIndex));
-				/*player.GetComponentInChildren<SkinnedMeshRenderer> (false);
-                spawnpointIndex = Random.Range (0, respawnPlayer.Length);
-                player.transform.position = respawnPlayer [spawnpointIndex].position;
-                playersControls [playerIndex].ResetStatus ();
-                player.GetComponentInChildren<SkinnedMeshRenderer> (true);*/
 			}
 		}
 	}
 
-	public void KillMe(string killedTag, string killerTag) {
-		int killerIndex;
-		int killedIndex;
-
-		killedIndex = int.Parse(killedTag.Substring (playerPrefix.Length));
-		killerIndex = int.Parse(killerTag.Substring (playerPrefix.Length));
-		playersKills [killedIndex]--;
-		playersKills [killerIndex] += 2;
+	public void PlayerKilled(int killedId, int killerId) {
+		Debug.Log ("killer: " + killerId + " - killed: " + killedId);
+		playersKills [killedId] += killedMalus;
+		playersKills [killerId] -= killerBonus;
 	}
 
 	public int GetPlayerKills(int playerIndex) {
@@ -80,28 +70,25 @@ public class GameManager : MonoBehaviour
 		int spawnpointIndex;
 		GameObject player;
 
-
-
 		playersControls [playerIndex].ResetStatus ();
 		player = players [playerIndex];
-
-		for (int i = 0; i < 2; i++) {
-			player.transform.GetChild (i).gameObject.GetComponent<SkinnedMeshRenderer> ().enabled = false;
-		}
+		SetMeshRendererEnabled (false);
 		yield return new WaitForSeconds (maxTimerBeforeRespawn);
 		spawnpointIndex = Random.Range (0, respawnPlayer.Length);
 		player.transform.position = respawnPlayer [spawnpointIndex].position;
-		//playersControls [playerIndex].ResetStatus ();
-		for (int i = 0; i < 2; i++) {
-
-			player.transform.GetChild (i).gameObject.GetComponent<SkinnedMeshRenderer> ().enabled = true;
-
-		}
+		SetMeshRendererEnabled (true);
 	}
 
+	private void SetMeshRendererEnabled(bool enabled) {
+		SkinnedMeshRenderer meshRenderer;
 
-
-	
+		foreach(Transform child in transform) {
+			meshRenderer = child.gameObject.GetComponent<SkinnedMeshRenderer> ();
+			if (meshRenderer != null) {
+				meshRenderer.enabled = enabled;
+			}
+		}
+	}
 	
 	/// <summary>
 	//Countdown for round duration, back to menu at the end
@@ -116,8 +103,19 @@ public class GameManager : MonoBehaviour
 		UIManager.timerLabel.text = realTime;
 
 		if (seconds == 0) {
-			Application.LoadLevel ("Menu");
+			SceneManager.LoadScene("Menu");
 		}
+	}
+
+	void SetButtonsEnabled (bool enabled)
+	{
+		pauseScreen.GetComponent<UISprite> ().enabled = enabled;
+		pauseButton.GetComponent<BoxCollider> ().enabled = enabled;
+		pauseButton.GetComponent<UISprite> ().enabled = enabled;
+		pauseButton.GetComponentInChildren<UILabel> ().enabled = enabled;
+		quitButton.GetComponent<BoxCollider> ().enabled = enabled;
+		quitButton.GetComponent<UISprite> ().enabled = enabled;
+		quitButton.GetComponentInChildren<UILabel> ().enabled = enabled;
 	}
 
 	void Pause ()
@@ -129,13 +127,7 @@ public class GameManager : MonoBehaviour
 			if (Input.GetKeyDown (KeyCode.Escape)) {
 				isPaused = false;
 				Destroy (pauseScreen.GetComponent<TweenAlpha> ());
-				pauseScreen.GetComponent<UISprite> ().enabled = false;
-				pauseButton.GetComponent<BoxCollider> ().enabled = false;
-				pauseButton.GetComponent<UISprite> ().enabled = false;
-				pauseButton.GetComponentInChildren<UILabel> ().enabled = false;
-				quitButton.GetComponent<BoxCollider> ().enabled = false;
-				quitButton.GetComponent<UISprite> ().enabled = false;
-				quitButton.GetComponentInChildren<UILabel> ().enabled = false;
+				SetButtonsEnabled (false);
 			}
 
 			Time.timeScale = 0;
@@ -143,13 +135,7 @@ public class GameManager : MonoBehaviour
 			if (Input.GetKeyDown (KeyCode.Escape)) {
 				isPaused = true;
 				AddTween ();
-				pauseScreen.GetComponent<UISprite> ().enabled = true;
-				pauseButton.GetComponent<BoxCollider> ().enabled = true;
-				pauseButton.GetComponent<UISprite> ().enabled = true;
-				pauseButton.GetComponentInChildren<UILabel> ().enabled = true;
-				quitButton.GetComponent<BoxCollider> ().enabled = true;
-				quitButton.GetComponent<UISprite> ().enabled = true;
-				quitButton.GetComponentInChildren<UILabel> ().enabled = true;
+				SetButtonsEnabled (true);
 			}
 			
 			Time.timeScale = 1;
@@ -173,13 +159,7 @@ public class GameManager : MonoBehaviour
 	{
 		isPaused = false;
 		Destroy (pauseScreen.GetComponent<TweenAlpha> ());
-		pauseScreen.GetComponent<UISprite> ().enabled = false;
-		pauseButton.GetComponent<BoxCollider> ().enabled = false;
-		pauseButton.GetComponent<UISprite> ().enabled = false;
-		pauseButton.GetComponentInChildren<UILabel> ().enabled = false;
-		quitButton.GetComponent<BoxCollider> ().enabled = false;
-		quitButton.GetComponent<UISprite> ().enabled = false;
-		quitButton.GetComponentInChildren<UILabel> ().enabled = false;
+		SetButtonsEnabled (false);
 	}
 
 	/// <summary>

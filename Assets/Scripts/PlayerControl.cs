@@ -45,7 +45,7 @@ public class PlayerControl : MonoBehaviour
 	public float dashTime;
 	[Range (0, 10)]
 	public float dashDistance;
-    public bool dash;
+	public bool dash;
 	private bool underAttack;
 	private bool stopped;
 	private int ammo;
@@ -84,7 +84,7 @@ public class PlayerControl : MonoBehaviour
 	{
 		if (player.controllers.hasMouse) {
 			Cursor.visible = false;
-			//Cursor.SetCursor (crosshairCursor, cursorHotSpot, CursorMode.Auto);
+			Cursor.SetCursor (crosshairCursor, cursorHotSpot, CursorMode.Auto);
 		}
 		ResetStatus ();
 		StartCoroutine (RefillStress ());
@@ -101,7 +101,7 @@ public class PlayerControl : MonoBehaviour
 				moveVector.x = player.GetAxis ("Move horizontal");
 				aimVector.z = -player.GetAxis ("Aim horizontal");
 				aimVector.x = player.GetAxis ("Aim vertical");
-                dash = player.GetButtonDown("Dash");
+				dash = player.GetButtonDown ("Dash");
 				aimVector = GetAim ();
 				shot = player.GetAxis ("Shoot");
 				melee = player.GetAxis ("Melee");
@@ -112,19 +112,6 @@ public class PlayerControl : MonoBehaviour
 				Melee ();
 				StartDashing ();
 			}
-		}
-	}
-
-	void OnGUI ()
-	{
-		Vector2 mousePosition;
-		Rect cursorRect;
-
-		if (player.controllers.hasMouse) {
-			mousePosition = Event.current.mousePosition;
-			//Input.mousePosition
-			cursorRect = new Rect (mousePosition.x - cursorHotSpot.x, mousePosition.y - cursorHotSpot.y, crosshairCursor.width, crosshairCursor.height);
-			GUI.DrawTexture (cursorRect, crosshairCursor);
 		}
 	}
 
@@ -421,12 +408,10 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	private void StartDashing ()
 	{
-		if (dash)
-        {
-			if (!isDashing && (stress <= maxStressValue - stressIncrease))
-            {
-                isDashing = true;
-                StartCoroutine (Dashing ());
+		if (dash) {
+			if (!isDashing && (stress <= maxStressValue - stressIncrease)) {
+				isDashing = true;
+				StartCoroutine (Dashing ());
 			}
 		}
 	}
@@ -439,39 +424,35 @@ public class PlayerControl : MonoBehaviour
 	{
 		Vector3 ray = transform.position;
 
-        Debug.DrawRay(ray, new Vector3(Input.GetAxis("Horizontal1"), 0, Input.GetAxis("Vertical1")));
+		Debug.DrawRay (ray, new Vector3 (Input.GetAxis ("Horizontal1"), 0, Input.GetAxis ("Vertical1")));
 
-        if (Physics.Raycast(ray, new Vector3(Input.GetAxis("Horizontal1"), 0, Input.GetAxis("Vertical1")), out info, dashDistance, environment))
-            return true;
+		if (Physics.Raycast (ray, new Vector3 (Input.GetAxis ("Horizontal1"), 0, Input.GetAxis ("Vertical1")), out info, dashDistance, environment))
+			return true;
 
-        return false;
-    }
+		return false;
+	}
 
-    private IEnumerator Dashing()
-    {
-        Vector3 newPosition = Vector3.zero;
+	private IEnumerator Dashing ()
+	{
+		Vector3 newPosition = Vector3.zero;
 
-        if (!CheckingEnvironment())
-        {
-            dashTransform.localPosition = new Vector3(dashTransform.localPosition.x + (dashDistance * Input.GetAxis("Horizontal1")), dashTransform.localPosition.y, dashTransform.localPosition.z + (dashDistance * Input.GetAxis("Vertical1")));
-            newPosition = new Vector3(dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
-        }
-        else if (CheckingEnvironment())
-        {
-            dashTransform.position = new Vector3(info.point.x, dashTransform.position.y, info.point.z);
-            dashTransform.localPosition = new Vector3(dashTransform.localPosition.x, dashTransform.localPosition.y, dashTransform.localPosition.z);
-            newPosition = new Vector3(dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
-        }
-        while (Vector3.Distance(transform.position, newPosition) > 1)
-        {
-            transform.position = Vector3.Lerp(transform.position, newPosition, 0.2f);
-            yield return null;
-        }
-        dashTransform.localPosition = dashTransform2.localPosition;
-        AddStress(stressIncrease);
-        yield return new WaitForSeconds(dashTime);
-        isDashing = false;
-    }
+		if (!CheckingEnvironment ()) {
+			dashTransform.localPosition = new Vector3 (dashTransform.localPosition.x + (dashDistance * Input.GetAxis ("Horizontal1")), dashTransform.localPosition.y, dashTransform.localPosition.z + (dashDistance * Input.GetAxis ("Vertical1")));
+			newPosition = new Vector3 (dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
+		} else if (CheckingEnvironment ()) {
+			dashTransform.position = new Vector3 (info.point.x, dashTransform.position.y, info.point.z);
+			dashTransform.localPosition = new Vector3 (dashTransform.localPosition.x, dashTransform.localPosition.y, dashTransform.localPosition.z);
+			newPosition = new Vector3 (dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
+		}
+		while (Vector3.Distance (transform.position, newPosition) > 1) {
+			transform.position = Vector3.Lerp (transform.position, newPosition, 0.2f);
+			yield return null;
+		}
+		dashTransform.localPosition = dashTransform2.localPosition;
+		AddStress (stressIncrease);
+		yield return new WaitForSeconds (dashTime);
+		isDashing = false;
+	}
 
 	/// <summary>
 	/// Sets the player identifier.

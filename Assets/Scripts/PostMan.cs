@@ -7,7 +7,7 @@ public class PostMan : MonoBehaviour
     public Transform[] path;
     public float postManSpeed;
     private int pathIndex=0;
-    private bool alive;
+   
 
 	// Use this for initialization
 	void Awake ()
@@ -17,7 +17,6 @@ public class PostMan : MonoBehaviour
 
     void Start()
     {
-        alive = true;
         
     }
 	
@@ -37,11 +36,12 @@ public class PostMan : MonoBehaviour
             {
 
                 pathIndex++;
+
                 Debug.Log(pathIndex);
 
                 if (pathIndex == path.Length)
                 {
-                    alive = false;
+                    GameManager.instance.postManIsAlive = false;
                     Destroy(this.gameObject);
                 }
             }

@@ -18,7 +18,11 @@ public class Pickup : MonoBehaviour
 	/// The life bonus.
 	/// </summary>
 	public int lifeBonus = 10;
-
+    /// <summary>
+	/// The stress bonus.
+	/// </summary>
+    public int stressBonus = -10;
+    
 	/// <summary>
 	/// Updates the pickup instance.
 	/// </summary>
@@ -45,7 +49,10 @@ public class Pickup : MonoBehaviour
 			} else if (gameObject.tag.Equals ("Medikit")) {
 				Destroy (this.gameObject);
 				playerControl.AddLife (lifeBonus);
-			}
+			}else if(gameObject.tag.Equals("Stress")) {
+                Destroy(this.gameObject);
+                playerControl.AddStress(stressBonus);
+            }
 		}
 
 	}

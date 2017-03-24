@@ -7,6 +7,14 @@ public class GameManager : MonoBehaviour
 	public static GameManager instance;
 	//array di transform per il respawn dei player
 	public Transform[] respawnPlayer;
+    //arrey di transform per lo spawn del PostMan
+    public Transform[] spawnPostMan;
+    private float timerToSpawn = 30.0f;
+    private float timerPostManSpawn;
+    [HideInInspector]
+    public int postManRandomSpawnIndex;
+    public GameObject postManPrefab;
+    public bool postManIsAlive;
 	public GameObject[] players;
 	private PlayerControl[] playersControls;
 	public GameObject pauseScreen;
@@ -31,7 +39,9 @@ public class GameManager : MonoBehaviour
 			playersControls [playerIndex] = players [playerIndex].GetComponent<PlayerControl> ();
 			playersControls [playerIndex].SetPlayerId(playerIndex);
 			playersKills [playerIndex] = 0;
-		}
+            postManIsAlive = false;
+
+        }
 	}
 
 	// Update is called once per frame
@@ -40,7 +50,19 @@ public class GameManager : MonoBehaviour
 		CheckRespawnPlayers ();
 		Pause ();
 		TimerSetUp ();
-		UIManager.instance.SetScore ();
+
+        if (timerPostManSpawn < timerToSpawn)
+        {
+            timerPostManSpawn += Time.deltaTime;
+            
+        }
+        else
+        {
+            PostManSpawn();
+            timerPostManSpawn = 0.0f;
+        }
+
+        UIManager.instance.SetScore ();
 	}
 
 	public void CheckRespawnPlayers ()
@@ -89,6 +111,22 @@ public class GameManager : MonoBehaviour
 			}
 		}
 	}
+    /// <summary>
+    /// Spawn of the PostMan
+    /// </summary>
+    void PostManSpawn()
+    {
+        //float timerToSpawn=30.0f;
+        //float timer=0.0f;
+
+            Debug.Log("Spawn");
+            postManRandomSpawnIndex = 0;
+            //postManRandomSpawnIndex = Random.Range(0, 3);
+            GameObject PostMan = Instantiate(postManPrefab, spawnPostMan[postManRandomSpawnIndex].position, Quaternion.identity) as GameObject;
+            postManIsAlive = true;
+            
+
+    }
 	
 	/// <summary>
 	//Countdown for round duration, back to menu at the end

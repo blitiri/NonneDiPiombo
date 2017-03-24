@@ -14,7 +14,8 @@ public class PlayerControl : MonoBehaviour
 	public Vector2 cursorHotSpot = new Vector2 (16, 16);
 	public GameObject bulletPrefab;
 	public GameObject levelWallsEmpty;
-	public Transform gunSpawnpoint;
+	public Transform weaponSpawnpoint;
+	public GameObject weapon;
 	public int startingAmmo = 20;
 	public int startingLife = 100;
 	public int startingStress = 0;
@@ -38,14 +39,16 @@ public class PlayerControl : MonoBehaviour
 	private Rigidbody rb;
 	private IList otherConnectedPlayers;
 	private Animator ani;
-	private float shot;
-	private float melee;
+	private bool shot;
+	private bool melee;
+	private bool dash;
+	private bool drop;
+	private bool pick;
 	private float timerToShoot;
 	[Range (0, 10)]
 	public float dashTime;
 	[Range (0, 10)]
 	public float dashDistance;
-	public bool dash;
 	private bool underAttack;
 	private bool stopped;
 	private int ammo;
@@ -97,22 +100,43 @@ public class PlayerControl : MonoBehaviour
 	{
 		if (!underAttack) {
 			if (!stopped) {
-				moveVector.z = player.GetAxis ("Move vertical");
-				moveVector.x = player.GetAxis ("Move horizontal");
+				moveVector.z = -player.GetAxis ("Move horizontal");
+				moveVector.x = player.GetAxis ("Move vertical");
 				aimVector.z = -player.GetAxis ("Aim horizontal");
 				aimVector.x = player.GetAxis ("Aim vertical");
 				dash = player.GetButtonDown ("Dash");
+				drop = player.GetButtonDown ("Drop");
+				pick = player.GetButtonDown ("Pick");
 				aimVector = GetAim ();
-				shot = player.GetAxis ("Shoot");
-				melee = player.GetAxis ("Melee");
+				shot = player.GetButtonDown ("Shoot");
+				melee = player.GetButtonDown ("Melee");
 				CheckingEnvironment ();
 				Move ();
 				Aim ();
 				Shoot ();
 				Melee ();
 				StartDashing ();
+				DropWeapon ();
+				if (playerId == 1) {
+					//Debug.Log ("Weapon position: " + weapon.transform.position);
+				}
 			}
 		}
+	}
+
+	private void DropWeapon ()
+	{
+		if (drop) {
+			Debug.Log (playerId + " drop weapon");
+			//Destroy (weapon);
+			weapon.transform.SetParent (null);
+			weapon.transform.position = transform.position;
+			//Debug.Log ("Assigned weapon position: " + weapon.transform.position);
+		}
+	}
+
+	private void PickWeapon ()
+	{
 	}
 
 	private Vector3 GetAim ()
@@ -182,7 +206,7 @@ public class PlayerControl : MonoBehaviour
 	{
 		PlayerControl control;
 
-		if ((otherConnectedPlayers.Count > 0) && (melee > 0)) {
+		if ((otherConnectedPlayers.Count > 0) && melee) {
 			//Debug.Log ("Contacted players: " + otherConnectedPlayers.Count + " - Melee: " + melee);
 			foreach (GameObject otherPlayer in otherConnectedPlayers) {  
 				control = otherPlayer.GetComponent<PlayerControl> ();
@@ -234,10 +258,10 @@ public class PlayerControl : MonoBehaviour
 
 		if (timerToShoot < maxTimeToShoot) {
 			timerToShoot += Time.deltaTime;
-		} else if ((shot > 0) && (ammo > 0)) {
+		} else if (shot && (ammo > 0)) {
 			bullet = Instantiate (bulletPrefab) as GameObject;
-			bullet.transform.rotation = gunSpawnpoint.rotation;
-			bullet.transform.position = gunSpawnpoint.position;
+			bullet.transform.rotation = weaponSpawnpoint.rotation;
+			bullet.transform.position = weaponSpawnpoint.position;
 			bullet.tag = bulletTagPrefix + gameObject.tag;
 			bulletRigidbody = bullet.GetComponent<Rigidbody> ();
 			bulletRigidbody.AddForce (bullet.transform.forward * bulletInitialForce, ForceMode.Impulse);

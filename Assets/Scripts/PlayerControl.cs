@@ -13,7 +13,6 @@ public class PlayerControl : MonoBehaviour
 	public Texture2D crosshairCursor;
 	public Vector2 cursorHotSpot = new Vector2 (16, 16);
 	public GameObject bulletPrefab;
-	public GameObject levelWallsEmpty;
 	public Transform weaponSpawnpoint;
 	public GameObject weapon;
 	public int startingAmmo = 20;
@@ -68,7 +67,7 @@ public class PlayerControl : MonoBehaviour
 	// Vector indicating player aim direction
 	private Vector3 aimVector;
 	private float aimAngle;
-
+	
 	/// <summary>
 	/// Awake this instance.
 	/// </summary>
@@ -183,8 +182,8 @@ public class PlayerControl : MonoBehaviour
 	private void Move ()
 	{
 		rb.MovePosition (rb.position + moveVector * speed * Time.deltaTime);
-		ani.SetFloat ("Movement", horizontalMovement);
-		ani.SetFloat ("Movement", verticalMovement);
+		//ani.SetFloat ("Movement", horizontalMovement);
+		//ani.SetFloat ("Movement", verticalMovement);
 	}
 
 	/// <summary>
@@ -432,6 +431,7 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	private void StartDashing ()
 	{
+		
 		if (dash) {
 			if (!isDashing && (stress <= maxStressValue - stressIncrease)) {
 				isDashing = true;

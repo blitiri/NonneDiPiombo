@@ -13,7 +13,8 @@ public class CameraControl : MonoBehaviour
 	private float zoomSpeed;                      
 	private Vector3 moveVelocity;                 
 	private Vector3 desiredPosition;              
-
+	public 	GameObject[] players = new GameObject[4];
+	public GameObject testPlayer;
 
 	private void Awake ()
 	{
@@ -26,6 +27,7 @@ public class CameraControl : MonoBehaviour
 		
 		Move ();
 		Zoom ();
+		WallDetection ();
 	}
 
 
@@ -124,5 +126,19 @@ public class CameraControl : MonoBehaviour
 
 	
 		mainCamera.orthographicSize = FindRequiredSize ();
+	}
+
+	void WallDetection(){
+		
+		RaycastHit hit;
+		Vector3 screenPos = mainCamera.ScreenToWorldPoint (testPlayer.transform.localPosition);
+		Ray wallRayP1 = mainCamera.ScreenPointToRay (screenPos);
+		Vector3 dir = testPlayer.transform.position - mainCamera.transform.position;
+		if (Physics.Raycast (mainCamera.transform.position, dir ,out hit , Vector3.Distance(mainCamera.transform.localPosition,players[0].transform.localPosition))) {
+			if (hit.transform.name == "Cube") {
+				Debug.Log ("Wall Found!");
+			} 
+		}
+		Debug.DrawRay (mainCamera.transform.position,testPlayer.transform.position * Vector3.Distance(testPlayer.transform.position,mainCamera.transform.position),Color.green);
 	}
 }

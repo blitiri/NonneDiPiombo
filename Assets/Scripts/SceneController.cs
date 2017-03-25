@@ -28,7 +28,7 @@ public class SceneController : MonoBehaviour {
     {
         if (myGameManager)
         {
-			if ((GameManager.instance.roundTimer <= 0) && SceneManager.GetActiveScene().name.StartsWith(levelPrefix))
+			if (GameManager.instance.IsRoundEnded() && SceneManager.GetActiveScene().name.StartsWith(levelPrefix))
             {
                    SceneManager.LoadScene("Ending", LoadSceneMode.Single);
             }

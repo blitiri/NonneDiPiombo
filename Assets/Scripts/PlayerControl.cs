@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Rewired;
 
 /// <summary>
 /// Player control.
@@ -28,7 +27,7 @@ public class PlayerControl : MonoBehaviour
 	public float underAttackInactivityTime = 2;
 	public float maxTimeToShoot = 1.0f;
 	public int bulletDamage = 5;
-	[HideInInspector]
+	//[HideInInspector]
 	public int playerId;
 	public float stressDecreaseFactor;
 	public float timerToRefillStress;
@@ -38,11 +37,6 @@ public class PlayerControl : MonoBehaviour
 	private Rigidbody rb;
 	private IList otherConnectedPlayers;
 	private Animator ani;
-	private bool shot;
-	private bool melee;
-	private bool dash;
-	private bool drop;
-	private bool pick;
 	private float timerToShoot;
 	[Range (0, 10)]
 	public float dashTime;
@@ -53,6 +47,8 @@ public class PlayerControl : MonoBehaviour
 	private int ammo;
 	private int life;
 	private float stress;
+	private InputManager inputManager;
+	private float angleCorrection;
 	public float stressIncrease = 10;
 	private RaycastHit info;
 	public LayerMask environment;
@@ -60,21 +56,11 @@ public class PlayerControl : MonoBehaviour
 	public Transform dashTransform2;
 	public float fixedAimAngleCorrection = 90;
 
-	// The Rewired Player
-	private Player player;
-	// Vector indicating player movement direction
-	private Vector3 moveVector;
-	// Vector indicating player aim direction
-	private Vector3 aimVector;
-	private float aimAngle;
-	
 	/// <summary>
 	/// Awake this instance.
 	/// </summary>
 	void Awake ()
 	{
-		// Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
-		player = ReInput.players.GetPlayer (playerId);
 		rb = GetComponent<Rigidbody> ();
 		ani = GetComponent<Animator> ();
 	}
@@ -84,7 +70,8 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	void Start ()
 	{
-		if (player.controllers.hasMouse) {
+		inputManager = new InputManager (playerId, transform, angleCorrection);
+		if (inputManager.HasMouse ()) {
 			Cursor.visible = false;
 			Cursor.SetCursor (crosshairCursor, cursorHotSpot, CursorMode.Auto);
 		}
@@ -97,18 +84,9 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	void Update ()
 	{
+		Debug.Log ("underAttack: " + underAttack + " - stopped: " + stopped);
 		if (!underAttack) {
 			if (!stopped) {
-				moveVector.z = -player.GetAxis ("Move horizontal");
-				moveVector.x = player.GetAxis ("Move vertical");
-				aimVector.z = -player.GetAxis ("Aim horizontal");
-				aimVector.x = player.GetAxis ("Aim vertical");
-				dash = player.GetButtonDown ("Dash");
-				//drop = player.GetButtonDown ("Drop");
-				//pick = player.GetButtonDown ("Pick");
-				aimVector = GetAim ();
-				shot = player.GetButtonDown ("Shoot");
-				melee = player.GetButtonDown ("Melee");
 				CheckingEnvironment ();
 				Move ();
 				Aim ();
@@ -125,7 +103,7 @@ public class PlayerControl : MonoBehaviour
 
 	private void DropWeapon ()
 	{
-		if (drop) {
+		if (inputManager.Drop ()) {
 			Debug.Log (playerId + " drop weapon");
 			//Destroy (weapon);
 			weapon.transform.SetParent (null);
@@ -136,25 +114,8 @@ public class PlayerControl : MonoBehaviour
 
 	private void PickWeapon ()
 	{
-	}
-
-	private Vector3 GetAim ()
-	{
-		Vector3 aimVector;
-		Vector3 playerScreenPosition;
-		Vector3 forwardDirection;
-
-		aimAngle = 0;
-		aimVector = Vector3.zero;
-		if (player.controllers.hasMouse) {
-			playerScreenPosition = Camera.main.WorldToScreenPoint (transform.position);
-			forwardDirection = Input.mousePosition - playerScreenPosition;
-			aimAngle = -Mathf.Atan2 (forwardDirection.y, forwardDirection.x) * Mathf.Rad2Deg + fixedAimAngleCorrection + Camera.main.transform.rotation.eulerAngles.y;
-		} else {
-			aimVector.z = -player.GetAxis ("Aim horizontal");
-			aimVector.x = player.GetAxis ("Aim vertical");
+		if (inputManager.Pick ()) {
 		}
-		return aimVector;
 	}
 
 	/// <summary>
@@ -181,7 +142,7 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	private void Move ()
 	{
-		rb.MovePosition (rb.position + moveVector * speed * Time.deltaTime);
+		rb.MovePosition (rb.position + inputManager.GetMoveVector () * speed * Time.deltaTime);
 		//ani.SetFloat ("Movement", horizontalMovement);
 		//ani.SetFloat ("Movement", verticalMovement);
 	}
@@ -191,6 +152,11 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	private void Aim ()
 	{
+		Vector3 aimVector;
+		float aimAngle;
+
+		aimVector = inputManager.GetAimVector ();
+		aimAngle = inputManager.GetAimAngle ();
 		if (aimVector != Vector3.zero) {
 			transform.forward = Vector3.Normalize (aimVector);
 		} else if (aimAngle != 0) {
@@ -205,7 +171,7 @@ public class PlayerControl : MonoBehaviour
 	{
 		PlayerControl control;
 
-		if ((otherConnectedPlayers.Count > 0) && melee) {
+		if ((otherConnectedPlayers.Count > 0) && inputManager.Melee ()) {
 			//Debug.Log ("Contacted players: " + otherConnectedPlayers.Count + " - Melee: " + melee);
 			foreach (GameObject otherPlayer in otherConnectedPlayers) {  
 				control = otherPlayer.GetComponent<PlayerControl> ();
@@ -257,7 +223,7 @@ public class PlayerControl : MonoBehaviour
 
 		if (timerToShoot < maxTimeToShoot) {
 			timerToShoot += Time.deltaTime;
-		} else if (shot && (ammo > 0)) {
+		} else if ((ammo > 0) && inputManager.Shoot ()) {
 			bullet = Instantiate (bulletPrefab) as GameObject;
 			bullet.transform.rotation = weaponSpawnpoint.rotation;
 			bullet.transform.position = weaponSpawnpoint.position;
@@ -432,7 +398,7 @@ public class PlayerControl : MonoBehaviour
 	private void StartDashing ()
 	{
 		
-		if (dash) {
+		if (inputManager.Dash ()) {
 			if (!isDashing && (stress <= maxStressValue - stressIncrease)) {
 				isDashing = true;
 				StartCoroutine (Dashing ());
@@ -486,5 +452,10 @@ public class PlayerControl : MonoBehaviour
 	{
 		this.playerId = playerId;
 		gameObject.tag = playerTagPrefix + playerId;
+	}
+
+	public void SetAngleCorrection (float angleCorrection)
+	{
+		this.angleCorrection = angleCorrection;
 	}
 }

@@ -5,44 +5,53 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 	public static GameManager instance;
-	//array di transform per il respawn dei player
-	public Transform[] respawnPlayer;
-    //arrey di transform per lo spawn del PostMan
-	public PathTable postManTablePath;
-    private float timerToSpawn = 30.0f;
-    private float timerPostManSpawn;
-    [HideInInspector]
-    public int postManRandomSpawnIndex=0;
-	private int postManRandomStart;
-    public GameObject postManPrefab;
-    public bool postManIsAlive;
-	public GameObject[] players;
-	private PlayerControl[] playersControls;
+	public int numberOfPlayers = 2;
+	public GameObject[] playersPrefabs;
+	public GameObject postManPrefab;
+	public GameObject rewiredInputManagerPrefab;
 	public GameObject pauseScreen;
 	public GameObject pauseButton;
 	public GameObject quitButton;
-	public float maxTimerBeforeRespawn = 1.0f;
-	public SkinnedMeshRenderer[] mesh;
-	public int[] playersKills;
-	public bool isPaused = false;
-	public float roundTimer;
-	public int killerBonus = 2;
-	public int killedMalus = 1;
+	public Transform cameraTransform;
+	// array di transform per il respawn dei player
+	public Transform[] playersRespawns;
+	public Transform[] playersStartRespawns;
+	private float timerToSpawn = 30.0f;
+	private float timerPostManSpawn;
+	[HideInInspector]
+	public int postManRandomSpawnIndex = 0;
+	private int postManRandomStart;
+	private PlayerControl[] playersControls;
+	[SerializeField]
+	private float maxTimerBeforeRespawn = 1.0f;
+	private int[] playersKills;
+	private bool isPaused = false;
+	[SerializeField]
+	private float roundTimer;
+	[SerializeField]
+	private int killedMalus = 1;
+	[SerializeField]
+	private int killerBonus = 2;
+	private GameObject[] players;
 
 	void Awake ()
 	{
 		int playerIndex;
 
 		instance = this;
-		playersControls = new PlayerControl[players.Length];
-		playersKills = new int[players.Length];
-		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
+		Instantiate (rewiredInputManagerPrefab);
+		players = new GameObject[numberOfPlayers];
+		playersControls = new PlayerControl[numberOfPlayers];
+		playersKills = new int[numberOfPlayers];
+		for (playerIndex = 0; playerIndex < numberOfPlayers; playerIndex++) {
+			players [playerIndex] = Instantiate (playersPrefabs [playerIndex % playersPrefabs.Length]) as GameObject;
+			players [playerIndex].transform.position = playersStartRespawns [playerIndex].position;
 			playersControls [playerIndex] = players [playerIndex].GetComponent<PlayerControl> ();
-			playersControls [playerIndex].SetPlayerId(playerIndex);
+			playersControls [playerIndex].SetPlayerId (playerIndex);
+			playersControls [playerIndex].SetAngleCorrection (cameraTransform.rotation.eulerAngles.y);
 			playersKills [playerIndex] = 0;
-            postManIsAlive = false;
-
-        }
+			players [playerIndex].SetActive (true);
+		}
 	}
 
 	// Update is called once per frame
@@ -52,18 +61,24 @@ public class GameManager : MonoBehaviour
 		Pause ();
 		TimerSetUp ();
 
-        if (timerPostManSpawn < timerToSpawn)
-        {
-            timerPostManSpawn += Time.deltaTime;
+		if (timerPostManSpawn < timerToSpawn) {
+			timerPostManSpawn += Time.deltaTime;
             
-        }
-        else
-        {
-            PostManSpawn();
-            timerPostManSpawn = 0.0f;
-        }
+		} else {
+			//PostManSpawn();
+			timerPostManSpawn = 0.0f;
+		}
 
-        UIManager.instance.SetScore ();
+		UIManager.instance.SetScore ();
+	}
+
+	/// <summary>
+	/// Determines if round ended.
+	/// </summary>
+	/// <returns><c>true</c> if round ended; otherwise, <c>false</c>.</returns>
+	public bool IsRoundEnded ()
+	{
+		return roundTimer <= 0;
 	}
 
 	public void CheckRespawnPlayers ()
@@ -78,13 +93,15 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public void PlayerKilled(int killedId, int killerId) {
+	public void PlayerKilled (int killedId, int killerId)
+	{
 		Debug.Log ("killer: " + killerId + " - killed: " + killedId);
 		playersKills [killedId] += killedMalus;
 		playersKills [killerId] -= killerBonus;
 	}
 
-	public int GetPlayerKills(int playerIndex) {
+	public int GetPlayerKills (int playerIndex)
+	{
 		return playersKills [playerIndex];
 	}
 
@@ -97,36 +114,39 @@ public class GameManager : MonoBehaviour
 		player = players [playerIndex];
 		SetMeshRendererEnabled (false);
 		yield return new WaitForSeconds (maxTimerBeforeRespawn);
-		spawnpointIndex = Random.Range (0, respawnPlayer.Length);
-		player.transform.position = respawnPlayer [spawnpointIndex].position;
+		spawnpointIndex = Random.Range (0, playersRespawns.Length);
+		player.transform.position = playersRespawns [spawnpointIndex].position;
 		SetMeshRendererEnabled (true);
 	}
 
-	private void SetMeshRendererEnabled(bool enabled) {
+	private void SetMeshRendererEnabled (bool enabled)
+	{
 		SkinnedMeshRenderer meshRenderer;
 
-		foreach(Transform child in transform) {
+		foreach (Transform child in transform) {
 			meshRenderer = child.gameObject.GetComponent<SkinnedMeshRenderer> ();
 			if (meshRenderer != null) {
 				meshRenderer.enabled = enabled;
 			}
 		}
 	}
-    /// <summary>
-    /// Spawn of the PostMan
-    /// </summary>
-    void PostManSpawn()
+
+	/// <summary>
+	/// Spawn of the PostMan
+	/// </summary>
+	void PostManSpawn ()
 	{
-            //Debug.Log("Spawn");
-            postManRandomSpawnIndex = 0;
-            //postManRandomSpawnIndex = Random.Range(0, 3);
-		    //Debug.Log(postManRandomSpawnIndex);
-		   // Debug.Log ("Length1 :" + postManTablePath.paths.Length);
-		    //Debug.Log ("  Length2  " + postManTablePath.paths [postManRandomSpawnIndex].pathPoint.Length);
-		    GameObject PostMan = Instantiate(postManPrefab,postManTablePath.paths[postManRandomSpawnIndex].pathPoint[postManRandomSpawnIndex].position, Quaternion.identity) as GameObject;
-            postManIsAlive = true;  
-    }
-	
+		GameObject postMan;
+
+		//Debug.Log("Spawn");
+		postManRandomSpawnIndex = 0;
+		//postManRandomSpawnIndex = Random.Range(0, 3);
+		//Debug.Log(postManRandomSpawnIndex);
+		// Debug.Log ("Length1 :" + postManTablePath.paths.Length);
+		//Debug.Log ("  Length2  " + postManTablePath.paths [postManRandomSpawnIndex].pathPoint.Length);
+		postMan = Instantiate (postManPrefab) as GameObject;
+	}
+
 	/// <summary>
 	//Countdown for round duration, back to menu at the end
 	/// </summary>
@@ -139,8 +159,8 @@ public class GameManager : MonoBehaviour
 		string realTime = string.Format ("{0:0}:{1:00}", minutes, seconds);
 		UIManager.timerLabel.text = realTime;
 
-		if (seconds == 0) {
-			SceneManager.LoadScene("Menu");
+		if (roundTimer <= 0) {
+			SceneManager.LoadScene ("Menu");
 		}
 	}
 

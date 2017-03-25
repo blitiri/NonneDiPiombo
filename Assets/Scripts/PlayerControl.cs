@@ -68,7 +68,7 @@ public class PlayerControl : MonoBehaviour
 	// Vector indicating player aim direction
 	private Vector3 aimVector;
 	private float aimAngle;
-
+	
 	/// <summary>
 	/// Awake this instance.
 	/// </summary>
@@ -432,6 +432,7 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	private void StartDashing ()
 	{
+		
 		if (dash) {
 			if (!isDashing && (stress <= maxStressValue - stressIncrease)) {
 				isDashing = true;

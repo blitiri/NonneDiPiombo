@@ -119,11 +119,11 @@ public class GameManager : MonoBehaviour
         //float timerToSpawn=30.0f;
         //float timer=0.0f;
 
-            Debug.Log("Spawn");
-            postManRandomSpawnIndex = 0;
-            //postManRandomSpawnIndex = Random.Range(0, 3);
-            GameObject PostMan = Instantiate(postManPrefab, spawnPostMan[postManRandomSpawnIndex].position, Quaternion.identity) as GameObject;
-            postManIsAlive = true;
+//            Debug.Log("Spawn");
+//            postManRandomSpawnIndex = 0;
+//            //postManRandomSpawnIndex = Random.Range(0, 3);
+//            GameObject PostMan = Instantiate(postManPrefab, spawnPostMan[postManRandomSpawnIndex].position, Quaternion.identity) as GameObject;
+//            postManIsAlive = true;
             
 
     }

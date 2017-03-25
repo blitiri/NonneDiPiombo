@@ -101,6 +101,8 @@ GameObject:
   - 95: {fileID: 95000013096198484}
   - 114: {fileID: 114000013217446320}
   - 54: {fileID: 54000011953926436}
+  - 65: {fileID: 65000013633191638}
+  - 65: {fileID: 65000012310646008}
   m_Layer: 0
   m_Name: ChefAgata
   m_TagString: Untagged
@@ -278,6 +280,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65000012310646008
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014269800522}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0589736, y: 1.6494993, z: 1.1433612}
+  m_Center: {x: 0, y: 0.8240723, z: 0}
+--- !u!65 &65000013633191638
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014269800522}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0589736, y: 1.6494993, z: 1.1433612}
+  m_Center: {x: 0, y: 0.8240723, z: 0}
 --- !u!95 &95000013096198484
 Animator:
   serializedVersion: 3

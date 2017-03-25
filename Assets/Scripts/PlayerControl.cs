@@ -105,8 +105,8 @@ public class PlayerControl : MonoBehaviour
 				aimVector.z = -player.GetAxis ("Aim horizontal");
 				aimVector.x = player.GetAxis ("Aim vertical");
 				dash = player.GetButtonDown ("Dash");
-				drop = player.GetButtonDown ("Drop");
-				pick = player.GetButtonDown ("Pick");
+				//drop = player.GetButtonDown ("Drop");
+				//pick = player.GetButtonDown ("Pick");
 				aimVector = GetAim ();
 				shot = player.GetButtonDown ("Shoot");
 				melee = player.GetButtonDown ("Melee");

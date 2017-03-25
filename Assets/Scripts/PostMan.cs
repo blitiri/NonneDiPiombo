@@ -4,9 +4,8 @@ using System.Collections;
 public class PostMan : MonoBehaviour
 {
     public NavMeshAgent postMan;
-    public Transform[] path;
     public float postManSpeed;
-    private int pathIndex=0;
+    private int pathIndex=1;
    
 
 	// Use this for initialization
@@ -30,16 +29,16 @@ public class PostMan : MonoBehaviour
     {
             postMan.speed = postManSpeed;
 
-            postMan.destination = path[pathIndex].transform.position;
+		    postMan.destination = GameManager.instance.postManTablePath.paths[GameManager.instance.postManRandomSpawnIndex].pathPoint[pathIndex].position;
 
-            if (Vector3.Distance(postMan.transform.position, path[pathIndex].transform.position) <= 0.5)
+		    if (Vector3.Distance(postMan.transform.position, GameManager.instance.postManTablePath.paths[GameManager.instance.postManRandomSpawnIndex].pathPoint[pathIndex].transform.position) <= 0.5)
             {
 
                 pathIndex++;
 
                 Debug.Log(pathIndex);
 
-                if (pathIndex == path.Length)
+			    if (pathIndex == GameManager.instance.postManTablePath.paths[GameManager.instance.postManRandomSpawnIndex].pathPoint.Length)
                 {
                     GameManager.instance.postManIsAlive = false;
                     Destroy(this.gameObject);

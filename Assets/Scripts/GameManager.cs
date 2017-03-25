@@ -8,11 +8,12 @@ public class GameManager : MonoBehaviour
 	//array di transform per il respawn dei player
 	public Transform[] respawnPlayer;
     //arrey di transform per lo spawn del PostMan
-    public Transform[] spawnPostMan;
+	public PathTable postManTablePath;
     private float timerToSpawn = 30.0f;
     private float timerPostManSpawn;
     [HideInInspector]
-    public int postManRandomSpawnIndex;
+    public int postManRandomSpawnIndex=0;
+	private int postManRandomStart;
     public GameObject postManPrefab;
     public bool postManIsAlive;
 	public GameObject[] players;
@@ -115,17 +116,15 @@ public class GameManager : MonoBehaviour
     /// Spawn of the PostMan
     /// </summary>
     void PostManSpawn()
-    {
-        //float timerToSpawn=30.0f;
-        //float timer=0.0f;
-
-            Debug.Log("Spawn");
+	{
+            //Debug.Log("Spawn");
             postManRandomSpawnIndex = 0;
             //postManRandomSpawnIndex = Random.Range(0, 3);
-            GameObject PostMan = Instantiate(postManPrefab, spawnPostMan[postManRandomSpawnIndex].position, Quaternion.identity) as GameObject;
-            postManIsAlive = true;
-            
-
+		    //Debug.Log(postManRandomSpawnIndex);
+		   // Debug.Log ("Length1 :" + postManTablePath.paths.Length);
+		    //Debug.Log ("  Length2  " + postManTablePath.paths [postManRandomSpawnIndex].pathPoint.Length);
+		    GameObject PostMan = Instantiate(postManPrefab,postManTablePath.paths[postManRandomSpawnIndex].pathPoint[postManRandomSpawnIndex].position, Quaternion.identity) as GameObject;
+            postManIsAlive = true;  
     }
 	
 	/// <summary>

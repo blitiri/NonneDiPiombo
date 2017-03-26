@@ -84,7 +84,7 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	void Update ()
 	{
-		Debug.Log ("underAttack: " + underAttack + " - stopped: " + stopped);
+		//Debug.Log ("underAttack: " + underAttack + " - stopped: " + stopped);
 		if (!underAttack) {
 			if (!stopped) {
 				CheckingEnvironment ();
@@ -93,7 +93,7 @@ public class PlayerControl : MonoBehaviour
 				Shoot ();
 				Melee ();
 				StartDashing ();
-				DropWeapon ();
+				//DropWeapon ();
 				if (playerId == 1) {
 					//Debug.Log ("Weapon position: " + weapon.transform.position);
 				}

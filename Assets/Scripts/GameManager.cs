@@ -16,11 +16,8 @@ public class GameManager : MonoBehaviour
 	// array di transform per il respawn dei player
 	public Transform[] playersRespawns;
 	public Transform[] playersStartRespawns;
-	private float timerToSpawn = 30.0f;
+	public float timerToSpawn = 5.0f;
 	private float timerPostManSpawn;
-	[HideInInspector]
-	public int postManRandomSpawnIndex = 0;
-	private int postManRandomStart;
 	private PlayerControl[] playersControls;
 	[SerializeField]
 	private float maxTimerBeforeRespawn = 1.0f;
@@ -65,7 +62,7 @@ public class GameManager : MonoBehaviour
 			timerPostManSpawn += Time.deltaTime;
             
 		} else {
-			//PostManSpawn();
+			PostManSpawn();
 			timerPostManSpawn = 0.0f;
 		}
 
@@ -137,13 +134,7 @@ public class GameManager : MonoBehaviour
 	void PostManSpawn ()
 	{
 		GameObject postMan;
-
-		//Debug.Log("Spawn");
-		postManRandomSpawnIndex = 0;
-		//postManRandomSpawnIndex = Random.Range(0, 3);
-		//Debug.Log(postManRandomSpawnIndex);
-		// Debug.Log ("Length1 :" + postManTablePath.paths.Length);
-		//Debug.Log ("  Length2  " + postManTablePath.paths [postManRandomSpawnIndex].pathPoint.Length);
+	
 		postMan = Instantiate (postManPrefab) as GameObject;
 	}
 

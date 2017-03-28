@@ -5,19 +5,24 @@ public class CameraControl : MonoBehaviour
 	public float dampTime = 0.2f;                
 	public float screenEdgeBuffer = 4f;           
 	public float minSize = 6.5f;       
-	//da far cambiare al GameManager
-	/*[HideInInspector]*/ public Transform[] targets; 
+    public Transform[] targets; 
 
 
 	private Camera mainCamera;                        
 	private float zoomSpeed;                      
 	private Vector3 moveVelocity;                 
 	private Vector3 desiredPosition;              
-	public 	GameObject[] players = new GameObject[4];
 	public GameObject testPlayer;
 
 	private void Awake ()
 	{
+		GameObject[] players;
+		players = GameManager.instance.GetPlayers ();
+
+		targets = new Transform[players.Length];
+		for (int playerIndex=0; playerIndex < players.Length; playerIndex++) {
+			targets [playerIndex] = players [playerIndex].transform;
+		}
 		mainCamera = GetComponentInChildren<Camera> ();
 	}
 
@@ -50,12 +55,10 @@ public class CameraControl : MonoBehaviour
 		for (int i = 0; i < targets.Length; i++)
 		{
 			
-			if (!targets[i].gameObject.activeSelf)
-				continue;
-
-		
-			averagePos += targets[i].position;
-			numTargets++;
+			if (targets [i].gameObject.activeSelf) {
+				averagePos += targets [i].position;
+				numTargets++;
+			}
 		}
 
 
@@ -129,16 +132,16 @@ public class CameraControl : MonoBehaviour
 	}
 
 	void WallDetection(){
-		
+		testPlayer = GameManager.instance.GetPlayers()[0];
 		RaycastHit hit;
 		Vector3 screenPos = mainCamera.ScreenToWorldPoint (testPlayer.transform.localPosition);
 		Ray wallRayP1 = mainCamera.ScreenPointToRay (screenPos);
 		Vector3 dir = testPlayer.transform.position - mainCamera.transform.position;
-		if (Physics.Raycast (mainCamera.transform.position, dir ,out hit , Vector3.Distance(mainCamera.transform.localPosition,players[0].transform.localPosition))) {
-			if (hit.transform.name == "Cube") {
+		if (Physics.Raycast (mainCamera.transform.position, dir ,out hit , Vector3.Distance(mainCamera.transform.localPosition,targets[0].localPosition))) {
+			if (hit.transform.tag == "Wall") {
 				Debug.Log ("Wall Found!");
 			} 
 		}
-		Debug.DrawRay (mainCamera.transform.position,testPlayer.transform.position * Vector3.Distance(testPlayer.transform.position,mainCamera.transform.position),Color.green);
+		Debug.DrawRay (mainCamera.transform.position,dir,Color.green);
 	}
 }

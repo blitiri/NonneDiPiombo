@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 	public static GameManager instance;
+	[Range(2, 4)]
 	public int numberOfPlayers = 2;
 	public GameObject[] playersPrefabs;
 	public GameObject postManPrefab;
@@ -49,6 +50,8 @@ public class GameManager : MonoBehaviour
 			playersKills [playerIndex] = 0;
 			players [playerIndex].SetActive (true);
 		}
+
+
 	}
 
 	// Update is called once per frame
@@ -216,5 +219,9 @@ public class GameManager : MonoBehaviour
 	public void OnClickQuitButton ()
 	{
 		Application.Quit ();
+	}
+
+	public GameObject[] GetPlayers(){
+		return players;
 	}
 }

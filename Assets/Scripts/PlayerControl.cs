@@ -414,9 +414,9 @@ public class PlayerControl : MonoBehaviour
 	{
 		Vector3 ray = transform.position;
 
-		Debug.DrawRay (ray, new Vector3 (Input.GetAxis ("Horizontal1"), 0, Input.GetAxis ("Vertical1")));
+		Debug.DrawRay (ray, new Vector3 (Input.GetAxis ("Vertical1"), 0, -Input.GetAxis ("Horizontal1")));
 
-		if (Physics.Raycast (ray, new Vector3 (Input.GetAxis ("Horizontal1"), 0, Input.GetAxis ("Vertical1")), out info, dashDistance, environment))
+		if (Physics.Raycast (ray, new Vector3 (Input.GetAxis ("Vertical1"), 0, -Input.GetAxis ("Horizontal1")), out info, dashDistance, environment))
 			return true;
 
 		return false;
@@ -427,7 +427,7 @@ public class PlayerControl : MonoBehaviour
 		Vector3 newPosition = Vector3.zero;
 
 		if (!CheckingEnvironment ()) {
-			dashTransform.localPosition = new Vector3 (dashTransform.localPosition.x + (dashDistance * Input.GetAxis ("Horizontal1")), dashTransform.localPosition.y, dashTransform.localPosition.z + (dashDistance * Input.GetAxis ("Vertical1")));
+			dashTransform.localPosition = new Vector3 (dashTransform.localPosition.x + (dashDistance * Input.GetAxis ("Vertical1")), dashTransform.localPosition.y, dashTransform.localPosition.z + (dashDistance * -Input.GetAxis ("Horizontal1")));
 			newPosition = new Vector3 (dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
 		} else if (CheckingEnvironment ()) {
 			dashTransform.position = new Vector3 (info.point.x, dashTransform.position.y, info.point.z);

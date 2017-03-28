@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
 			playersKills [playerIndex] = 0;
 			players [playerIndex].SetActive (true);
 		}
+
+
 	}
 
 	// Update is called once per frame
@@ -216,5 +218,9 @@ public class GameManager : MonoBehaviour
 	public void OnClickQuitButton ()
 	{
 		Application.Quit ();
+	}
+
+	public GameObject[] GetPlayers(){
+		return players;
 	}
 }

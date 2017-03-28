@@ -21,9 +21,11 @@ GameObject:
   - 4: {fileID: 4000010879978574}
   - 33: {fileID: 33000014010142898}
   - 23: {fileID: 23000012397484760}
+  - 136: {fileID: 136000011849034220}
+  - 114: {fileID: 114000014287108892}
   m_Layer: 0
   m_Name: HealthPack
-  m_TagString: Untagged
+  m_TagString: Medikit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,3 +79,31 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011064832918}
   m_Mesh: {fileID: 4300000, guid: 5068b6b4b9c430c4e86b0485bcfc28f0, type: 3}
+--- !u!114 &114000014287108892
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011064832918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734afca99beb6c746a7587402f00ef0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformPickUp: {fileID: 4000010879978574}
+  ammoBonus: 10
+  lifeBonus: 10
+  stressBonus: -10
+--- !u!136 &136000011849034220
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011064832918}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.36083758
+  m_Height: 0.9077195
+  m_Direction: 1
+  m_Center: {x: -0.00000014901161, y: 0.45385975, z: 0.000000014901161}

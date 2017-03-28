@@ -138,10 +138,10 @@ public class CameraControl : MonoBehaviour
 		Ray wallRayP1 = mainCamera.ScreenPointToRay (screenPos);
 		Vector3 dir = testPlayer.transform.position - mainCamera.transform.position;
 		if (Physics.Raycast (mainCamera.transform.position, dir ,out hit , Vector3.Distance(mainCamera.transform.localPosition,targets[0].localPosition))) {
-			if (hit.transform.name == "Cube") {
+			if (hit.transform.tag == "Wall") {
 				Debug.Log ("Wall Found!");
 			} 
 		}
-		Debug.DrawRay (mainCamera.transform.position,testPlayer.transform.position * Vector3.Distance(testPlayer.transform.position,mainCamera.transform.position),Color.green);
+		Debug.DrawRay (mainCamera.transform.position,dir,Color.green);
 	}
 }

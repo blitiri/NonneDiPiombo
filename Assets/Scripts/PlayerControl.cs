@@ -231,11 +231,11 @@ public class PlayerControl : MonoBehaviour
 			timerToShoot += Time.deltaTime;
 		} else if ((ammo > 0) && inputManager.Shoot ()) {
 			bullet = Instantiate (bulletPrefab) as GameObject;
-			bullet.transform.rotation = weaponSpawnpoint.rotation;
+			bullet.transform.rotation = weaponSpawnpoint.transform.rotation;
 			bullet.transform.position = weaponSpawnpoint.position;
 			bullet.tag = bulletTagPrefix + gameObject.tag;
 			bulletRigidbody = bullet.GetComponent<Rigidbody> ();
-			bulletRigidbody.AddForce (bullet.transform.forward * bulletInitialForce, ForceMode.Impulse);
+			bulletRigidbody.AddForce (weaponSpawnpoint.transform.forward * bulletInitialForce, ForceMode.Impulse);
 			Destroy (bullet, bulletLifeTime);
 			ammo--;
 			stress += weaponStressDamage;

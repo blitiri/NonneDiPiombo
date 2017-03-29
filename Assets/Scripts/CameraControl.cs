@@ -6,13 +6,12 @@ public class CameraControl : MonoBehaviour
 	public float screenEdgeBuffer = 4f;           
 	public float minSize = 6.5f;       
     public Transform[] targets; 
-
+	public Shader OutlineShader;
 
 	private Camera mainCamera;                        
 	private float zoomSpeed;                      
 	private Vector3 moveVelocity;                 
 	private Vector3 desiredPosition;              
-	public GameObject testPlayer;
 
 	private void Awake ()
 	{
@@ -93,20 +92,21 @@ public class CameraControl : MonoBehaviour
 		for (int i = 0; i < targets.Length; i++)
 		{
 
-			if (!targets[i].gameObject.activeSelf)
-				continue;
+			if (targets [i].gameObject.activeSelf) {
+				
 
 		
-			Vector3 targetLocalPos = transform.InverseTransformPoint(targets[i].position);
+				Vector3 targetLocalPos = transform.InverseTransformPoint (targets [i].position);
 
 
-			Vector3 desiredPosToTarget = targetLocalPos - desiredLocalPos;
+				Vector3 desiredPosToTarget = targetLocalPos - desiredLocalPos;
 
 
-			size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.y));
+				size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.y));
 
 		
-			size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.x) / mainCamera.aspect);
+				size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.x) / mainCamera.aspect);
+			}
 		}
 
 
@@ -132,16 +132,26 @@ public class CameraControl : MonoBehaviour
 	}
 
 	void WallDetection(){
-		testPlayer = GameManager.instance.GetPlayers()[0];
-		RaycastHit hit;
-		Vector3 screenPos = mainCamera.ScreenToWorldPoint (testPlayer.transform.localPosition);
-		Ray wallRayP1 = mainCamera.ScreenPointToRay (screenPos);
-		Vector3 dir = testPlayer.transform.position - mainCamera.transform.position;
-		if (Physics.Raycast (mainCamera.transform.position, dir ,out hit , Vector3.Distance(mainCamera.transform.localPosition,targets[0].localPosition))) {
-			if (hit.transform.tag == "Wall") {
-				Debug.Log ("Wall Found!");
-			} 
+			
+			RaycastHit hit;
+			GameObject[] players = new GameObject[GameManager.instance.numberOfPlayers];
+			Vector3[] screenPos = new Vector3[GameManager.instance.numberOfPlayers];
+			Ray[] wallRay = new Ray[GameManager.instance.numberOfPlayers];
+
+			for(int playerIndex = 0; playerIndex < GameManager.instance.GetPlayers().Length ; playerIndex++ ){
+			
+			players [playerIndex] = GameManager.instance.GetPlayers () [playerIndex];
+			screenPos[playerIndex] = mainCamera.ScreenToWorldPoint (players[playerIndex].transform.position);
+			wallRay[playerIndex] = mainCamera.ScreenPointToRay (screenPos[playerIndex]);
+			Vector3 dir = players[playerIndex].transform.position - mainCamera.transform.position;
+
+			if (Physics.Raycast (mainCamera.transform.position, dir ,out hit )) {
+				if (hit.transform.tag == "Wall") {
+					Debug.Log ("Wall Found!");
+					players [playerIndex].GetComponent<MeshRenderer> ().material.shader = OutlineShader;
+				} 
+			}
+			Debug.DrawRay (mainCamera.transform.position,dir,Color.green);
 		}
-		Debug.DrawRay (mainCamera.transform.position,dir,Color.green);
 	}
 }

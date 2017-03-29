@@ -93,8 +93,10 @@ public class PlayerControl : MonoBehaviour
 				Shoot ();
 				Melee ();
 				StartDashing ();
-				//DropWeapon ();
-				if (playerId == 1) {
+				DropWeapon ();
+                PickWeapon();
+
+                if (playerId == 1) {
 					//Debug.Log ("Weapon position: " + weapon.transform.position);
 				}
 			}
@@ -115,7 +117,11 @@ public class PlayerControl : MonoBehaviour
 	private void PickWeapon ()
 	{
 		if (inputManager.Pick ()) {
-		}
+            Debug.Log(playerId + " pick weapon");
+            weapon.transform.SetParent(this.gameObject.transform.FindChild("WeaponPosition"));
+            weapon.transform.position = this.gameObject.transform.FindChild("WeaponPosition").position;
+            weapon.transform.rotation = this.gameObject.transform.FindChild("WeaponPosition").rotation;
+        }
 	}
 
 	/// <summary>
@@ -336,7 +342,7 @@ public class PlayerControl : MonoBehaviour
 	public void AddStress (float stressToAdd)
 	{
 		stress = Mathf.Clamp (stress + stressToAdd, 0, maxStressValue);
-		UpdateUI ();
+        UpdateUI ();
 	}
 
 	/// <summary>

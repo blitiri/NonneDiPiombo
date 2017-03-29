@@ -19,6 +19,7 @@ public class CameraControl : MonoBehaviour
 		players = GameManager.instance.GetPlayers ();
 
 		targets = new Transform[players.Length];
+
 		for (int playerIndex=0; playerIndex < players.Length; playerIndex++) {
 			targets [playerIndex] = players [playerIndex].transform;
 		}
@@ -37,10 +38,7 @@ public class CameraControl : MonoBehaviour
 
 	private void Move ()
 	{
-		
 		FindAveragePosition ();
-
-
 		transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref moveVelocity, dampTime);
 	}
 
@@ -61,14 +59,11 @@ public class CameraControl : MonoBehaviour
 		}
 
 
-		if (numTargets > 0)
+		if (numTargets > 0) {
 			averagePos /= numTargets;
-
-
-		averagePos.y = transform.position.y;
-
-
-		desiredPosition = averagePos;
+		}
+			averagePos.y = transform.position.y;
+			desiredPosition = averagePos;
 	}
 
 
@@ -82,61 +77,38 @@ public class CameraControl : MonoBehaviour
 
 	private float FindRequiredSize ()
 	{
-		
 		Vector3 desiredLocalPos = transform.InverseTransformPoint(desiredPosition);
-
-
 		float size = 0f;
 
-	
 		for (int i = 0; i < targets.Length; i++)
 		{
-
 			if (targets [i].gameObject.activeSelf) {
-				
-
-		
 				Vector3 targetLocalPos = transform.InverseTransformPoint (targets [i].position);
-
-
 				Vector3 desiredPosToTarget = targetLocalPos - desiredLocalPos;
-
-
 				size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.y));
-
-		
 				size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.x) / mainCamera.aspect);
 			}
 		}
-
-
 		size += screenEdgeBuffer;
-
-	
 		size = Mathf.Max (size, minSize);
-
 		return size;
 	}
 
 	//da controllare da GameManager
 	public void SetStartPositionAndSize ()
 	{
-
 		FindAveragePosition ();
-
-
 		transform.position = desiredPosition;
-
-	
 		mainCamera.orthographicSize = FindRequiredSize ();
 	}
 
-	void WallDetection(){
+	public	void WallDetection(){
+			int playerNumbers = GameManager.instance.numberOfPlayers;
 			
 			RaycastHit hit;
-			GameObject[] players = new GameObject[GameManager.instance.numberOfPlayers];
-			Vector3[] screenPos = new Vector3[GameManager.instance.numberOfPlayers];
-			Ray[] wallRay = new Ray[GameManager.instance.numberOfPlayers];
+			GameObject[] players = new GameObject[playerNumbers];
+			Vector3[] screenPos = new Vector3[playerNumbers];
+			Ray[] wallRay = new Ray[playerNumbers];
 
 			for(int playerIndex = 0; playerIndex < GameManager.instance.GetPlayers().Length ; playerIndex++ ){
 			

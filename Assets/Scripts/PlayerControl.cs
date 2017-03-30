@@ -11,6 +11,7 @@ public class PlayerControl : MonoBehaviour
 	private bool isDashing;
 	public Texture2D crosshairCursor;
 	public Vector2 cursorHotSpot = new Vector2 (16, 16);
+    public Quaternion dashTransform12Rotation;
 	public GameObject bulletPrefab;
 	public Transform weaponSpawnpoint;
 	public GameObject weapon;
@@ -77,6 +78,7 @@ public class PlayerControl : MonoBehaviour
 		}
 		ResetStatus ();
 		StartCoroutine (RefillStress ());
+        dashTransform12Rotation = dashTransform.rotation;
 	}
 
 	/// <summary>
@@ -87,12 +89,12 @@ public class PlayerControl : MonoBehaviour
 		//Debug.Log ("underAttack: " + underAttack + " - stopped: " + stopped);
 		if (!underAttack) {
 			if (!stopped) {
-				CheckingEnvironment ();
 				Move ();
+                DashManaging();
+                Debug.Log(inputManager.GetMoveVector());
 				Aim ();
 				Shoot ();
 				Melee ();
-				StartDashing ();
 				DropWeapon ();
                 PickWeapon();
 
@@ -401,13 +403,23 @@ public class PlayerControl : MonoBehaviour
 	/// <summary>
 	/// Starts dashing.
 	/// </summary>
-	private void StartDashing ()
+	private void DashManaging ()
 	{
-		
+        DashCheckingEnvironment();
+        CorrectingDashDestinationRotation(dashTransform);
+        CorrectingDashDestinationRotation(dashTransform2);
 		if (inputManager.Dash ()) {
 			if (!isDashing && (stress <= maxStressValue - stressIncrease)) {
-				isDashing = true;
-				StartCoroutine (Dashing ());
+                if (!info.transform)
+                {
+                    isDashing = true;
+                    StartCoroutine(Dashing());
+                }
+                else if (Vector3.Distance(transform.position, info.transform.position) > 1.5f)
+                {
+                    isDashing = true;
+                    StartCoroutine(Dashing());
+                }
 			}
 		}
 	}
@@ -416,13 +428,13 @@ public class PlayerControl : MonoBehaviour
 	/// Checkings the environment.
 	/// </summary>
 	/// <returns><c>true</c>, if environment was checkinged, <c>false</c> otherwise.</returns>
-	private bool CheckingEnvironment ()
+	private bool DashCheckingEnvironment ()
 	{
 		Vector3 ray = transform.position;
 
-		Debug.DrawRay (ray, inputManager.GetMoveVector());
+		Debug.DrawLine (ray, new Vector3(transform.position.x + dashDistance * inputManager.player.GetAxis("Move vertical"), 0, transform.position.z + dashDistance * -inputManager.player.GetAxis("Move horizontal")), Color.blue);
 
-		if (Physics.Raycast (ray, inputManager.GetMoveVector(), out info, dashDistance, environment))
+		if (Physics.Raycast (ray, new Vector3(transform.position.x + inputManager.player.GetAxis("Move vertical"), 0, transform.position.z + -inputManager.player.GetAxis("Move horizontal")), out info, dashDistance, environment))
 			return true;
 
 		return false;
@@ -432,15 +444,15 @@ public class PlayerControl : MonoBehaviour
 	{
 		Vector3 newPosition = Vector3.zero;
 
-		if (!CheckingEnvironment ()) {
-			dashTransform.localPosition = new Vector3 (dashTransform.localPosition.x + (dashDistance * inputManager.GetMoveVector().x), dashTransform.localPosition.y, dashTransform.localPosition.z + (dashDistance * inputManager.GetMoveVector().z));
+		if (!DashCheckingEnvironment ()) {
+			dashTransform.localPosition = new Vector3 (dashTransform.localPosition.x + (dashDistance * inputManager.player.GetAxis("Move vertical")), dashTransform.localPosition.y, dashTransform.localPosition.z + (dashDistance * -inputManager.player.GetAxis("Move horizontal")));
 			newPosition = new Vector3 (dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
-		} else if (CheckingEnvironment ()) {
+		} else if (DashCheckingEnvironment ()) {
 			dashTransform.position = new Vector3 (info.point.x, dashTransform.position.y, info.point.z);
 			dashTransform.localPosition = new Vector3 (dashTransform.localPosition.x, dashTransform.localPosition.y, dashTransform.localPosition.z);
 			newPosition = new Vector3 (dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
 		}
-		while (Vector3.Distance (transform.position, newPosition) > 1) {
+		while (Vector3.Distance (transform.position, newPosition) > 1.5f) {
 			transform.position = Vector3.Lerp (transform.position, newPosition, 0.2f);
 			yield return null;
 		}
@@ -449,6 +461,11 @@ public class PlayerControl : MonoBehaviour
 		yield return new WaitForSeconds (dashTime);
 		isDashing = false;
 	}
+
+    void CorrectingDashDestinationRotation(Transform transform)
+    {
+        transform.rotation = dashTransform12Rotation;
+    }
 
 	/// <summary>
 	/// Sets the player identifier.

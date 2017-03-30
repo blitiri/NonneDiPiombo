@@ -10,7 +10,7 @@ public class InputManager
 	/// <summary>
 	/// The Rewired Player.
 	/// </summary>
-	private Player player;
+	public Player player;
 	/// <summary>
 	/// The angle correction respect to the camera.
 	/// </summary>

@@ -119,7 +119,7 @@ public class CameraControl : MonoBehaviour
 
 			if (Physics.Raycast (mainCamera.transform.position, dir ,out hit )) {
 				if (hit.transform.tag == "Wall") {
-					Debug.Log ("Wall Found!");
+//					Debug.Log ("Wall Found!");
 					players [playerIndex].GetComponent<MeshRenderer> ().material.shader = OutlineShader;
 				} 
 			}

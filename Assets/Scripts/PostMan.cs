@@ -60,7 +60,7 @@ public class PostMan : MonoBehaviour
 
         postManInversePosition = Random.Range(0,2);
 
-        Debug.Log(postManInversePosition);
+//        Debug.Log(postManInversePosition);
 
         if (postManInversePosition == 0)
         {

@@ -28,6 +28,7 @@ public class PlayerControl : MonoBehaviour
 	public float underAttackInactivityTime = 2;
 	public float maxTimeToShoot = 1.0f;
 	public int bulletDamage = 5;
+    public float dashWallDistance = 1.5f;
 	//[HideInInspector]
 	public int playerId;
 	public float stressDecreaseFactor;
@@ -51,11 +52,12 @@ public class PlayerControl : MonoBehaviour
 	private InputManager inputManager;
 	private float angleCorrection;
 	public float stressIncrease = 10;
-	private RaycastHit info;
 	public LayerMask environment;
 	public Transform dashTransform;
 	public Transform dashTransform2;
 	public float fixedAimAngleCorrection = 90;
+    [Range(0,1)]
+    public float dashSpeed = 0.1f;
 
 	public GameObject aimTargetPrefab;
 	private GameObject aimTarget;
@@ -98,7 +100,7 @@ public class PlayerControl : MonoBehaviour
 			if (!stopped) {
 				Move ();
                 DashManaging();
-                Debug.Log(inputManager.GetMoveVector());
+ //               Debug.Log(inputManager.GetMoveVector());
 				Aim ();
 				Shoot ();
 				Melee ();
@@ -115,7 +117,7 @@ public class PlayerControl : MonoBehaviour
 	private void DropWeapon ()
 	{
 		if (inputManager.Drop ()) {
-			Debug.Log (playerId + " drop weapon");
+//			Debug.Log (playerId + " drop weapon");
 			//Destroy (weapon);
 			weapon.transform.SetParent (null);
 			weapon.transform.position = transform.position;
@@ -126,7 +128,7 @@ public class PlayerControl : MonoBehaviour
 	private void PickWeapon ()
 	{
 		if (inputManager.Pick ()) {
-            Debug.Log(playerId + " pick weapon");
+//            Debug.Log(playerId + " pick weapon");
             weapon.transform.SetParent(this.gameObject.transform.FindChild("WeaponPosition"));
             weapon.transform.position = this.gameObject.transform.FindChild("WeaponPosition").position;
             weapon.transform.rotation = this.gameObject.transform.FindChild("WeaponPosition").rotation;
@@ -183,7 +185,7 @@ public class PlayerControl : MonoBehaviour
 
 				if (aimTarget != null) {
 					aimTarget.transform.position = new Vector3 (aimVector.x,transform.position.y,aimVector.z);// + transform.position;
-					Debug.Log ("aimVector=" + aimVector);
+//					Debug.Log ("aimVector=" + aimVector);
 				}
 			} else {
 				transform.forward = Vector3.Normalize (aimVector);
@@ -431,20 +433,24 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	private void DashManaging ()
 	{
-        DashCheckingEnvironment();
+        Vector3 moveVector = inputManager.GetMoveVector();
+        RaycastHit obstacleInfo;
+
+        obstacleInfo = ObstacleChecking(moveVector);
+        Debug.Log(ObstacleChecking(moveVector));
         CorrectingDashDestinationRotation(dashTransform);
         CorrectingDashDestinationRotation(dashTransform2);
 		if (inputManager.Dash ()) {
 			if (!isDashing && (stress <= maxStressValue - stressIncrease)) {
-                if (!info.transform)
+                if (!obstacleInfo.transform)
                 {
                     isDashing = true;
-                    StartCoroutine(Dashing());
+                    StartCoroutine(Dashing(moveVector, obstacleInfo));
                 }
-                else if (Vector3.Distance(transform.position, info.transform.position) > 1.5f)
+                else if (Vector3.Distance(transform.position, obstacleInfo.transform.position) > 1.5f)
                 {
                     isDashing = true;
-                    StartCoroutine(Dashing());
+                    StartCoroutine(Dashing(moveVector, obstacleInfo));
                 }
 			}
 		}
@@ -454,32 +460,37 @@ public class PlayerControl : MonoBehaviour
 	/// Checkings the environment.
 	/// </summary>
 	/// <returns><c>true</c>, if environment was checkinged, <c>false</c> otherwise.</returns>
-	private bool DashCheckingEnvironment ()
+	private RaycastHit ObstacleChecking (Vector3 moveVector)
 	{
 		Vector3 ray = transform.position;
+        Vector3 rayDirection = moveVector;
+        RaycastHit obstacleInfo;
 
-		Debug.DrawLine (ray, new Vector3(transform.position.x + dashDistance * inputManager.player.GetAxis("Move vertical"), 0, transform.position.z + dashDistance * -inputManager.player.GetAxis("Move horizontal")), Color.blue);
+        Debug.DrawRay (ray, rayDirection, Color.blue);
 
-		if (Physics.Raycast (ray, new Vector3(transform.position.x + inputManager.player.GetAxis("Move vertical"), 0, transform.position.z + -inputManager.player.GetAxis("Move horizontal")), out info, dashDistance, environment))
-			return true;
+        Physics.Raycast(ray, rayDirection, out obstacleInfo, dashDistance, environment);
 
-		return false;
+        Debug.Log("obstacleInfo: " + obstacleInfo);
+        return obstacleInfo;
 	}
 
-	private IEnumerator Dashing ()
+	private IEnumerator Dashing (Vector3 moveVector, RaycastHit obstacleInfo)
 	{
 		Vector3 newPosition = Vector3.zero;
+        float scaleProp;
 
-		if (!DashCheckingEnvironment ()) {
-			dashTransform.localPosition = new Vector3 (dashTransform.localPosition.x + (dashDistance * inputManager.player.GetAxis("Move vertical")), dashTransform.localPosition.y, dashTransform.localPosition.z + (dashDistance * -inputManager.player.GetAxis("Move horizontal")));
-			newPosition = new Vector3 (dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
-		} else if (DashCheckingEnvironment ()) {
-			dashTransform.position = new Vector3 (info.point.x, dashTransform.position.y, info.point.z);
+		if (obstacleInfo.transform == null) {
+            //			dashTransform.localPosition = new Vector3 (dashTransform.localPosition.x + (dashDistance * moveVector.x), dashTransform.localPosition.y, dashTransform.localPosition.z + (dashDistance * moveVector.z));
+            dashTransform.localPosition = -moveVector * dashDistance + dashTransform.localPosition;
+            newPosition = dashTransform.position;
+		} else {
+            dashTransform.position = new Vector3 (obstacleInfo.point.x, dashTransform.position.y, obstacleInfo.point.z);
 			dashTransform.localPosition = new Vector3 (dashTransform.localPosition.x, dashTransform.localPosition.y, dashTransform.localPosition.z);
-			newPosition = new Vector3 (dashTransform.position.x, dashTransform.position.y, dashTransform.position.z);
+            scaleProp = (dashTransform.position.magnitude - dashWallDistance) / dashTransform.position.magnitude;
+            newPosition = Vector3.Scale(dashTransform.position, new Vector3(scaleProp, scaleProp, scaleProp));
 		}
 		while (Vector3.Distance (transform.position, newPosition) > 1.5f) {
-			transform.position = Vector3.Lerp (transform.position, newPosition, 0.2f);
+			transform.position = Vector3.Lerp (transform.position, newPosition, dashSpeed);
 			yield return null;
 		}
 		dashTransform.localPosition = dashTransform2.localPosition;

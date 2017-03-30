@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
 		for (playerIndex = 0; playerIndex < numberOfPlayers; playerIndex++) {
 			players [playerIndex] = Instantiate (playersPrefabs [playerIndex % playersPrefabs.Length]) as GameObject;
 			players [playerIndex].transform.position = playersStartRespawns [playerIndex].position;
+			Debug.Log ("Player Position" + players [playerIndex].transform.position);
 			playersControls [playerIndex] = players [playerIndex].GetComponent<PlayerControl> ();
 			playersControls [playerIndex].SetPlayerId (playerIndex);
 			playersControls [playerIndex].SetAngleCorrection (cameraTransform.rotation.eulerAngles.y);

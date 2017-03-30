@@ -20,6 +20,7 @@ public class InputManager
 	/// </summary>
 	private Transform playerTransform;
 
+	private Plane aimPlane;
 	/// <summary>
 	/// Initializes a new instance of the <see cref="InputManager"/> class.
 	/// </summary>
@@ -28,6 +29,7 @@ public class InputManager
 	/// <param name="angleCorrection">Angle correction respect to the camera.</param>
 	public InputManager (int playerId, Transform playerTransform, float angleCorrection)
 	{
+		aimPlane = new Plane (Vector3.up, Vector3.zero);
 		player = ReInput.players.GetPlayer (playerId);
 		this.playerTransform = playerTransform;
 		this.angleCorrection = angleCorrection;
@@ -50,7 +52,7 @@ public class InputManager
 	{
 		Vector3 moveVector;
 
-		moveVector = new Vector3 (player.GetAxis ("Move vertical"), 0, -player.GetAxis ("Move horizontal"));
+		moveVector = new Vector3 (player.GetAxis ("Move horizontal"), 0, player.GetAxis ("Move vertical"));
 		return CorrectAngle (moveVector);
 	}
 
@@ -63,30 +65,18 @@ public class InputManager
 		Vector3 aimVector;
 
 		aimVector = Vector3.zero;
-		if (!HasMouse ()) {
+		if (HasMouse ()) {
+			Ray aimRay = Camera.main.ScreenPointToRay (Input.mousePosition);
+			float targetDistance;
+			if(aimPlane.Raycast(aimRay,out targetDistance)){
+				aimVector = aimRay.GetPoint(targetDistance);
+			}
+		} else {
 			aimVector.z = -player.GetAxis ("Aim horizontal");
 			aimVector.x = player.GetAxis ("Aim vertical");
+			aimVector = CorrectAngle (aimVector);
 		}
-		return CorrectAngle (aimVector);
-	}
-
-	/// <summary>
-	/// Gets the player's aim angle.
-	/// </summary>
-	/// <returns>The aim angle.</returns>
-	public float GetAimAngle ()
-	{
-		Vector3 playerScreenPosition;
-		Vector3 forwardDirection;
-		float aimAngle;
-
-		aimAngle = 0;
-		if (HasMouse ()) {
-			playerScreenPosition = Camera.main.WorldToScreenPoint (playerTransform.position);
-			forwardDirection = Input.mousePosition - playerScreenPosition;
-			aimAngle = -Mathf.Atan2 (forwardDirection.y, forwardDirection.x) * Mathf.Rad2Deg + angleCorrection + 110 + Camera.main.transform.rotation.eulerAngles.y;
-		}
-		return aimAngle;
+		return aimVector;
 	}
 
 	/// <summary>
@@ -135,6 +125,11 @@ public class InputManager
 	/// <returns>Corrected direction.</returns>
 	/// <param name="direction">Direction to correct.</param>
 	private Vector3 CorrectAngle (Vector3 direction)
+	{
+		return CorrectAngle (direction, angleCorrection);
+	}
+
+	private Vector3 CorrectAngle (Vector3 direction, float angleCorrection)
 	{
 		return Quaternion.AngleAxis (angleCorrection, Vector3.up) * direction;
 	}

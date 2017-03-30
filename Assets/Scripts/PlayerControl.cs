@@ -57,11 +57,16 @@ public class PlayerControl : MonoBehaviour
 	public Transform dashTransform2;
 	public float fixedAimAngleCorrection = 90;
 
+	public GameObject aimTargetPrefab;
+	private GameObject aimTarget;
 	/// <summary>
 	/// Awake this instance.
 	/// </summary>
 	void Awake ()
 	{
+		if (aimTargetPrefab != null) {
+			aimTarget = Instantiate (aimTargetPrefab) as GameObject;
+		}
 		rb = GetComponent<Rigidbody> ();
 		ani = GetComponent<Animator> ();
 	}
@@ -86,6 +91,8 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	void Update ()
 	{
+
+		transform.position = new Vector3(transform.position.x,0,transform.position.z); 
 		//Debug.Log ("underAttack: " + underAttack + " - stopped: " + stopped);
 		if (!underAttack) {
 			if (!stopped) {
@@ -161,15 +168,34 @@ public class PlayerControl : MonoBehaviour
 	private void Aim ()
 	{
 		Vector3 aimVector;
-		float aimAngle;
+
 
 		aimVector = inputManager.GetAimVector ();
-		aimAngle = inputManager.GetAimAngle ();
+
+		if (aimVector != Vector3.zero) {
+
+			if (inputManager.HasMouse ()) {
+				//Correzione aimvector per modello girato.
+				aimVector -= transform.position;
+				aimVector = Quaternion.Euler (new Vector3 (0,90,0)) * aimVector;
+				aimVector += transform.position; 
+				transform.LookAt (aimVector);
+
+				if (aimTarget != null) {
+					aimTarget.transform.position = new Vector3 (aimVector.x,transform.position.y,aimVector.z);// + transform.position;
+					Debug.Log ("aimVector=" + aimVector);
+				}
+			} else {
+				transform.forward = Vector3.Normalize (aimVector);
+			}
+		}
+
+		/*aimAngle = inputManager.GetAimAngle ();
 		if (aimVector != Vector3.zero) {
 			transform.forward = Vector3.Normalize (aimVector);
 		} else if (aimAngle != 0) {
 			transform.rotation = Quaternion.AngleAxis (aimAngle, Vector3.up); 
-		}
+		}*/
 	}
 
 	/// <summary>
@@ -237,7 +263,7 @@ public class PlayerControl : MonoBehaviour
 			bullet.transform.position = weaponSpawnpoint.position;
 			bullet.tag = bulletTagPrefix + gameObject.tag;
 			bulletRigidbody = bullet.GetComponent<Rigidbody> ();
-			bulletRigidbody.AddForce (weaponSpawnpoint.transform.forward * bulletInitialForce, ForceMode.Impulse);
+			bulletRigidbody.AddForce (weaponSpawnpoint.transform.up * bulletInitialForce, ForceMode.Impulse);
 			Destroy (bullet, bulletLifeTime);
 			ammo--;
 			stress += weaponStressDamage;

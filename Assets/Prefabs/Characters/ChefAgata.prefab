@@ -130,7 +130,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011503083726}
   m_LocalRotation: {x: 0.50000006, y: 0.49999997, z: -0.49999997, w: 0.50000006}
-  m_LocalPosition: {x: 0.4, y: 0.157, z: 0.018}
+  m_LocalPosition: {x: 0.577, y: 0.157, z: 0.018}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -183,7 +183,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014269800522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.3947427, y: 0.6, z: 10.862747}
+  m_LocalPosition: {x: 14.190222, y: 0.00067736, z: -14.593119}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -321,23 +321,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crosshairCursor: {fileID: 2800000, guid: 129a1bd82137d4d6cacaf680296e0622, type: 3}
   cursorHotSpot: {x: 16, y: 16}
+  dashTransform12Rotation: {x: 0, y: 0, z: 0, w: 0}
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}
   weaponSpawnpoint: {fileID: 4000011734779096}
   weapon: {fileID: 1000011209484526, guid: 951781682cf6f9e439ef3e848f269ff0, type: 2}
-  startingAmmo: 20
+  startingAmmo: 100
   startingLife: 100
   startingStress: 0
   maxAmmoValue: 20
   maxLifeValue: 100
   maxStressValue: 100
   speed: 5
-  rotSpeed: 2
+  rotSpeed: 4
   bulletLifeTime: 4
-  bulletInitialForce: 5
+  bulletInitialForce: 20
   underAttackInactivityTime: 2
-  maxTimeToShoot: 1
+  maxTimeToShoot: 0.3
   bulletDamage: 5
+  dashWallDistance: 1.5
   playerId: 0
   stressDecreaseFactor: 0
   timerToRefillStress: 0
@@ -351,5 +353,6 @@ MonoBehaviour:
   dashTransform: {fileID: 4000013182341840}
   dashTransform2: {fileID: 4000013302955986}
   fixedAimAngleCorrection: 90
+  dashSpeed: 0.1
   aimTargetPrefab: {fileID: 1000011459376362, guid: 96f8777008367b2439be448a2124cbdd,
     type: 2}

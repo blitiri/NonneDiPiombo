@@ -108,7 +108,7 @@ public class InputManager
 	/// </summary>
 	public bool Shoot ()
 	{
-		return player.GetButtonDown ("Shoot");
+		return player.GetButton ("Shoot");
 	}
 
 	/// <summary>

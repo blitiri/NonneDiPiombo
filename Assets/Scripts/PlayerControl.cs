@@ -80,7 +80,6 @@ public class PlayerControl : MonoBehaviour
 	{
 		inputManager = new InputManager (playerId, transform, angleCorrection);
 		if (inputManager.HasMouse ()) {
-			Cursor.visible = false;
 			Cursor.SetCursor (crosshairCursor, cursorHotSpot, CursorMode.Auto);
 		}
 		ResetStatus ();
@@ -170,27 +169,31 @@ public class PlayerControl : MonoBehaviour
 	private void Aim ()
 	{
 		Vector3 aimVector;
+		if (Time.timeScale > 0) {
+			
+
+			aimVector = inputManager.GetAimVector ();
+
+			if (aimVector != Vector3.zero) {
+
+				if (inputManager.HasMouse ()) {
+					//Correzione aimvector per modello girato.
+					aimVector -= transform.position;
+					aimVector = Quaternion.Euler (new Vector3 (0, 90, 0)) * aimVector;
+					aimVector += transform.position; 
+					transform.LookAt (aimVector);
 
 
-		aimVector = inputManager.GetAimVector ();
-
-		if (aimVector != Vector3.zero) {
-
-			if (inputManager.HasMouse ()) {
-				//Correzione aimvector per modello girato.
-				aimVector -= transform.position;
-				aimVector = Quaternion.Euler (new Vector3 (0,90,0)) * aimVector;
-				aimVector += transform.position; 
-				transform.LookAt (aimVector);
-
-				if (aimTarget != null) {
-					aimTarget.transform.position = new Vector3 (aimVector.x,transform.position.y,aimVector.z);// + transform.position;
+					if (aimTarget != null) {
+						aimTarget.transform.position = new Vector3 (aimVector.x, transform.position.y, aimVector.z);// + transform.position;
 //					Debug.Log ("aimVector=" + aimVector);
+					}
+				} else {
+					transform.forward = Vector3.Normalize (aimVector);
 				}
-			} else {
-				transform.forward = Vector3.Normalize (aimVector);
 			}
 		}
+	}
 
 		/*aimAngle = inputManager.GetAimAngle ();
 		if (aimVector != Vector3.zero) {
@@ -198,7 +201,7 @@ public class PlayerControl : MonoBehaviour
 		} else if (aimAngle != 0) {
 			transform.rotation = Quaternion.AngleAxis (aimAngle, Vector3.up); 
 		}*/
-	}
+	
 
 	/// <summary>
 	/// Executes a melee attack against other connected players
@@ -307,7 +310,7 @@ public class PlayerControl : MonoBehaviour
 	{
 		//Debug.Log ("Tag:" + other.gameObject.tag + " Prefix:" + bulletTagPrefix + " Result:" +  other.gameObject.tag.StartsWith (bulletTagPrefix));
 		
-		if (other.gameObject.tag.StartsWith (bulletTagPrefix)) {
+		if (other.gameObject.tag.StartsWith (bulletTagPrefix) && !other.gameObject.tag.EndsWith (playerId.ToString()) ) {
 			Debug.Log ("Trigger detected: " + other.gameObject.tag);
 			AddDamage (bulletDamage, other.gameObject.tag);
 			Destroy (other.gameObject);

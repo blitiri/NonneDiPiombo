@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 	private int killerBonus = 2;
 	private GameObject[] players;
 
+	public static bool active;
 	void Awake ()
 	{
 		int playerIndex;
@@ -181,7 +182,7 @@ public class GameManager : MonoBehaviour
 				Destroy (pauseScreen.GetComponent<TweenAlpha> ());
 				SetButtonsEnabled (false);
 			}
-
+			
 			Time.timeScale = 0;
 		} else if (isPaused == false) {
 			if (Input.GetKeyDown (KeyCode.Escape)) {

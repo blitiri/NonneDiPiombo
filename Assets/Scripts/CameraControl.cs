@@ -7,6 +7,7 @@ public class CameraControl : MonoBehaviour
 	public float minSize = 6.5f;       
     public Transform[] targets; 
 	public Shader OutlineShader;
+	public Shader StandardShader;
 
 	private Camera mainCamera;                        
 	private float zoomSpeed;                      
@@ -121,7 +122,9 @@ public class CameraControl : MonoBehaviour
 				if (hit.transform.tag == "Wall") {
 //					Debug.Log ("Wall Found!");
 					players [playerIndex].GetComponent<MeshRenderer> ().material.shader = OutlineShader;
-				} 
+				} else {
+					players [playerIndex].GetComponent<MeshRenderer> ().material.shader = StandardShader;
+				}
 			}
 			Debug.DrawRay (mainCamera.transform.position,dir,Color.green);
 		}

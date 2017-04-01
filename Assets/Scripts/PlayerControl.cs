@@ -219,6 +219,7 @@ public class PlayerControl : MonoBehaviour
 		} else if (aimAngle != 0) {
 			transform.rotation = Quaternion.AngleAxis (aimAngle, Vector3.up); 
 		}*/
+<<<<<<< HEAD
     }
 
     /// <summary>
@@ -473,6 +474,246 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     private void DashManaging()
     {
+=======
+	}
+
+	/// <summary>
+	/// Executes a melee attack against other connected players
+	/// </summary>
+	private void Melee ()
+	{
+		PlayerControl control;
+
+		if ((otherConnectedPlayers.Count > 0) && inputManager.Melee ()) {
+			//Debug.Log ("Contacted players: " + otherConnectedPlayers.Count + " - Melee: " + melee);
+			foreach (GameObject otherPlayer in otherConnectedPlayers) {  
+				control = otherPlayer.GetComponent<PlayerControl> ();
+				control.Attacked (20, gameObject.tag);
+			}
+			AddStress (stressIncrease);
+			UpdateUI ();
+		}
+	}
+
+	/// <summary>
+	/// Notifies player is under attack by another.
+	/// </summary>
+	/// <param name="damage">Attack damage.</param>
+	public void Attacked (int damage, string killerTag)
+	{
+		underAttack = true;
+		StartCoroutine (AttackAnimation (damage, killerTag));
+	}
+
+	/// <summary>
+	/// Coroutine to show attack animation.
+	/// </summary>
+	/// <returns>The animation.</returns>
+	/// <param name="damage">Attack damage.</param>
+	IEnumerator AttackAnimation (int damage, string killerTag)
+	{
+		Vector3 animation;
+		float startTime;
+
+		animation = new Vector3 (0.2f, 0, 0);
+		startTime = Time.time;
+		while (Time.time - startTime < underAttackInactivityTime) {
+			transform.Translate (animation);
+			yield return null;
+			animation = -animation;
+		}
+		AddDamage (damage, killerTag);
+		underAttack = false;
+	}
+
+	/// <summary>
+	/// Executes a shoot attack against other connected players
+	/// </summary>
+	private void Shoot ()
+	{
+		GameObject bullet;
+		Rigidbody bulletRigidbody;
+
+		if (timerToShoot < maxTimeToShoot) {
+			timerToShoot += Time.deltaTime;
+		} else if ((ammo > 0) && inputManager.Shoot ()) {
+			bullet = Instantiate (bulletPrefab) as GameObject;
+			bullet.transform.rotation = weaponSpawnpoint.transform.rotation;
+			bullet.transform.position = weaponSpawnpoint.position;
+			bullet.tag = bulletTagPrefix + gameObject.tag;
+			bulletRigidbody = bullet.GetComponent<Rigidbody> ();
+			bulletRigidbody.AddForce (weaponSpawnpoint.transform.up * bulletInitialForce, ForceMode.Impulse);
+			Destroy (bullet, bulletLifeTime);
+			ammo--;
+			stress += weaponStressDamage;
+			timerToShoot = 0.0f;
+			UpdateUI ();
+		}
+	}
+
+	/// <summary>
+	/// Detects a collision enter with another player
+	/// </summary>
+	/// <param name="collision">Collision.</param>
+	void OnCollisionEnter (Collision collision)
+	{
+		//Debug.Log ("Collision enter detected: " + collision.gameObject.tag);
+		if (collision.gameObject.tag.StartsWith (playerTagPrefix)) {
+			otherConnectedPlayers.Add (collision.gameObject);
+		}
+
+	}
+
+	/// <summary>
+	/// Detects a collision exit with another player
+	/// </summary>
+	/// <param name="collision">Collision.</param>
+	void OnCollisionExit (Collision collision)
+	{
+		//Debug.Log ("Collision exit detected: " + collision.gameObject.tag);
+		if (collision.gameObject.tag.StartsWith (playerTagPrefix)) {
+			otherConnectedPlayers.Remove (collision.gameObject);
+		}
+	}
+
+	/// <summary>
+	/// Detects a trigger enter with a bullet
+	/// </summary>
+	/// <param name="other">Collider.</param>
+	void OnTriggerEnter (Collider other)
+	{
+		//Debug.Log ("Tag:" + other.gameObject.tag + " Prefix:" + bulletTagPrefix + " Result:" +  other.gameObject.tag.StartsWith (bulletTagPrefix));
+		
+		if (other.gameObject.tag.StartsWith (bulletTagPrefix)) {
+			Debug.Log ("Trigger detected: " + other.gameObject.tag);
+			AddDamage (bulletDamage, other.gameObject.tag);
+			Destroy (other.gameObject);
+		}
+	}
+
+	/// <summary>
+	/// Adds the damage.
+	/// </summary>
+	/// <param name="damage">Damage.</param>
+	/// <param name="killerTag">Killer tag.</param>
+	private void AddDamage (int damage, string killerTag)
+	{
+		life -= bulletDamage;
+		if (life <= 0) {
+			life = 0;
+			GameManager.instance.PlayerKilled (GetPlayerId (gameObject.tag), GetPlayerId (killerTag));
+		}
+		UpdateUI ();
+	}
+
+	/// <summary>
+	/// Gets the player identifier from player tag.
+	/// </summary>
+	/// <returns>The player identifier.</returns>
+	/// <param name="playerTag">Player tag. Manage both player tag and bullet player tag</param>
+	private int GetPlayerId (string playerTag)
+	{
+		if (playerTag.StartsWith (bulletTagPrefix)) {
+			playerTag = playerTag.Substring (bulletTagPrefix.Length);
+		}
+		return int.Parse (playerTag.Substring (playerTagPrefix.Length));
+	}
+
+	/// <summary>
+	/// Adds the ammo to the player.
+	/// </summary>
+	/// <param name="ammo">Ammo.</param>
+	public void AddAmmo (int ammo)
+	{
+		this.ammo += ammo;
+		if (this.ammo > maxAmmoValue) {
+			this.ammo = maxAmmoValue;
+		}
+		UpdateUI ();
+	}
+
+	/// <summary>
+	/// Adds the life to the player.
+	/// </summary>
+	/// <param name="life">Life.</param>
+	public void AddLife (int life)
+	{
+		this.life += life;
+		if (life > maxLifeValue) {
+			life = maxLifeValue;
+		}
+		UpdateUI ();
+	}
+
+	/// <summary>
+	/// Adds the stress.
+	/// </summary>
+	/// <param name="stressAdd">Stress to add.</param>
+	public void AddStress (float stressToAdd)
+	{
+		stress = Mathf.Clamp (stress + stressToAdd, 0, maxStressValue);
+        UpdateUI ();
+	}
+
+	/// <summary>
+	/// Gets the player's life.
+	/// </summary>
+	/// <returns>The life.</returns>
+	public int GetLife ()
+	{
+		return life;
+	}
+
+	/// <summary>
+	/// Gets the player's stress.
+	/// </summary>
+	/// <returns>The stress.</returns>
+	public float GetStress ()
+	{
+		return stress;
+	}
+
+	/// <summary>
+	/// Determines whether the player is under attack.
+	/// </summary>
+	/// <returns><c>true</c> if this instance is under attack; otherwise, <c>false</c>.</returns>
+	public bool IsUnderAttack ()
+	{
+		return underAttack;
+	}
+
+	/// <summary>
+	/// Updates the UI with player's statistics.
+	/// </summary>
+	private void UpdateUI ()
+	{
+		// Cast to float is required to avoid an integer division
+		UIManager.instance.SetLife ((float)life / maxLifeValue, playerId);
+		// Cast to float is required to avoid an integer division
+		UIManager.instance.SetStress (stress / maxStressValue, playerId);
+		UIManager.instance.SetMaxAmmo (maxAmmoValue, playerId);
+		UIManager.instance.SetAmmo (ammo, playerId);
+	}
+
+	/// <summary>
+	/// Refills the stress.
+	/// </summary>
+	/// <returns>The stress.</returns>
+	IEnumerator RefillStress ()
+	{
+		while (stress < 100) {
+			yield return new WaitForSeconds (timerToRefillStress);
+			stress = Mathf.Clamp (stress - stressDecreaseFactor, 0, maxStressValue);
+			UpdateUI ();
+		}
+	}
+
+	/// <summary>
+	/// Starts dashing.
+	/// </summary>
+	private void DashManaging ()
+	{
+>>>>>>> 7fd82b24da7e432a9951f28dec3ddbe9db43765a
         Vector3 moveVector = inputManager.GetMoveVector();
 
         ObstacleChecking(moveVector);

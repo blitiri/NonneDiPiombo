@@ -473,7 +473,7 @@ public class PlayerControl : MonoBehaviour
 	private void DashManaging ()
 	{
         Vector3 moveVector = inputManager.GetMoveVector();
-
+		Debug.Log (moveVector.magnitude);
         ObstacleChecking(moveVector);
         isObstacle = ObstacleChecking(moveVector);
         //        Debug.Log(obstacleInfo.transform);
@@ -495,8 +495,9 @@ public class PlayerControl : MonoBehaviour
     /// <returns><c>true</c>, if environment was checkinged, <c>false</c> otherwise.</returns>
     	private bool ObstacleChecking (Vector3 moveVector)
         {
+			float rayy = 0.1f;
             bool result = false;
-            Vector3 ray = transform.position;
+			Vector3 ray = new Vector3 (transform.position.x, rayy, transform.position.z);
             Vector3 rayDirection = moveVector;
     //        RaycastHit obstacleInfo;
 
@@ -525,7 +526,14 @@ public class PlayerControl : MonoBehaviour
         while (dashDone < dashLength && isDashing && !isObstacle)
         {
 			Debug.Log ("isObstacle" + isObstacle);
-            transform.localPosition += dashSpeed * Time.deltaTime * moveVector; //= new Vector3(transform.localPosition.x + dashSpeed * Time.deltaTime * moveVector.x, transform.localPosition.y, transform.localPosition.z + dashSpeed * Time.deltaTime * moveVector.z);
+			if (moveVector.magnitude > 0)
+			{
+				transform.localPosition += dashSpeed * Time.deltaTime * moveVector; //= new Vector3(transform.localPosition.x + dashSpeed * Time.deltaTime * moveVector.x, transform.localPosition.y, transform.localPosition.z + dashSpeed * Time.deltaTime * moveVector.z);
+			}
+			else
+			{
+		//		transform.localPosition += dashSpeed * Time.deltaTime * new Vector3(movevec
+			}
                                                                                 //                Debug.Log(moveVector);
             dashDone += dashSpeed * Time.deltaTime;
             yield return null;

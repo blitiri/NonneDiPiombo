@@ -108,7 +108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4000010677937232
 Transform:
   m_ObjectHideFlags: 1
@@ -183,7 +183,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014269800522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.016443, y: 0, z: -15.484434}
+  m_LocalPosition: {x: -3, y: 0, z: 5.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -353,9 +353,9 @@ MonoBehaviour:
   dashTransform: {fileID: 4000013182341840}
   dashTransform2: {fileID: 4000013302955986}
   fixedAimAngleCorrection: 90
-  dashSpeed: 10
+  dashSpeed: 30
   dashLength: 5
-  playerObstacleDistanceLimit: 0
+  playerObstacleDistanceLimit: 2
   isObstacle: 0
   aimTargetPrefab: {fileID: 1000011459376362, guid: 96f8777008367b2439be448a2124cbdd,
     type: 2}

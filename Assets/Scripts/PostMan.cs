@@ -88,7 +88,7 @@ public class PostMan : MonoBehaviour
                     pathIndex++;
                 }
 
-				Debug.Log (pathIndex);
+//				Debug.Log (pathIndex);
 
 				if (postManStartPositionIsInvert == true && pathIndex == 1 ) 
 				{

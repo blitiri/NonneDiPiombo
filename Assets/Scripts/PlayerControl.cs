@@ -61,6 +61,7 @@ public class PlayerControl : MonoBehaviour
     //   public float dashSpeed = 0.1f;
     public float dashSpeed = 10;
     public float dashLength = 5;
+	[Range(0,100)]
     public float playerObstacleDistanceLimit;
     public bool isObstacle = false;
 
@@ -114,7 +115,7 @@ public class PlayerControl : MonoBehaviour
                 Melee();
                 DropWeapon();
                 PickWeapon();
-                Debug.Log(isDashing);
+				Debug.Log("isDashing: " + isDashing);
 
                 if (playerId == 1)
                 {
@@ -503,7 +504,7 @@ public class PlayerControl : MonoBehaviour
             Vector3 rayDirection = moveVector;
     //        RaycastHit obstacleInfo;
 
-    //        Debug.DrawRay (ray, rayDirection, Color.blue);
+            Debug.DrawRay (ray, rayDirection, Color.blue);
 
             if (Physics.Raycast(ray, rayDirection, playerObstacleDistanceLimit, environment))
             {
@@ -513,8 +514,8 @@ public class PlayerControl : MonoBehaviour
             {
                 result = false;
             }
+			Debug.Log("result: " + result);
             return result;
-    //        Debug.Log("obstacleInfo: " + obstacleInfo);
         }
     
     private IEnumerator Dashing(Vector3 moveVector)

@@ -13,8 +13,9 @@ public class PlayerControl : MonoBehaviour
     public Vector2 cursorHotSpot = new Vector2(16, 16);
     public Quaternion dashTransform12Rotation;
     public GameObject bulletPrefab;
-    public Transform weaponSpawnpoint;
-    public GameObject weapon;
+    public Transform bulletSpawnPoint;
+    public GameObject revolver;
+    public GameObject uzi;
     public int startingAmmo = 20;
     public int startingLife = 100;
     public int startingStress = 0;
@@ -65,6 +66,10 @@ public class PlayerControl : MonoBehaviour
     public float playerObstacleDistanceLimit;
     public bool isObstacle = false;
 
+    private Hashtable weapons;
+    private string selectedWeapon;
+    private string defaultweapon = "Revolver";
+
     public GameObject aimTargetPrefab;
     private GameObject aimTarget;
     /// <summary>
@@ -72,6 +77,13 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     void Awake()
     {
+        weapons = new Hashtable();
+        foreach (Transform child in transform)
+        {
+            weapons.Add(child.gameObject.tag, child.gameObject);
+        }
+        SetActiveWeapons(defaultweapon);
+
         if (aimTargetPrefab != null)
         {
             aimTarget = Instantiate(aimTargetPrefab) as GameObject;
@@ -114,13 +126,7 @@ public class PlayerControl : MonoBehaviour
                 Shoot();
                 Melee();
                 DropWeapon();
-                PickWeapon();
 				Debug.Log("isDashing: " + isDashing);
-
-                if (playerId == 1)
-                {
-                    //Debug.Log ("Weapon position: " + weapon.transform.position);
-                }
             }
         }
     }
@@ -129,24 +135,16 @@ public class PlayerControl : MonoBehaviour
     {
         if (inputManager.Drop())
         {
-            //			Debug.Log (playerId + " drop weapon");
-            //Destroy (weapon);
-            weapon.transform.SetParent(null);
-            weapon.transform.position = transform.position;
-            //Debug.Log ("Assigned weapon position: " + weapon.transform.position);
+            if (selectedWeapon == "Uzi")
+            {
+                Instantiate(uzi, transform.position, Quaternion.identity);
+            }
+
+            SetActiveWeapons(defaultweapon);
         }
     }
 
-    private void PickWeapon()
-    {
-        if (inputManager.Pick())
-        {
-            //            Debug.Log(playerId + " pick weapon");
-            weapon.transform.SetParent(this.gameObject.transform.FindChild("WeaponPosition"));
-            weapon.transform.position = this.gameObject.transform.FindChild("WeaponPosition").position;
-            weapon.transform.rotation = this.gameObject.transform.FindChild("WeaponPosition").rotation;
-        }
-    }
+   
 
     /// <summary>
     /// Resets the player status.
@@ -284,11 +282,11 @@ public class PlayerControl : MonoBehaviour
         else if ((ammo > 0) && inputManager.Shoot())
         {
             bullet = Instantiate(bulletPrefab) as GameObject;
-            bullet.transform.rotation = weaponSpawnpoint.transform.rotation;
-            bullet.transform.position = weaponSpawnpoint.position;
+            bullet.transform.rotation = bulletSpawnPoint.transform.rotation;
+            bullet.transform.position = bulletSpawnPoint.position;
             bullet.tag = bulletTagPrefix + gameObject.tag;
             bulletRigidbody = bullet.GetComponent<Rigidbody>();
-            bulletRigidbody.AddForce(weaponSpawnpoint.transform.up * bulletInitialForce, ForceMode.Impulse);
+            bulletRigidbody.AddForce(bulletSpawnPoint.transform.up * bulletInitialForce, ForceMode.Impulse);
             Destroy(bullet, bulletLifeTime);
             ammo--;
             stress += weaponStressDamage;
@@ -344,6 +342,28 @@ public class PlayerControl : MonoBehaviour
 			}
 		}
 	}
+
+    /// <summary>
+    /// Detects a trigger enter with a weapon
+    /// </summary>
+    /// <param name="other">Collider.</param>
+    void OnTriggerStay(Collider other)
+    {
+        if (inputManager.Pick())
+        {
+
+            foreach (Transform child in transform)
+            {
+                if (other.tag == child.tag)
+                {
+                    SetActiveWeapons(other.tag);
+                    Destroy(other.gameObject);
+                }
+            }
+        }
+
+    }
+
     /// <summary>
     /// Adds the damage.
     /// </summary>
@@ -587,4 +607,14 @@ void CorrectingDashDestinationRotation(Transform desiredTransform)
 	{
 	    this.angleCorrection = angleCorrection;
 	}
+
+    private void SetActiveWeapons(string weapon)
+    {
+        if (selectedWeapon != null)
+        {
+            ((GameObject)weapons[selectedWeapon]).SetActive(false);
+        }
+       ((GameObject)weapons[weapon]).SetActive(true);
+        selectedWeapon = weapon;
+    }
 }

@@ -186,7 +186,7 @@ public class PlayerControl : MonoBehaviour
     {
         Vector3 aimVector;
 
-		if (Time.timeScale > 0) {
+		if (Time.timeScale > 0 && Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0 || inputManager.player.GetAxis("Aim horizontal") != 0 ||inputManager.player.GetAxis("Aim vertical") != 0) {
 			aimVector = inputManager.GetAimVector ();
 
 			if (aimVector != Vector3.zero) {

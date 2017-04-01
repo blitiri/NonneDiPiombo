@@ -108,7 +108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4000010677937232
 Transform:
   m_ObjectHideFlags: 1
@@ -130,7 +130,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011503083726}
   m_LocalRotation: {x: 0.50000006, y: 0.49999997, z: -0.49999997, w: 0.50000006}
-  m_LocalPosition: {x: 0.4, y: 0.157, z: 0.018}
+  m_LocalPosition: {x: 0.552, y: 0.157, z: 0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -183,7 +183,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014269800522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 0, z: 5.6}
+  m_LocalPosition: {x: 15.016443, y: 4.9, z: -15.484434}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -326,25 +326,25 @@ MonoBehaviour:
     type: 2}
   weaponSpawnpoint: {fileID: 4000011734779096}
   weapon: {fileID: 1000011209484526, guid: 951781682cf6f9e439ef3e848f269ff0, type: 2}
-  startingAmmo: 20
+  startingAmmo: 100
   startingLife: 100
   startingStress: 0
   maxAmmoValue: 20
   maxLifeValue: 100
   maxStressValue: 100
-  speed: 5
+  speed: 6
   rotSpeed: 2
   bulletLifeTime: 4
-  bulletInitialForce: 5
+  bulletInitialForce: 10
   underAttackInactivityTime: 2
-  maxTimeToShoot: 1
+  maxTimeToShoot: 0.5
   bulletDamage: 5
   dashWallDistance: 1.5
   playerId: 0
   stressDecreaseFactor: 0
   timerToRefillStress: 0
   weaponStressDamage: 0
-  dashTime: 3
+  dashTime: 0
   dashDistance: 10
   stressIncrease: 10
   environment:
@@ -355,5 +355,7 @@ MonoBehaviour:
   fixedAimAngleCorrection: 90
   dashSpeed: 10
   dashLength: 5
+  playerObstacleDistanceLimit: 0
+  isObstacle: 0
   aimTargetPrefab: {fileID: 1000011459376362, guid: 96f8777008367b2439be448a2124cbdd,
     type: 2}

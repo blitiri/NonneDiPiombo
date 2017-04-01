@@ -284,6 +284,7 @@ public class PlayerControl : MonoBehaviour
 		if (collision.gameObject.tag.StartsWith (playerTagPrefix)) {
 			otherConnectedPlayers.Add (collision.gameObject);
 		}
+
 	}
 
 	/// <summary>
@@ -304,8 +305,10 @@ public class PlayerControl : MonoBehaviour
 	/// <param name="other">Collider.</param>
 	void OnTriggerEnter (Collider other)
 	{
-		//Debug.Log ("Trigger detected: " + other.gameObject.tag);
-		if (other.gameObject.name.StartsWith (bulletTagPrefix)) {
+		//Debug.Log ("Tag:" + other.gameObject.tag + " Prefix:" + bulletTagPrefix + " Result:" +  other.gameObject.tag.StartsWith (bulletTagPrefix));
+		
+		if (other.gameObject.tag.StartsWith (bulletTagPrefix)) {
+			Debug.Log ("Trigger detected: " + other.gameObject.tag);
 			AddDamage (bulletDamage, other.gameObject.tag);
 			Destroy (other.gameObject);
 		}

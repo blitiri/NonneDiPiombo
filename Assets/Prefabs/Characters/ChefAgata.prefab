@@ -108,7 +108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4000010677937232
 Transform:
   m_ObjectHideFlags: 1
@@ -183,7 +183,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014269800522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.3947427, y: 0.6, z: 10.862747}
+  m_LocalPosition: {x: -3, y: 0, z: 5.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -321,6 +321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crosshairCursor: {fileID: 2800000, guid: 129a1bd82137d4d6cacaf680296e0622, type: 3}
   cursorHotSpot: {x: 16, y: 16}
+  dashTransform12Rotation: {x: 0, y: 0, z: 0, w: 0}
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}
   weaponSpawnpoint: {fileID: 4000011734779096}
@@ -338,11 +339,12 @@ MonoBehaviour:
   underAttackInactivityTime: 2
   maxTimeToShoot: 1
   bulletDamage: 5
+  dashWallDistance: 1.5
   playerId: 0
   stressDecreaseFactor: 0
   timerToRefillStress: 0
   weaponStressDamage: 0
-  dashTime: 0
+  dashTime: 3
   dashDistance: 10
   stressIncrease: 10
   environment:
@@ -351,5 +353,7 @@ MonoBehaviour:
   dashTransform: {fileID: 4000013182341840}
   dashTransform2: {fileID: 4000013302955986}
   fixedAimAngleCorrection: 90
+  dashSpeed: 10
+  dashLength: 5
   aimTargetPrefab: {fileID: 1000011459376362, guid: 96f8777008367b2439be448a2124cbdd,
     type: 2}

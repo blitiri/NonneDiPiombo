@@ -119,7 +119,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011503083726}
   m_LocalRotation: {x: 0.50000006, y: 0.49999997, z: -0.49999997, w: 0.50000006}
-  m_LocalPosition: {x: 0.87, y: 0.36799997, z: 0.044999674}
+  m_LocalPosition: {x: 1.202, y: 0.36799997, z: 0.045}
   m_LocalScale: {x: 1.5000019, y: 1.5000019, z: 1.5000019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -132,7 +132,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011108620700}
   m_LocalRotation: {x: 0.50000006, y: 0.49999997, z: -0.49999997, w: 0.50000006}
-  m_LocalPosition: {x: 0.454, y: 0.157, z: 0.02}
+  m_LocalPosition: {x: 0.7, y: 0.157, z: 0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -159,7 +159,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014269800522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 0, z: 5.6}
+  m_LocalPosition: {x: -3.212427, y: -8.212358e-17, z: 3.6985173}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -288,7 +288,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &65000011494770154
 BoxCollider:
@@ -371,7 +371,7 @@ MonoBehaviour:
   speed: 6
   rotSpeed: 2
   bulletLifeTime: 4
-  bulletInitialForce: 10
+  bulletInitialForce: 20
   underAttackInactivityTime: 2
   maxTimeToShoot: 0.5
   bulletDamage: 5

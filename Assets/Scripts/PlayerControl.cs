@@ -27,7 +27,7 @@ public class PlayerControl : MonoBehaviour
     public float bulletLifeTime = 2;
     public float bulletInitialForce = 2;
     public float underAttackInactivityTime = 2;
-    public float maxTimeToShoot = 1.0f;
+	public float maxTimeToShoot = 0.5f;
     public int bulletDamage = 5;
     public float dashWallDistance = 1.5f;
     //[HideInInspector]
@@ -67,8 +67,8 @@ public class PlayerControl : MonoBehaviour
     public bool isObstacle = false;
 
     private Hashtable weapons;
-    private string selectedWeapon;
-    private string defaultweapon = "Revolver";
+	private string selectedWeapon;
+	private string defaultweapon = "Revolver";
 
     public GameObject aimTargetPrefab;
     private GameObject aimTarget;
@@ -129,6 +129,8 @@ public class PlayerControl : MonoBehaviour
 				Debug.Log("isDashing: " + isDashing);
             }
         }
+
+
     }
 
     private void DropWeapon()
@@ -270,7 +272,7 @@ public class PlayerControl : MonoBehaviour
     /// <summary>
     /// Executes a shoot attack against other connected players
     /// </summary>
-    private void Shoot()
+	public void Shoot()
     {
         GameObject bullet;
         Rigidbody bulletRigidbody;

@@ -1,0 +1,193 @@
+- PlayerControl
+
+    private const string bulletTagPrefix = "Bullet";
+    private const string playerTagPrefix = "Player";
+    private bool isDashing;
+    public Texture2D crosshairCursor;
+    public Vector2 cursorHotSpot = new Vector2(16, 16);
+    public Quaternion dashTransform12Rotation;
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnPoint;
+    public GameObject revolver;
+    public GameObject uzi;
+    public int startingAmmo = 20;
+    public int startingLife = 100;
+    public int startingStress = 0;
+    public int maxAmmoValue = 20;
+    public int maxLifeValue = 100;
+    public int maxStressValue = 100;
+    public float speed = 2;
+    public float rotSpeed = 2;
+    public float bulletLifeTime = 2;
+    public float bulletInitialForce = 2;
+    public float underAttackInactivityTime = 2;
+	public float maxTimeToShoot = 0.5f;
+    public int bulletDamage = 5;
+    public float dashWallDistance = 1.5f;
+    //[HideInInspector]
+    public int playerId;
+    public float stressDecreaseFactor;
+    public float timerToRefillStress;
+    public float weaponStressDamage;
+    private float horizontalMovement;
+    private float verticalMovement;
+    private Rigidbody rb;
+    private IList otherConnectedPlayers;
+    private Animator ani;
+    private float timerToShoot;
+    [Range(0, 10)]
+    public float dashTime;
+    float dashRecordedTime = 0;
+    [Range(0, 10)]
+    public float dashDistance;
+    private bool underAttack;
+    private bool stopped;
+    private int ammo;
+    private int life;
+    private float stress;
+    private InputManager inputManager;
+    private float angleCorrection;
+    public float stressIncrease = 10;
+    public LayerMask environment;
+    public Transform dashTransform;
+    public Transform dashTransform2;
+    public float fixedAimAngleCorrection = 90;
+    //   [Range(0,1)]
+    //   public float dashSpeed = 0.1f;
+    public float dashSpeed = 10;
+    public float dashLength = 5;
+	[Range(0,100)]
+    public float playerObstacleDistanceLimit;
+    public bool isObstacle = false;
+
+    private Hashtable weapons;
+	private string selectedWeapon;
+	private string defaultweapon = "Revolver";
+
+    public GameObject aimTargetPrefab;
+    private GameObject aimTarget;
+
+
+- CameraControl
+
+	public float dampTime = 0.2f;                
+	public float screenEdgeBuffer = 4f;           
+	public float minSize = 6.5f;       
+    public Transform[] targets; 
+	public Shader OutlineShader;
+	public Shader StandardShader;
+
+	private Camera mainCamera;                        
+	private float zoomSpeed;                      
+	private Vector3 moveVelocity;                 
+	private Vector3 desiredPosition;    
+
+- InputManager
+
+	/// <summary>
+	/// The Rewired Player.
+	/// </summary>
+	public Player player;
+	/// <summary>
+	/// The angle correction respect to the camera.
+	/// </summary>
+	private float angleCorrection;
+	/// <summary>
+	/// The player transform.
+	/// </summary>
+	private Transform playerTransform;
+
+	private Plane aimPlane;
+
+- GameManager
+
+	public static GameManager instance;
+	[Range(2, 4)]
+	public int numberOfPlayers = 2;
+	public GameObject[] playersPrefabs;
+	public GameObject postManPrefab;
+	public GameObject rewiredInputManagerPrefab;
+	public GameObject pauseScreen;
+	public GameObject pauseButton;
+	public GameObject quitButton;
+	public Transform cameraTransform;
+	// array di transform per il respawn dei player
+	public Transform[] playersRespawns;
+	public Transform[] playersStartRespawns;
+	public float timerToSpawn = 5.0f;
+	private float timerPostManSpawn;
+	private PlayerControl[] playersControls;
+	[SerializeField]
+	private float maxTimerBeforeRespawn = 1.0f;
+	private int[] playersKills;
+	private bool isPaused = false;
+	[SerializeField]
+	private float roundTimer;
+	[SerializeField]
+	private int killedMalus = 1;
+	[SerializeField]
+	private int killerBonus = 2;
+	private GameObject[] players;
+
+	public static bool active;
+
+- PickUp
+
+	/// <summary>
+	/// The pickup transform.
+	/// </summary>
+	public Transform transformPickUp;
+	/// <summary>
+	/// The ammo bonus.
+	/// </summary>
+	public int ammoBonus = 10;
+	/// <summary>
+	/// The life bonus.
+	/// </summary>
+	public int lifeBonus = 10;
+    /// <summary>
+	/// The stress bonus.
+	/// </summary>
+    public int stressBonus = -10;
+
+- Postman
+
+    public NavMeshAgent postMan;
+    public float postManSpeed;
+    private int pathIndex;
+	public PathTable postManTablePath;
+	private int postManRandomSpawnIndex=0;
+	private int postManInversePosition;
+	public bool postManIsAlive;
+	public bool postManStartPositionIsInvert;
+
+- UIManager
+
+	/// <summary>
+	/// Current UIManager instance.
+	/// </summary>
+	public static UIManager instance;
+	/// <summary>
+	/// Current player scores.
+	/// </summary>
+	public UILabel[] playerScores;
+	/// <summary>
+	/// The timer label for round countdown.
+	/// </summary>
+	public static UILabel timerLabel;
+	/// <summary>
+	/// The players life sliders. Important: respect players order (first player1 lifeSlider, then player2 lifeSlider and so on)
+	/// </summary>
+	public UISlider[] lifeSliders;
+	/// <summary>
+	/// The players stress sliders. Important: respect players order (first player1 stressSlider, then player2 stressSlider and so on)
+	/// </summary>
+	public UISlider[] stressSliders;
+	/// <summary>
+	/// The players max ammo labels. Important: respect players order (first player1 maxAmmoLabel, then player2 maxAmmoLabel and so on)
+	/// </summary>
+	public UILabel[] maxAmmoLabels;
+	/// <summary>
+	/// The players ammo labels. Important: respect players order (first player1 ammoLabel, then player2 ammoLabel and so on)
+	/// </summary>
+	public UILabel[] ammoLabels;

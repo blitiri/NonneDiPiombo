@@ -3,16 +3,21 @@ using System.Collections;
 
 public class PostMan : MonoBehaviour
 {
-    public NavMeshAgent postMan;
-    public float postManSpeed;
+
+
+    public bool postManIsAlive;
+    public bool postManStartPositionIsInvert;
+
     private int pathIndex;
+    private int postManRandomSpawnIndex = 0;
+    private int postManInversePosition;
+
+    public float postManSpeed;
+
+    public NavMeshAgent postMan;
+
 	public PathTable postManTablePath;
-	private int postManRandomSpawnIndex=0;
-	private int postManInversePosition;
-	public bool postManIsAlive;
-	public bool postManStartPositionIsInvert;
-	
-   
+
 
 	// Use this for initialization
 	void Awake ()

@@ -2,9 +2,14 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class SceneController : MonoBehaviour {
+public class SceneController : MonoBehaviour
+{
+
+
 	private const string levelPrefix = "Level";
+
     public GameManager myGameManager;
+
 
 	// Use this for initialization
 	void Start () {

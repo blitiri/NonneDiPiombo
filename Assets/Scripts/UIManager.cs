@@ -6,34 +6,39 @@ using System.Collections;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
-	/// <summary>
-	/// Current UIManager instance.
-	/// </summary>
-	public static UIManager instance;
+
+    /// <summary>
+    /// The timer label for round countdown.
+    /// </summary>
+    public static UILabel timerLabel;
+
+    /// <summary>
+    /// Current UIManager instance.
+    /// </summary>
+    public static UIManager instance;
+
 	/// <summary>
 	/// Current player scores.
 	/// </summary>
 	public UILabel[] playerScores;
-	/// <summary>
-	/// The timer label for round countdown.
-	/// </summary>
-	public static UILabel timerLabel;
-	/// <summary>
-	/// The players life sliders. Important: respect players order (first player1 lifeSlider, then player2 lifeSlider and so on)
-	/// </summary>
-	public UISlider[] lifeSliders;
+    /// <summary>
+    /// The players max ammo labels. Important: respect players order (first player1 maxAmmoLabel, then player2 maxAmmoLabel and so on)
+    /// </summary>
+    public UILabel[] maxAmmoLabels;
+    /// <summary>
+    /// The players ammo labels. Important: respect players order (first player1 ammoLabel, then player2 ammoLabel and so on)
+    /// </summary>
+    public UILabel[] ammoLabels;
+
+    /// <summary>
+    /// The players life sliders. Important: respect players order (first player1 lifeSlider, then player2 lifeSlider and so on)
+    /// </summary>
+    public UISlider[] lifeSliders;
 	/// <summary>
 	/// The players stress sliders. Important: respect players order (first player1 stressSlider, then player2 stressSlider and so on)
 	/// </summary>
 	public UISlider[] stressSliders;
-	/// <summary>
-	/// The players max ammo labels. Important: respect players order (first player1 maxAmmoLabel, then player2 maxAmmoLabel and so on)
-	/// </summary>
-	public UILabel[] maxAmmoLabels;
-	/// <summary>
-	/// The players ammo labels. Important: respect players order (first player1 ammoLabel, then player2 ammoLabel and so on)
-	/// </summary>
-	public UILabel[] ammoLabels;
+
 
 	/// <summary>
 	/// Awake this instance.

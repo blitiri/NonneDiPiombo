@@ -4,36 +4,48 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-	public static GameManager instance;
-	[Range(2, 4)]
-	public int numberOfPlayers = 2;
-	public GameObject[] playersPrefabs;
-	public GameObject postManPrefab;
-	public GameObject rewiredInputManagerPrefab;
-	public GameObject pauseScreen;
-	public GameObject pauseButton;
-	public GameObject quitButton;
-	public Transform cameraTransform;
-	// array di transform per il respawn dei player
-	public Transform[] playersRespawns;
-	public Transform[] playersStartRespawns;
-	public float timerToSpawn = 5.0f;
-	private float timerPostManSpawn;
-	private PlayerControl[] playersControls;
-	[SerializeField]
-	private float maxTimerBeforeRespawn = 1.0f;
-	private int[] playersKills;
-	private bool isPaused = false;
-	[SerializeField]
-	private float roundTimer;
-	[SerializeField]
-	private int killedMalus = 1;
-	[SerializeField]
-	private int killerBonus = 2;
-	private GameObject[] players;
 
-	public static bool active;
-	void Awake ()
+
+    private bool isPaused = false;
+    public static bool active;
+
+    [Range(2, 4)]
+    public int numberOfPlayers = 2;
+    [SerializeField]
+    private int killedMalus = 1;
+    [SerializeField]
+    private int killerBonus = 2;
+
+    public float timerToSpawn = 5.0f;
+    private float timerPostManSpawn;
+    [SerializeField]
+    private float maxTimerBeforeRespawn = 1.0f;
+    [SerializeField]
+    private float roundTimer;
+
+    public Transform cameraTransform;
+
+    public GameObject postManPrefab;
+    public GameObject rewiredInputManagerPrefab;
+    public GameObject pauseScreen;
+    public GameObject pauseButton;
+    public GameObject quitButton;
+
+    public static GameManager instance;
+
+    private int[] playersKills;
+
+    // array di transform per il respawn dei player
+    public Transform[] playersRespawns;
+    public Transform[] playersStartRespawns;
+
+    public GameObject[] playersPrefabs;
+    private GameObject[] players;
+
+    private PlayerControl[] playersControls;
+
+
+    void Awake ()
 	{
 		int playerIndex;
 

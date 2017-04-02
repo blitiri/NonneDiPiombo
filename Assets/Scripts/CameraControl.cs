@@ -4,17 +4,20 @@ public class CameraControl : MonoBehaviour
 {
 	public float dampTime = 0.2f;                
 	public float screenEdgeBuffer = 4f;           
-	public float minSize = 6.5f;       
-    public Transform[] targets; 
-	public Shader OutlineShader;
+	public float minSize = 6.5f;
+    private float zoomSpeed;
+
+    private Vector3 moveVelocity;
+    private Vector3 desiredPosition;
+
+    public Shader OutlineShader;
 	public Shader StandardShader;
 
 	private Camera mainCamera;                        
-	private float zoomSpeed;                      
-	private Vector3 moveVelocity;                 
-	private Vector3 desiredPosition;              
 
-	private void Awake ()
+    public Transform[] targets;
+
+    private void Awake ()
 	{
 		GameObject[] players;
 		players = GameManager.instance.GetPlayers ();

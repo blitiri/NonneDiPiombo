@@ -7,20 +7,23 @@ using Rewired;
 /// </summary>
 public class InputManager
 {
-	/// <summary>
-	/// The Rewired Player.
-	/// </summary>
-	public Player player;
-	/// <summary>
-	/// The angle correction respect to the camera.
-	/// </summary>
-	private float angleCorrection;
-	/// <summary>
-	/// The player transform.
-	/// </summary>
-	private Transform playerTransform;
+    /// <summary>
+    /// The angle correction respect to the camera.
+    /// </summary>
+    private float angleCorrection;
 
-	private Plane aimPlane;
+    /// <summary>
+    /// The player transform.
+    /// </summary>
+    private Transform playerTransform;
+
+    private Plane aimPlane;
+
+    /// <summary>
+    /// The Rewired Player.
+    /// </summary>
+    public Player player;
+
 	/// <summary>
 	/// Initializes a new instance of the <see cref="InputManager"/> class.
 	/// </summary>
@@ -119,17 +122,17 @@ public class InputManager
 		return player.GetButtonDown ("Melee");
 	}
 
-	/// <summary>
-	/// Corrects the direction angle respect to the camera.
-	/// </summary>
-	/// <returns>Corrected direction.</returns>
-	/// <param name="direction">Direction to correct.</param>
-	private Vector3 CorrectAngle (Vector3 direction)
+    /// <summary>
+    /// Corrects the direction angle respect to the camera.
+    /// </summary>
+    /// <returns>Corrected direction.</returns>
+    /// <param name="direction">Direction to correct.</param>
+    public Vector3 CorrectAngle (Vector3 direction)
 	{
 		return CorrectAngle (direction, angleCorrection);
 	}
 
-	private Vector3 CorrectAngle (Vector3 direction, float angleCorrection)
+	public Vector3 CorrectAngle (Vector3 direction, float angleCorrection)
 	{
 		return Quaternion.AngleAxis (angleCorrection, Vector3.up) * direction;
 	}

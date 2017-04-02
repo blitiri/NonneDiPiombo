@@ -6,72 +6,84 @@ using System.Collections;
 /// </summary>
 public class PlayerControl : MonoBehaviour
 {
-    private const string bulletTagPrefix = "Bullet";
-    private const string playerTagPrefix = "Player";
+
+
+    private bool underAttack;
+    private bool stopped;
     private bool isDashing;
-    public Texture2D crosshairCursor;
-    public Vector2 cursorHotSpot = new Vector2(16, 16);
-    public Quaternion dashTransform12Rotation;
-    public GameObject bulletPrefab;
-    public Transform bulletSpawnPoint;
-    public GameObject revolver;
-    public GameObject uzi;
+    public bool isObstacle = false;
+
     public int startingAmmo = 20;
     public int startingLife = 100;
     public int startingStress = 0;
     public int maxAmmoValue = 20;
     public int maxLifeValue = 100;
     public int maxStressValue = 100;
+    public int bulletDamage = 5;
+    public int playerId;
+    private int ammo;
+    private int life;
+
     public float speed = 2;
     public float rotSpeed = 2;
     public float bulletLifeTime = 2;
     public float bulletInitialForce = 2;
     public float underAttackInactivityTime = 2;
-	public float maxTimeToShoot = 0.5f;
-    public int bulletDamage = 5;
+    public float maxTimeToShoot = 0.5f;
     public float dashWallDistance = 1.5f;
-    //[HideInInspector]
-    public int playerId;
     public float stressDecreaseFactor;
     public float timerToRefillStress;
     public float weaponStressDamage;
     private float horizontalMovement;
     private float verticalMovement;
-    private Rigidbody rb;
-    private IList otherConnectedPlayers;
-    private Animator ani;
     private float timerToShoot;
     [Range(0, 10)]
     public float dashTime;
     float dashRecordedTime = 0;
     [Range(0, 10)]
     public float dashDistance;
-    private bool underAttack;
-    private bool stopped;
-    private int ammo;
-    private int life;
     private float stress;
-    private InputManager inputManager;
     private float angleCorrection;
     public float stressIncrease = 10;
-    public LayerMask environment;
-    public Transform dashTransform;
-    public Transform dashTransform2;
     public float fixedAimAngleCorrection = 90;
-    //   [Range(0,1)]
-    //   public float dashSpeed = 0.1f;
     public float dashSpeed = 10;
     public float dashLength = 5;
-	[Range(0,100)]
+    [Range(0, 100)]
     public float playerObstacleDistanceLimit;
-    public bool isObstacle = false;
 
-    private Hashtable weapons;
-	private string selectedWeapon;
-	private string defaultweapon = "Revolver";
+    private const string bulletTagPrefix = "Bullet";
+    private const string playerTagPrefix = "Player";
+    private string selectedWeapon;
+    private string defaultweapon = "Revolver";
 
+    public LayerMask environment;
+
+    public Texture2D crosshairCursor;
+
+    public Vector2 cursorHotSpot = new Vector2(16, 16);
+
+    public Transform bulletSpawnPoint;
+
+    private Rigidbody rb;
+
+    private Animator ani;
+
+    public GameObject bulletPrefab;
+    public GameObject revolver;
+    public GameObject uzi;
     public GameObject aimTargetPrefab;
     private GameObject aimTarget;
+
+    private InputManager inputManager;
+
+    private IList otherConnectedPlayers;
+
+    private Hashtable weapons;
+
+    //   [Range(0,1)]
+    //   public float dashSpeed = 0.1f;
+
+
     /// <summary>
     /// Awake this instance.
     /// </summary>
@@ -104,7 +116,6 @@ public class PlayerControl : MonoBehaviour
         }
         ResetStatus();
         StartCoroutine(RefillStress());
-        dashTransform12Rotation = dashTransform.rotation;
     }
 
     /// <summary>
@@ -504,7 +515,7 @@ public class PlayerControl : MonoBehaviour
         //CorrectingDashDestinationRotation(dashTransform2);
         if (inputManager.Dash())
         {
-            if (!isDashing && (stress <= maxStressValue - stressIncrease) && dashTime <= Time.time - dashRecordedTime)
+            if (!isObstacle && !isDashing && (stress <= maxStressValue - stressIncrease) && dashTime <= Time.time - dashRecordedTime)
             {
                 StartCoroutine(Dashing(moveVector));
             }
@@ -554,7 +565,7 @@ public class PlayerControl : MonoBehaviour
 			}
 			else
 			{
-		//		transform.localPosition += dashSpeed * Time.deltaTime * new Vector3(movevec
+                transform.localPosition += dashSpeed * Time.deltaTime * inputManager.CorrectAngle(Vector3.forward);
 			}
                                                                                 //                Debug.Log(moveVector);
             dashDone += dashSpeed * Time.deltaTime;
@@ -590,10 +601,6 @@ public class PlayerControl : MonoBehaviour
         isDashing = false;
     }
     */
-void CorrectingDashDestinationRotation(Transform desiredTransform)
-{
-    desiredTransform.rotation = dashTransform12Rotation;
-}
 
 /// <summary>
 /// Sets the player identifier.

@@ -6,22 +6,26 @@ using System.Collections;
 /// </summary>
 public class Pickup : MonoBehaviour
 {
-	/// <summary>
-	/// The pickup transform.
-	/// </summary>
-	public Transform transformPickUp;
-	/// <summary>
-	/// The ammo bonus.
-	/// </summary>
-	public int ammoBonus = 10;
-	/// <summary>
-	/// The life bonus.
-	/// </summary>
-	public int lifeBonus = 10;
+
+
+    /// <summary>
+    /// The ammo bonus.
+    /// </summary>
+    public int ammoBonus = 10;
+    /// <summary>
+    /// The life bonus.
+    /// </summary>
+    public int lifeBonus = 10;
     /// <summary>
 	/// The stress bonus.
 	/// </summary>
     public int stressBonus = -10;
+
+    /// <summary>
+    /// The pickup transform.
+    /// </summary>
+    public Transform transformPickUp;
+
     
 	/// <summary>
 	/// Updates the pickup instance.

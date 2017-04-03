@@ -113,6 +113,7 @@ public class PlayerControl : MonoBehaviour
         if (inputManager.HasMouse())
         {
             Cursor.SetCursor(crosshairCursor, cursorHotSpot, CursorMode.Auto);
+
         }
         ResetStatus();
         StartCoroutine(RefillStress());
@@ -140,7 +141,7 @@ public class PlayerControl : MonoBehaviour
 				Debug.Log("isDashing: " + isDashing);
             }
         }
-
+		
 
     }
 
@@ -151,6 +152,7 @@ public class PlayerControl : MonoBehaviour
             if (selectedWeapon == "Uzi")
             {
                 Instantiate(uzi, transform.position, Quaternion.identity);
+				ammo = 100;
             }
 
             SetActiveWeapons(defaultweapon);
@@ -198,7 +200,7 @@ public class PlayerControl : MonoBehaviour
     {
         Vector3 aimVector;
 
-		if (Time.timeScale > 0 && Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0 || inputManager.player.GetAxis("Aim horizontal") != 0 ||inputManager.player.GetAxis("Aim vertical") != 0) {
+		if ( Time.timeScale > 0) {
 			aimVector = inputManager.GetAimVector ();
 
 			if (aimVector != Vector3.zero) {
@@ -210,9 +212,9 @@ public class PlayerControl : MonoBehaviour
 					aimVector += transform.position;
 					transform.LookAt (aimVector);
 
-					if (aimTarget != null) {
+				if (aimTarget != null) {
 						aimTarget.transform.position = new Vector3 (aimVector.x, transform.position.y, aimVector.z);// + transform.position;
-						//					Debug.Log ("aimVector=" + aimVector);
+						//Debug.Log ("aimVector=" + aimVector);
 					}
 				} else {
 					transform.forward = Vector3.Normalize (aimVector);
@@ -301,7 +303,9 @@ public class PlayerControl : MonoBehaviour
             bulletRigidbody = bullet.GetComponent<Rigidbody>();
             bulletRigidbody.AddForce(bulletSpawnPoint.transform.up * bulletInitialForce, ForceMode.Impulse);
             Destroy(bullet, bulletLifeTime);
-            ammo--;
+			if (selectedWeapon != "Revolver") {
+				ammo--;
+			}
             stress += weaponStressDamage;
             timerToShoot = 0.0f;
             UpdateUI();

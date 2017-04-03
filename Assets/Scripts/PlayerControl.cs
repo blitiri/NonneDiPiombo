@@ -138,7 +138,7 @@ public class PlayerControl : MonoBehaviour
                 Shoot();
                 Melee();
                 DropWeapon();
-				Debug.Log("isDashing: " + isDashing);
+				//Debug.Log("isDashing: " + isDashing);
             }
         }
 		
@@ -147,7 +147,7 @@ public class PlayerControl : MonoBehaviour
 
     private void DropWeapon()
     {
-        if (inputManager.Drop())
+        if (inputManager.Drop() || life<=0 || stress>=100)
         {
             if (selectedWeapon == "Uzi")
             {
@@ -510,7 +510,7 @@ public class PlayerControl : MonoBehaviour
 	private void DashManaging ()
 	{
         Vector3 moveVector = inputManager.GetMoveVector();
-		Debug.Log (moveVector.magnitude);
+		//Debug.Log (moveVector.magnitude);
         ObstacleChecking(moveVector);
         isObstacle = ObstacleChecking(moveVector);
         //        Debug.Log(obstacleInfo.transform);
@@ -548,7 +548,7 @@ public class PlayerControl : MonoBehaviour
             {
                 result = false;
             }
-			Debug.Log("result: " + result);
+			//Debug.Log("result: " + result);
             return result;
         }
     

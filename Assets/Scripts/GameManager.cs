@@ -124,21 +124,27 @@ public class GameManager : MonoBehaviour
 		int spawnpointIndex;
 		GameObject player;
 
-		playersControls [playerIndex].ResetStatus ();
+        playersControls [playerIndex].ResetStatus ();
 		player = players [playerIndex];
-		SetMeshRendererEnabled (false);
+        player.GetComponent<BoxCollider>().isTrigger = true;
+        SetMeshRendererEnabled (false,playerIndex);
 		yield return new WaitForSeconds (maxTimerBeforeRespawn);
 		spawnpointIndex = Random.Range (0, playersRespawns.Length);
 		player.transform.position = playersRespawns [spawnpointIndex].position;
-		SetMeshRendererEnabled (true);
-	}
+		SetMeshRendererEnabled (true,playerIndex);
+        player.GetComponent<BoxCollider>().isTrigger = false;
+    }
 
-	private void SetMeshRendererEnabled (bool enabled)
+	private void SetMeshRendererEnabled (bool enabled,int playerIndex)
 	{
-		SkinnedMeshRenderer meshRenderer;
+		Renderer meshRenderer;
+        GameObject player;
 
-		foreach (Transform child in transform) {
-			meshRenderer = child.gameObject.GetComponent<SkinnedMeshRenderer> ();
+        player = players[playerIndex];
+        player.GetComponent<Renderer>().enabled = enabled;
+        foreach (Transform child in player.transform) {
+            Debug.Log("MeshOK");
+			meshRenderer = child.gameObject.GetComponent<Renderer> ();
 			if (meshRenderer != null) {
 				meshRenderer.enabled = enabled;
 			}

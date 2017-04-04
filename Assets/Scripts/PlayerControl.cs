@@ -7,7 +7,7 @@ using System.Collections;
 public class PlayerControl : MonoBehaviour
 {
 
-
+    public bool stopInputPlayer=false;
     private bool underAttack;
     private bool stopped;
     private bool isDashing;
@@ -129,7 +129,7 @@ public class PlayerControl : MonoBehaviour
         //Debug.Log ("underAttack: " + underAttack + " - stopped: " + stopped);
         if (!underAttack)
         {
-            if (!stopped && GameManager.instance.stopInputPlayer==false)
+            if (!stopped && stopInputPlayer==false)
             {
                 Move();
                 DashManaging();
@@ -580,31 +580,6 @@ public class PlayerControl : MonoBehaviour
         isDashing = false;
         dashRecordedTime = Time.time;
     }
-
-/*	private IEnumerator Dashing (Vector3 moveVector, RaycastHit obstacleInfo)
-    {
-        Vector3 newPosition = Vector3.zero;
-        float scaleProp;
-
-        if (obstacleInfo.transform == null) {
-            //			dashTransform.localPosition = new Vector3 (dashTransform.localPosition.x + dashDistance * moveVector.x, dashTransform.localPosition.y, dashTransform.localPosition.z + dashDistance * moveVector.z);
-            dashTransform.localPosition = -moveVector * dashDistance + dashTransform.localPosition;
-            newPosition = dashTransform.position;
-        } else {
-            dashTransform.position = new Vector3 (obstacleInfo.point.x, dashTransform.position.y, obstacleInfo.point.z);
-            scaleProp = (dashTransform.position.magnitude - dashWallDistance) / dashTransform.position.magnitude;
-            newPosition = Vector3.Scale(dashTransform.position, new Vector3(scaleProp, scaleProp, scaleProp));
-        }
-        while (Vector3.Distance (transform.position, newPosition) > 1.5f) {
-            transform.position = Vector3.Lerp (transform.position, newPosition, dashSpeed);
-            yield return null;
-        }
-        dashTransform.localPosition = dashTransform2.localPosition;
-        AddStress (stressIncrease);
-        yield return new WaitForSeconds (dashTime);
-        isDashing = false;
-    }
-    */
 
 /// <summary>
 /// Sets the player identifier.

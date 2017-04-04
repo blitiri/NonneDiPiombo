@@ -129,7 +129,7 @@ public class PlayerControl : MonoBehaviour
         //Debug.Log ("underAttack: " + underAttack + " - stopped: " + stopped);
         if (!underAttack)
         {
-            if (!stopped)
+            if (!stopped && GameManager.instance.stopInputPlayer==false)
             {
                 Move();
                 DashManaging();

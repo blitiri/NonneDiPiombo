@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-
+    public bool stopInputPlayer;
     private bool isPaused = false;
     public static bool active;
 
@@ -63,7 +63,8 @@ public class GameManager : MonoBehaviour
 			playersControls [playerIndex].SetAngleCorrection (cameraTransform.rotation.eulerAngles.y);
 			playersKills [playerIndex] = 0;
 			players [playerIndex].SetActive (true);
-		}
+            stopInputPlayer = false;
+        }
 
 
 	}
@@ -102,8 +103,8 @@ public class GameManager : MonoBehaviour
 
 		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
 			if ((playersControls [playerIndex].GetLife () <= 0) && !playersControls [playerIndex].IsUnderAttack () || (playersControls [playerIndex].GetStress () >= 100)) {
-				StartCoroutine (RespawnPlayer (playerIndex));
-			}
+                StartCoroutine (RespawnPlayer (playerIndex));
+            }
 		}
 	}
 
@@ -126,13 +127,13 @@ public class GameManager : MonoBehaviour
 
         playersControls [playerIndex].ResetStatus ();
 		player = players [playerIndex];
-        player.GetComponent<BoxCollider>().isTrigger = true;
         SetMeshRendererEnabled (false,playerIndex);
-		yield return new WaitForSeconds (maxTimerBeforeRespawn);
+        stopInputPlayer = true;
+        yield return new WaitForSeconds (maxTimerBeforeRespawn);
 		spawnpointIndex = Random.Range (0, playersRespawns.Length);
 		player.transform.position = playersRespawns [spawnpointIndex].position;
-		SetMeshRendererEnabled (true,playerIndex);
-        player.GetComponent<BoxCollider>().isTrigger = false;
+        SetMeshRendererEnabled (true,playerIndex);
+        stopInputPlayer = false;
     }
 
 	private void SetMeshRendererEnabled (bool enabled,int playerIndex)
@@ -142,8 +143,8 @@ public class GameManager : MonoBehaviour
 
         player = players[playerIndex];
         player.GetComponent<Renderer>().enabled = enabled;
+
         foreach (Transform child in player.transform) {
-            Debug.Log("MeshOK");
 			meshRenderer = child.gameObject.GetComponent<Renderer> ();
 			if (meshRenderer != null) {
 				meshRenderer.enabled = enabled;

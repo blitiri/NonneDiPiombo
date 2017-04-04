@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-    public bool stopInputPlayer;
+   
     private bool isPaused = false;
     public static bool active;
 
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
 			playersControls [playerIndex].SetAngleCorrection (cameraTransform.rotation.eulerAngles.y);
 			playersKills [playerIndex] = 0;
 			players [playerIndex].SetActive (true);
-            stopInputPlayer = false;
+            
         }
 
 
@@ -76,13 +76,13 @@ public class GameManager : MonoBehaviour
 		Pause ();
 		TimerSetUp ();
 
-		if (timerPostManSpawn < timerToSpawn) {
+		/*if (timerPostManSpawn < timerToSpawn) {
 			timerPostManSpawn += Time.deltaTime;
             
 		} else {
 			PostManSpawn();
 			timerPostManSpawn = 0.0f;
-		}
+		}*/
 
 		UIManager.instance.SetScore ();
 	}
@@ -128,12 +128,15 @@ public class GameManager : MonoBehaviour
         playersControls [playerIndex].ResetStatus ();
 		player = players [playerIndex];
         SetMeshRendererEnabled (false,playerIndex);
-        stopInputPlayer = true;
+        player.GetComponent<PlayerControl>().stopInputPlayer = true;
+
         yield return new WaitForSeconds (maxTimerBeforeRespawn);
+
 		spawnpointIndex = Random.Range (0, playersRespawns.Length);
 		player.transform.position = playersRespawns [spawnpointIndex].position;
         SetMeshRendererEnabled (true,playerIndex);
-        stopInputPlayer = false;
+        player.GetComponent<PlayerControl>().stopInputPlayer = false;
+        
     }
 
 	private void SetMeshRendererEnabled (bool enabled,int playerIndex)

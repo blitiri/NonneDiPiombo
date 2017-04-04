@@ -23,7 +23,7 @@ GameObject:
   - 23: {fileID: 23000010416113534}
   - 65: {fileID: 65000012550086344}
   m_Layer: 0
-  m_Name: Uzi (1)
+  m_Name: Uzi
   m_TagString: Uzi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,7 @@ GameObject:
   - 65: {fileID: 65000010017589614}
   m_Layer: 0
   m_Name: Revolver
-  m_TagString: Untagged
+  m_TagString: Revolver
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,7 +104,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011843174462}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.01, y: 0, z: 5.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -383,11 +383,12 @@ MonoBehaviour:
   environment:
     serializedVersion: 2
     m_Bits: 1792
-  crosshairCursor: {fileID: 0}
+  crosshairCursor: {fileID: 2800000, guid: 129a1bd82137d4d6cacaf680296e0622, type: 3}
   cursorHotSpot: {x: 16, y: 16}
   bulletSpawnPoint: {fileID: 4000011202399794}
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}
-  revolver: {fileID: 1000013122128648}
-  uzi: {fileID: 1000010333016856}
-  aimTargetPrefab: {fileID: 0}
+  revolver: {fileID: 1000011209484526, guid: 951781682cf6f9e439ef3e848f269ff0, type: 2}
+  uzi: {fileID: 1000010466856672, guid: d4fdf5012a11965408a5c57a94c2515d, type: 2}
+  aimTargetPrefab: {fileID: 1000011459376362, guid: 96f8777008367b2439be448a2124cbdd,
+    type: 2}

@@ -45,15 +45,15 @@ public class Pickup : MonoBehaviour
 	{
 		PlayerControl playerControl;
 
-		if (other.gameObject.tag.StartsWith ("Player")) {
+		if (other.gameObject.tag.StartsWith ("Player")  ) {
 			playerControl = other.gameObject.GetComponent<PlayerControl> ();
 			if (gameObject.tag.Equals ("BulletPickUp")) {
 				Destroy (this.gameObject);
 				playerControl.AddAmmo (ammoBonus);
-			} else if (gameObject.tag.Equals ("Medikit")) {
+			} else if (gameObject.tag.Equals ("Medikit") && playerControl.GetLife() < playerControl.maxLifeValue ) {
 				Destroy (this.gameObject);
 				playerControl.AddLife (lifeBonus);
-			}else if(gameObject.tag.Equals("Stress")) {
+			}else if(gameObject.tag.Equals("Stress") && playerControl.GetStress() > 0 ) {
                 Destroy(this.gameObject);
                 playerControl.AddStress(stressBonus);
             }

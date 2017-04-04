@@ -208,7 +208,7 @@ public class PlayerControl : MonoBehaviour
 				if (inputManager.HasMouse ()) {
 					//Correzione aimvector per modello girato.
 					aimVector -= transform.position;
-					aimVector = Quaternion.Euler (new Vector3 (0, 90, 0)) * aimVector;
+					aimVector = Quaternion.Euler (new Vector3 (0, 87, 0)) * aimVector;
 					aimVector += transform.position;
 					transform.LookAt (aimVector);
 

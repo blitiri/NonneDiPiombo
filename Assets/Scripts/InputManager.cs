@@ -52,7 +52,7 @@ public class InputManager
 	{
 		Vector3 moveVector;
 
-		moveVector = new Vector3 (player.GetAxis ("Move horizontal"), 0, player.GetAxis ("Move vertical"));
+		moveVector = new Vector3 (player.GetAxis ("Move Vertical"), 0, -player.GetAxis ("Move horizontal"));
 		return CorrectAngle (moveVector);
 	}
 
@@ -131,6 +131,6 @@ public class InputManager
 
 	public Vector3 CorrectAngle (Vector3 direction, float angleCorrection)
 	{
-		return Quaternion.AngleAxis (angleCorrection, Vector3.up) * direction;
+		return Quaternion.AngleAxis (angleCorrection , Vector3.up) * direction;
 	}
 }

@@ -80,7 +80,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000013122128648
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,7 +98,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4000010061877754
 Transform:
   m_ObjectHideFlags: 1
@@ -106,7 +106,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011843174462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.01, y: 0, z: 5.7}
+  m_LocalPosition: {x: -5.001469, y: 0.100513645, z: 1.1969604}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -122,7 +122,7 @@ Transform:
   m_GameObject: {fileID: 1000013122128648}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.561, y: 0.35, z: 0.014}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000011202399794}
@@ -134,8 +134,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010967741774}
-  m_LocalRotation: {x: -0.7071068, y: 0.000000029802322, z: -0.000000029802322, w: -0.7071068}
-  m_LocalPosition: {x: 0.531, y: 0.143, z: 0.021}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0.78, y: 0.143, z: 0.021}
   m_LocalScale: {x: 1.5000017, y: 1.5000019, z: 1.5000021}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -147,8 +147,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011687420752}
-  m_LocalRotation: {x: 0.50000006, y: 0.49999997, z: -0.49999997, w: 0.50000006}
-  m_LocalPosition: {x: 0.936, y: 0.323, z: 0.047}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 1.076, y: 0.323, z: 0.047}
   m_LocalScale: {x: 1.5000019, y: 1.5000019, z: 1.5000019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -160,7 +160,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010333016856}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.59599996, y: 0.319, z: 0.078999996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -356,7 +356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoMagazine: 100
-  ratioOfFire: 1
+  ratioOfFire: 0.1
   weaponDamage: 5
 --- !u!114 &114000013135297010
 MonoBehaviour:
@@ -374,7 +374,6 @@ MonoBehaviour:
   startingAmmo: 100
   startingLife: 100
   startingStress: 0
-  maxAmmoValue: 20
   maxLifeValue: 100
   maxStressValue: 100
   bulletDamage: 5
@@ -382,18 +381,18 @@ MonoBehaviour:
   speed: 6
   rotSpeed: 2
   bulletLifeTime: 4
-  bulletInitialForce: 2
+  bulletInitialForce: 20
   underAttackInactivityTime: 2
-  maxTimeToShoot: 0.5
+  maxTimeToShoot: 0.8
   dashWallDistance: 1.5
-  stressDecreaseFactor: 0
-  timerToRefillStress: 0
+  stressDecreaseFactor: 3
+  timerToRefillStress: 4
   weaponStressDamage: 0
-  dashTime: 3
+  dashTime: 2
   dashDistance: 10
   stressIncrease: 10
   fixedAimAngleCorrection: 90
-  dashSpeed: 10
+  dashSpeed: 20
   dashLength: 5
   playerObstacleDistanceLimit: 3
   environment:
@@ -404,7 +403,7 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 4000011202399794}
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}
-  revolver: {fileID: 1000011209484526, guid: 951781682cf6f9e439ef3e848f269ff0, type: 2}
-  uzi: {fileID: 1000010466856672, guid: d4fdf5012a11965408a5c57a94c2515d, type: 2}
+  revolver: {fileID: 1000013122128648}
+  uzi: {fileID: 1000010333016856}
   aimTargetPrefab: {fileID: 1000011459376362, guid: 96f8777008367b2439be448a2124cbdd,
     type: 2}

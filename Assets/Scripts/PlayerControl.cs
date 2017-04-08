@@ -12,6 +12,7 @@ public class PlayerControl : MonoBehaviour
     private bool stopped;
     private bool isDashing;
     public bool isObstacle = false;
+	private bool pickedAnotherWeapon = false;
 
     public int startingAmmo = 20;
     public int startingLife = 100;
@@ -21,7 +22,7 @@ public class PlayerControl : MonoBehaviour
     public int maxStressValue = 100;
     public int bulletDamage = 5;
     public int playerId;
-    private int ammo;
+	private int ammo;
     private int life;
 
     public float speed = 2;
@@ -29,7 +30,7 @@ public class PlayerControl : MonoBehaviour
     public float bulletLifeTime = 2;
     public float bulletInitialForce = 2;
     public float underAttackInactivityTime = 2;
-    public float maxTimeToShoot = 0.5f;
+    public float maxTimeToShoot = 0.8f;
     public float dashWallDistance = 1.5f;
     public float stressDecreaseFactor;
     public float timerToRefillStress;
@@ -37,6 +38,8 @@ public class PlayerControl : MonoBehaviour
     private float horizontalMovement;
     private float verticalMovement;
     private float timerToShoot;
+	public float defaultRatio=0.8f;
+	public int defaultDamage=5;
     [Range(0, 10)]
     public float dashTime;
     float dashRecordedTime = 0;
@@ -147,15 +150,19 @@ public class PlayerControl : MonoBehaviour
 
     private void DropWeapon()
     {
-        if (inputManager.Drop() || life<=0 || stress>=100)
+		if (inputManager.Drop() || pickedAnotherWeapon || life<=0 || stress>=100 || ammo <= 0)
         {
             if (selectedWeapon == "Uzi")
             {
-                Instantiate(uzi, transform.position, Quaternion.identity);
+				GameObject droppedUzi = Instantiate(uzi, transform.position, Quaternion.identity) as GameObject;
+				WeaponManager droppedUziMan = droppedUzi.GetComponent<WeaponManager> ();
+				droppedUziMan.ammoMagazine = ammo;
+				droppedUziMan.ratioOfFire = maxTimeToShoot;
 				ammo = 100;
             }
-
-            SetActiveWeapons(defaultweapon);
+			SetActiveWeapons(defaultweapon);
+			maxTimeToShoot = defaultRatio;
+			//bulletDamage = defaultDamage;
         }
     }
 
@@ -368,7 +375,15 @@ public class PlayerControl : MonoBehaviour
     {
         if (inputManager.Pick())
         {
-
+			if (selectedWeapon != "Revolver")
+			{
+				pickedAnotherWeapon = true;
+				DropWeapon ();
+				pickedAnotherWeapon = false;
+			}
+			WeaponManager pickedWeaponMan = other.gameObject.GetComponent<WeaponManager> ();
+			ammo = pickedWeaponMan.ammoMagazine;
+			maxTimeToShoot = pickedWeaponMan.ratioOfFire;
             foreach (Transform child in transform)
             {
                 if (other.tag == child.tag)

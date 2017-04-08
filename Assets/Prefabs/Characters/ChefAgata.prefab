@@ -52,6 +52,7 @@ GameObject:
   - 33: {fileID: 33000013099753404}
   - 23: {fileID: 23000010264059488}
   - 65: {fileID: 65000011494770154}
+  - 114: {fileID: 114000013484567506}
   m_Layer: 0
   m_Name: Uzi
   m_TagString: Uzi
@@ -393,3 +394,17 @@ MonoBehaviour:
   uzi: {fileID: 1000012369991128}
   aimTargetPrefab: {fileID: 1000011459376362, guid: 96f8777008367b2439be448a2124cbdd,
     type: 2}
+--- !u!114 &114000013484567506
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012369991128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540c536a593c8194b8b9dfc157900674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoMagazine: 100
+  ratioOfFire: 1
+  weaponDamage: 5

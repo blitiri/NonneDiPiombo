@@ -6,7 +6,7 @@ using System.Collections;
 /// </summary>
 public class PlayerControl : MonoBehaviour
 {
-
+	
     public bool stopInputPlayer=false;
     private bool underAttack;
     private bool stopped;
@@ -53,6 +53,7 @@ public class PlayerControl : MonoBehaviour
     public float dashLength = 5;
     [Range(0, 100)]
     public float playerObstacleDistanceLimit;
+	public float blinkingTimer = 1.0f;
 
     private const string bulletTagPrefix = "Bullet";
     private const string playerTagPrefix = "Player";
@@ -65,7 +66,14 @@ public class PlayerControl : MonoBehaviour
 
     public Vector2 cursorHotSpot = new Vector2(16, 16);
 
+	public Color fromEmissionColor;
+	//public Color toEmissionColor;
+
+	private Material playerMat;
+
     public Transform bulletSpawnPoint;
+
+	private MeshRenderer meshPlayer;
 
     private Rigidbody rb;
 
@@ -105,6 +113,8 @@ public class PlayerControl : MonoBehaviour
         }
         rb = GetComponent<Rigidbody>();
         ani = GetComponent<Animator>();
+		meshPlayer = GetComponent<MeshRenderer>();
+		playerMat = meshPlayer.material;
     }
 
     /// <summary>
@@ -410,6 +420,8 @@ public class PlayerControl : MonoBehaviour
             GameManager.instance.PlayerKilled(GetPlayerId(gameObject.tag), GetPlayerId(killerTag));
         }
         UpdateUI();
+		StopCoroutine(BounceColor (fromEmissionColor));
+		StartCoroutine(BounceColor (fromEmissionColor));
     }
 
     /// <summary>
@@ -518,6 +530,16 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+	/// <summary>
+	/// Mesh blinking.
+	/// </summary>
+	IEnumerator BlinkMesh()
+	{	
+		bool oddeven = Mathf.FloorToInt(Time.time) % 2 == 0;
+		meshPlayer.enabled = oddeven;
+		yield return new WaitForSeconds(blinkingTimer);
+	}
+
 
 	/// <summary>
 	/// Starts dashing.
@@ -620,4 +642,21 @@ public class PlayerControl : MonoBehaviour
        ((GameObject)weapons[weapon]).SetActive(true);
         selectedWeapon = weapon;
     }
+
+	private IEnumerator BounceColor (Color fromColor)
+	{
+		float timer = 0;
+		float timeLimit = 1;
+
+		while (timer < timeLimit)
+		{
+			timer += Time.deltaTime;
+			float colorGradient = Mathf.PingPong (timer * 2, 1);
+			Color bouncingColor = fromColor * Mathf.LinearToGammaSpace (colorGradient);
+			playerMat.SetColor ("_EmissionColor", bouncingColor);
+			Debug.Log (timer);
+			yield return new WaitForEndOfFrame ();
+		}
+		playerMat.SetColor ("_EmissionColor", Color.black);
+	}
 }

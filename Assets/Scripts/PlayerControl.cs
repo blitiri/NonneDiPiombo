@@ -552,7 +552,8 @@ public class PlayerControl : MonoBehaviour
 
 	public void SetAngleCorrection (float angleCorrection)
 	{
-		this.angleCorrection = angleCorrection;
+		//this.angleCorrection = angleCorrection;
+		this.angleCorrection = 0;
 	}
 
 	private void SetActiveWeapons (string weapon)

@@ -472,7 +472,6 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
-
 	/// <summary>
 	/// Starts dashing.
 	/// </summary>

@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
 
 	void Start ()
 	{
-		UIManager.instance.InitUI (numberOfPlayers, maxNumberOfPlayers);
+		UIManager.instance.InitUI (numberOfPlayers);
 	}
 
 	// Update is called once per frame

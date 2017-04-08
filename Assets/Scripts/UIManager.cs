@@ -23,10 +23,6 @@ public class UIManager : MonoBehaviour
 	/// </summary>
 	public UIPanel[] playersInfos;
 	/// <summary>
-	/// The summary players infos.
-	/// </summary>
-	public UIPanel[] summaryPlayersInfos;
-	/// <summary>
 	/// Players ammo counters. Important: respect players order (first player1 ammoCounter, then player2 ammoCounter and so on)
 	/// </summary>
 	public UILabel[] ammoCounters;
@@ -50,14 +46,6 @@ public class UIManager : MonoBehaviour
 	/// Players scores.
 	/// </summary>
 	public UILabel[] scores;
-	/// <summary>
-	/// The players identifiers.
-	/// </summary>
-	public UILabel[] playersIds;
-	/// <summary>
-	/// The summary placeholders.
-	/// </summary>
-	public UISprite[] summaryPlaceholdersBackgrounds;
 	/// <summary>
 	/// The best player symbols.
 	/// </summary>
@@ -143,37 +131,13 @@ public class UIManager : MonoBehaviour
 	/// Inits the UI.
 	/// </summary>
 	/// <param name="numberOfPlayers">Number of players.</param>
-	/// <param name="maxNumberOfPlayers">Max number of players.</param>
-	public void InitUI (int numberOfPlayers, int maxNumberOfPlayers)
+	public void InitUI (int numberOfPlayers)
 	{
-		UILabel[] activePlayersIds;
-		UILabel[] activeScores;
-		UISprite[] activeSummaryPlaceholdersBackgrounds;
-		UISprite[] activeBestPlayers;
 		int playerIndex;
-		int firstActivePlayerSummaryInfoIndex;
 
-		firstActivePlayerSummaryInfoIndex = (maxNumberOfPlayers - numberOfPlayers) / 2;
-		// Select summary info components to use
-		activePlayersIds = new UILabel[numberOfPlayers];
-		activeScores = new UILabel[numberOfPlayers];
-		activeSummaryPlaceholdersBackgrounds = new UISprite[numberOfPlayers];
-		activeBestPlayers = new UISprite[numberOfPlayers];
 		for (playerIndex = 0; playerIndex < numberOfPlayers; playerIndex++) {
-			activePlayersIds [playerIndex] = playersIds [firstActivePlayerSummaryInfoIndex + playerIndex];
-			activeScores [playerIndex] = scores [firstActivePlayerSummaryInfoIndex + playerIndex];
-			activeSummaryPlaceholdersBackgrounds [playerIndex] = summaryPlaceholdersBackgrounds [firstActivePlayerSummaryInfoIndex + playerIndex];
-			activeBestPlayers [playerIndex] = bestPlayers [firstActivePlayerSummaryInfoIndex + playerIndex];
-		}
-		foreach (UIPanel summaryPlayersInfo in summaryPlayersInfos) {
-			summaryPlayersInfo.enabled = false;
-		}
-		for (playerIndex = 0; playerIndex < numberOfPlayers; playerIndex++) {
-			activePlayersIds [playerIndex].text = "P" + (playerIndex + 1);
-			activeBestPlayers [playerIndex].enabled = false;
-			activeScores [playerIndex].text = "0";
-			activeSummaryPlaceholdersBackgrounds [playerIndex].color = playersColors [playerIndex];
-			activeSummaryPlaceholdersBackgrounds [playerIndex].parent.GetComponent <UIPanel> ().enabled = true;
+			bestPlayers [playerIndex].enabled = false;
+			scores [playerIndex].text = "0";
 			placeholdersBackgrounds [playerIndex].color = playersColors [playerIndex];
 			playersInfos [playerIndex].enabled = true;
 		}

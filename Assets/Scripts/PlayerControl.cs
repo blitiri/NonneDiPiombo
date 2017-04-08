@@ -160,16 +160,19 @@ public class PlayerControl : MonoBehaviour
 	private void DropWeapon ()
 	{
 		if (inputManager.Drop () || pickedAnotherWeapon || IsDead () || IsCollapsed () || ammo <= 0) {
-			if (selectedWeapon == "Uzi") {
-				GameObject droppedUzi = Instantiate (uzi, transform.position, Quaternion.identity) as GameObject;
-				WeaponManager droppedUziMan = droppedUzi.GetComponent<WeaponManager> ();
-				droppedUziMan.ammoMagazine = ammo;
-				droppedUziMan.ratioOfFire = maxTimeToShoot;
-				ammo = 100;
-			}
-			SetActiveWeapons (defaultweapon);
-			maxTimeToShoot = defaultRatio;
-			//bulletDamage = defaultDamage;
+            if (selectedWeapon == "Uzi")
+            {
+                GameObject droppedUzi = Instantiate(uzi, transform.position, Quaternion.identity) as GameObject;
+                WeaponManager droppedUziMan = droppedUzi.GetComponent<WeaponManager>();
+                droppedUziMan.ammoMagazine = ammo;
+                droppedUziMan.ratioOfFire = maxTimeToShoot;
+               
+            }
+
+             SetActiveWeapons(defaultweapon);
+             maxTimeToShoot = defaultRatio;
+             //bulletDamage = defaultDamage;
+            
 		}
 	}
 

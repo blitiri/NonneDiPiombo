@@ -6,36 +6,22 @@ using System.Collections;
 /// </summary>
 public class Pickup : MonoBehaviour
 {
-
-
-    /// <summary>
-    /// The ammo bonus.
-    /// </summary>
-    public int ammoBonus = 10;
-    /// <summary>
-    /// The life bonus.
-    /// </summary>
-    public int lifeBonus = 10;
-    /// <summary>
+	/// <summary>
+	/// The ammo bonus.
+	/// </summary>
+	public int ammoBonus = 10;
+	/// <summary>
+	/// The life bonus.
+	/// </summary>
+	public int lifeBonus = 10;
+	/// <summary>
 	/// The stress bonus.
 	/// </summary>
-    public int stressBonus = -10;
-
-    /// <summary>
-    /// The pickup transform.
-    /// </summary>
-    public Transform transformPickUp;
-
-    
+	public int stressBonus = -10;
 	/// <summary>
-	/// Updates the pickup instance.
+	/// The pickup transform.
 	/// </summary>
-	void Update ()
-	{
-		if (gameObject.tag == "BulletPickUp") {
-			transform.RotateAround (transform.position, Vector3.up, 5.0f);
-		}
-	}
+	public Transform transformPickUp;
 
 	/// <summary>
 	/// Detects a trigger with a player and increases statitics with the related bonus
@@ -45,18 +31,15 @@ public class Pickup : MonoBehaviour
 	{
 		PlayerControl playerControl;
 
-		if (other.gameObject.tag.StartsWith ("Player")  ) {
+		if (other.gameObject.tag.StartsWith ("Player")) {
 			playerControl = other.gameObject.GetComponent<PlayerControl> ();
-			if (gameObject.tag.Equals ("BulletPickUp")) {
-				Destroy (this.gameObject);
-				playerControl.AddAmmo (ammoBonus);
-			} else if (gameObject.tag.Equals ("Medikit") && playerControl.GetLife() < playerControl.maxLifeValue ) {
+			if (gameObject.tag.Equals ("Medikit") && !playerControl.IsFitAsAFiddle ()) {
 				Destroy (this.gameObject);
 				playerControl.AddLife (lifeBonus);
-			}else if(gameObject.tag.Equals("Stress") && playerControl.GetStress() > 0 ) {
-                Destroy(this.gameObject);
-                playerControl.AddStress(stressBonus);
-            }
+			} else if (gameObject.tag.Equals ("Stress") && playerControl.IsStressed ()) {
+				Destroy (this.gameObject);
+				playerControl.AddStress (stressBonus);
+			}
 		}
 
 	}

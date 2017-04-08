@@ -115,7 +115,7 @@ public class CameraControl : MonoBehaviour
 	{
 		int playerNumbers = GameManager.instance.numberOfPlayers;
 			
-		RaycastHit hit;
+
 		GameObject[] players = new GameObject[playerNumbers];
 		Vector3[] screenPos = new Vector3[playerNumbers];
 		Ray[] wallRay = new Ray[playerNumbers];

@@ -5,7 +5,9 @@ public class CameraControl : MonoBehaviour
 	public float dampTime = 0.2f;
 	public float screenEdgeBuffer = 4f;
 	public float minSize = 6.5f;
+	public float maxSize;
 	private float zoomSpeed;
+
 
 	private Vector3 moveVelocity;
 	private Vector3 desiredPosition;
@@ -41,14 +43,16 @@ public class CameraControl : MonoBehaviour
 	private void FixedUpdate ()
 	{
 		
-		Move ();
-		Zoom ();
+			Move ();
+			Zoom ();
+
 		WallDetection ();
 	}
 
 
 	private void Move ()
 	{
+		
 		FindAveragePosition ();
 		transform.position = Vector3.SmoothDamp (transform.position, desiredPosition, ref moveVelocity, dampTime);
 	}
@@ -80,8 +84,8 @@ public class CameraControl : MonoBehaviour
 	private void Zoom ()
 	{
 		
-		float requiredSize = FindRequiredSize ();
-		mainCamera.orthographicSize = Mathf.SmoothDamp (mainCamera.orthographicSize, requiredSize, ref zoomSpeed, dampTime);
+			float requiredSize = FindRequiredSize ();
+			mainCamera.orthographicSize = Mathf.SmoothDamp (mainCamera.orthographicSize, requiredSize, ref zoomSpeed, dampTime);
 	}
 
 
@@ -90,16 +94,19 @@ public class CameraControl : MonoBehaviour
 		Vector3 desiredLocalPos = transform.InverseTransformPoint (desiredPosition);
 		float size = 0f;
 
-		for (int i = 0; i < targets.Length; i++) {
-			if (targets [i].gameObject.activeSelf) {
-				Vector3 targetLocalPos = transform.InverseTransformPoint (targets [i].position);
-				Vector3 desiredPosToTarget = targetLocalPos - desiredLocalPos;
-				size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.y));
-				size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.x) / mainCamera.aspect);
+			for (int i = 0; i < targets.Length; i++) {
+				if (targets [i].gameObject.activeSelf) {
+					Vector3 targetLocalPos = transform.InverseTransformPoint (targets [i].position);
+					Vector3 desiredPosToTarget = targetLocalPos - desiredLocalPos;
+					size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.y));
+					size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.x) / mainCamera.aspect);
+				}
 			}
-		}
+
+		Debug.Log ("Size Camera:" + size);
 		size += screenEdgeBuffer;
 		size = Mathf.Max (size, minSize);
+		size = Mathf.Clamp (size, minSize, maxSize);
 		return size;
 	}
 

@@ -7,22 +7,19 @@ using Rewired;
 /// </summary>
 public class InputManager
 {
-    /// <summary>
-    /// The angle correction respect to the camera.
-    /// </summary>
-    private float angleCorrection;
-
-    /// <summary>
-    /// The player transform.
-    /// </summary>
-    private Transform playerTransform;
-
-    private Plane aimPlane;
-
-    /// <summary>
-    /// The Rewired Player.
-    /// </summary>
-    public Player player;
+	/// <summary>
+	/// The angle correction respect to the camera.
+	/// </summary>
+	private float angleCorrection;
+	/// <summary>
+	/// The player transform.
+	/// </summary>
+	private Transform playerTransform;
+	private Plane aimPlane;
+	/// <summary>
+	/// The Rewired Player.
+	/// </summary>
+	public Player player;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="InputManager"/> class.
@@ -71,8 +68,8 @@ public class InputManager
 		if (HasMouse ()) {
 			Ray aimRay = Camera.main.ScreenPointToRay (Input.mousePosition);
 			float targetDistance;
-			if(aimPlane.Raycast(aimRay,out targetDistance)){
-				aimVector = aimRay.GetPoint(targetDistance);
+			if (aimPlane.Raycast (aimRay, out targetDistance)) {
+				aimVector = aimRay.GetPoint (targetDistance);
 			}
 		} else {
 			aimVector.z = -player.GetAxis ("Aim horizontal");
@@ -122,12 +119,12 @@ public class InputManager
 		return player.GetButtonDown ("Melee");
 	}
 
-    /// <summary>
-    /// Corrects the direction angle respect to the camera.
-    /// </summary>
-    /// <returns>Corrected direction.</returns>
-    /// <param name="direction">Direction to correct.</param>
-    public Vector3 CorrectAngle (Vector3 direction)
+	/// <summary>
+	/// Corrects the direction angle respect to the camera.
+	/// </summary>
+	/// <returns>Corrected direction.</returns>
+	/// <param name="direction">Direction to correct.</param>
+	public Vector3 CorrectAngle (Vector3 direction)
 	{
 		return CorrectAngle (direction, angleCorrection);
 	}

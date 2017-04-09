@@ -139,14 +139,7 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
-	/// <summary>
-	/// Determines whether player is dead.
-	/// </summary>
-	/// <returns><c>true</c> if player is dead; otherwise, <c>false</c>.</returns>
-	public bool IsDead ()
-	{
-		return life <= 0;
-	}
+	
 
 	/// <summary>
 	/// Determines whether player is fit as a fiddle.
@@ -166,7 +159,7 @@ public class PlayerControl : MonoBehaviour
                 WeaponManager droppedUziMan = droppedUzi.GetComponent<WeaponManager>();
                 droppedUziMan.ammoMagazine = ammo;
                 droppedUziMan.ratioOfFire = maxTimeToShoot;
-               
+                ammo = 100;
             }
 
              SetActiveWeapons(defaultweapon);
@@ -363,11 +356,20 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
-	/// <summary>
-	/// Detects a trigger enter with a weapon
+    /// <summary>
+	/// Determines whether player is dead.
 	/// </summary>
-	/// <param name="other">Collider.</param>
-	void OnTriggerStay (Collider other)
+	/// <returns><c>true</c> if player is dead; otherwise, <c>false</c>.</returns>
+	public bool IsDead()
+    {
+        return life <= 0;
+    }
+
+    /// <summary>
+    /// Detects a trigger enter with a weapon
+    /// </summary>
+    /// <param name="other">Collider.</param>
+    void OnTriggerStay (Collider other)
 	{
 		if (inputManager.Pick ()) {
 

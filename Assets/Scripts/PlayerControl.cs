@@ -13,6 +13,7 @@ public class PlayerControl : MonoBehaviour
 	private bool isDashing;
 	public bool isObstacle = false;
 	private bool pickedAnotherWeapon = false;
+    public bool dead = false;
 
 	public int startingAmmo = 20;
 	public int startingLife = 100;
@@ -376,9 +377,9 @@ public class PlayerControl : MonoBehaviour
 			if (selectedWeapon != "Revolver") {
 				pickedAnotherWeapon = true;
 				DropWeapon ();
-				pickedAnotherWeapon = false;
-			}
-			WeaponManager pickedWeaponMan = other.gameObject.GetComponent<WeaponManager> ();
+                pickedAnotherWeapon = false;
+            }
+            WeaponManager pickedWeaponMan = other.gameObject.GetComponent<WeaponManager> ();
 			ammo = pickedWeaponMan.ammoMagazine;
 			maxTimeToShoot = pickedWeaponMan.ratioOfFire;
 			foreach (Transform child in transform) {
@@ -398,12 +399,16 @@ public class PlayerControl : MonoBehaviour
 	/// <param name="killerTag">Killer tag.</param>
 	private void AddDamage (int damage, string killerTag)
 	{
-		life -= bulletDamage;
-		if (IsDead ()) {
-			life = 0;
-			GameManager.instance.PlayerKilled (GetPlayerId (gameObject.tag), GetPlayerId (killerTag));
-		}
-		UpdateUI ();
+        if(dead==false)
+        {
+            life -= bulletDamage;
+            if (IsDead())
+            {
+                life = 0;
+                GameManager.instance.PlayerKilled(GetPlayerId(gameObject.tag), GetPlayerId(killerTag));
+            }
+            UpdateUI();
+        }
 	}
 
 	/// <summary>

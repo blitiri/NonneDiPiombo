@@ -124,15 +124,17 @@ public class GameManager : MonoBehaviour
 		player = players [playerIndex];
 		SetMeshRendererEnabled (false, playerIndex);
 		player.GetComponent<PlayerControl> ().stopInputPlayer = true;
+        player.GetComponent<PlayerControl>().dead = true;
 
-		yield return new WaitForSeconds (maxTimerBeforeRespawn);
+        yield return new WaitForSeconds (maxTimerBeforeRespawn);
 
 		spawnpointIndex = Random.Range (0, playersRespawns.Length);
 		player.transform.position = playersRespawns [spawnpointIndex].position;
 		SetMeshRendererEnabled (true, playerIndex);
 		player.GetComponent<PlayerControl> ().stopInputPlayer = false;
-        
-	}
+        player.GetComponent<PlayerControl>().dead = false;
+
+    }
 
 	private void SetMeshRendererEnabled (bool enabled, int playerIndex)
 	{

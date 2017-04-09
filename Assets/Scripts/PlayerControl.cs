@@ -65,11 +65,19 @@ public class PlayerControl : MonoBehaviour
 
 	public Vector2 cursorHotSpot = new Vector2 (16, 16);
 
-	public Transform bulletSpawnPoint;
+    //public Color fromEmissionColor;
+    public Color toEmissionColor;
 
-	private Rigidbody rb;
+    private Material playerMat;
+
+    public Transform bulletSpawnPoint;
+
+    private MeshRenderer meshPlayer;
+
+    private Rigidbody rb;
 
 	private Animator ani;
+
 	public GameObject bulletPrefab;
 	public GameObject revolver;
 	public GameObject uzi;
@@ -102,7 +110,9 @@ public class PlayerControl : MonoBehaviour
 		}
 		rb = GetComponent<Rigidbody> ();
 		ani = GetComponent<Animator> ();
-	}
+        meshPlayer = GetComponent<MeshRenderer>();
+        playerMat = meshPlayer.material;
+    }
 
 	/// <summary>
 	/// Start this instance.
@@ -408,6 +418,8 @@ public class PlayerControl : MonoBehaviour
                 GameManager.instance.PlayerKilled(GetPlayerId(gameObject.tag), GetPlayerId(killerTag));
             }
             UpdateUI();
+            StopCoroutine(BounceColor(toEmissionColor));
+            StartCoroutine(BounceColor(toEmissionColor));
         }
 	}
 
@@ -588,4 +600,21 @@ public class PlayerControl : MonoBehaviour
 		((GameObject)weapons [weapon]).SetActive (true);
 		selectedWeapon = weapon;
 	}
+
+    private IEnumerator BounceColor(Color toColor)
+    {
+        float timer = 0;
+        float timeLimit = 1;
+
+        while (timer < timeLimit)
+        {
+            timer += Time.deltaTime;
+            float colorGradient = Mathf.PingPong(timer * 2, 1);
+            Color bouncingColor = toColor * Mathf.LinearToGammaSpace(colorGradient);
+            playerMat.SetColor("_EmissionColor", bouncingColor);
+            Debug.Log(timer);
+            yield return new WaitForEndOfFrame();
+        }
+        playerMat.SetColor("_EmissionColor", Color.black);
+    }
 }

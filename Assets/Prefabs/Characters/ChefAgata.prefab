@@ -357,6 +357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopInputPlayer: 0
   isObstacle: 0
+  dead: 0
   startingAmmo: 100
   startingLife: 100
   startingStress: 0
@@ -383,13 +384,12 @@ MonoBehaviour:
   dashSpeed: 20
   dashLength: 5
   playerObstacleDistanceLimit: 3
-  blinkingTimer: 1
   environment:
     serializedVersion: 2
     m_Bits: 1792
   crosshairCursor: {fileID: 2800000, guid: 129a1bd82137d4d6cacaf680296e0622, type: 3}
   cursorHotSpot: {x: 16, y: 16}
-  fromEmissionColor: {r: 1, g: 0, b: 0, a: 0}
+  toEmissionColor: {r: 1, g: 0, b: 0, a: 0}
   bulletSpawnPoint: {fileID: 4000011734779096}
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}

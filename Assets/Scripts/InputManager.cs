@@ -52,7 +52,7 @@ public class InputManager
 	{
 		Vector3 moveVector;
 
-		moveVector = new Vector3 (player.GetAxis ("Move Vertical"), 0, -player.GetAxis ("Move horizontal"));
+		moveVector = new Vector3 (player.GetAxis ("Move Horizontal"), 0, player.GetAxis ("Move vertical"));
 		return CorrectAngle (moveVector);
 	}
 
@@ -74,7 +74,7 @@ public class InputManager
 		} else {
 			aimVector.z = -player.GetAxis ("Aim horizontal");
 			aimVector.x = player.GetAxis ("Aim vertical");
-			aimVector = CorrectAngle (aimVector);
+			//aimVector = CorrectAngle (aimVector);
 		}
 		return aimVector;
 	}

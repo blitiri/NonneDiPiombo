@@ -7,17 +7,22 @@ public class WeaponManager : MonoBehaviour
 	public float ratioOfFire=1.0f;
 	public float weaponDamage=5.0f;
 
+	private OutlineShaderApply shaderApply;
+	private MeshRenderer weaponMeshRenderer;
 
+	public Shader outlineShader;
+	public Shader standardShader;
 
-	// Use this for initialization
-	void Start () 
-	{
-	    
+	void Awake(){
+		shaderApply = new OutlineShaderApply ();
+		weaponMeshRenderer = this.GetComponent<MeshRenderer> ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () 
 	{
+		shaderApply.ShaderApply (weaponMeshRenderer, this.gameObject.transform.position, outlineShader, standardShader);
+
 		if (ammoMagazine <= 0)
 		{
 			Destroy (this.gameObject);

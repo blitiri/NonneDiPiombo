@@ -358,6 +358,8 @@ MonoBehaviour:
   ammoMagazine: 100
   ratioOfFire: 0.1
   weaponDamage: 5
+  outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
+  standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &114000013135297010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -371,6 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopInputPlayer: 0
   isObstacle: 0
+  dead: 0
   startingAmmo: 100
   startingLife: 100
   startingStress: 0
@@ -388,6 +391,8 @@ MonoBehaviour:
   stressDecreaseFactor: 3
   timerToRefillStress: 4
   weaponStressDamage: 0
+  defaultRatio: 0.8
+  defaultDamage: 5
   dashTime: 2
   dashDistance: 10
   stressIncrease: 10
@@ -400,6 +405,7 @@ MonoBehaviour:
     m_Bits: 1792
   crosshairCursor: {fileID: 2800000, guid: 129a1bd82137d4d6cacaf680296e0622, type: 3}
   cursorHotSpot: {x: 16, y: 16}
+  toEmissionColor: {r: 0.9852941, g: 0, b: 0, a: 0}
   bulletSpawnPoint: {fileID: 4000011202399794}
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}
@@ -407,3 +413,6 @@ MonoBehaviour:
   uzi: {fileID: 1000010333016856}
   aimTargetPrefab: {fileID: 1000011459376362, guid: 96f8777008367b2439be448a2124cbdd,
     type: 2}
+  blinkColorTime: 2
+  outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
+  standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}

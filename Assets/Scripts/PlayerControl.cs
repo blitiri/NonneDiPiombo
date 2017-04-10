@@ -60,9 +60,7 @@ public class PlayerControl : MonoBehaviour
 	private string defaultweapon = "Revolver";
 
 	public LayerMask environment;
-
 	public Texture2D crosshairCursor;
-
 	public Vector2 cursorHotSpot = new Vector2 (16, 16);
 
     //public Color fromEmissionColor;
@@ -73,6 +71,7 @@ public class PlayerControl : MonoBehaviour
     public Transform bulletSpawnPoint;
 
     private MeshRenderer meshPlayer;
+	private MeshRenderer revolverMeshRenderer;
 
     private Rigidbody rb;
 
@@ -90,6 +89,13 @@ public class PlayerControl : MonoBehaviour
 
 	private Hashtable weapons;
 
+	public float blinkColorTime = 2;
+
+	private OutlineShaderApply shaderApply;
+
+	public Shader outlineShader;
+	public Shader standardShader;
+
 	//   [Range(0,1)]
 	//   public float dashSpeed = 0.1f;
 
@@ -99,6 +105,9 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	void Awake ()
 	{
+		 
+		shaderApply = new OutlineShaderApply ();
+		revolverMeshRenderer = revolver.GetComponent<MeshRenderer> ();
 		weapons = new Hashtable ();
 		foreach (Transform child in transform) {
 			weapons.Add (child.gameObject.tag, child.gameObject);
@@ -146,6 +155,9 @@ public class PlayerControl : MonoBehaviour
 				Melee ();
 				DropWeapon ();
 				//Debug.Log("isDashing: " + isDashing);
+
+				//Assegna Shader Outline su arma attiva
+				shaderApply.ShaderApply (revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
 			}
 		}
 	}
@@ -224,7 +236,7 @@ public class PlayerControl : MonoBehaviour
 				if (inputManager.HasMouse ()) {
 					//Correzione aimvector per modello girato.
 					aimVector -= transform.position;
-					aimVector = Quaternion.Euler (new Vector3 (0, 87, 0)) * aimVector;
+					//aimVector = Quaternion.Euler (new Vector3 (0, 87, 0)) * aimVector;
 					aimVector += transform.position;
 					transform.LookAt (aimVector);
 
@@ -609,7 +621,7 @@ public class PlayerControl : MonoBehaviour
         while (timer < timeLimit)
         {
             timer += Time.deltaTime;
-            float colorGradient = Mathf.PingPong(timer * 2, 1);
+			float colorGradient = Mathf.PingPong(timer * blinkColorTime, 1);
             Color bouncingColor = toColor * Mathf.LinearToGammaSpace(colorGradient);
             playerMat.SetColor("_EmissionColor", bouncingColor);
             Debug.Log(timer);

@@ -11,7 +11,7 @@ public class OutlineShaderApply  {
 				//Debug.Log ("Wall Found!");
 				renderer.material.shader = outline;
 			} else {
-				renderer.material.shader = standard;
+				renderer.sharedMaterial.shader = standard;
 			}
 		}
 		Debug.DrawRay (Camera.main.transform.position,dir,Color.green);

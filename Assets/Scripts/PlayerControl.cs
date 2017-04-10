@@ -374,7 +374,7 @@ public class PlayerControl : MonoBehaviour
 			if (!other.gameObject.tag.EndsWith (playerId.ToString ())) {
 				Debug.Log ("Trigger detected: " + other.gameObject.tag);
 				AddDamage (bulletDamage, other.gameObject.tag);
-				Destroy (other.gameObject);
+	
 			}
 		}
 	}

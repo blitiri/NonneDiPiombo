@@ -12,7 +12,7 @@ public class PlayerControl : MonoBehaviour
 	private bool stopped;
 	private bool isDashing;
 	public bool isObstacle = false;
-	public bool pickedAnotherWeapon = false;
+
     public bool dead = false;
 	public bool isShooting;
 
@@ -155,7 +155,7 @@ public class PlayerControl : MonoBehaviour
 				Aim ();
 				Shoot ();
 				Melee ();
-				DropWeapon ();
+				
 				//Debug.Log("isDashing: " + isDashing);
 
 				//Assegna Shader Outline su arma attiva
@@ -168,7 +168,8 @@ public class PlayerControl : MonoBehaviour
 					UpdateUI ();
 				}
 			}
-		}
+            DropWeapon();
+        }
 	}
 
 	
@@ -184,19 +185,22 @@ public class PlayerControl : MonoBehaviour
 
 	private void DropWeapon ()
 	{
-		if (inputManager.Drop () || pickedAnotherWeapon || IsDead () || IsCollapsed () || ammo <= 0) {
+		if (inputManager.Drop () || dead ||  ammo <= 0) {
+
             if (selectedWeapon == "Uzi")
             {
                 GameObject droppedUzi = Instantiate(uzi, transform.position, Quaternion.identity) as GameObject;
+                droppedUzi.GetComponent<MeshRenderer>().enabled = true;
                 WeaponManager droppedUziMan = droppedUzi.GetComponent<WeaponManager>();
                 droppedUziMan.ammoMagazine = ammo;
                 droppedUziMan.ratioOfFire = maxTimeToShoot;
+                bulletDamage = droppedUziMan.weaponDamage;
                 ammo = 100;
             }
 
-             SetActiveWeapons(defaultweapon);
+            SetActiveWeapons(defaultweapon);
              maxTimeToShoot = defaultRatio;
-             //bulletDamage = defaultDamage;
+             bulletDamage = defaultDamage;
             
 		}
 	}
@@ -358,7 +362,6 @@ public class PlayerControl : MonoBehaviour
 		}
 		if (collision.gameObject.layer == 8 || collision.gameObject.layer == 9 || collision.gameObject.layer == 10) {
 			isDashing = false;
-			//            Debug.Log("SSSS");
 		}
 	}
 
@@ -397,6 +400,7 @@ public class PlayerControl : MonoBehaviour
 	/// <returns><c>true</c> if player is dead; otherwise, <c>false</c>.</returns>
 	public bool IsDead()
     {
+        
         return life <= 0;
     }
 
@@ -409,9 +413,7 @@ public class PlayerControl : MonoBehaviour
 		if (inputManager.Pick ()) {
 
 			if (selectedWeapon != "Revolver") {
-				pickedAnotherWeapon = true;
 				DropWeapon ();
-                pickedAnotherWeapon = false;
             }
             WeaponManager pickedWeaponMan = other.gameObject.GetComponent<WeaponManager> ();
 			ammo = pickedWeaponMan.ammoMagazine;

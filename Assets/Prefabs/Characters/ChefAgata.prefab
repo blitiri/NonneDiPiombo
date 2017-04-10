@@ -357,7 +357,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopInputPlayer: 0
   isObstacle: 0
+  pickedAnotherWeapon: 0
   dead: 0
+  isShooting: 0
   startingAmmo: 100
   startingLife: 100
   startingStress: 0
@@ -373,7 +375,7 @@ MonoBehaviour:
   maxTimeToShoot: 0.8
   dashWallDistance: 1.5
   stressDecreaseFactor: 3
-  timerToRefillStress: 4
+  timeToDiminishStress: 0
   weaponStressDamage: 0
   defaultRatio: 0.8
   defaultDamage: 5
@@ -397,6 +399,9 @@ MonoBehaviour:
   uzi: {fileID: 1000012369991128}
   aimTargetPrefab: {fileID: 1000011459376362, guid: 96f8777008367b2439be448a2124cbdd,
     type: 2}
+  blinkColorTime: 2
+  outlineShader: {fileID: 0}
+  standardShader: {fileID: 0}
 --- !u!114 &114000013484567506
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -409,5 +414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoMagazine: 100
-  ratioOfFire: 1
+  ratioOfFire: 0.3
   weaponDamage: 5
+  outlineShader: {fileID: 0}
+  standardShader: {fileID: 0}

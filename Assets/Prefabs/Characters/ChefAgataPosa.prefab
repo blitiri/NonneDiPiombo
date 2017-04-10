@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoMagazine: 100
-  ratioOfFire: 2
+  ratioOfFire: 0.3
   weaponDamage: 5
   outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
   standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
@@ -326,6 +326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopInputPlayer: 0
   isObstacle: 0
+  pickedAnotherWeapon: 0
   dead: 0
   isShooting: 0
   startingAmmo: 100

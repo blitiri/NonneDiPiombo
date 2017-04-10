@@ -109,10 +109,10 @@ public class GameManager : MonoBehaviour
 
 	public void PlayerKilled (int killedId, int killerId)
 	{
-		playersKills [killedId] += killedMalus;
-		playersKills [killerId] -= killerBonus;
-		UIManager.instance.SetScore (killedId, playersKills [killedId]);
-		UIManager.instance.SetScore (killerId, playersKills [killerId]);
+		playersKills [killedId] -= killedMalus;
+		playersKills [killerId] += killerBonus;
+		UIManager.instance.SetScore (playersKills [killedId],killedId);
+		UIManager.instance.SetScore (playersKills [killerId],killerId);
 	}
 
 	private IEnumerator RespawnPlayer (int playerIndex)

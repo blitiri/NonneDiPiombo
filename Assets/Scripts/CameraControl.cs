@@ -103,7 +103,7 @@ public class CameraControl : MonoBehaviour
 				}
 			}
 
-		Debug.Log ("Size Camera:" + size);
+		//Debug.Log ("Size Camera:" + size);
 		size += screenEdgeBuffer;
 		size = Mathf.Max (size, minSize);
 		size = Mathf.Clamp (size, minSize, maxSize);

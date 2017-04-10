@@ -12,7 +12,7 @@ public class PlayerControl : MonoBehaviour
 	private bool stopped;
 	private bool isDashing;
 	public bool isObstacle = false;
-	private bool pickedAnotherWeapon = false;
+	public bool pickedAnotherWeapon = false;
     public bool dead = false;
 	public bool isShooting;
 
@@ -384,7 +384,7 @@ public class PlayerControl : MonoBehaviour
 
 		if (other.gameObject.tag.StartsWith (bulletTagPrefix)) {
 			if (!other.gameObject.tag.EndsWith (playerId.ToString ())) {
-				Debug.Log ("Trigger detected: " + other.gameObject.tag);
+				//Debug.Log ("Trigger detected: " + other.gameObject.tag);
 				AddDamage (bulletDamage, other.gameObject.tag);
 	
 			}
@@ -593,7 +593,7 @@ public class PlayerControl : MonoBehaviour
 		isDashing = true;
 
 		while (dashDone < dashLength && isDashing && !isObstacle) {
-			Debug.Log ("isObstacle" + isObstacle);
+			//Debug.Log ("isObstacle" + isObstacle);
 			if (moveVector.magnitude > 0) {
 				transform.localPosition += dashSpeed * Time.deltaTime * moveVector; //= new Vector3(transform.localPosition.x + dashSpeed * Time.deltaTime * moveVector.x, transform.localPosition.y, transform.localPosition.z + dashSpeed * Time.deltaTime * moveVector.z);
 			} else {
@@ -643,8 +643,9 @@ public class PlayerControl : MonoBehaviour
             timer += Time.deltaTime;
 			float colorGradient = Mathf.PingPong(timer * blinkColorTime, 1);
             Color bouncingColor = toColor * Mathf.LinearToGammaSpace(colorGradient);
-            playerMat.SetColor("_EmissionColor", bouncingColor);
-            Debug.Log(timer);
+           playerMat.SetColor("_EmissionColor", bouncingColor);
+
+          //  Debug.Log(timer);
             yield return new WaitForEndOfFrame();
         }
         playerMat.SetColor("_EmissionColor", Color.black);

@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour {
 
 	public void OnTriggerEnter(Collider other){
 		if(other.gameObject.tag.StartsWith("Player") || other.gameObject.tag.Equals("Wall")){
-			Debug.Log ("Bullet Collision With " + other);
+			//Debug.Log ("Bullet Collision With " + other);
 			//finishing VFX
 			bulletMeshRender.enabled = false;
 			bulletRb.velocity = new Vector3 (0, 0, 0);

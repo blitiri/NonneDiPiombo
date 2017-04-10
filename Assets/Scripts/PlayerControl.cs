@@ -14,6 +14,7 @@ public class PlayerControl : MonoBehaviour
 	public bool isObstacle = false;
 	private bool pickedAnotherWeapon = false;
     public bool dead = false;
+	public bool isShooting;
 
 	public int startingAmmo = 20;
 	public int startingLife = 100;
@@ -33,7 +34,7 @@ public class PlayerControl : MonoBehaviour
 	public float maxTimeToShoot = 0.5f;
 	public float dashWallDistance = 1.5f;
 	public float stressDecreaseFactor;
-	public float timerToRefillStress;
+	public float timeToDiminishStress;
 	public float weaponStressDamage;
 	private float horizontalMovement;
 	private float verticalMovement;
@@ -96,6 +97,7 @@ public class PlayerControl : MonoBehaviour
 	public Shader outlineShader;
 	public Shader standardShader;
 
+
 	//   [Range(0,1)]
 	//   public float dashSpeed = 0.1f;
 
@@ -134,7 +136,7 @@ public class PlayerControl : MonoBehaviour
 
 		}
 		ResetStatus ();
-		StartCoroutine (RefillStress ());
+		StartCoroutine (DiminishStress ());
 	}
 
 	/// <summary>
@@ -158,6 +160,13 @@ public class PlayerControl : MonoBehaviour
 
 				//Assegna Shader Outline su arma attiva
 				shaderApply.ShaderApply (revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
+
+				//Munizioni Infite Se revolver
+				if (selectedWeapon == "Revolver") {
+					UIManager.instance.ammoCounters [playerId].text = "--";
+				} else {
+					UpdateUI ();
+				}
 			}
 		}
 	}
@@ -318,6 +327,7 @@ public class PlayerControl : MonoBehaviour
 		if (timerToShoot < maxTimeToShoot) {
 			timerToShoot += Time.deltaTime;
 		} else if ((ammo > 0) && inputManager.Shoot ()) {
+			isShooting = true;
 			bullet = Instantiate (bulletPrefab) as GameObject;
 			bullet.transform.rotation = bulletSpawnPoint.transform.rotation;
 			bullet.transform.position = bulletSpawnPoint.position;
@@ -331,6 +341,8 @@ public class PlayerControl : MonoBehaviour
 			stress += weaponStressDamage;
 			timerToShoot = 0.0f;
 			UpdateUI ();
+		} else {
+			isShooting = false;
 		}
 	}
 
@@ -501,23 +513,31 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	private void UpdateUI ()
 	{
+		if (selectedWeapon == "Revolver") {
+			UIManager.instance.ammoCounters [playerId].text = ("--");
+		} else {
+			UIManager.instance.SetAmmo (ammo, playerId);
+		}
 		// Cast to float is required to avoid an integer division
 		UIManager.instance.SetLife (life / maxLifeValue, playerId);
 		// Cast to float is required to avoid an integer division
+
 		UIManager.instance.SetStress (stress / maxStressValue, playerId);
-		UIManager.instance.SetAmmo (ammo, playerId);
+
 	}
 
 	/// <summary>
 	/// Refills the stress.
 	/// </summary>
 	/// <returns>The stress.</returns>
-	IEnumerator RefillStress ()
+	IEnumerator DiminishStress ()
 	{
 		while (stress < 100) {
-			yield return new WaitForSeconds (timerToRefillStress);
-			stress = Mathf.Clamp (stress - stressDecreaseFactor, 0, maxStressValue);
-			UpdateUI ();
+			yield return new WaitForSeconds (timeToDiminishStress);
+				if (!isShooting) {
+					stress = Mathf.Clamp (stress - stressDecreaseFactor, 0, maxStressValue);
+					UpdateUI ();
+				}
 		}
 	}
 
@@ -535,7 +555,7 @@ public class PlayerControl : MonoBehaviour
 		//CorrectingDashDestinationRotation(dashTransform);
 		//CorrectingDashDestinationRotation(dashTransform2);
 		if (inputManager.Dash ()) {
-			if (!isObstacle && !isDashing && (stress <= maxStressValue - stressIncrease) && dashTime <= Time.time - dashRecordedTime) {
+			if (!isObstacle && !isDashing && dashTime <= Time.time - dashRecordedTime) {
 				StartCoroutine (Dashing (moveVector));
 			}
 		}
@@ -577,7 +597,7 @@ public class PlayerControl : MonoBehaviour
 			if (moveVector.magnitude > 0) {
 				transform.localPosition += dashSpeed * Time.deltaTime * moveVector; //= new Vector3(transform.localPosition.x + dashSpeed * Time.deltaTime * moveVector.x, transform.localPosition.y, transform.localPosition.z + dashSpeed * Time.deltaTime * moveVector.z);
 			} else {
-				transform.localPosition += dashSpeed * Time.deltaTime * inputManager.CorrectAngle (Vector3.forward);
+				transform.localPosition += dashSpeed * Time.deltaTime * transform.forward;
 			}
 			//                Debug.Log(moveVector);
 			dashDone += dashSpeed * Time.deltaTime;

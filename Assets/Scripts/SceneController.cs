@@ -6,7 +6,7 @@ public class SceneController : MonoBehaviour
 {
 
 
-	private const string levelPrefix = "Level";
+//	private const string levelPrefix = "Level";
 
     public GameManager myGameManager;
 
@@ -23,17 +23,17 @@ public class SceneController : MonoBehaviour
 		
 	public void LoadingScene(GameObject button)
     {
-		if (!SceneManager.GetActiveScene().name.StartsWith(levelPrefix))
-        {
-			SceneManager.LoadScene(button.transform.name, LoadSceneMode.Single);
-        }
+//		if (!SceneManager.GetActiveScene().name.StartsWith(levelPrefix))
+//        {
+	    SceneManager.LoadScene(button.transform.name, LoadSceneMode.Single);
+//        }
     }
 
     public void LoadingEndMenu()
     {
         if (myGameManager)
         {
-			if (GameManager.instance.IsRoundEnded() && SceneManager.GetActiveScene().name.StartsWith(levelPrefix))
+			if (GameManager.instance.IsRoundEnded()/* && SceneManager.GetActiveScene().name.StartsWith(levelPrefix)*/)
             {
                    SceneManager.LoadScene("Ending", LoadSceneMode.Single);
             }

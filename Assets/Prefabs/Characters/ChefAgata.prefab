@@ -340,7 +340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoMagazine: 100
   ratioOfFire: 0.3
-  weaponDamage: 5
+  weaponDamage: 20
   delayDeathWeapon: 5
   outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
   standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
@@ -364,12 +364,11 @@ MonoBehaviour:
   startingStress: 0
   maxLifeValue: 100
   maxStressValue: 100
-  bulletDamage: 5
   playerId: 0
   speed: 6
   rotSpeed: 2
   bulletLifeTime: 4
-  bulletInitialForce: 20
+  bulletInitialForce: 60
   underAttackInactivityTime: 2
   maxTimeToShoot: 0.8
   dashWallDistance: 1.5
@@ -378,8 +377,8 @@ MonoBehaviour:
   weaponStressDamage: 0
   defaultRatio: 0.8
   defaultDamage: 5
-  dashTime: 2
-  dashDistance: 10
+  dashTime: 1
+  dashDistance: 3
   stressIncrease: 10
   fixedAimAngleCorrection: 90
   dashSpeed: 20

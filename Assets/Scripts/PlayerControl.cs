@@ -21,7 +21,7 @@ public class PlayerControl : MonoBehaviour
 	public int startingStress = 0;
 	public int maxLifeValue = 100;
 	public int maxStressValue = 100;
-	public int bulletDamage = 5;
+	private int bulletDamage=5;
 	public int playerId;
 	private int ammo;
 	private float life;
@@ -194,7 +194,7 @@ public class PlayerControl : MonoBehaviour
                 WeaponManager droppedUziMan = droppedUzi.GetComponent<WeaponManager>();
                 droppedUziMan.ammoMagazine = ammo;
 				Debug.Log (droppedUziMan.ammoMagazine);
-                droppedUziMan.ratioOfFire = maxTimeToShoot;
+                //droppedUziMan.ratioOfFire = maxTimeToShoot;
                 bulletDamage = droppedUziMan.weaponDamage;
 				ammo = startingAmmo;
                 
@@ -422,6 +422,7 @@ public class PlayerControl : MonoBehaviour
 			WeaponManager pickedWeaponManager = other.gameObject.GetComponent<WeaponManager> ();
 			if (pickedWeaponManager != null) {
 				ammo = pickedWeaponManager.ammoMagazine;
+				bulletDamage = pickedWeaponManager.weaponDamage;
 				maxTimeToShoot = pickedWeaponManager.ratioOfFire;
 				foreach (Transform child in transform) {
 					if (other.tag == child.tag) {

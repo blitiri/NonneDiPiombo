@@ -5,7 +5,7 @@ public class WeaponManager : MonoBehaviour
 {
 	public int ammoMagazine=100;
 	public float ratioOfFire=1.0f;
-	public int weaponDamage=5;
+	public int weaponDamage=20;
     public float delayDeathWeapon = 5.0f;
 
 	private OutlineShaderApply shaderApply;

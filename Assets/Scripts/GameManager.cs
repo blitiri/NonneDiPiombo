@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
 		SetMeshRendererEnabled (false, playerIndex);
 		player.GetComponent<PlayerControl> ().stopInputPlayer = true;
         player.GetComponent<PlayerControl>().dead = true;
+		player.GetComponent<BoxCollider> ().enabled = false;
 
         yield return new WaitForSeconds (maxTimerBeforeRespawn);
 
@@ -133,7 +134,7 @@ public class GameManager : MonoBehaviour
 		SetMeshRendererEnabled (true, playerIndex);
 		player.GetComponent<PlayerControl> ().stopInputPlayer = false;
         player.GetComponent<PlayerControl>().dead = false;
-
+		player.GetComponent<BoxCollider> ().enabled = true;
     }
 
 	private void SetMeshRendererEnabled (bool enabled, int playerIndex)

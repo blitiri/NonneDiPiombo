@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
 
 	private PlayerControl[] playersControls;
 
-
 	void Awake ()
 	{
 		instance = this;
@@ -46,7 +45,7 @@ public class GameManager : MonoBehaviour
 
 	void Start ()
 	{
-		UIManager.instance.InitUI (numberOfPlayers);
+		UIManager.instance.InitUI ();
 	}
 
 	// Update is called once per frame

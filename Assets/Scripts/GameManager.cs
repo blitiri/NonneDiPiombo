@@ -241,14 +241,6 @@ public class GameManager : MonoBehaviour
 		SetButtonsEnabled (false);
 	}
 
-	/// <summary>
-	/// Clicking on Quit button
-	/// </summary>
-	public void OnClickQuitButton ()
-	{
-		Application.Quit ();
-	}
-
 	public GameObject[] GetPlayers ()
 	{
 		return players;

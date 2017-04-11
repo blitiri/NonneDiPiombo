@@ -25,7 +25,7 @@ public class SceneController : MonoBehaviour
     {
 //		if (!SceneManager.GetActiveScene().name.StartsWith(levelPrefix))
 //        {
-	    SceneManager.LoadScene(button.transform.name, LoadSceneMode.Single);
+	    SceneManager.LoadScene(button.transform.tag, LoadSceneMode.Single);
 //        }
     }
 
@@ -40,5 +40,12 @@ public class SceneController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Clicking on Quit button
+    /// </summary>
+    public void OnClickQuitButton()
+    {
+        Application.Quit();
+    }
 
 }

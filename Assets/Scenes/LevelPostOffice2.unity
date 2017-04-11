@@ -2204,6 +2204,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114000014205253518, guid: e53eedfd28fdc9246b9cb0b230fc9403,
+        type: 2}
+      propertyPath: onClick.Array.data[0].mParameters.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4000010476330458, guid: e53eedfd28fdc9246b9cb0b230fc9403, type: 2}
       propertyPath: m_LocalPosition.x
       value: 35.1
@@ -2236,21 +2241,35 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114000014205253518, guid: e53eedfd28fdc9246b9cb0b230fc9403,
-        type: 2}
-      propertyPath: onClick.Array.data[0].mTarget
-      value: 
-      objectReference: {fileID: 313915674}
-    - target: {fileID: 114000013130331428, guid: e53eedfd28fdc9246b9cb0b230fc9403,
-        type: 2}
-      propertyPath: onClick.Array.data[0].mTarget
-      value: 
-      objectReference: {fileID: 313915674}
     - target: {fileID: 114000012520130498, guid: e53eedfd28fdc9246b9cb0b230fc9403,
         type: 2}
       propertyPath: onClick.Array.data[0].mTarget
       value: 
       objectReference: {fileID: 1707517791}
+    - target: {fileID: 114000013130331428, guid: e53eedfd28fdc9246b9cb0b230fc9403,
+        type: 2}
+      propertyPath: onClick.Array.data[0].mTarget
+      value: 
+      objectReference: {fileID: 313915674}
+    - target: {fileID: 114000014205253518, guid: e53eedfd28fdc9246b9cb0b230fc9403,
+        type: 2}
+      propertyPath: onClick.Array.data[0].mTarget
+      value: 
+      objectReference: {fileID: 1707517791}
+    - target: {fileID: 114000014205253518, guid: e53eedfd28fdc9246b9cb0b230fc9403,
+        type: 2}
+      propertyPath: onClick.Array.data[0].mMethodName
+      value: LoadingScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000014205253518, guid: e53eedfd28fdc9246b9cb0b230fc9403,
+        type: 2}
+      propertyPath: onClick.Array.data[0].mParameters.Array.data[0].obj
+      value: 
+      objectReference: {fileID: 723978386}
+    - target: {fileID: 1000012648955322, guid: e53eedfd28fdc9246b9cb0b230fc9403, type: 2}
+      propertyPath: m_TagString
+      value: Menu
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e53eedfd28fdc9246b9cb0b230fc9403, type: 2}
   m_IsPrefabParent: 0
@@ -3278,6 +3297,11 @@ Prefab:
       propertyPath: restartButton
       value: 
       objectReference: {fileID: 1175636698}
+    - target: {fileID: 114000014206299072, guid: 7adf6cab5a90b544a873bae1b9a9089c,
+        type: 2}
+      propertyPath: numberOfPlayers
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7adf6cab5a90b544a873bae1b9a9089c, type: 2}
   m_IsPrefabParent: 0

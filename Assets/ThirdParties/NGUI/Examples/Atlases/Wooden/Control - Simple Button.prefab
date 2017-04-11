@@ -29,7 +29,7 @@ GameObject:
   - 65: {fileID: 6500000}
   m_Layer: 8
   m_Name: Control - Simple Button
-  m_TagString: Untagged
+  m_TagString: LevelPostOffice2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,8 +114,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tweenTarget: {fileID: 100002}
-  hover: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
-  pressed: {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 1}
+  hover: {r: 0.78676474, g: 0, b: 0, a: 1}
+  pressed: {r: 0.38235295, g: 0, b: 0, a: 1}
   disabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   duration: 0.2
   dragHighlight: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9d0b5f3bbe925a408bd595c79d0bf63, type: 3}
   m_Name: 
@@ -173,7 +173,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   mFont: {fileID: 0}
-  mText: Restart
+  mText: FIGHT!
   mFontSize: 100
   mFontStyle: 0
   mAlignment: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
@@ -226,7 +226,7 @@ MonoBehaviour:
     relative: 0.5
     absolute: 40
   updateAnchors: 1
-  mColor: {r: 0.49411765, g: 0.49411765, b: 0.49411765, a: 1}
+  mColor: {r: 1, g: 0, b: 0, a: 1}
   mPivot: 4
   mWidth: 300
   mHeight: 80

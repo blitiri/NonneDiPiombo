@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerSelectorController : MonoBehaviour {
+public class CharacterSelectorController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -12,6 +12,4 @@ public class PlayerSelectorController : MonoBehaviour {
 	void Update () {
 	
 	}
-
-
 }

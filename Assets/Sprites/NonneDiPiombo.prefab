@@ -53,9 +53,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: a10e139bca70d491f94abd467f99a544, type: 2}
   mSprites:
+  - name: BackgroundArenaSelection
+    x: 0
+    y: 966
+    width: 1930
+    height: 1082
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: BackgroundPlayerSelection
+    x: 1931
+    y: 966
+    width: 1930
+    height: 1082
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: BestPlayer
-    x: 513
-    y: 833
+    x: 454
+    y: 615
     width: 22
     height: 32
     borderLeft: 0
@@ -67,86 +93,125 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: BulletDx
-    x: 0
-    y: 833
-    width: 512
-    height: 191
+    x: 421
+    y: 648
+    width: 80
+    height: 31
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
     paddingRight: 0
-    paddingTop: 5
-    paddingBottom: 4
+    paddingTop: 0
+    paddingBottom: 0
   - name: BulletSx
-    x: 0
-    y: 641
-    width: 512
-    height: 191
+    x: 421
+    y: 680
+    width: 80
+    height: 31
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
     paddingRight: 0
-    paddingTop: 4
-    paddingBottom: 5
+    paddingTop: 0
+    paddingBottom: 0
   - name: CatLadyPlayerIcon
-    x: 639
-    y: 915
-    width: 114
-    height: 109
+    x: 0
+    y: 597
+    width: 294
+    height: 368
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 6
-    paddingRight: 8
-    paddingTop: 11
-    paddingBottom: 8
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: ChefAgataPlayerIcon
-    x: 754
-    y: 915
-    width: 114
-    height: 109
+    x: 0
+    y: 297
+    width: 288
+    height: 299
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 6
-    paddingRight: 8
-    paddingTop: 11
-    paddingBottom: 8
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: CreditsButton
+    x: 554
+    y: 841
+    width: 495
+    height: 124
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 19
   - name: MadamWheelchairPlayerIcon
-    x: 869
-    y: 915
-    width: 114
-    height: 109
+    x: 0
+    y: 26
+    width: 282
+    height: 270
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 6
-    paddingRight: 8
-    paddingTop: 11
-    paddingBottom: 8
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: MenuBackground
+    x: 1931
+    y: 34
+    width: 2048
+    height: 931
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: MsShakyPlayerIcon
-    x: 513
-    y: 723
-    width: 114
-    height: 109
+    x: 295
+    y: 712
+    width: 258
+    height: 253
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 6
-    paddingRight: 8
-    paddingTop: 11
-    paddingBottom: 8
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: OptionsButton
+    x: 554
+    y: 591
+    width: 495
+    height: 124
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: PlayerIconBackground
-    x: 513
-    y: 899
+    x: 295
+    y: 586
     width: 125
     height: 125
     borderLeft: 0
@@ -158,8 +223,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 2
   - name: PlayerScoreBackground
-    x: 513
-    y: 866
+    x: 421
+    y: 615
     width: 32
     height: 32
     borderLeft: 0
@@ -170,6 +235,32 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: QuitButton
+    x: 554
+    y: 466
+    width: 495
+    height: 124
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 9
+  - name: StartButton
+    x: 554
+    y: 716
+    width: 495
+    height: 124
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 12
   mPixelSize: 1
   mReplacement: {fileID: 0}
   mCoordinates: 0

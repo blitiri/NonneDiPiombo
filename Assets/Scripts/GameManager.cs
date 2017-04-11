@@ -18,12 +18,20 @@ public class GameManager : MonoBehaviour
 	private float timerPostManSpawn;
 	public float maxTimerBeforeRespawn = 1.0f;
 	public float roundTimer;
+
+    public BoxCollider restartButtonBoxCollider;
+
+    public UISprite restartButtonUISprite;
+
+    public UILabel restartButtonUILabel;
+
 	public Transform cameraTransform;
 
 	public GameObject postManPrefab;
 	public GameObject rewiredInputManagerPrefab;
 	public GameObject pauseScreen;
 	public GameObject pauseButton;
+    public GameObject restartButton;
 	public GameObject quitButton;
 	private int[] playersKills;
 
@@ -42,6 +50,9 @@ public class GameManager : MonoBehaviour
 		instance = this;
 		Instantiate (rewiredInputManagerPrefab);
 		InitPlayers ();
+        restartButtonBoxCollider = restartButton.GetComponent<BoxCollider>();
+        restartButtonUISprite = restartButton.GetComponent<UISprite>();
+        restartButtonUILabel = restartButton.GetComponentInChildren<UILabel>();
 	}
 
 	void Start ()
@@ -180,6 +191,9 @@ public class GameManager : MonoBehaviour
 		pauseButton.GetComponent<BoxCollider> ().enabled = enabled;
 		pauseButton.GetComponent<UISprite> ().enabled = enabled;
 		pauseButton.GetComponentInChildren<UILabel> ().enabled = enabled;
+        restartButtonBoxCollider.enabled = enabled;
+        restartButtonUISprite.enabled = enabled;
+        restartButtonUILabel.enabled = enabled;
 		quitButton.GetComponent<BoxCollider> ().enabled = enabled;
 		quitButton.GetComponent<UISprite> ().enabled = enabled;
 		quitButton.GetComponentInChildren<UILabel> ().enabled = enabled;

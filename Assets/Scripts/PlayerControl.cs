@@ -194,16 +194,18 @@ public class PlayerControl : MonoBehaviour
                 droppedUzi.GetComponent<MeshRenderer>().enabled = true;
                 WeaponManager droppedUziMan = droppedUzi.GetComponent<WeaponManager>();
                 droppedUziMan.ammoMagazine = ammo;
+				Debug.Log (droppedUziMan.ammoMagazine);
                 droppedUziMan.ratioOfFire = maxTimeToShoot;
                 bulletDamage = droppedUziMan.weaponDamage;
-                ammo = 100;
+				ammo = startingAmmo;
+                
             }
 
-            SetActiveWeapons(defaultweapon);
-             maxTimeToShoot = defaultRatio;
-             bulletDamage = defaultDamage;
-            
+			SetActiveWeapons(defaultweapon);
+			maxTimeToShoot = defaultRatio;
+			bulletDamage = defaultDamage;
 		}
+
 	}
 
 	/// <summary>

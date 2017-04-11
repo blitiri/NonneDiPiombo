@@ -7,7 +7,6 @@ public class WeaponManager : MonoBehaviour
 	public float ratioOfFire=1.0f;
 	public int weaponDamage=5;
     public float delayDeathWeapon = 5.0f;
-    private float timer = 0.0f;
 
 	private OutlineShaderApply shaderApply;
 	private MeshRenderer weaponMeshRenderer;
@@ -27,14 +26,7 @@ public class WeaponManager : MonoBehaviour
 
 		if (ammoMagazine <= 0)
 		{
-            if (timer < delayDeathWeapon)
-            {
-                timer += Time.deltaTime;
-            }
-            else
-            {
-                Destroy(this.gameObject);
-            }
+			Destroy(this.gameObject,delayDeathWeapon);  
 		}
 	}
 }

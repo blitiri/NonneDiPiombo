@@ -133,7 +133,6 @@ public class PlayerControl : MonoBehaviour
 		inputManager = new InputManager (playerId, transform, angleCorrection);
 		if (inputManager.HasMouse ()) {
 			Cursor.SetCursor (crosshairCursor, cursorHotSpot, CursorMode.Auto);
-
 		}
 		ResetStatus ();
 		StartCoroutine (DiminishStress ());
@@ -190,6 +189,7 @@ public class PlayerControl : MonoBehaviour
             if (selectedWeapon == "Uzi")
             {
                 GameObject droppedUzi = Instantiate(uzi, transform.position, Quaternion.identity) as GameObject;
+				droppedUzi.GetComponent<BoxCollider> ().enabled = true;
                 droppedUzi.GetComponent<MeshRenderer>().enabled = true;
                 WeaponManager droppedUziMan = droppedUzi.GetComponent<WeaponManager>();
                 droppedUziMan.ammoMagazine = ammo;
@@ -313,6 +313,8 @@ public class PlayerControl : MonoBehaviour
 		startTime = Time.time;
 		while (Time.time - startTime < underAttackInactivityTime) {
 			transform.Translate (animation);
+
+
 			yield return null;
 			animation = -animation;
 		}
@@ -415,17 +417,18 @@ public class PlayerControl : MonoBehaviour
 			if (selectedWeapon != "Revolver") {
 				DropWeapon ();
             }
-            WeaponManager pickedWeaponMan = other.gameObject.GetComponent<WeaponManager> ();
-			ammo = pickedWeaponMan.ammoMagazine;
-			maxTimeToShoot = pickedWeaponMan.ratioOfFire;
-			foreach (Transform child in transform) {
-				if (other.tag == child.tag) {
-					SetActiveWeapons (other.tag);
-					Destroy (other.gameObject);
+			WeaponManager pickedWeaponManager = other.gameObject.GetComponent<WeaponManager> ();
+			if (pickedWeaponManager != null) {
+				ammo = pickedWeaponManager.ammoMagazine;
+				maxTimeToShoot = pickedWeaponManager.ratioOfFire;
+				foreach (Transform child in transform) {
+					if (other.tag == child.tag) {
+						SetActiveWeapons (other.tag);
+						Destroy (other.gameObject);
+					}
 				}
 			}
 		}
-
 	}
 
 	/// <summary>
@@ -638,12 +641,12 @@ public class PlayerControl : MonoBehaviour
     private IEnumerator BounceColor(Color toColor)
     {
         float timer = 0;
-        float timeLimit = 1;
+        float timeLimit = 0.2f;
 
         while (timer < timeLimit)
         {
             timer += Time.deltaTime;
-			float colorGradient = Mathf.PingPong(timer * blinkColorTime, 1);
+			float colorGradient = Mathf.PingPong(timer /* blinkColorTime*/, 1);
             Color bouncingColor = toColor * Mathf.LinearToGammaSpace(colorGradient);
            playerMat.SetColor("_EmissionColor", bouncingColor);
 

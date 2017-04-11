@@ -35,13 +35,13 @@ public class UIManager : MonoBehaviour
 	/// </summary>
 	public UISlider[] stressLevels;
 	/// <summary>
-	/// The placeholders.
+	/// The players icons.
 	/// </summary>
-	public UISprite[] placeholders;
+	public UISprite[] playersIcons;
 	/// <summary>
-	/// The placeholders.
+	/// The players icons backgrounds.
 	/// </summary>
-	public UISprite[] placeholdersBackgrounds;
+	public UISprite[] playersIconsBackgrounds;
 	/// <summary>
 	/// Players scores.
 	/// </summary>
@@ -50,7 +50,6 @@ public class UIManager : MonoBehaviour
 	/// The best player symbols.
 	/// </summary>
 	public UISprite[] bestPlayers;
-
 
 	/// <summary>
 	/// Awake this instance.
@@ -130,15 +129,23 @@ public class UIManager : MonoBehaviour
 	/// <summary>
 	/// Inits the UI.
 	/// </summary>
-	/// <param name="numberOfPlayers">Number of players.</param>
-	public void InitUI (int numberOfPlayers)
+	public void InitUI ()
 	{
+		GameObject[] players;
+		SpriteRenderer playerIdentifierRenderer;
 		int playerIndex;
 
-		for (playerIndex = 0; playerIndex < numberOfPlayers; playerIndex++) {
-			bestPlayers [playerIndex].enabled = false;
+		players = GameManager.instance.GetPlayers();
+		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
 			scores [playerIndex].text = "0";
-			placeholdersBackgrounds [playerIndex].color = playersColors [playerIndex];
+			Debug.Log ("spriteName = " + players [playerIndex].name.Replace("(Clone)", "") + "PlayerIcon");
+			playersIcons[playerIndex].spriteName = players[playerIndex].name.Replace("(Clone)", "") + "PlayerIcon";
+			playersIconsBackgrounds [playerIndex].color = playersColors [playerIndex];
+			playerIdentifierRenderer = players [playerIndex].GetComponentInChildren<SpriteRenderer> ();
+			if (playerIdentifierRenderer != null) {
+				playerIdentifierRenderer.color = playersColors [playerIndex];
+			}
+			bestPlayers [playerIndex].enabled = false;
 			playersInfos [playerIndex].enabled = true;
 		}
 		for (; playerIndex < playersInfos.Length; playerIndex++) {

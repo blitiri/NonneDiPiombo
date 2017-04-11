@@ -133,7 +133,6 @@ public class PlayerControl : MonoBehaviour
 		inputManager = new InputManager (playerId, transform, angleCorrection);
 		if (inputManager.HasMouse ()) {
 			Cursor.SetCursor (crosshairCursor, cursorHotSpot, CursorMode.Auto);
-
 		}
 		ResetStatus ();
 		StartCoroutine (DiminishStress ());
@@ -313,6 +312,8 @@ public class PlayerControl : MonoBehaviour
 		startTime = Time.time;
 		while (Time.time - startTime < underAttackInactivityTime) {
 			transform.Translate (animation);
+
+
 			yield return null;
 			animation = -animation;
 		}

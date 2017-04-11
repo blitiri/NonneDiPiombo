@@ -189,6 +189,7 @@ public class PlayerControl : MonoBehaviour
             if (selectedWeapon == "Uzi")
             {
                 GameObject droppedUzi = Instantiate(uzi, transform.position, Quaternion.identity) as GameObject;
+				droppedUzi.GetComponent<BoxCollider> ().enabled = true;
                 droppedUzi.GetComponent<MeshRenderer>().enabled = true;
                 WeaponManager droppedUziMan = droppedUzi.GetComponent<WeaponManager>();
                 droppedUziMan.ammoMagazine = ammo;
@@ -639,12 +640,12 @@ public class PlayerControl : MonoBehaviour
     private IEnumerator BounceColor(Color toColor)
     {
         float timer = 0;
-        float timeLimit = 1;
+        float timeLimit = 0.2f;
 
         while (timer < timeLimit)
         {
             timer += Time.deltaTime;
-			float colorGradient = Mathf.PingPong(timer * blinkColorTime, 1);
+			float colorGradient = Mathf.PingPong(timer /* blinkColorTime*/, 1);
             Color bouncingColor = toColor * Mathf.LinearToGammaSpace(colorGradient);
            playerMat.SetColor("_EmissionColor", bouncingColor);
 

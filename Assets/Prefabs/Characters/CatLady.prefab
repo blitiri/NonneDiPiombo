@@ -269,7 +269,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 6522445bbd1906c478c40babb13361a3, type: 2}
+  - {fileID: 2100000, guid: 050e08dc12feb864f86ab2d2159ebbfd, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -387,6 +387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopInputPlayer: 0
   isObstacle: 0
+  otherWeapon: 0
   dead: 0
   isShooting: 0
   startingAmmo: 100
@@ -419,6 +420,7 @@ MonoBehaviour:
     m_Bits: 1792
   crosshairCursor: {fileID: 2800000, guid: 129a1bd82137d4d6cacaf680296e0622, type: 3}
   cursorHotSpot: {x: 16, y: 16}
+  weaponManager: {fileID: 114000014001489126}
   toEmissionColor: {r: 0.9852941, g: 0, b: 0, a: 0}
   bulletSpawnPoint: {fileID: 4000012614430540}
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
@@ -441,7 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 540c536a593c8194b8b9dfc157900674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoMagazine: 100
+  ammoMagazine: 60
   ratioOfFire: 0.3
   weaponDamage: 20
   delayDeathWeapon: 5

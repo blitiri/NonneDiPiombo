@@ -12,16 +12,17 @@ public class PlayerControl : MonoBehaviour
 	private bool stopped;
 	private bool isDashing;
 	public bool isObstacle = false;
+    public bool otherWeapon = false;
 
     public bool dead = false;
 	public bool isShooting;
 
-	public int startingAmmo = 20;
+	public int startingAmmo = 60;
 	public int startingLife = 100;
 	public int startingStress = 0;
 	public int maxLifeValue = 100;
 	public int maxStressValue = 100;
-	private int bulletDamage=5;
+	private int bulletDamage;
 	public int playerId;
 	private int ammo;
 	private float life;
@@ -64,6 +65,8 @@ public class PlayerControl : MonoBehaviour
 	public Texture2D crosshairCursor;
 	public Vector2 cursorHotSpot = new Vector2 (16, 16);
 
+    public WeaponManager weaponManager;
+    private int BulletDamageUzi=20;
     //public Color fromEmissionColor;
     public Color toEmissionColor;
 
@@ -123,6 +126,7 @@ public class PlayerControl : MonoBehaviour
 		ani = GetComponent<Animator> ();
         meshPlayer = GetComponent<MeshRenderer>();
         playerMat = meshPlayer.material;
+        bulletDamage = defaultDamage;
     }
 
 	/// <summary>
@@ -167,6 +171,10 @@ public class PlayerControl : MonoBehaviour
 					UpdateUI ();
 				}
 			}
+            if (selectedWeapon == "Uzi")
+            {
+                bulletDamage = BulletDamageUzi;
+            }
             DropWeapon();
         }
 	}
@@ -193,10 +201,11 @@ public class PlayerControl : MonoBehaviour
                 droppedUzi.GetComponent<MeshRenderer>().enabled = true;
                 WeaponManager droppedUziMan = droppedUzi.GetComponent<WeaponManager>();
                 droppedUziMan.ammoMagazine = ammo;
-				Debug.Log (droppedUziMan.ammoMagazine);
-                //droppedUziMan.ratioOfFire = maxTimeToShoot;
-                bulletDamage = droppedUziMan.weaponDamage;
-				ammo = startingAmmo;
+                //Debug.Log (droppedUziMan.ammoMagazine);
+                bulletDamage = weaponManager.weaponDamage;
+                otherWeapon = false;
+                Debug.Log("dmg after drop weapon " + bulletDamage);
+                ammo = startingAmmo;
                 
             }
 
@@ -391,10 +400,16 @@ public class PlayerControl : MonoBehaviour
 
 		if (other.gameObject.tag.StartsWith (bulletTagPrefix)) {
 			if (!other.gameObject.tag.EndsWith (playerId.ToString ())) {
-				//Debug.Log ("Trigger detected: " + other.gameObject.tag);
-				AddDamage (bulletDamage, other.gameObject.tag);
-	
-			}
+                //Debug.Log ("Trigger detected: " + other.gameObject.tag);
+                 /*if(selectedWeapon=="Uzi")
+                {
+                    AddDamage(BulletDamageUzi, other.gameObject.tag);
+                }
+                else
+                {*/
+                    AddDamage(bulletDamage, other.gameObject.tag);
+                
+            }
 		}
 	}
 
@@ -422,8 +437,9 @@ public class PlayerControl : MonoBehaviour
 			WeaponManager pickedWeaponManager = other.gameObject.GetComponent<WeaponManager> ();
 			if (pickedWeaponManager != null) {
 				ammo = pickedWeaponManager.ammoMagazine;
-				bulletDamage = pickedWeaponManager.weaponDamage;
-				maxTimeToShoot = pickedWeaponManager.ratioOfFire;
+                Debug.Log("picked weapon dmg: " + bulletDamage);
+                Debug.Log("picked weapon Magazine: " + ammo);
+                maxTimeToShoot = weaponManager.ratioOfFire;
 				foreach (Transform child in transform) {
 					if (other.tag == child.tag) {
 						SetActiveWeapons (other.tag);
@@ -442,8 +458,9 @@ public class PlayerControl : MonoBehaviour
 	private void AddDamage (int damage, string killerTag)
 	{
         if(dead==false)
-        {
-            life -= bulletDamage;
+        {  
+            life -= damage;
+            
             if (IsDead())
             {
                 life = 0;

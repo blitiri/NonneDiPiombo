@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -19,11 +20,11 @@ public class GameManager : MonoBehaviour
 	public float maxTimerBeforeRespawn = 1.0f;
 	public float roundTimer;
 
-    public BoxCollider restartButtonBoxCollider;
+	public BoxCollider restartButtonBoxCollider;
 
-    public UISprite restartButtonUISprite;
+	public UISprite restartButtonUISprite;
 
-    public UILabel restartButtonUILabel;
+	public UILabel restartButtonUILabel;
 
 	public Transform cameraTransform;
 
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour
 	public GameObject rewiredInputManagerPrefab;
 	public GameObject pauseScreen;
 	public GameObject pauseButton;
-    public GameObject restartButton;
+	public GameObject restartButton;
 	public GameObject quitButton;
 	private int[] playersKills;
 
@@ -43,37 +44,53 @@ public class GameManager : MonoBehaviour
 	private GameObject[] players;
 
 	private PlayerControl[] playersControls;
+	private string lastSceneLevel;
 
 	void Awake ()
 	{
+		//if (instance == null) {
+		// This is the first instance - make it persist
+		//DontDestroyOnLoad (gameObject);
 		instance = this;
-		Instantiate (rewiredInputManagerPrefab);
-		InitPlayers ();
-        restartButtonBoxCollider = restartButton.GetComponent<BoxCollider>();
-        restartButtonUISprite = restartButton.GetComponent<UISprite>();
-        restartButtonUILabel = restartButton.GetComponentInChildren<UILabel>();
+		if (SceneController.IsLevelScene ()) {
+			Instantiate (rewiredInputManagerPrefab);
+			InitPlayers ();
+			restartButtonBoxCollider = restartButton.GetComponent<BoxCollider> ();
+			restartButtonUISprite = restartButton.GetComponent<UISprite> ();
+			restartButtonUILabel = restartButton.GetComponentInChildren<UILabel> ();
+			lastSceneLevel = SceneController.GetCurrentSceneName ();
+		}
+		//} else {
+		// This must be a duplicate from a scene reload - DESTROY!
+		//	Destroy (gameObject);
+		//} 
 	}
 
 	void Start ()
 	{
-		UIManager.instance.InitUI ();
+		if (SceneController.IsLevelScene ()) {
+			UIManager.instance.InitLevelUI ();
+		} else if (SceneController.IsEndingScene ()) {
+			UIManager.instance.InitEndingUI ();
+		}
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
-		CheckRespawnPlayers ();
-		CheckGamePause ();
-		TimerUpdate ();
+		if (SceneController.IsLevelScene ()) {
+			CheckRespawnPlayers ();
+			CheckGamePause ();
+			TimerUpdate ();
 
-		/*if (timerPostManSpawn < timerToSpawn) {
-			timerPostManSpawn += Time.deltaTime;
-            
-		} else {
-			PostManSpawn();
-			timerPostManSpawn = 0.0f;
-		}*/
-
+			/*if (timerPostManSpawn < timerToSpawn) {
+				timerPostManSpawn += Time.deltaTime;
+	            
+			} else {
+				PostManSpawn();
+				timerPostManSpawn = 0.0f;
+			}*/
+		}
 	}
 
 	private void InitPlayers ()
@@ -121,8 +138,8 @@ public class GameManager : MonoBehaviour
 	{
 		playersKills [killedId] -= killedMalus;
 		playersKills [killerId] += killerBonus;
-		UIManager.instance.SetScore (playersKills [killedId],killedId);
-		UIManager.instance.SetScore (playersKills [killerId],killerId);
+		UIManager.instance.SetScore (playersKills [killedId], killedId);
+		UIManager.instance.SetScore (playersKills [killerId], killerId);
 	}
 
 	private IEnumerator RespawnPlayer (int playerIndex)
@@ -134,18 +151,18 @@ public class GameManager : MonoBehaviour
 		player = players [playerIndex];
 		SetMeshRendererEnabled (false, playerIndex);
 		player.GetComponent<PlayerControl> ().stopInputPlayer = true;
-        player.GetComponent<PlayerControl>().dead = true;
+		player.GetComponent<PlayerControl> ().dead = true;
 		player.GetComponent<BoxCollider> ().enabled = false;
 
-        yield return new WaitForSeconds (maxTimerBeforeRespawn);
+		yield return new WaitForSeconds (maxTimerBeforeRespawn);
 
-		spawnpointIndex = Random.Range (0, playersRespawns.Length);
+		spawnpointIndex = UnityEngine.Random.Range (0, playersRespawns.Length);
 		player.transform.position = playersRespawns [spawnpointIndex].position;
 		SetMeshRendererEnabled (true, playerIndex);
 		player.GetComponent<PlayerControl> ().stopInputPlayer = false;
-        player.GetComponent<PlayerControl>().dead = false;
+		player.GetComponent<PlayerControl> ().dead = false;
 		player.GetComponent<BoxCollider> ().enabled = true;
-    }
+	}
 
 	private void SetMeshRendererEnabled (bool enabled, int playerIndex)
 	{
@@ -181,7 +198,8 @@ public class GameManager : MonoBehaviour
 		roundTimer -= Time.deltaTime;
 		UIManager.instance.SetTimer (roundTimer);
 		if (roundTimer <= 0) {
-			SceneManager.LoadScene ("Menu");
+			SceneController.instance.LoadScene ("Ending1");
+			UIManager.instance.InitEndingUI ();
 		}
 	}
 
@@ -191,9 +209,9 @@ public class GameManager : MonoBehaviour
 		pauseButton.GetComponent<BoxCollider> ().enabled = enabled;
 		pauseButton.GetComponent<UISprite> ().enabled = enabled;
 		pauseButton.GetComponentInChildren<UILabel> ().enabled = enabled;
-        restartButtonBoxCollider.enabled = enabled;
-        restartButtonUISprite.enabled = enabled;
-        restartButtonUILabel.enabled = enabled;
+		restartButtonBoxCollider.enabled = enabled;
+		restartButtonUISprite.enabled = enabled;
+		restartButtonUILabel.enabled = enabled;
 		quitButton.GetComponent<BoxCollider> ().enabled = enabled;
 		quitButton.GetComponent<UISprite> ().enabled = enabled;
 		quitButton.GetComponentInChildren<UILabel> ().enabled = enabled;
@@ -244,5 +262,27 @@ public class GameManager : MonoBehaviour
 	public GameObject[] GetPlayers ()
 	{
 		return players;
+	}
+
+	public RankingPosition[] GetRanking ()
+	{
+		RankingPosition[] ranking;
+		int playerIndex;
+
+		ranking = new RankingPosition[numberOfPlayers];
+		for (playerIndex = 0; playerIndex < numberOfPlayers; playerIndex++) {
+			ranking [playerIndex] = new RankingPosition (players [playerIndex], playerIndex, playersKills [playerIndex]);
+		}
+		Array.Sort (ranking);
+		return ranking;
+	}
+
+	/// <summary>
+	/// Gets the last scene level.
+	/// </summary>
+	/// <returns>The last scene level, null if no level is been loaded yet.</returns>
+	public string GetLastSceneLevel ()
+	{
+		return lastSceneLevel;
 	}
 }

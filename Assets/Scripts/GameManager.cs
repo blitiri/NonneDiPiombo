@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
 	void Awake ()
 	{
 		instance = this;
+        playersPrefabs = CharacterSelectorManager.instance.playerSelectedGrannies;
+        Destroy(CharacterSelectorManager.instance);
 		Instantiate (rewiredInputManagerPrefab);
 		InitPlayers ();
         restartButtonBoxCollider = restartButton.GetComponent<BoxCollider>();

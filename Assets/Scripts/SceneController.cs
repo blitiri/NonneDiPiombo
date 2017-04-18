@@ -45,7 +45,7 @@ public class SceneController : MonoBehaviour
 
 		levelScene = false;
 		activeScene = SceneManager.GetActiveScene ();
-		if (activeScene.name.Equals ("Ending1")) {
+		if (activeScene.name.Equals ("Ending")) {
 			levelScene = true;
 		}
 		return levelScene;

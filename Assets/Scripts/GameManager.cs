@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour
 		roundTimer -= Time.deltaTime;
 		UIManager.instance.SetTimer (roundTimer);
 		if (roundTimer <= 0) {
-			SceneController.instance.LoadScene ("Ending1");
+			SceneController.instance.LoadSceneByName ("Ending");
 			UIManager.instance.InitEndingUI ();
 		}
 	}

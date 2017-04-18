@@ -68,7 +68,7 @@ public class SceneController : MonoBehaviour
 	{
 //		if (!SceneManager.GetActiveScene().name.StartsWith(levelPrefix))
 //        {
-		LoadScene (button.tag);
+		LoadSceneByName (button.tag);
 //        }
 	}
 
@@ -76,7 +76,7 @@ public class SceneController : MonoBehaviour
 	/// Loads a scene.
 	/// </summary>
 	/// <param name="sceneName">Scene name to load.</param>
-	public void LoadScene (string sceneName)
+	public void LoadSceneByName (string sceneName)
 	{
 		SceneManager.LoadScene (sceneName, LoadSceneMode.Single);
 	}

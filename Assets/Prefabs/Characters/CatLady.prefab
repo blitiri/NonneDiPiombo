@@ -176,7 +176,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013601061368}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.1910572, y: 0.10000052, z: 3.9676752}
+  m_LocalPosition: {x: -2.401332, y: 0.10000085, z: 6.713136}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -240,7 +240,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f6a957f6b3f07d54cafcd6f24084ca7f, type: 2}
+  - {fileID: 2100000, guid: 4e3b5d0bd3cea974587ad4c8e2698e57, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -396,24 +396,24 @@ MonoBehaviour:
   maxLifeValue: 100
   maxStressValue: 100
   playerId: 0
-  speed: 6
+  speed: 4
   rotSpeed: 2
   bulletLifeTime: 4
-  bulletInitialForce: 60
+  bulletInitialForce: 100
   underAttackInactivityTime: 2
   maxTimeToShoot: 0.8
   dashWallDistance: 1.5
-  stressDecreaseFactor: 3
-  timeToDiminishStress: 4
+  stressDecreaseFactor: 1.5
+  timeToDiminishStress: 0.5
   weaponStressDamage: 0
   defaultRatio: 0.8
-  defaultDamage: 5
-  dashTime: 1
-  dashDistance: 3
-  stressIncrease: 10
+  defaultDamage: 25
+  dashTime: 0.5
+  dashDistance: 1
+  stressIncrease: 24
   fixedAimAngleCorrection: 90
   dashSpeed: 20
-  dashLength: 5
+  dashLength: 1
   playerObstacleDistanceLimit: 2
   environment:
     serializedVersion: 2

@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
 		//DontDestroyOnLoad (gameObject);
 		instance = this;
 		if (SceneController.IsLevelScene ()) {
+			playersPrefabs = CharacterSelectorManager.instance.playerSelectedGrannies;
+			Destroy (CharacterSelectorManager.instance);
 			Instantiate (rewiredInputManagerPrefab);
 			InitPlayers ();
 			restartButtonBoxCollider = restartButton.GetComponent<BoxCollider> ();

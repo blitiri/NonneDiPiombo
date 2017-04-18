@@ -55,12 +55,12 @@ GameObject:
   - 4: {fileID: 4000014187316142}
   - 33: {fileID: 33000012369883208}
   - 23: {fileID: 23000013352111592}
-  - 136: {fileID: 136000012940065684}
   - 54: {fileID: 54000012210401456}
   - 114: {fileID: 114000012795583498}
+  - 136: {fileID: 136000010605832316}
   m_Layer: 0
   m_Name: RevolverBullet
-  m_TagString: Untagged
+  m_TagString: BulletPlayer0
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,8 +128,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013077376894}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.224297, y: 1.685, z: 3.963907}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalPosition: {x: -4.0493965, y: 0.289, z: -0.7216945}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000013162676948}
@@ -144,12 +144,12 @@ MeshRenderer:
   m_GameObject: {fileID: 1000013077376894}
   m_Enabled: 1
   m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ca39b7b75b3622043bee92bb059899c0, type: 2}
+  - {fileID: 2100000, guid: 70f8b2cf22c6dc44481078d8ae02513a, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
   standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
---- !u!136 &136000012940065684
+--- !u!136 &136000010605832316
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -259,10 +259,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.0112466905
-  m_Height: 0.040220026
+  m_Radius: 0.1793639
+  m_Height: 0.69874305
   m_Direction: 1
-  m_Center: {x: 0.0002662707, y: 0.020110035, z: -0.000000004656613}
+  m_Center: {x: 0, y: 0.3431817, z: -0.0052409843}
 --- !u!198 &198000011430927544
 ParticleSystem:
   m_ObjectHideFlags: 1

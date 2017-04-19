@@ -15,7 +15,14 @@ public class SceneController : MonoBehaviour
 	/// The level scene prefix.
 	/// </summary>
 	private const string levelPrefix = "Level";
+	/// <summary>
+	/// The last level scene loaded (default is LevelPostOffice2).
+	/// </summary>
+	private string lastLevelSceneLoaded = "LevelPostOffice2";
 
+	/// <summary>
+	/// Awake this instance.
+	/// </summary>
 	void Awake ()
 	{
 		instance = this;
@@ -28,16 +35,26 @@ public class SceneController : MonoBehaviour
 	public static bool IsLevelScene ()
 	{
 		Scene activeScene;
+
+		activeScene = SceneManager.GetActiveScene ();
+		return IsLevelScene (activeScene.name);
+	}
+
+	public static bool IsLevelScene (string sceneName)
+	{
 		bool levelScene;
 
 		levelScene = false;
-		activeScene = SceneManager.GetActiveScene ();
-		if (activeScene.name.StartsWith (levelPrefix)) {
+		if (sceneName.StartsWith (levelPrefix)) {
 			levelScene = true;
 		}
 		return levelScene;
 	}
 
+	/// <summary>
+	/// Determines if ending scene is loaded.
+	/// </summary>
+	/// <returns><c>true</c> if ending scene is loaded; otherwise, <c>false</c>.</returns>
 	public static bool IsEndingScene ()
 	{
 		Scene activeScene;
@@ -79,6 +96,9 @@ public class SceneController : MonoBehaviour
 	public void LoadSceneByName (string sceneName)
 	{
 		SceneManager.LoadScene (sceneName, LoadSceneMode.Single);
+		if (IsLevelScene (sceneName)) {
+			lastLevelSceneLoaded = sceneName;
+		}
 	}
 
 	/// <summary>
@@ -87,5 +107,14 @@ public class SceneController : MonoBehaviour
 	public void OnClickQuitButton ()
 	{
 		Application.Quit ();
+	}
+
+	/// <summary>
+	/// Gets the last level scene loaded.
+	/// </summary>
+	/// <returns>The last level scene loaded.</returns>
+	public string GetLastLevelSceneLoaded ()
+	{
+		return lastLevelSceneLoaded;
 	}
 }

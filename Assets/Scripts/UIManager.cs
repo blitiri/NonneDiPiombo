@@ -55,7 +55,14 @@ public class UIManager : MonoBehaviour
 	/// The player ranking position prefab.
 	/// </summary>
 	public GameObject[] playersRankingPositions;
+	/// <summary>
+	/// Enables the debug mode.
+	/// </summary>
 	public bool debugMode = true;
+	/// <summary>
+	/// The debug test case to execute.
+	/// </summary>
+	[Range (1, 11)]
 	public int debugTestCase = 1;
 
 	/// <summary>
@@ -220,6 +227,48 @@ public class UIManager : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Gets the player icon.
+	/// </summary>
+	/// <returns>The player icon.</returns>
+	/// <param name="player">Player.</param>
+	private string GetPlayerIcon (GameObject player)
+	{
+		return player.name.Replace ("(Clone)", "") + "PlayerIcon";
+	}
+
+	/// <summary>
+	/// Gets the position in string format.
+	/// </summary>
+	/// <returns>The position in string format.</returns>
+	/// <param name="position">Position.</param>
+	private string GetPositionString (int position)
+	{
+		string positionSuffix;
+
+		switch (position) {
+		case 1:
+			positionSuffix = "st";
+			break;
+		case 2:
+			positionSuffix = "nd";
+			break;
+		case 3:
+			positionSuffix = "rd";
+			break;
+		default:
+			positionSuffix = "th";
+			break;
+		}
+		return position + positionSuffix;
+	}
+
+	public void Restart ()
+	{
+		Debug.Log ("Restart pressed: loadin scene " + SceneController.instance.GetLastLevelSceneLoaded ());
+		SceneController.instance.LoadSceneByName (SceneController.instance.GetLastLevelSceneLoaded ());
+	}
+
+	/// <summary>
 	/// Produce a dummy ranking.
 	/// </summary>
 	/// <returns>The dummy ranking.</returns>
@@ -312,41 +361,5 @@ public class UIManager : MonoBehaviour
 		}
 		Array.Sort (ranking);
 		return ranking;
-	}
-
-	/// <summary>
-	/// Gets the player icon.
-	/// </summary>
-	/// <returns>The player icon.</returns>
-	/// <param name="player">Player.</param>
-	private string GetPlayerIcon (GameObject player)
-	{
-		return player.name.Replace ("(Clone)", "") + "PlayerIcon";
-	}
-
-	/// <summary>
-	/// Gets the position in string format.
-	/// </summary>
-	/// <returns>The position in string format.</returns>
-	/// <param name="position">Position.</param>
-	private string GetPositionString (int position)
-	{
-		string positionSuffix;
-
-		switch (position) {
-		case 1:
-			positionSuffix = "st";
-			break;
-		case 2:
-			positionSuffix = "nd";
-			break;
-		case 3:
-			positionSuffix = "rd";
-			break;
-		default:
-			positionSuffix = "th";
-			break;
-		}
-		return position + positionSuffix;
 	}
 }

@@ -197,9 +197,9 @@ public class GameManager : MonoBehaviour
 	/// </summary>
 	private void TimerUpdate ()
 	{
-		roundTimer -= Time.deltaTime;
+		roundTimer = Mathf.Clamp (roundTimer - Time.deltaTime, 0, float.MaxValue);
 		UIManager.instance.SetTimer (roundTimer);
-		if (roundTimer <= 0) {
+		if (roundTimer == 0) {
 			SceneController.instance.LoadSceneByName ("Ending");
 			UIManager.instance.InitEndingUI ();
 		}
@@ -261,11 +261,19 @@ public class GameManager : MonoBehaviour
 		SetButtonsEnabled (false);
 	}
 
+	/// <summary>
+	/// Gets the players.
+	/// </summary>
+	/// <returns>The players.</returns>
 	public GameObject[] GetPlayers ()
 	{
 		return players;
 	}
 
+	/// <summary>
+	/// Gets the players' ranking.
+	/// </summary>
+	/// <returns>The ranking.</returns>
 	public RankingPosition[] GetRanking ()
 	{
 		RankingPosition[] ranking;

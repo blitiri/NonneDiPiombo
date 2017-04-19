@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
 	private GameObject[] players;
 
 	private PlayerControl[] playersControls;
-	private string lastSceneLevel;
 
 	void Awake ()
 	{
@@ -60,7 +59,6 @@ public class GameManager : MonoBehaviour
 			restartButtonBoxCollider = restartButton.GetComponent<BoxCollider> ();
 			restartButtonUISprite = restartButton.GetComponent<UISprite> ();
 			restartButtonUILabel = restartButton.GetComponentInChildren<UILabel> ();
-			lastSceneLevel = SceneController.GetCurrentSceneName ();
 		}
 		//} else {
 		// This must be a duplicate from a scene reload - DESTROY!
@@ -71,9 +69,9 @@ public class GameManager : MonoBehaviour
 	void Start ()
 	{
 		if (SceneController.IsLevelScene ()) {
-			UIManager.instance.InitLevelUI ();
+			LevelUIManager.instance.InitUI ();
 		} else if (SceneController.IsEndingScene ()) {
-			UIManager.instance.InitEndingUI ();
+			EndingUIManager.instance.InitUI ();
 		}
 	}
 
@@ -140,8 +138,8 @@ public class GameManager : MonoBehaviour
 	{
 		playersKills [killedId] -= killedMalus;
 		playersKills [killerId] += killerBonus;
-		UIManager.instance.SetScore (playersKills [killedId], killedId);
-		UIManager.instance.SetScore (playersKills [killerId], killerId);
+		LevelUIManager.instance.SetScore (playersKills [killedId], killedId);
+		LevelUIManager.instance.SetScore (playersKills [killerId], killerId);
 	}
 
 	private IEnumerator RespawnPlayer (int playerIndex)
@@ -198,10 +196,10 @@ public class GameManager : MonoBehaviour
 	private void TimerUpdate ()
 	{
 		roundTimer = Mathf.Clamp (roundTimer - Time.deltaTime, 0, float.MaxValue);
-		UIManager.instance.SetTimer (roundTimer);
+		LevelUIManager.instance.SetTimer (roundTimer);
 		if (roundTimer == 0) {
 			SceneController.instance.LoadSceneByName ("Ending");
-			UIManager.instance.InitEndingUI ();
+			LevelUIManager.instance.InitUI ();
 		}
 	}
 
@@ -285,14 +283,5 @@ public class GameManager : MonoBehaviour
 		}
 		Array.Sort (ranking);
 		return ranking;
-	}
-
-	/// <summary>
-	/// Gets the last scene level.
-	/// </summary>
-	/// <returns>The last scene level, null if no level is been loaded yet.</returns>
-	public string GetLastSceneLevel ()
-	{
-		return lastSceneLevel;
 	}
 }

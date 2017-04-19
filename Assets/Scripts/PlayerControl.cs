@@ -12,9 +12,9 @@ public class PlayerControl : MonoBehaviour
 	private bool stopped;
 	private bool isDashing;
 	public bool isObstacle = false;
-    public bool otherWeapon = false;
+	public bool otherWeapon = false;
 
-    public bool dead = false;
+	public bool dead = false;
 	public bool isShooting;
 
 	public int startingAmmo = 60;
@@ -59,25 +59,25 @@ public class PlayerControl : MonoBehaviour
 	private const string bulletTagPrefix = "Bullet";
 	private const string playerTagPrefix = "Player";
 	private string selectedWeapon;
-	private string defaultweapon = "Revolver";
+	private string defaultWeapon = "Revolver";
 
 	public LayerMask environment;
 	public Texture2D crosshairCursor;
 	public Vector2 cursorHotSpot = new Vector2 (16, 16);
 
-    public WeaponManager weaponManager;
-    private int BulletDamageUzi=20;
-    //public Color fromEmissionColor;
-    public Color toEmissionColor;
+	public WeaponManager weaponManager;
+	private int BulletDamageUzi = 20;
+	//public Color fromEmissionColor;
+	public Color toEmissionColor;
 
-    private Material playerMat;
+	private Material playerMat;
 
-    public Transform bulletSpawnPoint;
+	public Transform bulletSpawnPoint;
 
-    private MeshRenderer meshPlayer;
+	private MeshRenderer meshPlayer;
 	private MeshRenderer revolverMeshRenderer;
 
-    private Rigidbody rb;
+	private Rigidbody rb;
 
 	private Animator ani;
 
@@ -117,17 +117,17 @@ public class PlayerControl : MonoBehaviour
 		foreach (Transform child in transform) {
 			weapons.Add (child.gameObject.tag, child.gameObject);
 		}
-		SetActiveWeapons (defaultweapon);
+		SetActiveWeapons (defaultWeapon);
 
 		if (aimTargetPrefab != null) {
 			aimTarget = Instantiate (aimTargetPrefab) as GameObject;
 		}
 		rb = GetComponent<Rigidbody> ();
 		ani = GetComponent<Animator> ();
-        meshPlayer = GetComponent<MeshRenderer>();
-        playerMat = meshPlayer.material;
-        bulletDamage = defaultDamage;
-    }
+		meshPlayer = GetComponent<MeshRenderer> ();
+		playerMat = meshPlayer.material;
+		bulletDamage = defaultDamage;
+	}
 
 	/// <summary>
 	/// Start this instance.
@@ -165,18 +165,13 @@ public class PlayerControl : MonoBehaviour
 				shaderApply.ShaderApply (revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
 
 				//Munizioni Infite Se revolver
-				if (selectedWeapon == "Revolver") {
-					UIManager.instance.ammoCounters [playerId].text = "--";
-				} else {
-					UpdateUI ();
-				}
+				UpdateUI ();
 			}
-            if (selectedWeapon == "Uzi")
-            {
-                bulletDamage = BulletDamageUzi;
-            }
-            DropWeapon();
-        }
+			if (selectedWeapon == "Uzi") {
+				bulletDamage = BulletDamageUzi;
+			}
+			DropWeapon ();
+		}
 	}
 
 	
@@ -192,24 +187,23 @@ public class PlayerControl : MonoBehaviour
 
 	private void DropWeapon ()
 	{
-		if (inputManager.Drop () || dead ||  ammo <= 0) {
+		if (inputManager.Drop () || dead || ammo <= 0) {
 
-            if (selectedWeapon == "Uzi")
-            {
-                GameObject droppedUzi = Instantiate(uzi, transform.position, Quaternion.identity) as GameObject;
+			if (selectedWeapon == "Uzi") {
+				GameObject droppedUzi = Instantiate (uzi, transform.position, Quaternion.identity) as GameObject;
 				droppedUzi.GetComponent<BoxCollider> ().enabled = true;
-                droppedUzi.GetComponent<MeshRenderer>().enabled = true;
-                WeaponManager droppedUziMan = droppedUzi.GetComponent<WeaponManager>();
-                droppedUziMan.ammoMagazine = ammo;
-                //Debug.Log (droppedUziMan.ammoMagazine);
-                bulletDamage = weaponManager.weaponDamage;
-                otherWeapon = false;
-                Debug.Log("dmg after drop weapon " + bulletDamage);
-                ammo = startingAmmo;
+				droppedUzi.GetComponent<MeshRenderer> ().enabled = true;
+				WeaponManager droppedUziMan = droppedUzi.GetComponent<WeaponManager> ();
+				droppedUziMan.ammoMagazine = ammo;
+				//Debug.Log (droppedUziMan.ammoMagazine);
+				bulletDamage = weaponManager.weaponDamage;
+				otherWeapon = false;
+				Debug.Log ("dmg after drop weapon " + bulletDamage);
+				ammo = startingAmmo;
                 
-            }
+			}
 
-			SetActiveWeapons(defaultweapon);
+			SetActiveWeapons (defaultWeapon);
 			maxTimeToShoot = defaultRatio;
 			bulletDamage = defaultDamage;
 		}
@@ -352,7 +346,7 @@ public class PlayerControl : MonoBehaviour
 			bulletRigidbody = bullet.GetComponent<Rigidbody> ();
 			bulletRigidbody.AddForce (bulletSpawnPoint.transform.up * bulletInitialForce, ForceMode.Impulse);
 			Destroy (bullet, bulletLifeTime);
-			if (selectedWeapon != "Revolver") {
+			if (!selectedWeapon.Equals (defaultWeapon)) {
 				ammo--;
 			}
 			stress += weaponStressDamage;
@@ -400,46 +394,46 @@ public class PlayerControl : MonoBehaviour
 
 		if (other.gameObject.tag.StartsWith (bulletTagPrefix)) {
 			if (!other.gameObject.tag.EndsWith (playerId.ToString ())) {
-                //Debug.Log ("Trigger detected: " + other.gameObject.tag);
-                 /*if(selectedWeapon=="Uzi")
+				//Debug.Log ("Trigger detected: " + other.gameObject.tag);
+				/*if(selectedWeapon=="Uzi")
                 {
                     AddDamage(BulletDamageUzi, other.gameObject.tag);
                 }
                 else
                 {*/
-                    AddDamage(bulletDamage, other.gameObject.tag);
+				AddDamage (bulletDamage, other.gameObject.tag);
                 
-            }
+			}
 		}
 	}
 
-    /// <summary>
+	/// <summary>
 	/// Determines whether player is dead.
 	/// </summary>
 	/// <returns><c>true</c> if player is dead; otherwise, <c>false</c>.</returns>
-	public bool IsDead()
-    {
+	public bool IsDead ()
+	{
         
-        return life <= 0;
-    }
+		return life <= 0;
+	}
 
-    /// <summary>
-    /// Detects a trigger enter with a weapon
-    /// </summary>
-    /// <param name="other">Collider.</param>
-    void OnTriggerStay (Collider other)
+	/// <summary>
+	/// Detects a trigger enter with a weapon
+	/// </summary>
+	/// <param name="other">Collider.</param>
+	void OnTriggerStay (Collider other)
 	{
 		if (inputManager.Pick ()) {
 
-			if (selectedWeapon != "Revolver") {
+			if (!selectedWeapon.Equals (defaultWeapon)) {
 				DropWeapon ();
-            }
+			}
 			WeaponManager pickedWeaponManager = other.gameObject.GetComponent<WeaponManager> ();
 			if (pickedWeaponManager != null) {
 				ammo = pickedWeaponManager.ammoMagazine;
-                Debug.Log("picked weapon dmg: " + bulletDamage);
-                Debug.Log("picked weapon Magazine: " + ammo);
-                maxTimeToShoot = weaponManager.ratioOfFire;
+				Debug.Log ("picked weapon dmg: " + bulletDamage);
+				Debug.Log ("picked weapon Magazine: " + ammo);
+				maxTimeToShoot = weaponManager.ratioOfFire;
 				foreach (Transform child in transform) {
 					if (other.tag == child.tag) {
 						SetActiveWeapons (other.tag);
@@ -457,19 +451,17 @@ public class PlayerControl : MonoBehaviour
 	/// <param name="killerTag">Killer tag.</param>
 	private void AddDamage (int damage, string killerTag)
 	{
-        if(dead==false)
-        {  
-            life -= damage;
+		if (dead == false) {  
+			life -= damage;
             
-            if (IsDead())
-            {
-                life = 0;
-                GameManager.instance.PlayerKilled(GetPlayerId(gameObject.tag), GetPlayerId(killerTag));
-            }
-            UpdateUI();
-            StopCoroutine(BounceColor(toEmissionColor));
-            StartCoroutine(BounceColor(toEmissionColor));
-        }
+			if (IsDead ()) {
+				life = 0;
+				GameManager.instance.PlayerKilled (GetPlayerId (gameObject.tag), GetPlayerId (killerTag));
+			}
+			UpdateUI ();
+			StopCoroutine (BounceColor (toEmissionColor));
+			StartCoroutine (BounceColor (toEmissionColor));
+		}
 	}
 
 	/// <summary>
@@ -538,16 +530,17 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	private void UpdateUI ()
 	{
-		if (selectedWeapon == "Revolver") {
-			UIManager.instance.ammoCounters [playerId].text = ("--");
+		if (selectedWeapon.Equals (defaultWeapon)) {
+			//LevelUIManager.instance.ammoCounters [playerId].text = "--";
+			LevelUIManager.instance.SetInfiniteAmmo (playerId);
 		} else {
-			UIManager.instance.SetAmmo (ammo, playerId);
+			LevelUIManager.instance.SetAmmo (ammo, playerId);
 		}
 		// Cast to float is required to avoid an integer division
-		UIManager.instance.SetLife (life / maxLifeValue, playerId);
+		LevelUIManager.instance.SetLife (life / maxLifeValue, playerId);
 		// Cast to float is required to avoid an integer division
 
-		UIManager.instance.SetStress (stress / maxStressValue, playerId);
+		LevelUIManager.instance.SetStress (stress / maxStressValue, playerId);
 
 	}
 
@@ -559,10 +552,10 @@ public class PlayerControl : MonoBehaviour
 	{
 		while (stress < 100) {
 			yield return new WaitForSeconds (timeToDiminishStress);
-				if (!isShooting) {
-					stress = Mathf.Clamp (stress - stressDecreaseFactor, 0, maxStressValue);
-					UpdateUI ();
-				}
+			if (!isShooting) {
+				stress = Mathf.Clamp (stress - stressDecreaseFactor, 0, maxStressValue);
+				UpdateUI ();
+			}
 		}
 	}
 
@@ -658,21 +651,20 @@ public class PlayerControl : MonoBehaviour
 		selectedWeapon = weapon;
 	}
 
-    private IEnumerator BounceColor(Color toColor)
-    {
-        float timer = 0;
-        float timeLimit = 0.2f;
+	private IEnumerator BounceColor (Color toColor)
+	{
+		float timer = 0;
+		float timeLimit = 0.2f;
 
-        while (timer < timeLimit)
-        {
-            timer += Time.deltaTime;
-			float colorGradient = Mathf.PingPong(timer /* blinkColorTime*/, 1);
-            Color bouncingColor = toColor * Mathf.LinearToGammaSpace(colorGradient);
-           playerMat.SetColor("_EmissionColor", bouncingColor);
+		while (timer < timeLimit) {
+			timer += Time.deltaTime;
+			float colorGradient = Mathf.PingPong (timer /* blinkColorTime*/, 1);
+			Color bouncingColor = toColor * Mathf.LinearToGammaSpace (colorGradient);
+			playerMat.SetColor ("_EmissionColor", bouncingColor);
 
-          //  Debug.Log(timer);
-            yield return new WaitForEndOfFrame();
-        }
-        playerMat.SetColor("_EmissionColor", Color.black);
-    }
+			//  Debug.Log(timer);
+			yield return new WaitForEndOfFrame ();
+		}
+		playerMat.SetColor ("_EmissionColor", Color.black);
+	}
 }

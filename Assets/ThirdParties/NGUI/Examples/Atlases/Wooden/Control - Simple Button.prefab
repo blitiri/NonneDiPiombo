@@ -29,7 +29,7 @@ GameObject:
   - 65: {fileID: 6500000}
   m_Layer: 8
   m_Name: Control - Simple Button
-  m_TagString: LevelPostOffice2
+  m_TagString: CharacterSelection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: -7, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -128,7 +128,7 @@ MonoBehaviour:
   pixelSnap: 0
   onClick:
   - mTarget: {fileID: 0}
-    mMethodName: LoadingScene
+    mMethodName: LoadScene
     mParameters:
     - obj: {fileID: 100002}
       field: 
@@ -155,11 +155,11 @@ MonoBehaviour:
   bottomAnchor:
     target: {fileID: 400002}
     relative: 0
-    absolute: -3
+    absolute: 4
   topAnchor:
     target: {fileID: 400002}
     relative: 1
-    absolute: -11
+    absolute: -4
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 0.7372549}
   mPivot: 4
@@ -173,7 +173,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   mFont: {fileID: 0}
-  mText: FIGHT!
+  mText: Select your granny
   mFontSize: 100
   mFontStyle: 0
   mAlignment: 0

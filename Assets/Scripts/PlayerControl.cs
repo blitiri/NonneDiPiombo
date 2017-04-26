@@ -45,8 +45,8 @@ public class PlayerControl : MonoBehaviour
 	[Range (0, 10)]
 	public float dashTime;
 	float dashRecordedTime = 0;
-	[Range (0, 10)]
-	public float dashDistance;
+	//[Range (0, 10)]
+	//public float dashDistance;
 	private float stress;
 	private float angleCorrection;
 	public float stressIncrease = 10;

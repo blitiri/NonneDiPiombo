@@ -29,9 +29,11 @@ public class CharacterSelectorController : MonoBehaviour {
         Debug.Log(index);
 	}
 
-    public void Click(string buttonName)
+    public void Click(string buttonTag)
     {
-        switch (buttonName)
+//        string buttonTagBeginning = buttonName.Contains("Left") ? "Left" : !buttonName.Contains("Right") ? "Right" : "Null";
+
+        switch (buttonTag)
         {
             case "LeftButton":
                 if (index == 0)

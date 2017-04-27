@@ -8,11 +8,15 @@ public class Bullet : MonoBehaviour {
 
 	public Shader outlineShader;
 	public Shader standardShader;
+	private CapsuleCollider bulletCollider;
+	private TrailRenderer bulletTrail;
 
 	void Awake(){
 		bulletRb = GetComponent<Rigidbody> ();
 		shaderApply = new OutlineShaderApply ();
 		bulletMeshRender = GetComponent<MeshRenderer> ();
+		bulletTrail = GetComponentInChildren<TrailRenderer> ();
+		bulletCollider = GetComponent<CapsuleCollider> ();
 	}
 
 	void Update(){
@@ -25,7 +29,10 @@ public class Bullet : MonoBehaviour {
 			//Debug.Log ("Bullet Collision With " + other);
 			//finishing VFX
 			bulletMeshRender.enabled = false;
+			bulletCollider.enabled = false;
+			
 			bulletRb.velocity = new Vector3 (0, 0, 0);
+			Destroy (bulletTrail, 0.25f);
 			Destroy (this.gameObject, 1f);
 		}
 

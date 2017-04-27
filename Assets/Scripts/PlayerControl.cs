@@ -174,9 +174,7 @@ public class PlayerControl : MonoBehaviour
                 //Debug.Log("isDashing: " + isDashing);
 
                 //Assegna Shader Outline su arma attiva
-                shaderApply.ShaderApply(revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
-
-                UpdateUI();
+				shaderApply.ShaderApply(revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
             }
             DropWeapon();
         }

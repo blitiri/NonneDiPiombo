@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000010816025490}
   - 23: {fileID: 23000011168670384}
   - 65: {fileID: 65000011716969152}
-  - 114: {fileID: 114000013755579830}
+  - 114: {fileID: 114000013124729470}
   m_Layer: 0
   m_Name: Uzi
   m_TagString: Uzi
@@ -91,7 +91,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0156412, y: 0.54369676, z: 0.15722916}
   m_Center: {x: 0.35800186, y: 0.16708674, z: 0.028283522}
---- !u!114 &114000013755579830
+--- !u!114 &114000013124729470
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -99,12 +99,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010466856672}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 540c536a593c8194b8b9dfc157900674, type: 3}
+  m_Script: {fileID: 11500000, guid: 43676193584c4da4492cb567164bfb2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoMagazine: 30
-  ratioOfFire: 0.2
-  weaponDamage: 14
+  weapon: 0
+  ammoMagazine: 100
+  ratioOfFire: 1
+  weaponDamage: 20
   delayDeathWeapon: 5
-  outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
-  standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}

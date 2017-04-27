@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010808105956}
   - 212: {fileID: 212000010470281956}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Identifier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - 33: {fileID: 33000011197896724}
   - 23: {fileID: 23000013685066282}
   - 65: {fileID: 65000014187810650}
-  - 114: {fileID: 114000010300326924}
+  - 114: {fileID: 114000012996242448}
   m_Layer: 0
   m_Name: Uzi
   m_TagString: Uzi
@@ -72,6 +72,7 @@ GameObject:
   - 33: {fileID: 33000013093740246}
   - 23: {fileID: 23000011297606144}
   - 65: {fileID: 65000013035801090}
+  - 114: {fileID: 114000010191342088}
   m_Layer: 0
   m_Name: Revolver
   m_TagString: Revolver
@@ -327,23 +328,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0156412, y: 0.54369676, z: 0.15722916}
   m_Center: {x: 0.35800186, y: 0.16708674, z: 0.028283522}
---- !u!114 &114000010300326924
+--- !u!114 &114000010191342088
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012286931158}
+  m_GameObject: {fileID: 1000013412919830}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 540c536a593c8194b8b9dfc157900674, type: 3}
+  m_Script: {fileID: 11500000, guid: 43676193584c4da4492cb567164bfb2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoMagazine: 60
-  ratioOfFire: 0.3
+  weapon: 0
+  ammoMagazine: 100
+  ratioOfFire: 1
   weaponDamage: 20
   delayDeathWeapon: 5
-  outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
-  standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &114000012170572144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -360,7 +360,6 @@ MonoBehaviour:
   otherWeapon: 0
   dead: 0
   isShooting: 0
-  startingAmmo: 100
   startingLife: 100
   startingStress: 0
   maxLifeValue: 100
@@ -371,14 +370,13 @@ MonoBehaviour:
   bulletLifeTime: 4
   bulletInitialForce: 100
   underAttackInactivityTime: 2
-  maxTimeToShoot: 0.8
   dashWallDistance: 1.5
   stressDecreaseFactor: 1.5
   timeToDiminishStress: 0.5
   weaponStressDamage: 0
-  defaultRatio: 0.8
   defaultDamage: 25
   dashTime: 0.5
+  dashDistance: 0
   stressIncrease: 24
   fixedAimAngleCorrection: 90
   dashSpeed: 20
@@ -389,7 +387,6 @@ MonoBehaviour:
     m_Bits: 1792
   crosshairCursor: {fileID: 2800000, guid: 129a1bd82137d4d6cacaf680296e0622, type: 3}
   cursorHotSpot: {x: 16, y: 16}
-  weaponManager: {fileID: 114000010300326924}
   toEmissionColor: {r: 1, g: 0, b: 0, a: 0}
   bulletSpawnPoint: {fileID: 4000014038659294}
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
@@ -398,9 +395,28 @@ MonoBehaviour:
   uzi: {fileID: 1000012286931158}
   aimTargetPrefab: {fileID: 1000011459376362, guid: 96f8777008367b2439be448a2124cbdd,
     type: 2}
+  weaponsCount:
+  - {fileID: 4000012801321500}
+  - {fileID: 4000011558113178}
   blinkColorTime: 2
   outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
   standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+--- !u!114 &114000012996242448
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012286931158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43676193584c4da4492cb567164bfb2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: 0
+  ammoMagazine: 100
+  ratioOfFire: 1
+  weaponDamage: 20
+  delayDeathWeapon: 5
 --- !u!212 &212000010470281956
 SpriteRenderer:
   m_ObjectHideFlags: 1

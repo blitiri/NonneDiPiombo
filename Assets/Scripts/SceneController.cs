@@ -37,13 +37,13 @@ public class SceneController : MonoBehaviour
 		Scene activeScene;
 
 		activeScene = SceneManager.GetActiveScene ();
-		Debug.Log ("Active scene: " + activeScene.name);
+		//Debug.Log ("Active scene: " + activeScene.name);
 		return IsLevelScene (activeScene.name);
 	}
 
 	public static bool IsLevelScene (string sceneName)
 	{
-		Debug.Log (sceneName + ".StartsWith ('" + levelPrefix + "'): " + sceneName.StartsWith (levelPrefix));
+		//Debug.Log (sceneName + ".StartsWith ('" + levelPrefix + "'): " + sceneName.StartsWith (levelPrefix));
 		return (sceneName.StartsWith (levelPrefix));
 	}
 

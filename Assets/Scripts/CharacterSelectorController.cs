@@ -26,7 +26,7 @@ public class CharacterSelectorController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(index);
+        //Debug.Log(index);
 	}
 
     public void Click(string buttonTag)

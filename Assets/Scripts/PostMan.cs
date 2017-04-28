@@ -14,7 +14,7 @@ public class PostMan : MonoBehaviour
 
     public float postManSpeed;
 
-    public NavMeshAgent postMan;
+    public UnityEngine.AI.NavMeshAgent postMan;
 
 	public PathTable postManTablePath;
 
@@ -22,7 +22,7 @@ public class PostMan : MonoBehaviour
 	// Use this for initialization
 	void Awake ()
     {
-	  postMan = GetComponent<NavMeshAgent>();
+	  postMan = GetComponent<UnityEngine.AI.NavMeshAgent>();
     }
 
     void Start()

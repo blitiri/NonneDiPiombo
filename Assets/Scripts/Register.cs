@@ -41,7 +41,7 @@ public class Register
 	/// <param name="key"><see cref="MonoBehaviour"/> key (<see cref="GameObject.GetInstanceID"/>).</param>
 	public MonoBehaviour Get (int key)
 	{
-		return register [key];
+		return (MonoBehaviour)register [key];
 	}
 
 	/// <summary>

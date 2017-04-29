@@ -6,88 +6,98 @@ using System.Collections;
 /// </summary>
 public class PlayerControl : MonoBehaviour
 {
+	public int playerId;
 
-    public bool stopInputPlayer = false;
+	/// <summary>
+	///Variables Managing player Life 
+	/// </summary>
+	private float life;
+	public int startingLife = 100;
+	public int maxLifeValue = 100;
+
+	/// <summary>
+	///Variables Managing player Stress 
+	/// </summary>
+	public int startingStress = 0;
+	private float stress;
+	public int maxStressValue = 100;
+	public float stressIncrease = 10;
+	public float stressDecreaseFactor;
+	public float timeToDiminishStress;
+
+    /// <summary>
+	/// With Melee (EXTERMINATUS [?])
+    /// </summary>
     private bool underAttack;
-    private bool stopped;
-    private bool isDashing;
-    public bool isObstacle = false;
-    public bool otherWeapon = false;
-
+    
+    /// <summary>
+    /// Check for respawn
+    /// </summary>
     public bool dead = false;
-
-   // public int startingAmmo = 60;
-    public int startingLife = 100;
-    public int startingStress = 0;
-    public int maxLifeValue = 100;
-    public int maxStressValue = 100;
-    public int playerId;
-    //private int ammo;
-    private float life;
-
+    
+	/// <summary>
+	/// Player Movement 
+	/// </summary>
     public float speed = 2;
     public float rotSpeed = 2;
     public float underAttackInactivityTime = 2;
-    public float dashWallDistance = 1.5f;
-    public float stressDecreaseFactor;
-    public float timeToDiminishStress;
-    private float horizontalMovement;
-    private float verticalMovement;
-    [Range(0, 10)]
-    public float dashTime;
-    float dashRecordedTime = 0;
-    [Range(0, 10)]
-    public float dashDistance;
-    private float stress;
-    private float angleCorrection;
-    public float stressIncrease = 10;
-    public float dashSpeed = 10;
-    public float dashLength = 5;
-    [Range(0, 100)]
-    public float playerObstacleDistanceLimit;
+	private float horizontalMovement;
+	private float verticalMovement;
+	private float angleCorrection;
+	private bool stopped;
+	public bool stopInputPlayer = false;
 
+	/// <summary>
+	/// Player Dash
+	/// </summary>
+	public bool isObstacle = false;
+	private bool isDashing;
+	public float dashWallDistance = 1.5f;
+	[Range(0, 10)]
+	public float dashTime;
+	float dashRecordedTime = 0;
+	[Range(0, 10)]
+	public float dashDistance;
+	public float dashSpeed = 10;
+	public float dashLength = 5;
+	[Range(0, 100)]
+	public float playerObstacleDistanceLimit;
+	public LayerMask environment;
+
+    /// <summary>
+    /// Player Tagging
+    /// </summary>
     private const string bulletTagPrefix = "Bullet";
     private const string playerTagPrefix = "Player";
-//    private WeaponsManagerEnum selectedWeapon;
-    private string tagActuallyWeapon;
 
-    public LayerMask environment;
+    /// <summary>
+    /// Components
+    /// </summary>
     public Texture2D crosshairCursor;
     public Vector2 cursorHotSpot = new Vector2(16, 16);
+	private Material playerMat;
+	private MeshRenderer meshPlayer;
+	private MeshRenderer revolverMeshRenderer;
+	private Rigidbody rb;
+	public GameObject bulletPrefab;
+	public GameObject revolver;
+	public GameObject uzi;
+	public GameObject aimTargetPrefab;
+	private GameObject aimTarget;
+	private InputManager inputManager;
 
-    public Color toEmissionColor;
-
-    private Material playerMat;
-
-    public Transform bulletSpawnPoint;
-
-    private MeshRenderer meshPlayer;
-    private MeshRenderer revolverMeshRenderer;
-
-    private Rigidbody rb;
-
-    private Animator ani;
-
-    public GameObject bulletPrefab;
-    public GameObject revolver;
-    public GameObject uzi;
-    public GameObject aimTargetPrefab;
-    private GameObject aimTarget;
-
-    private InputManager inputManager;
-
+	/// <summary>
+	/// Blink (video feedback onDamage)
+	/// </summary>
+    public Color toEmissionColor;    
     public float blinkColorTime = 2;
 
+	/// <summary>
+	/// Shading
+	/// </summary>
     private OutlineShaderApply shaderApply;
-
     public Shader outlineShader;
     public Shader standardShader;
-
-   
-
-    //   [Range(0,1)]
-    //   public float dashSpeed = 0.1f;
-
 
     /// <summary>
     /// Awake this instance.
@@ -96,7 +106,7 @@ public class PlayerControl : MonoBehaviour
     {
         shaderApply = new OutlineShaderApply();
         revolverMeshRenderer = revolver.GetComponent<MeshRenderer>();
-        tagActuallyWeapon = "Revolver";
+        
         /*weapons = new Hashtable ();
 		foreach (Transform child in transform) {
 			weapons.Add (child.gameObject.tag, child.gameObject);
@@ -108,7 +118,6 @@ public class PlayerControl : MonoBehaviour
             aimTarget = Instantiate(aimTargetPrefab) as GameObject;
         }
         rb = GetComponent<Rigidbody>();
-        ani = GetComponent<Animator>();
         meshPlayer = GetComponent<MeshRenderer>();
         playerMat = meshPlayer.material;
        
@@ -143,11 +152,12 @@ public class PlayerControl : MonoBehaviour
                 Move();
                 DashManaging();
                 Aim();
-                //Shoot ();
+                
+
                 //Assegna Shader Outline su arma attiva
 				shaderApply.ShaderApply(revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
             }
-            DropWeapon();
+            
         }
     }
 
@@ -162,10 +172,6 @@ public class PlayerControl : MonoBehaviour
         return life >= maxLifeValue;
     }
 
-    private void DropWeapon()
-    {
-		
-    }
 
     /// <summary>
     /// Resets the player status.
@@ -176,7 +182,7 @@ public class PlayerControl : MonoBehaviour
         stress = startingStress;
         stopped = false;
         underAttack = false;
-       // UpdateUI();
+        UpdateUI();
     }
 
     /// <summary>
@@ -291,12 +297,9 @@ public class PlayerControl : MonoBehaviour
     /// Detects a trigger enter with a weapon
     /// </summary>
     /// <param name="other">Collider.</param>
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-		if (inputManager.Pick ()) 
-		{
-			
-		}
+		
       
     }
 
@@ -316,7 +319,7 @@ public class PlayerControl : MonoBehaviour
                 life = 0;
                 GameManager.instance.PlayerKilled(GetPlayerId(gameObject.tag), GetPlayerId(killerTag));
             }
-            //UpdateUI();
+            UpdateUI();
             StopCoroutine(BounceColor(toEmissionColor));
             StartCoroutine(BounceColor(toEmissionColor));
         }
@@ -344,7 +347,7 @@ public class PlayerControl : MonoBehaviour
     public void AddLife(int life)
     {
         this.life = Mathf.Clamp(this.life + life, 0, maxLifeValue);
-       // UpdateUI();
+        UpdateUI();
     }
 
     /// <summary>
@@ -354,7 +357,7 @@ public class PlayerControl : MonoBehaviour
     public void AddStress(float stressToAdd)
     {
         stress = Mathf.Clamp(stress + stressToAdd, 0, maxStressValue);
-       // UpdateUI();
+        UpdateUI();
     }
 
     /// <summary>
@@ -396,7 +399,7 @@ public class PlayerControl : MonoBehaviour
             yield return new WaitForSeconds(timeToDiminishStress);
            
             stress = Mathf.Clamp(stress - stressDecreaseFactor, 0, maxStressValue);
-            //UpdateUI();
+            UpdateUI();
         }
     }
 
@@ -505,4 +508,9 @@ public class PlayerControl : MonoBehaviour
         }
         playerMat.SetColor("_EmissionColor", Color.black);
     }
+
+	private void UpdateUI(){
+		LevelUIManager.instance.SetLife (life / maxLifeValue, playerId);
+		LevelUIManager.instance.SetStress (stress / maxStressValue, playerId);
+	}
 }

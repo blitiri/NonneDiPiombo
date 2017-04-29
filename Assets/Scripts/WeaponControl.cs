@@ -14,12 +14,8 @@ public class WeaponControl : MonoBehaviour
 	private Transform bulletSpawnPoint;
 	private float timerToShoot;
 
+
 	void Awake()
-	{
-		
-	}
-	// Use this for initialization
-	void Start () 
 	{
 		
 	}
@@ -59,4 +55,26 @@ public class WeaponControl : MonoBehaviour
 			timerToShoot = 0.0f;
 		}
 	}
+
+	/*/// <summary>
+	/// Updates the UI with player's statistics.
+	/// </summary>
+	private void UpdateUI()
+	{
+		if (selectedWeapon.weapon==WeaponsManagerEnum.Weapons.Revolver)
+		{
+			//LevelUIManager.instance.ammoCounters [playerId].text = "--";
+			LevelUIManager.instance.SetInfiniteAmmo(playerId);
+		}
+		else
+		{
+			LevelUIManager.instance.SetAmmo(selectedWeapon.ammoMagazine, playerId);
+		}
+		// Cast to float is required to avoid an integer division
+		LevelUIManager.instance.SetLife(life / maxLifeValue, playerId);
+		// Cast to float is required to avoid an integer division
+
+		LevelUIManager.instance.SetStress(stress / maxStressValue, playerId);
+
+	}*/
 }

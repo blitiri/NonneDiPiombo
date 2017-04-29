@@ -48,7 +48,7 @@ public class PlayerControl : MonoBehaviour
 
     private const string bulletTagPrefix = "Bullet";
     private const string playerTagPrefix = "Player";
-    private WeaponsManagerEnum selectedWeapon;
+//    private WeaponsManagerEnum selectedWeapon;
     private string tagActuallyWeapon;
 
     public LayerMask environment;
@@ -135,21 +135,15 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(transform.position.x, 0, transform.position.z);
-        //Debug.Log ("underAttack: " + underAttack + " - stopped: " + stopped);
-        //selectedWeapon.tagWeapon = tagActuallyWeapon;
+        
         if (!underAttack)
         {
             if (!stopped && stopInputPlayer == false)
             {
                 Move();
                 DashManaging();
-                //Debug.Log(inputManager.GetMoveVector());
                 Aim();
-                Shoot ();
-                Melee();
-
-                //Debug.Log("isDashing: " + isDashing);
-
+                //Shoot ();
                 //Assegna Shader Outline su arma attiva
 				shaderApply.ShaderApply(revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
             }
@@ -170,7 +164,7 @@ public class PlayerControl : MonoBehaviour
 
     private void DropWeapon()
     {
-		if()
+		
     }
 
     /// <summary>
@@ -178,20 +172,11 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     public void ResetStatus()
     {
-        if (otherConnectedPlayers == null)
-        {
-            otherConnectedPlayers = new ArrayList();
-        }
-        else
-        {
-            otherConnectedPlayers.Clear();
-        }
-
         life = startingLife;
         stress = startingStress;
         stopped = false;
         underAttack = false;
-        UpdateUI();
+       // UpdateUI();
     }
 
     /// <summary>
@@ -291,26 +276,6 @@ public class PlayerControl : MonoBehaviour
             isDashing = false;
         }
     }
-		
-
-    /// <summary>
-    /// Detects a trigger enter with a bullet
-    /// </summary>
-    /// <param name="other">Collider.</param>
-    void OnTriggerEnter(Collider other)
-    {
-        //Debug.Log ("Tag:" + other.gameObject.tag + " Prefix:" + bulletTagPrefix + " Result:" +  other.gameObject.tag.StartsWith (bulletTagPrefix));
-
-        if (other.gameObject.tag.StartsWith(bulletTagPrefix))
-        {
-            if (!other.gameObject.tag.EndsWith(playerId.ToString()))
-            {
-                //Debug.Log ("Trigger detected: " + other.gameObject.tag);
-                AddDamage(bulletDamage, other.gameObject.tag);
-
-            }
-        }
-    }
 
     /// <summary>
     /// Determines whether player is dead.
@@ -328,33 +293,11 @@ public class PlayerControl : MonoBehaviour
     /// <param name="other">Collider.</param>
     void OnTriggerStay(Collider other)
     {
-        if (inputManager.Pick())
-        {
-
-            if (selectedWeapon.weapon!=WeaponsManagerEnum.Weapons.Revolver)
-            {
-                DropWeapon();
-            }
-            foreach (Transform son in weaponsCount)
-            {
-                if (tagActuallyWeapon != other.tag && son.gameObject.layer != 12)
-                {
-                    son.gameObject.SetActive(false);
-                }
-            }
-
-            foreach (Transform child in weaponsCount) {
-                if (other.tag == child.tag) {
-                    child.gameObject.SetActive(true);
-                    selectedWeapon = child.gameObject.GetComponent<WeaponsManagerEnum>();
-                    WeaponsManagerEnum weaponOnTheFloor = other.GetComponent<WeaponsManagerEnum>();
-                    selectedWeapon.ammoMagazine = weaponOnTheFloor.ammoMagazine;
-                    //selectedWeapon.weapon = WeaponsManagerEnum.Weapons.Uzi;
-                    tagActuallyWeapon = other.tag;
-                    Destroy (other.gameObject);
-                }
-            }
-        }
+		if (inputManager.Pick ()) 
+		{
+			
+		}
+      
     }
 
     /// <summary>
@@ -373,7 +316,7 @@ public class PlayerControl : MonoBehaviour
                 life = 0;
                 GameManager.instance.PlayerKilled(GetPlayerId(gameObject.tag), GetPlayerId(killerTag));
             }
-            UpdateUI();
+            //UpdateUI();
             StopCoroutine(BounceColor(toEmissionColor));
             StartCoroutine(BounceColor(toEmissionColor));
         }
@@ -401,7 +344,7 @@ public class PlayerControl : MonoBehaviour
     public void AddLife(int life)
     {
         this.life = Mathf.Clamp(this.life + life, 0, maxLifeValue);
-        UpdateUI();
+       // UpdateUI();
     }
 
     /// <summary>
@@ -411,7 +354,7 @@ public class PlayerControl : MonoBehaviour
     public void AddStress(float stressToAdd)
     {
         stress = Mathf.Clamp(stress + stressToAdd, 0, maxStressValue);
-        UpdateUI();
+       // UpdateUI();
     }
 
     /// <summary>
@@ -440,28 +383,7 @@ public class PlayerControl : MonoBehaviour
     {
         return underAttack;
     }
-
-    /// <summary>
-    /// Updates the UI with player's statistics.
-    /// </summary>
-    private void UpdateUI()
-    {
-        if (selectedWeapon.weapon==WeaponsManagerEnum.Weapons.Revolver)
-        {
-            //LevelUIManager.instance.ammoCounters [playerId].text = "--";
-            LevelUIManager.instance.SetInfiniteAmmo(playerId);
-        }
-        else
-        {
-            LevelUIManager.instance.SetAmmo(selectedWeapon.ammoMagazine, playerId);
-        }
-        // Cast to float is required to avoid an integer division
-        LevelUIManager.instance.SetLife(life / maxLifeValue, playerId);
-        // Cast to float is required to avoid an integer division
-
-        LevelUIManager.instance.SetStress(stress / maxStressValue, playerId);
-
-    }
+		
 
     /// <summary>
     /// Refills the stress.
@@ -472,11 +394,9 @@ public class PlayerControl : MonoBehaviour
         while (stress < 100)
         {
             yield return new WaitForSeconds(timeToDiminishStress);
-            if (!isShooting)
-            {
-                stress = Mathf.Clamp(stress - stressDecreaseFactor, 0, maxStressValue);
-                UpdateUI();
-            }
+           
+            stress = Mathf.Clamp(stress - stressDecreaseFactor, 0, maxStressValue);
+            //UpdateUI();
         }
     }
 

@@ -7,7 +7,7 @@ public class SpawnController : MonoBehaviour
     public Transform[] spawns;
 
     public int itemCount;
-    public int pickUp
+	public int pickUp;
     //public int capsuleCount;
 
     //public GameObject revolverPrefab;
@@ -61,7 +61,7 @@ public class SpawnController : MonoBehaviour
     {
         int randomSpawnIndex = Random.Range(0, spawns.Length - 1);
 
-        Transform lastDropPoint 
+		Transform lastDropPoint; 
 
         for (int i = 0; i < pickUps.Length; i++)
         {

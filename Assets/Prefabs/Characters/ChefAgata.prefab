@@ -16,10 +16,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000010808105956}
-  - 212: {fileID: 212000010470281956}
+  - component: {fileID: 4000010808105956}
+  - component: {fileID: 212000010470281956}
   m_Layer: 12
   m_Name: Identifier
   m_TagString: Untagged
@@ -32,13 +32,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000011558113178}
-  - 33: {fileID: 33000011197896724}
-  - 23: {fileID: 23000013685066282}
-  - 65: {fileID: 65000014187810650}
-  - 114: {fileID: 114000012996242448}
+  - component: {fileID: 4000011558113178}
+  - component: {fileID: 33000011197896724}
+  - component: {fileID: 23000013685066282}
+  - component: {fileID: 65000014187810650}
   m_Layer: 0
   m_Name: Uzi
   m_TagString: Uzi
@@ -51,9 +50,9 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000014038659294}
+  - component: {fileID: 4000014038659294}
   m_Layer: 0
   m_Name: BulletSpawnpoint
   m_TagString: Untagged
@@ -66,13 +65,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000012801321500}
-  - 33: {fileID: 33000013093740246}
-  - 23: {fileID: 23000011297606144}
-  - 65: {fileID: 65000013035801090}
-  - 114: {fileID: 114000010191342088}
+  - component: {fileID: 4000012801321500}
+  - component: {fileID: 33000013093740246}
+  - component: {fileID: 23000011297606144}
+  - component: {fileID: 65000013035801090}
   m_Layer: 0
   m_Name: Revolver
   m_TagString: Revolver
@@ -85,14 +83,14 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000014017114100}
-  - 33: {fileID: 33000013875355870}
-  - 23: {fileID: 23000011247245896}
-  - 65: {fileID: 65000012817736914}
-  - 54: {fileID: 54000010900623878}
-  - 114: {fileID: 114000012170572144}
+  - component: {fileID: 4000014017114100}
+  - component: {fileID: 33000013875355870}
+  - component: {fileID: 23000011247245896}
+  - component: {fileID: 65000012817736914}
+  - component: {fileID: 54000010900623878}
+  - component: {fileID: 114000012170572144}
   m_Layer: 0
   m_Name: ChefAgata
   m_TagString: ChefAgata
@@ -109,10 +107,10 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.01, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014017114100}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000011558113178
 Transform:
   m_ObjectHideFlags: 1
@@ -122,10 +120,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0.0061354637, y: 0.169, z: 0.269}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014017114100}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000012801321500
 Transform:
   m_ObjectHideFlags: 1
@@ -135,11 +133,11 @@ Transform:
   m_LocalRotation: {x: -8.231214e-11, y: -0.7071068, z: -8.233507e-11, w: 0.7071068}
   m_LocalPosition: {x: 0.046564102, y: 0.329422, z: 0.20125198}
   m_LocalScale: {x: 1.500001, y: 1.5, z: 1.500001}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000014038659294}
   m_Father: {fileID: 4000014017114100}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000014017114100
 Transform:
   m_ObjectHideFlags: 1
@@ -149,13 +147,13 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.002179, y: 0.10000105, z: 8.367067}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012801321500}
   - {fileID: 4000011558113178}
   - {fileID: 4000010808105956}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000014038659294
 Transform:
   m_ObjectHideFlags: 1
@@ -165,10 +163,10 @@ Transform:
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 0.641, y: 0.157, z: 0.018}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000012801321500}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23000011247245896
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -183,7 +181,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 8e51abf6a23f2bd429663c31d2f74daf, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -191,7 +191,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -212,7 +212,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 050e08dc12feb864f86ab2d2159ebbfd, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -220,7 +222,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -241,7 +243,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 6a0d08355eace184a8f1ad703013f4a8, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -249,7 +253,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -328,22 +332,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0156412, y: 0.54369676, z: 0.15722916}
   m_Center: {x: 0.35800186, y: 0.16708674, z: 0.028283522}
---- !u!114 &114000010191342088
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013412919830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43676193584c4da4492cb567164bfb2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon: 0
-  ammoMagazine: 100
-  ratioOfFire: 1
-  weaponDamage: 20
-  delayDeathWeapon: 5
 --- !u!114 &114000012170572144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -355,30 +343,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3da1c601255c590438c55e83bf0038fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopInputPlayer: 0
-  isObstacle: 0
-  otherWeapon: 0
-  dead: 0
-  isShooting: 0
-  startingLife: 100
-  startingStress: 0
-  maxLifeValue: 100
-  maxStressValue: 100
   playerId: 0
-  speed: 6
-  rotSpeed: 2
-  bulletLifeTime: 4
-  bulletInitialForce: 100
-  underAttackInactivityTime: 2
-  dashWallDistance: 1.5
+  startingLife: 100
+  maxLifeValue: 100
+  startingStress: 0
+  maxStressValue: 100
+  stressIncrease: 24
   stressDecreaseFactor: 1.5
   timeToDiminishStress: 0.5
-  weaponStressDamage: 0
-  defaultDamage: 25
+  dead: 0
+  speed: 6
+  rotSpeed: 2
+  underAttackInactivityTime: 2
+  stopInputPlayer: 0
+  isObstacle: 0
+  dashWallDistance: 1.5
   dashTime: 0.5
   dashDistance: 0
-  stressIncrease: 24
-  fixedAimAngleCorrection: 90
   dashSpeed: 20
   dashLength: 2.5
   playerObstacleDistanceLimit: 3
@@ -387,36 +368,14 @@ MonoBehaviour:
     m_Bits: 1792
   crosshairCursor: {fileID: 2800000, guid: 129a1bd82137d4d6cacaf680296e0622, type: 3}
   cursorHotSpot: {x: 16, y: 16}
-  toEmissionColor: {r: 1, g: 0, b: 0, a: 0}
-  bulletSpawnPoint: {fileID: 4000014038659294}
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}
   revolver: {fileID: 1000013412919830}
   uzi: {fileID: 1000012286931158}
-  aimTargetPrefab: {fileID: 1000011459376362, guid: 96f8777008367b2439be448a2124cbdd,
-    type: 2}
-  weaponsCount:
-  - {fileID: 4000012801321500}
-  - {fileID: 4000011558113178}
+  toEmissionColor: {r: 1, g: 0, b: 0, a: 0}
   blinkColorTime: 2
   outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
   standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
---- !u!114 &114000012996242448
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012286931158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43676193584c4da4492cb567164bfb2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon: 0
-  ammoMagazine: 100
-  ratioOfFire: 1
-  weaponDamage: 20
-  delayDeathWeapon: 5
 --- !u!212 &212000010470281956
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -431,7 +390,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 0
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -439,7 +400,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 1
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89

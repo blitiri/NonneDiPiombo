@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 	/// GameManager instance.
 	/// </summary>
 	public static GameManager instance;
+
 	private const int maxNumberOfPlayers = 4;
 	private bool isPaused = false;
 	[Range (2, maxNumberOfPlayers)]
@@ -21,11 +22,8 @@ public class GameManager : MonoBehaviour
 	public float roundTimer;
 
 	public BoxCollider restartButtonBoxCollider;
-
 	public UISprite restartButtonUISprite;
-
 	public UILabel restartButtonUILabel;
-
 	public Transform cameraTransform;
 
 	public GameObject postManPrefab;
@@ -42,8 +40,8 @@ public class GameManager : MonoBehaviour
 
 	public GameObject[] playersPrefabs;
 	private GameObject[] players;
-
 	private PlayerControl[] playersControls;
+	public GameObject[] weapons;
 
 	void Awake ()
 	{
@@ -78,18 +76,10 @@ public class GameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (SceneController.IsLevelScene ()) {
+		if (SceneController.IsLevelScene () ) {
 			CheckRespawnPlayers ();
 			CheckGamePause ();
 			TimerUpdate ();
-
-			/*if (timerPostManSpawn < timerToSpawn) {
-				timerPostManSpawn += Time.deltaTime;
-	            
-			} else {
-				PostManSpawn();
-				timerPostManSpawn = 0.0f;
-			}*/
 		}
 	}
 
@@ -110,6 +100,16 @@ public class GameManager : MonoBehaviour
 			playersControls [playerIndex].SetAngleCorrection (cameraTransform.rotation.eulerAngles.y);
 			playersKills [playerIndex] = 0;
 			players [playerIndex].SetActive (true);
+
+			//add weapon , setdefaulweapon , for to instanciate weapons
+			for (int j=0;j < weapons.Length; j++){
+				GameObject weapon = Instantiate (weapons [j], players [playerIndex].transform) as GameObject;
+				weapon.transform.rotation = Quaternion.identity;
+				playersControls [playerIndex].SetDefaultWeapon (weapons[0]);
+			}
+
+
+
 		}
 	}
 

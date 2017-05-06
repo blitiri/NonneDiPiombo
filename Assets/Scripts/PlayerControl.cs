@@ -82,8 +82,6 @@ public class PlayerControl : MonoBehaviour
 	public GameObject bulletPrefab;
 	public GameObject revolver;
 	public GameObject uzi;
-	public GameObject aimTargetPrefab;
-	private GameObject aimTarget;
 	private InputManager inputManager;
 
 	/// <summary>
@@ -99,6 +97,9 @@ public class PlayerControl : MonoBehaviour
     public Shader outlineShader;
     public Shader standardShader;
 
+	private WeaponControl[] weapons;
+
+
     /// <summary>
     /// Awake this instance.
     /// </summary>
@@ -113,10 +114,6 @@ public class PlayerControl : MonoBehaviour
 		}
 		SetActiveWeapons (defaultWeapon);*/
 
-        if (aimTargetPrefab != null)
-        {
-            aimTarget = Instantiate(aimTargetPrefab) as GameObject;
-        }
         rb = GetComponent<Rigidbody>();
         meshPlayer = GetComponent<MeshRenderer>();
         playerMat = meshPlayer.material;
@@ -191,8 +188,6 @@ public class PlayerControl : MonoBehaviour
     private void Move()
     {
         rb.MovePosition(rb.position + inputManager.GetMoveVector() * speed * Time.deltaTime);
-        //ani.SetFloat ("Movement", horizontalMovement);
-        //ani.SetFloat ("Movement", verticalMovement);
     }
 
     /// <summary>
@@ -216,24 +211,12 @@ public class PlayerControl : MonoBehaviour
                     aimVector += transform.position;
                     transform.LookAt(aimVector);
 
-                    if (aimTarget != null)
-                    {
-                        aimTarget.transform.position = new Vector3(aimVector.x, transform.position.y, aimVector.z);// + transform.position;
-                                                                                                                   //Debug.Log ("aimVector=" + aimVector);
-                    }
                 }
                 else
                 {
                     transform.forward = Vector3.Normalize(aimVector);
                 }
             }
-
-            /*aimAngle = inputManager.GetAimAngle ();
-		if (aimVector != Vector3.zero) {
-			transform.forward = Vector3.Normalize (aimVector);
-		} else if (aimAngle != 0) {
-			transform.rotation = Quaternion.AngleAxis (aimAngle, Vector3.up); 
-		}*/
         }
     }
 
@@ -299,7 +282,7 @@ public class PlayerControl : MonoBehaviour
     /// <param name="other">Collider.</param>
     void OnTriggerEnter(Collider other)
     {
-		
+		//PickWeapon
       
     }
 
@@ -513,4 +496,16 @@ public class PlayerControl : MonoBehaviour
 		LevelUIManager.instance.SetLife (life / maxLifeValue, playerId);
 		LevelUIManager.instance.SetStress (stress / maxStressValue, playerId);
 	}
+
+	/// <summary>
+	/// Sets the default weapon. Always first weapon in array on gameManager
+	/// </summary>
+	/// <param name="defaultWeapon">Default weapon.</param>
+	public void SetDefaultWeapon(GameObject defaultWeapon){
+		for (int i = 0; i < weapons.Length; i++) {
+			weapons [0].isDefaultWeapon = true;
+			defaultWeapon = weapons [0].gameObject;
+		}
+	}
+
 }

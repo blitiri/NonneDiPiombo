@@ -14,22 +14,12 @@ public class WeaponControl : MonoBehaviour
 	private Transform bulletSpawnPoint;
 	private float timerToShoot;
 
-
-	void Awake()
-	{
-		
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		
-	}
+	public bool isDefaultWeapon;
 
 	/// <summary>
 	/// Executes a shoot attack against other connected players
 	/// </summary>
-	public void Shoot()
+	public void Shoot(string playerId)
 	{
 		GameObject bullet;
 		Rigidbody bulletRigidbody;
@@ -43,7 +33,7 @@ public class WeaponControl : MonoBehaviour
 			bullet = Instantiate(standardBulletPrefab) as GameObject;
 			bullet.transform.rotation = bulletSpawnPoint.transform.rotation;
 			bullet.transform.position = bulletSpawnPoint.position;
-			//bullet.tag = bulletTagPrefix + gameObject.tag;
+			bullet.tag = playerId;
 			bulletRigidbody = bullet.GetComponent<Rigidbody>();
 			bulletRigidbody.AddForce(bulletSpawnPoint.transform.up, ForceMode.Impulse);
 		

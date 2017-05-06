@@ -11,10 +11,6 @@ public class Pickup : MonoBehaviour
 	/// </summary>
 	public int ammoBonus = 10;
 	/// <summary>
-	/// The life bonus.
-	/// </summary>
-	public int lifeBonus = 10;
-	/// <summary>
 	/// The stress bonus.
 	/// </summary>
 	public int stressBonus = -10;
@@ -33,10 +29,7 @@ public class Pickup : MonoBehaviour
 
 		if (other.gameObject.tag.StartsWith ("Player")) {
 			playerControl = other.gameObject.GetComponent<PlayerControl> ();
-			if (gameObject.tag.Equals ("Medikit") && !playerControl.IsFitAsAFiddle ()) {
-				Destroy (this.gameObject);
-				playerControl.AddLife (lifeBonus);
-			} else if (gameObject.tag.Equals ("Stress") && playerControl.IsStressed ()) {
+		 if (gameObject.tag.Equals ("Stress") && playerControl.IsStressed ()) {
 				Destroy (this.gameObject);
 				playerControl.AddStress (stressBonus);
 			}

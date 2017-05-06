@@ -7,11 +7,11 @@ public class WeaponControl : MonoBehaviour
 	public int ammoMagazine;
 	public float ratioOfFire;
 	public float speedBullet;
+	public Transform bulletSpawnPoint;
 	public GameObject standardBulletPrefab;
 	public GameObject powerUpBulletPrefab;
 	public float weaponStress;
 	private string playerID;
-	private Transform bulletSpawnPoint;
 	private float timerToShoot;
 
 	public bool isDefaultWeapon;
@@ -35,13 +35,7 @@ public class WeaponControl : MonoBehaviour
 			bullet.transform.position = bulletSpawnPoint.position;
 			bullet.tag = playerId;
 			bulletRigidbody = bullet.GetComponent<Rigidbody>();
-			bulletRigidbody.AddForce(bulletSpawnPoint.transform.up, ForceMode.Impulse);
-		
-			/*if(selectedWeapon.weapon!=WeaponsManagerEnum.Weapons.Revolver)
-			{
-				selectedWeapon.ammoMagazine--;
-			}
-			stress += weaponStressDamage;*/
+			bulletRigidbody.AddForce(bulletSpawnPoint.transform.up*speedBullet, ForceMode.Impulse);
 			timerToShoot = 0.0f;
 		}
 	}

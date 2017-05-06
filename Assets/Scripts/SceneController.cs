@@ -25,7 +25,11 @@ public class SceneController : MonoBehaviour
 	/// </summary>
 	void Awake ()
 	{
-		instance = this;
+		if (instance == null) {
+			instance = this;
+		} else {
+			Destroy (gameObject);
+		}
 	}
 
 	/// <summary>
@@ -99,6 +103,14 @@ public class SceneController : MonoBehaviour
 	public static string GetCurrentSceneName ()
 	{
 		return SceneManager.GetActiveScene ().name;
+	}
+
+	/// <summary>
+	/// Loads the selected scene.
+	/// </summary>
+	public void LoadSelectedScene ()
+	{
+		LoadSceneByName (Configuration.instance.GetSelectedLevel ());
 	}
 
 	/// <summary>

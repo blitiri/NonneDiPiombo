@@ -13,6 +13,7 @@ public class Configuration : MonoBehaviour
 	public int defaultNumberOfPlayers = maxNumberOfPlayers;
 	public bool defaultFullScreen = true;
 	public float defaultSoundVolume = 1;
+	public Color[] playersColors = { Color.red, Color.green, Color.blue, Color.yellow };
 	private int numberOfPlayers;
 	private string selectedLevel;
 	private bool fullScreen;

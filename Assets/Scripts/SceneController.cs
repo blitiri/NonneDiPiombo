@@ -53,15 +53,43 @@ public class SceneController : MonoBehaviour
 	/// <returns><c>true</c> if ending scene is loaded; otherwise, <c>false</c>.</returns>
 	public static bool IsEndingScene ()
 	{
-		Scene activeScene;
-		bool levelScene;
+		return IsScene ("Ending");
+	}
 
-		levelScene = false;
+	/// <summary>
+	/// Determines if is character selection scene.
+	/// </summary>
+	/// <returns><c>true</c> if is character selection scene; otherwise, <c>false</c>.</returns>
+	public static bool IsCharacterSelectionScene ()
+	{
+		return IsScene ("CharacterSelection");
+	}
+
+	/// <summary>
+	/// Determines if is level selection scene.
+	/// </summary>
+	/// <returns><c>true</c> if is level selection scene; otherwise, <c>false</c>.</returns>
+	public static bool IsLevelSelectionScene ()
+	{
+		return IsScene ("LevelSelection");
+	}
+
+	/// <summary>
+	/// Determines if is scene the specified sceneName.
+	/// </summary>
+	/// <returns><c>true</c> if is scene the specified sceneName; otherwise, <c>false</c>.</returns>
+	/// <param name="sceneName">Scene name.</param>
+	public static bool IsScene (string sceneName)
+	{
+		Scene activeScene;
+		bool isScene;
+
+		isScene = false;
 		activeScene = SceneManager.GetActiveScene ();
-		if (activeScene.name.Equals ("Ending")) {
-			levelScene = true;
+		if (activeScene.name.Equals (sceneName)) {
+			isScene = true;
 		}
-		return levelScene;
+		return isScene;
 	}
 
 	/// <summary>

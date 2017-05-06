@@ -27,24 +27,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000012286931158
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4000011558113178}
-  - component: {fileID: 33000011197896724}
-  - component: {fileID: 23000013685066282}
-  - component: {fileID: 65000014187810650}
-  m_Layer: 0
-  m_Name: Uzi
-  m_TagString: Uzi
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
 --- !u!1 &1000012595982940
 GameObject:
   m_ObjectHideFlags: 1
@@ -71,6 +53,7 @@ GameObject:
   - component: {fileID: 33000013093740246}
   - component: {fileID: 23000011297606144}
   - component: {fileID: 65000013035801090}
+  - component: {fileID: 114414365082383620}
   m_Layer: 0
   m_Name: Revolver
   m_TagString: Revolver
@@ -109,19 +92,6 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4000014017114100}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4000011558113178
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012286931158}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.0061354637, y: 0.169, z: 0.269}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4000014017114100}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000012801321500
@@ -149,7 +119,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000012801321500}
-  - {fileID: 4000011558113178}
   - {fileID: 4000010808105956}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -229,44 +198,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!23 &23000013685066282
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012286931158}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: 6a0d08355eace184a8f1ad703013f4a8, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
---- !u!33 &33000011197896724
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012286931158}
-  m_Mesh: {fileID: 4300000, guid: 4fc7db80ebd8f9c4e93cf630cb50c659, type: 3}
 --- !u!33 &33000013093740246
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -320,18 +251,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.49728552, y: 0.3227426, z: 0.10049303}
   m_Center: {x: 0.1801758, y: 0.06331798, z: 0.01828348}
---- !u!65 &65000014187810650
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012286931158}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1.0156412, y: 0.54369676, z: 0.15722916}
-  m_Center: {x: 0.35800186, y: 0.16708674, z: 0.028283522}
 --- !u!114 &114000012170572144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -371,11 +290,30 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}
   revolver: {fileID: 1000013412919830}
-  uzi: {fileID: 1000012286931158}
   toEmissionColor: {r: 1, g: 0, b: 0, a: 0}
   blinkColorTime: 2
   outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
   standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+--- !u!114 &114414365082383620
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013412919830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e601fb175e9f1964290bfcfcc5de6f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoMagazine: 100
+  ratioOfFire: 0.8
+  speedBullet: 50
+  bulletSpawnPoint: {fileID: 4000014038659294}
+  standardBulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
+    type: 2}
+  powerUpBulletPrefab: {fileID: 0}
+  weaponStress: 0
+  isDefaultWeapon: 0
 --- !u!212 &212000010470281956
 SpriteRenderer:
   m_ObjectHideFlags: 1

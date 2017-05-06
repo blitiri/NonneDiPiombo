@@ -100,16 +100,6 @@ public class GameManager : MonoBehaviour
 			playersControls [playerIndex].SetAngleCorrection (cameraTransform.rotation.eulerAngles.y);
 			playersKills [playerIndex] = 0;
 			players [playerIndex].SetActive (true);
-
-			//add weapon , setdefaulweapon , for to instanciate weapons
-			for (int j=0;j < weapons.Length; j++){
-				GameObject weapon = Instantiate (weapons [j], players [playerIndex].transform) as GameObject;
-				weapon.transform.rotation = Quaternion.identity;
-				playersControls [playerIndex].SetDefaultWeapon (weapons[0]);
-			}
-
-
-
 		}
 	}
 
@@ -128,7 +118,7 @@ public class GameManager : MonoBehaviour
 		int playerIndex;
 
 		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
-			if ((playersControls [playerIndex].IsDead ()) && !playersControls [playerIndex].IsUnderAttack () || (playersControls [playerIndex].IsCollapsed ())) {
+			if ((playersControls [playerIndex].IsDead ()) || (playersControls [playerIndex].IsCollapsed ())) {
 				StartCoroutine (RespawnPlayer (playerIndex));
 			}
 		}

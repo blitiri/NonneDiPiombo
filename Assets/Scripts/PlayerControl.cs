@@ -26,11 +26,6 @@ public class PlayerControl : MonoBehaviour
 	public float timeToDiminishStress;
 
     /// <summary>
-	/// With Melee (EXTERMINATUS [?])
-    /// </summary>
-    private bool underAttack;
-    
-    /// <summary>
     /// Check for respawn
     /// </summary>
     public bool dead = false;
@@ -40,7 +35,6 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
     public float speed = 2;
     public float rotSpeed = 2;
-    public float underAttackInactivityTime = 2;
 	private float horizontalMovement;
 	private float verticalMovement;
 	private float angleCorrection;
@@ -81,7 +75,6 @@ public class PlayerControl : MonoBehaviour
 	private Rigidbody rb;
 	public GameObject bulletPrefab;
 	public GameObject revolver;
-	public GameObject uzi;
 	private InputManager inputManager;
 
 	/// <summary>
@@ -96,8 +89,7 @@ public class PlayerControl : MonoBehaviour
     private OutlineShaderApply shaderApply;
     public Shader outlineShader;
     public Shader standardShader;
-
-	private WeaponControl[] weapons;
+	private WeaponControl weapon;
 
 
     /// <summary>
@@ -107,17 +99,11 @@ public class PlayerControl : MonoBehaviour
     {
         shaderApply = new OutlineShaderApply();
         revolverMeshRenderer = revolver.GetComponent<MeshRenderer>();
-        
-        /*weapons = new Hashtable ();
-		foreach (Transform child in transform) {
-			weapons.Add (child.gameObject.tag, child.gameObject);
-		}
-		SetActiveWeapons (defaultWeapon);*/
-
+		weapon = GetComponentInChildren<WeaponControl> ();
         rb = GetComponent<Rigidbody>();
         meshPlayer = GetComponent<MeshRenderer>();
         playerMat = meshPlayer.material;
-       
+        
     }
 
     /// <summary>
@@ -141,34 +127,21 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(transform.position.x, 0, transform.position.z);
-        
-        if (!underAttack)
-        {
+      
             if (!stopped && stopInputPlayer == false)
             {
                 Move();
                 DashManaging();
                 Aim();
-                
 
+			if (inputManager.Shoot ()) 
+			{
+				weapon.Shoot (this.gameObject.tag);
+			}
                 //Assegna Shader Outline su arma attiva
 				shaderApply.ShaderApply(revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
             }
-            
-        }
     }
-
-
-
-    /// <summary>
-    /// Determines whether player is fit as a fiddle.
-    /// </summary>
-    /// <returns><c>true</c> if player is fit as a fiddle; otherwise, <c>false</c>.</returns>
-    public bool IsFitAsAFiddle()
-    {
-        return life >= maxLifeValue;
-    }
-
 
     /// <summary>
     /// Resets the player status.
@@ -178,7 +151,6 @@ public class PlayerControl : MonoBehaviour
         life = startingLife;
         stress = startingStress;
         stopped = false;
-        underAttack = false;
         UpdateUI();
     }
 
@@ -220,39 +192,6 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Notifies player is under attack by another.
-    /// </summary>
-    /// <param name="damage">Attack damage.</param>
-    public void Attacked(int damage, string killerTag)
-    {
-        underAttack = true;
-        StartCoroutine(AttackAnimation(damage, killerTag));
-    }
-
-    /// <summary>
-    /// Coroutine to show attack animation.
-    /// </summary>
-    /// <returns>The animation.</returns>
-    /// <param name="damage">Attack damage.</param>
-    IEnumerator AttackAnimation(int damage, string killerTag)
-    {
-        Vector3 animation;
-        float startTime;
-
-        animation = new Vector3(0.2f, 0, 0);
-        startTime = Time.time;
-        while (Time.time - startTime < underAttackInactivityTime)
-        {
-            transform.Translate(animation);
-
-
-            yield return null;
-            animation = -animation;
-        }
-        AddDamage(damage, killerTag);
-        underAttack = false;
-    }
 		
     /// <summary>
     /// Detects a collision enter with another player
@@ -282,6 +221,11 @@ public class PlayerControl : MonoBehaviour
     /// <param name="other">Collider.</param>
     void OnTriggerEnter(Collider other)
     {
+		if (other.gameObject.tag.StartsWith("Player")) 
+		{
+			Debug.Log ("Colpito");
+			IsDead ();
+		}
 		//PickWeapon
       
     }
@@ -324,16 +268,6 @@ public class PlayerControl : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds the life to the player.
-    /// </summary>
-    /// <param name="life">Life.</param>
-    public void AddLife(int life)
-    {
-        this.life = Mathf.Clamp(this.life + life, 0, maxLifeValue);
-        UpdateUI();
-    }
-
-    /// <summary>
     /// Adds the stress.
     /// </summary>
     /// <param name="stressAdd">Stress to add.</param>
@@ -360,17 +294,7 @@ public class PlayerControl : MonoBehaviour
     {
         return stress >= maxStressValue;
     }
-
-    /// <summary>
-    /// Determines whether the player is under attack.
-    /// </summary>
-    /// <returns><c>true</c> if this instance is under attack; otherwise, <c>false</c>.</returns>
-    public bool IsUnderAttack()
-    {
-        return underAttack;
-    }
 		
-
     /// <summary>
     /// Refills the stress.
     /// </summary>
@@ -493,19 +417,6 @@ public class PlayerControl : MonoBehaviour
     }
 
 	private void UpdateUI(){
-		LevelUIManager.instance.SetLife (life / maxLifeValue, playerId);
 		LevelUIManager.instance.SetStress (stress / maxStressValue, playerId);
 	}
-
-	/// <summary>
-	/// Sets the default weapon. Always first weapon in array on gameManager
-	/// </summary>
-	/// <param name="defaultWeapon">Default weapon.</param>
-	public void SetDefaultWeapon(GameObject defaultWeapon){
-		for (int i = 0; i < weapons.Length; i++) {
-			weapons [0].isDefaultWeapon = true;
-			defaultWeapon = weapons [0].gameObject;
-		}
-	}
-
 }

@@ -3,23 +3,100 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Configuration.
+/// </summary>
 public class Configuration : MonoBehaviour
 {
+	/// <summary>
+	/// Configuration instance.
+	/// </summary>
 	public static Configuration instance;
+	/// <summary>
+	/// The max number of players.
+	/// </summary>
 	private const int maxNumberOfPlayers = 4;
+	/// <summary>
+	/// The minimum number of players.
+	/// </summary>
 	private const int minNumberOfPlayers = 2;
+	/// <summary>
+	/// The grannies prefabs.
+	/// </summary>
 	public GameObject[] granniesPrefabs;
+	/// <summary>
+	/// The default number of players.
+	/// </summary>
 	[Range (minNumberOfPlayers, maxNumberOfPlayers)]
 	public int defaultNumberOfPlayers = maxNumberOfPlayers;
+	/// <summary>
+	/// The default full screen value.
+	/// </summary>
 	public bool defaultFullScreen = true;
+	/// <summary>
+	/// The default sound volume.
+	/// </summary>
 	public float defaultSoundVolume = 1;
+	/// <summary>
+	/// The players colors.
+	/// </summary>
 	public Color[] playersColors = { Color.red, Color.green, Color.blue, Color.yellow };
+	/// <summary>
+	/// The color of the top locked.
+	/// </summary>
+	public Color topSelectedLockedColor = Color.gray;
+	/// <summary>
+	/// The color of the bottom locked.
+	/// </summary>
+	public Color bottomSelectedLockedColor = Color.black;
+	/// <summary>
+	/// The color of the top locked.
+	/// </summary>
+	public Color topUnselectedLockedColor = Color.white;
+	/// <summary>
+	/// The color of the bottom locked.
+	/// </summary>
+	public Color bottomUnselectedLockedColor = Color.gray;
+	/// <summary>
+	/// The color of the top selected.
+	/// </summary>
+	public Color topSelectedColor = Color.yellow;
+	/// <summary>
+	/// The color of the bottom selected.
+	/// </summary>
+	public Color bottomSelectedColor = Color.red;
+	/// <summary>
+	/// The color of the top unselected.
+	/// </summary>
+	public Color topUnselectedColor = Color.gray;
+	/// <summary>
+	/// The color of the bottom unselected.
+	/// </summary>
+	public Color bottomUnselectedColor = Color.black;
+	/// <summary>
+	/// The number of players.
+	/// </summary>
 	private int numberOfPlayers;
+	/// <summary>
+	/// The selected level.
+	/// </summary>
 	private string selectedLevel;
+	/// <summary>
+	/// The full screen.
+	/// </summary>
 	private bool fullScreen;
+	/// <summary>
+	/// The sound volume.
+	/// </summary>
 	private float soundVolume;
+	/// <summary>
+	/// The selected grannies.
+	/// </summary>
 	private IList<GameObject> selectedGrannies;
 
+	/// <summary>
+	/// Awake the script.
+	/// </summary>
 	void Awake ()
 	{
 		int grannyIndex;

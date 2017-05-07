@@ -8,29 +8,20 @@ using System.Collections;
 public class EndingUIManager : AbstractUIManager
 {
 	/// <summary>
-	/// EndingUIManager instance.
-	/// </summary>
-	public static EndingUIManager instance;
-	/// <summary>
 	/// The player ranking position prefab.
 	/// </summary>
 	public GameObject[] playersRankingPositions;
 	/// <summary>
-	/// Enables the debug mode.
+	/// Scene to load on restart click.
 	/// </summary>
-	public bool debugMode = true;
-	/// <summary>
-	/// The debug test case to execute.
-	/// </summary>
-	[Range (1, 11)]
-	public int debugTestCase = 1;
+	public string restartSceneName = "CharacterSelection";
 
 	/// <summary>
-	/// Awake this instance.
+	/// Start the script.
 	/// </summary>
-	void Awake ()
+	void Start ()
 	{
-		instance = this;
+		InitUI ();
 	}
 
 	/// <summary>
@@ -48,11 +39,7 @@ public class EndingUIManager : AbstractUIManager
 		int playerIndex;
 		int position;
 
-		if (debugMode) {
-			ranking = GetDummyRanking ();
-		} else {
-			ranking = GameManager.instance.GetRanking ();
-		}
+		ranking = Statistics.instance.GetRanking ();
 		for (playerIndex = 0, position = 0; playerIndex < ranking.Length; playerIndex++) {
 			if ((playerIndex == 0) || (ranking [playerIndex].GetScore () != ranking [playerIndex - 1].GetScore ())) {
 				position = (playerIndex + 1);
@@ -60,18 +47,14 @@ public class EndingUIManager : AbstractUIManager
 			playerRankingPosition = playersRankingPositions [playerIndex];
 			playerRankingPosition.SetActive (true);
 			backgroundPlayerIcon = playerRankingPosition.GetComponent<UISprite> ();
-			backgroundPlayerIcon.color = playersColors [playerIndex];
+			backgroundPlayerIcon.color = Configuration.instance.playersColors [playerIndex];
 			foreach (Transform child in playerRankingPosition.transform) {
 				if (child.tag.Equals ("Position")) {
 					positionLabel = child.gameObject.GetComponent<UILabel> ();
 					positionLabel.text = GetPositionString (position);
 				} else if (child.tag.Equals ("PlayerIcon")) {
 					playerIcon = child.gameObject.GetComponent<UISprite> ();
-					if (debugMode) {
-						playerIcon.spriteName = "ChefAgataPlayerIcon";
-					} else {
-						playerIcon.spriteName = GetPlayerIcon (ranking [playerIndex].GetPlayer ());
-					}
+					playerIcon.spriteName = ranking [playerIndex].GetPlayerIcon ();
 				} else if (child.tag.Equals ("Winner")) {
 					winnerIcon = child.gameObject.GetComponent<UISprite> ();
 					winnerIcon.enabled = (position == 1);
@@ -81,14 +64,8 @@ public class EndingUIManager : AbstractUIManager
 				}
 			}
 		}
-		if (debugMode) {
-			for (; playerIndex < 4; playerIndex++) {
-				playersRankingPositions [playerIndex].SetActive (false);
-			}
-		} else {
-			for (; playerIndex < GameManager.instance.numberOfPlayers; playerIndex++) {
-				playersRankingPositions [playerIndex].SetActive (false);
-			}
+		for (; playerIndex < Configuration.instance.GetNumberOfPlayers (); playerIndex++) {
+			playersRankingPositions [playerIndex].SetActive (false);
 		}
 	}
 
@@ -118,105 +95,19 @@ public class EndingUIManager : AbstractUIManager
 		return position + positionSuffix;
 	}
 
-	public void Restart ()
+	/// <summary>
+	/// Restarts game loading characters selection scene.
+	/// </summary>
+	public void OnRestart ()
 	{
-		//Debug.Log ("Restart pressed: loadin scene " + SceneController.instance.GetLastLevelSceneLoaded ());
-		//SceneController.instance.LoadSceneByName (SceneController.instance.GetLastLevelSceneLoaded ());
-		SceneController.instance.LoadSceneByName ("CharacterSelection");
+		SceneController.instance.LoadSceneByName (restartSceneName);
 	}
 
 	/// <summary>
-	/// Produce a dummy ranking.
+	/// Quits the game.
 	/// </summary>
-	/// <returns>The dummy ranking.</returns>
-	private RankingPosition[] GetDummyRanking ()
+	public void OnQuit ()
 	{
-		RankingPosition[] ranking;
-
-		switch (debugTestCase) {
-		case 1:
-			// Two players
-			ranking = new RankingPosition[2];
-			ranking [0] = new RankingPosition (null, 0, 10);
-			ranking [1] = new RankingPosition (null, 1, -5);
-			break;
-		case 2:
-			// Two players with same score
-			ranking = new RankingPosition[2];
-			ranking [0] = new RankingPosition (null, 0, 10);
-			ranking [1] = new RankingPosition (null, 1, 10);
-			break;
-		case 3:
-			// Three players
-			ranking = new RankingPosition[3];
-			ranking [0] = new RankingPosition (null, 0, 10);
-			ranking [1] = new RankingPosition (null, 1, -5);
-			ranking [2] = new RankingPosition (null, 2, 7);
-			break;
-		case 4:
-			// Three players with two with same score
-			ranking = new RankingPosition[3];
-			ranking [0] = new RankingPosition (null, 0, 10);
-			ranking [1] = new RankingPosition (null, 1, 7);
-			ranking [2] = new RankingPosition (null, 2, 10);
-			break;
-		case 5:
-			// Three players with two with same score
-			ranking = new RankingPosition[3];
-			ranking [0] = new RankingPosition (null, 0, 7);
-			ranking [1] = new RankingPosition (null, 1, 10);
-			ranking [2] = new RankingPosition (null, 2, 7);
-			break;
-		case 6:
-			// Three players with same score
-			ranking = new RankingPosition[3];
-			ranking [0] = new RankingPosition (null, 0, 7);
-			ranking [1] = new RankingPosition (null, 1, 7);
-			ranking [2] = new RankingPosition (null, 2, 7);
-			break;
-		case 7:
-			// Four players with two with same score
-			ranking = new RankingPosition[4];
-			ranking [0] = new RankingPosition (null, 0, 10);
-			ranking [1] = new RankingPosition (null, 1, 10);
-			ranking [2] = new RankingPosition (null, 2, 7);
-			ranking [3] = new RankingPosition (null, 3, 0);
-			break;
-		case 8:
-			// Four players with three with same score
-			ranking = new RankingPosition[4];
-			ranking [0] = new RankingPosition (null, 0, 10);
-			ranking [1] = new RankingPosition (null, 1, 10);
-			ranking [2] = new RankingPosition (null, 2, 10);
-			ranking [3] = new RankingPosition (null, 3, 0);
-			break;
-		case 9:
-			// Four players with three with same score
-			ranking = new RankingPosition[4];
-			ranking [0] = new RankingPosition (null, 0, 10);
-			ranking [1] = new RankingPosition (null, 1, 10);
-			ranking [2] = new RankingPosition (null, 2, 10);
-			ranking [3] = new RankingPosition (null, 3, 22);
-			break;
-		case 10:
-			// Four players with same score
-			ranking = new RankingPosition[4];
-			ranking [0] = new RankingPosition (null, 0, 10);
-			ranking [1] = new RankingPosition (null, 1, 10);
-			ranking [2] = new RankingPosition (null, 2, 10);
-			ranking [3] = new RankingPosition (null, 3, 10);
-			break;
-		case 11:
-		default:
-			// Four players
-			ranking = new RankingPosition[4];
-			ranking [0] = new RankingPosition (null, 0, 10);
-			ranking [1] = new RankingPosition (null, 1, -5);
-			ranking [2] = new RankingPosition (null, 2, 7);
-			ranking [3] = new RankingPosition (null, 3, 0);
-			break;
-		}
-		Array.Sort (ranking);
-		return ranking;
+		Application.Quit ();
 	}
 }

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,12 +9,7 @@ public class GameManager : MonoBehaviour
 	/// </summary>
 	public static GameManager instance;
 
-	private const int maxNumberOfPlayers = 4;
 	private bool isPaused = false;
-	[Range (2, maxNumberOfPlayers)]
-	public int numberOfPlayers = 2;
-	public int killedMalus = 1;
-	public int killerBonus = 2;
 	public float timerToSpawn = 5.0f;
 	private float timerPostManSpawn;
 	public float maxTimerBeforeRespawn = 1.0f;
@@ -32,73 +26,55 @@ public class GameManager : MonoBehaviour
 	public GameObject pauseButton;
 	public GameObject restartButton;
 	public GameObject quitButton;
-	private int[] playersKills;
 
 	// array di transform per il respawn dei player
 	public Transform[] playersRespawns;
 	public Transform[] playersStartRespawns;
 
-	public GameObject[] playersPrefabs;
 	private GameObject[] players;
 	private PlayerControl[] playersControls;
 	public GameObject[] weapons;
 
 	void Awake ()
 	{
-		//if (instance == null) {
-		// This is the first instance - make it persist
-		//DontDestroyOnLoad (gameObject);
 		instance = this;
-		if (SceneController.IsLevelScene ()) {
-			playersPrefabs = CharacterSelectorManager.instance.playerSelectedGrannies;
-			Destroy (CharacterSelectorManager.instance);
-			Instantiate (rewiredInputManagerPrefab);
-			InitPlayers ();
-			restartButtonBoxCollider = restartButton.GetComponent<BoxCollider> ();
-			restartButtonUISprite = restartButton.GetComponent<UISprite> ();
-			restartButtonUILabel = restartButton.GetComponentInChildren<UILabel> ();
-		}
-		//} else {
-		// This must be a duplicate from a scene reload - DESTROY!
-		//	Destroy (gameObject);
-		//} 
+		Statistics.instance.Reset ();
+		Instantiate (rewiredInputManagerPrefab);
+		InitPlayers ();
+		restartButtonBoxCollider = restartButton.GetComponent<BoxCollider> ();
+		restartButtonUISprite = restartButton.GetComponent<UISprite> ();
+		restartButtonUILabel = restartButton.GetComponentInChildren<UILabel> ();
 	}
 
 	void Start ()
 	{
-		if (SceneController.IsLevelScene ()) {
-			LevelUIManager.instance.InitUI ();
-		} else if (SceneController.IsEndingScene ()) {
-			EndingUIManager.instance.InitUI ();
-		}
+		LevelUIManager.instance.InitUI ();
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
-		if (SceneController.IsLevelScene () ) {
-			CheckRespawnPlayers ();
-			CheckGamePause ();
-			TimerUpdate ();
-		}
+		CheckRespawnPlayers ();
+		CheckGamePause ();
+		TimerUpdate ();
 	}
 
 	private void InitPlayers ()
 	{
 		int playerIndex;
+		int numberOfPlayers;
 
+		numberOfPlayers = Configuration.instance.GetNumberOfPlayers ();
 		players = new GameObject[numberOfPlayers];
 		playersControls = new PlayerControl[numberOfPlayers];
-		playersKills = new int[numberOfPlayers];
 		for (playerIndex = 0; playerIndex < numberOfPlayers; playerIndex++) {
 			// Instantiate player
-			players [playerIndex] = Instantiate (playersPrefabs [playerIndex % playersPrefabs.Length]) as GameObject;
+			players [playerIndex] = Instantiate (Configuration.instance.granniesPrefabs [playerIndex % Configuration.instance.granniesPrefabs.Length]) as GameObject;
 			players [playerIndex].transform.position = playersStartRespawns [playerIndex].position;
 			// Initialize PlayerControl script
 			playersControls [playerIndex] = players [playerIndex].GetComponent<PlayerControl> ();
 			playersControls [playerIndex].SetPlayerId (playerIndex);
 			playersControls [playerIndex].SetAngleCorrection (cameraTransform.rotation.eulerAngles.y);
-			playersKills [playerIndex] = 0;
 			players [playerIndex].SetActive (true);
 		}
 	}
@@ -124,12 +100,14 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Notify a player is killed.
+	/// </summary>
+	/// <param name="killedId">Killed identifier.</param>
+	/// <param name="killerId">Killer identifier.</param>
 	public void PlayerKilled (int killedId, int killerId)
 	{
-		playersKills [killedId] -= killedMalus;
-		playersKills [killerId] += killerBonus;
-		LevelUIManager.instance.SetScore (playersKills [killedId], killedId);
-		LevelUIManager.instance.SetScore (playersKills [killerId], killerId);
+		Statistics.instance.PlayerKilled (killedId, killerId);
 	}
 
 	private IEnumerator RespawnPlayer (int playerIndex)
@@ -256,22 +234,5 @@ public class GameManager : MonoBehaviour
 	public GameObject[] GetPlayers ()
 	{
 		return players;
-	}
-
-	/// <summary>
-	/// Gets the players' ranking.
-	/// </summary>
-	/// <returns>The ranking.</returns>
-	public RankingPosition[] GetRanking ()
-	{
-		RankingPosition[] ranking;
-		int playerIndex;
-
-		ranking = new RankingPosition[numberOfPlayers];
-		for (playerIndex = 0; playerIndex < numberOfPlayers; playerIndex++) {
-			ranking [playerIndex] = new RankingPosition (players [playerIndex], playerIndex, playersKills [playerIndex]);
-		}
-		Array.Sort (ranking);
-		return ranking;
 	}
 }

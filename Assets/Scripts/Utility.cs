@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 /// <summary>
 /// Generic utilites.
@@ -9,6 +10,14 @@ public class Utility
 	/// The player identifier prefix.
 	/// </summary>
 	private const string playerIdPrefix = "Player";
+	/// <summary>
+	/// The player icon suffix.
+	/// </summary>
+	private const string playerIconSuffix = "PlayerIcon";
+	/// <summary>
+	/// Game object clone suffix.
+	/// </summary>
+	private const string cloneSuffix = "(Clone)";
 
 	/// <summary>
 	/// Gets the player identifier from player index.
@@ -28,6 +37,16 @@ public class Utility
 	public static int GetPlayerIndex (string playerId)
 	{
 		return int.Parse (playerId.Substring (playerIdPrefix.Length));
+	}
+
+	/// <summary>
+	/// Gets the player icon.
+	/// </summary>
+	/// <returns>The player icon.</returns>
+	/// <param name="player">Player.</param>
+	public static string GetPlayerIcon (GameObject player)
+	{
+		return player.name.Replace (cloneSuffix, "") + playerIconSuffix;
 	}
 }
 

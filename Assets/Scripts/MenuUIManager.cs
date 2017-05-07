@@ -7,24 +7,32 @@ using System.Collections;
 public class MenuUIManager : AbstractUIManager
 {
 	/// <summary>
-	/// The players labels.
+	/// The name of the next scene to load with start button.
 	/// </summary>
-	public UILabel[] playersLabels;
+	[Tooltip ("The name of the next scene to load with start button.")]
+	public string nextSceneName = "CharacterSelection";
 
-	void Start ()
+	/// <summary>
+	/// Starts the game.
+	/// </summary>
+	public void OnStart ()
 	{
-		InitUI ();
+		SceneController.instance.LoadSceneByName (nextSceneName);
+	}
+
+	public void OnOptions ()
+	{
+	}
+
+	public void OnCredits ()
+	{
 	}
 
 	/// <summary>
-	/// Inits the UI.
+	/// Quits the game.
 	/// </summary>
-	public void InitUI ()
+	public void OnQuit ()
 	{
-		int playerIndex;
-
-		for (playerIndex = 0; playerIndex < playersLabels.Length; playerIndex++) {
-			playersLabels [playerIndex].color = playersColors [playerIndex];
-		}
+		Application.Quit ();
 	}
 }

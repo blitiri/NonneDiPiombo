@@ -139,17 +139,19 @@ public class LevelUIManager : AbstractUIManager
 	{
 		GameObject[] players;
 		SpriteRenderer playerIdentifierRenderer;
+		string playerIcon;
 		int playerIndex;
 
 		players = GameManager.instance.GetPlayers ();
 		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
 			scores [playerIndex].text = "0";
-			//Debug.Log ("spriteName = " + players [playerIndex].name.Replace("(Clone)", "") + "PlayerIcon");
-			playersIcons [playerIndex].spriteName = GetPlayerIcon (players [playerIndex]);
-			playersIconsBackgrounds [playerIndex].color = playersColors [playerIndex];
+			playerIcon = Utility.GetPlayerIcon (players [playerIndex]);
+			Statistics.instance.SetPlayerIcon (playerIndex, playerIcon);
+			playersIcons [playerIndex].spriteName = playerIcon;
+			playersIconsBackgrounds [playerIndex].color = Configuration.instance.playersColors [playerIndex];
 			playerIdentifierRenderer = players [playerIndex].GetComponentInChildren<SpriteRenderer> ();
 			if (playerIdentifierRenderer != null) {
-				playerIdentifierRenderer.color = playersColors [playerIndex];
+				playerIdentifierRenderer.color = Configuration.instance.playersColors [playerIndex];
 			}
 			bestPlayers [playerIndex].enabled = false;
 			playersInfos [playerIndex].enabled = true;

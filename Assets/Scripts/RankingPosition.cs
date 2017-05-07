@@ -15,9 +15,9 @@ public class RankingPosition : IComparable
 	/// </summary>
 	private int playerId;
 	/// <summary>
-	/// The player game object.
+	/// The player icon.
 	/// </summary>
-	private GameObject player;
+	private string playerIcon;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="RankingPosition"/> class.
@@ -29,12 +29,12 @@ public class RankingPosition : IComparable
 	/// <summary>
 	/// Initializes a new instance of the <see cref="RankingPosition"/> class.
 	/// </summary>
-	/// <param name="player">Player game object.</param>
 	/// <param name="playerId">Player identifier.</param>
 	/// <param name="score">Player score.</param>
-	public RankingPosition (GameObject player, int playerId, int score)
+	/// <param name="playerIcon">Player icon.</param>
+	public RankingPosition (int playerId, int score, string playerIcon)
 	{
-		this.player = player;
+		this.playerIcon = playerIcon;
 		this.playerId = playerId;
 		this.score = score;
 	}
@@ -54,21 +54,21 @@ public class RankingPosition : IComparable
 	}
 
 	/// <summary>
-	/// Sets the player game object.
+	/// Sets the player icon.
 	/// </summary>
 	/// <param name="player">Player game object.</param>
-	public void SetPlayer (GameObject player)
+	public void SetPlayerIcon (string playerIcon)
 	{
-		this.player = player;
+		this.playerIcon = playerIcon;
 	}
 
 	/// <summary>
-	/// Gets the player game object.
+	/// Gets the player icon.
 	/// </summary>
 	/// <returns>The player game object.</returns>
-	public GameObject GetPlayer ()
+	public string GetPlayerIcon ()
 	{
-		return player;
+		return playerIcon;
 	}
 
 	/// <summary>

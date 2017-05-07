@@ -43,8 +43,8 @@ public class CameraControl : MonoBehaviour
 	private void FixedUpdate ()
 	{
 		
-			Move ();
-			Zoom ();
+		Move ();
+		Zoom ();
 
 		WallDetection ();
 	}
@@ -84,8 +84,8 @@ public class CameraControl : MonoBehaviour
 	private void Zoom ()
 	{
 		
-			float requiredSize = FindRequiredSize ();
-			mainCamera.orthographicSize = Mathf.SmoothDamp (mainCamera.orthographicSize, requiredSize, ref zoomSpeed, dampTime);
+		float requiredSize = FindRequiredSize ();
+		mainCamera.orthographicSize = Mathf.SmoothDamp (mainCamera.orthographicSize, requiredSize, ref zoomSpeed, dampTime);
 	}
 
 
@@ -94,14 +94,14 @@ public class CameraControl : MonoBehaviour
 		Vector3 desiredLocalPos = transform.InverseTransformPoint (desiredPosition);
 		float size = 0f;
 
-			for (int i = 0; i < targets.Length; i++) {
-				if (targets [i].gameObject.activeSelf) {
-					Vector3 targetLocalPos = transform.InverseTransformPoint (targets [i].position);
-					Vector3 desiredPosToTarget = targetLocalPos - desiredLocalPos;
-					size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.y));
-					size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.x) / mainCamera.aspect);
-				}
+		for (int i = 0; i < targets.Length; i++) {
+			if (targets [i].gameObject.activeSelf) {
+				Vector3 targetLocalPos = transform.InverseTransformPoint (targets [i].position);
+				Vector3 desiredPosToTarget = targetLocalPos - desiredLocalPos;
+				size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.y));
+				size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.x) / mainCamera.aspect);
 			}
+		}
 
 		//Debug.Log ("Size Camera:" + size);
 		size += screenEdgeBuffer;
@@ -120,7 +120,7 @@ public class CameraControl : MonoBehaviour
 
 	public	void WallDetection ()
 	{
-		int playerNumbers = GameManager.instance.numberOfPlayers;
+		int playerNumbers = Configuration.instance.GetNumberOfPlayers ();
 			
 
 		GameObject[] players = new GameObject[playerNumbers];

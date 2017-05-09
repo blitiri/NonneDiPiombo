@@ -69,7 +69,8 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	public Texture2D crosshairCursor;
 	public Vector2 cursorHotSpot = new Vector2 (16, 16);
-	private Material playerMat;
+    public Vector3 moveVector;
+    private Material playerMat;
 	private MeshRenderer meshPlayer;
 	private MeshRenderer revolverMeshRenderer;
 	private Rigidbody playerRigidbody;
@@ -118,7 +119,8 @@ public class PlayerControl : MonoBehaviour
 		}
 		ResetStatus ();
 		StartCoroutine (DiminishStress ());
-	}
+        moveVector = inputManager.GetMoveVector();
+    }
 
 	/// <summary>
 	/// Updates the player instance.
@@ -300,7 +302,6 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	private void DashManaging ()
 	{
-		Vector3 moveVector = inputManager.GetMoveVector ();
 		//Debug.Log (moveVector.magnitude);
 		ObstacleChecking (moveVector);
 		isObstacle = ObstacleChecking (moveVector);

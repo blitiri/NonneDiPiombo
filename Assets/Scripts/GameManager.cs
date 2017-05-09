@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 	public Transform[] playersRespawns;
 	public Transform[] playersStartRespawns;
 
-	private GameObject[] players;
+	public GameObject[] players;
 	private PlayerControl[] playersControls;
 	public GameObject[] weapons;
 

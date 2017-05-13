@@ -51,9 +51,13 @@ public class CharacterSelectorManager : MonoBehaviour
         SelectorsActivation();
     }
 
-    private void Start()
+    private void Update()
     {
-        GrannieAssignation();
+        if (GameManager.instance)
+        {
+            Debug.Log("SSSSSSSSSS");
+            GrannieAssignation();
+        }
     }
 
     private void SelectorsActivation()
@@ -70,11 +74,8 @@ public class CharacterSelectorManager : MonoBehaviour
 
     private void GrannieAssignation()
     {
-        if (GameManager.instance)
-        {
-            GameManager.instance.players = selectedGrannies;
-            Destroy(gameObject);
-        }
+        GameManager.instance.players = selectedGrannies;
+        Destroy(gameObject);
     }
 
     public void ClickArrow (GameObject button)

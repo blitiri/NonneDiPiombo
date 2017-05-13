@@ -26,10 +26,10 @@ public class PlayerControl : MonoBehaviour
 	public float timeToDiminishStress;
 
 	/// <summary>
-	/// Check for respawn
+	///  respawn
 	/// </summary>
 	public bool isDead = false;
-    
+	public GameObject brokenVersion;
 	/// <summary>
 	/// Player Movement 
 	/// </summary>
@@ -75,7 +75,6 @@ public class PlayerControl : MonoBehaviour
 	private MeshRenderer revolverMeshRenderer;
 	private Rigidbody playerRigidbody;
 	public GameObject bulletPrefab;
-	public GameObject revolver;
 	private InputManager inputManager;
 
 	/// <summary>
@@ -99,7 +98,6 @@ public class PlayerControl : MonoBehaviour
 	void Awake ()
 	{
 		shaderApply = new OutlineShaderApply ();
-		revolverMeshRenderer = revolver.GetComponent<MeshRenderer> ();
 		weapon = GetComponentInChildren<WeaponControl> ();
 		playerRigidbody = GetComponent<Rigidbody> ();
 		meshPlayer = GetComponent<MeshRenderer> ();
@@ -139,7 +137,7 @@ public class PlayerControl : MonoBehaviour
 				weapon.Shoot (this.gameObject.tag);
 			}
 			//Assegna Shader Outline su arma attiva
-			shaderApply.ShaderApply (revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
+//			shaderApply.ShaderApply (revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
 		}
 	}
 
@@ -208,38 +206,13 @@ public class PlayerControl : MonoBehaviour
 		if (other.gameObject.tag.StartsWith ("Player")) {
 			isDead = true;
 			GameManager.instance.CheckRespawnPlayers ();
-			GetKillerTag (other.gameObject.tag);
-			UpdateUI ();
+			GameObject brokenGran = Instantiate(brokenVersion, transform.position, transform.rotation) as GameObject;
+
+			int playerKillerId;
+
+			playerKillerId = Utility.GetPlayerIndex (other.gameObject.tag);
+			GameManager.instance.PlayerKilled (playerId, playerKillerId);
 		}    
-	}
-
-	/// <summary>
-	/// Adds the damage.
-	/// </summary>
-	/// <param name="damage">Damage.</param>
-	/// <param name="killerTag">Killer tag.</param>
-	private void GetKillerTag (string killerTag)
-	{
-
-		if (isDead) {
-				GameManager.instance.PlayerKilled (GetPlayerId (gameObject.tag), GetPlayerId (killerTag));
-			}
-			UpdateUI ();
-			
-	}
-
-	/// <summary>
-	/// Gets the player identifier from player tag.
-	/// </summary>
-	/// <returns>The player identifier.</returns>
-	/// <param name="tag">Tag whence retrieve player identifier. Manage both player tag and bullet player tag</param>
-	private int GetPlayerId (string tag)
-	{
-		// Retrieve player ID from bullet tag
-		if (tag.StartsWith (bulletTagPrefix)) {
-			tag = tag.Substring (bulletTagPrefix.Length);
-		}
-		return int.Parse (tag.Substring (playerTagPrefix.Length));
 	}
 
 	/// <summary>

@@ -108,6 +108,8 @@ public class GameManager : MonoBehaviour
 	public void PlayerKilled (int killedId, int killerId)
 	{
 		Statistics.instance.PlayerKilled (killedId, killerId);
+		LevelUIManager.instance.SetScore (Statistics.instance.getPlayersKills() [killedId], killedId);
+		LevelUIManager.instance.SetScore (Statistics.instance.getPlayersKills() [killerId], killerId);
 	}
 
 	private IEnumerator RespawnPlayer (int playerIndex)
@@ -117,18 +119,26 @@ public class GameManager : MonoBehaviour
 
 		player = players [playerIndex];
 		SetMeshRendererEnabled (false, playerIndex);
-		player.GetComponent<PlayerControl> ().ResetStatus ();
-		player.GetComponent<PlayerControl> ().stopInputPlayer = true;
-		player.GetComponent<BoxCollider> ().enabled = false;
+
+
+
+		PlayerControl playerControl;
+		playerControl = player.GetComponent<PlayerControl> ();
+		playerControl.ResetStatus ();
+		playerControl.stopInputPlayer = true;
+
+		BoxCollider playerCollider;
+		playerCollider = player.GetComponent<BoxCollider> ();
+		playerCollider.enabled = false;
 
 		yield return new WaitForSeconds (maxTimerBeforeRespawn);
 
 		spawnpointIndex = UnityEngine.Random.Range (0, playersRespawns.Length);
 		player.transform.position = playersRespawns [spawnpointIndex].position;
 		SetMeshRendererEnabled (true, playerIndex);
-		player.GetComponent<PlayerControl> ().stopInputPlayer = false;
-		player.GetComponent<PlayerControl> ().isDead = false;
-		player.GetComponent<BoxCollider> ().enabled = true;
+		playerControl.stopInputPlayer = false;
+		playerControl.isDead = false;
+		playerCollider.enabled = true;
 	}
 
 	private void SetMeshRendererEnabled (bool enabled, int playerIndex)

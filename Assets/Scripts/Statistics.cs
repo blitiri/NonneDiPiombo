@@ -56,8 +56,7 @@ public class Statistics : MonoBehaviour
 	{
 		playersKills [killedId] -= killedMalus;
 		playersKills [killerId] += killerBonus;
-		LevelUIManager.instance.SetScore (playersKills [killedId], killedId);
-		LevelUIManager.instance.SetScore (playersKills [killerId], killerId);
+
 	}
 
 	/// <summary>

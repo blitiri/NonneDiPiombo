@@ -104,7 +104,7 @@ public class InputManager
 	}
 
 	/// <summary>
-	/// Determines if player mast shoot.
+	/// Determines if player must shoot.
 	/// </summary>
 	public bool Shoot ()
 	{

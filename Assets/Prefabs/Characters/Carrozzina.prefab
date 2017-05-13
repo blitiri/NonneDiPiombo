@@ -254,32 +254,34 @@ MonoBehaviour:
   maxLifeValue: 100
   startingStress: 0
   maxStressValue: 100
-  stressIncrease: 10
-  stressDecreaseFactor: 0
-  timeToDiminishStress: 0
+  stressIncrease: 24
+  stressDecreaseFactor: 1.5
+  timeToDiminishStress: 0.5
   isDead: 0
-  brokenVersion: {fileID: 0}
-  speed: 2
+  brokenVersion: {fileID: 1433111526316190, guid: cee30f42f451c4049981f87510c43fc0,
+    type: 2}
+  speed: 6
   rotSpeed: 2
   stopInputPlayer: 0
   isObstacle: 0
   dashWallDistance: 1.5
-  dashTime: 0
+  dashTime: 0.5
   dashDistance: 0
-  dashSpeed: 10
-  dashLength: 5
-  playerObstacleDistanceLimit: 0
+  dashSpeed: 20
+  dashLength: 2.5
+  playerObstacleDistanceLimit: 3
   environment:
     serializedVersion: 2
-    m_Bits: 0
-  crosshairCursor: {fileID: 0}
+    m_Bits: 1792
+  crosshairCursor: {fileID: 2800000, guid: 129a1bd82137d4d6cacaf680296e0622, type: 3}
   cursorHotSpot: {x: 16, y: 16}
   moveVector: {x: 0, y: 0, z: 0}
-  bulletPrefab: {fileID: 0}
-  toEmissionColor: {r: 0, g: 0, b: 0, a: 0}
+  bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
+    type: 2}
+  toEmissionColor: {r: 1, g: 0, b: 0, a: 0}
   blinkColorTime: 2
-  outlineShader: {fileID: 0}
-  standardShader: {fileID: 0}
+  outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
+  standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &114996312162246300
 MonoBehaviour:
   m_ObjectHideFlags: 1

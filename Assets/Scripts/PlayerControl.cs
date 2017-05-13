@@ -197,6 +197,10 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
+	public void ExplodeCharacter(){
+		GameObject brokenGran = Instantiate(brokenVersion, transform.position, transform.rotation) as GameObject;
+	}
+
 	/// <summary>
 	/// Detects a trigger enter with a weapon
 	/// </summary>
@@ -206,7 +210,7 @@ public class PlayerControl : MonoBehaviour
 		if (other.gameObject.tag.StartsWith ("Player")) {
 			isDead = true;
 			GameManager.instance.CheckRespawnPlayers ();
-			GameObject brokenGran = Instantiate(brokenVersion, transform.position, transform.rotation) as GameObject;
+			ExplodeCharacter ();
 
 			int playerKillerId;
 

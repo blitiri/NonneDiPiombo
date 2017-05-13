@@ -289,6 +289,8 @@ MonoBehaviour:
   stressDecreaseFactor: 1.5
   timeToDiminishStress: 0.5
   isDead: 0
+  brokenVersion: {fileID: 1433111526316190, guid: cee30f42f451c4049981f87510c43fc0,
+    type: 2}
   speed: 6
   rotSpeed: 2
   stopInputPlayer: 0
@@ -307,8 +309,7 @@ MonoBehaviour:
   moveVector: {x: 0, y: 0, z: 0}
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}
-  revolver: {fileID: 1000011290674412}
-  toEmissionColor: {r: 0.9852941, g: 0, b: 0, a: 0}
+  toEmissionColor: {r: 1, g: 0, b: 0, a: 0}
   blinkColorTime: 2
   outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
   standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}

@@ -41,19 +41,24 @@ public class CharacterSelectorManager : MonoBehaviour
     /// An icon for each selector.
     /// </summary>
     public UIButton[] centrals;
+    /// <summary>
+    /// The instance of ChacaterSelectorManager.
+    /// </summary>
+    public static CharacterSelectorManager instance;
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        indexes = new int[numberOfPlayers];
-        selectedGrannies = new GameObject[numberOfPlayers];
+        instance = this;
+        //DontDestroyOnLoad(gameObject);
         mySceneContr = new SceneController();
-        SelectorsActivation();
     }
 
     private void Start()
     {
-        GrannieAssignation();
+        numberOfPlayers = Configuration.instance.GetNumberOfPlayers();
+        indexes = new int[numberOfPlayers];
+        selectedGrannies = new GameObject[numberOfPlayers];
+        SelectorsActivation();
     }
 
     private void SelectorsActivation()
@@ -68,13 +73,10 @@ public class CharacterSelectorManager : MonoBehaviour
         }
     }
 
-    private void GrannieAssignation()
+    public void GrannieCreation()
     {
-        if (GameManager.instance)
-        {
-            GameManager.instance.players = selectedGrannies;
-            Destroy(gameObject);
-        }
+        GameManager.instance.players = selectedGrannies;
+        Destroy(gameObject);
     }
 
     public void ClickArrow (GameObject button)
@@ -105,7 +107,7 @@ public class CharacterSelectorManager : MonoBehaviour
                 }
                 break;
         }
-        Debug.Log(indexes[id]);
+        //Debug.Log(indexes[id]);
         centrals[id].normalSprite = iconNames[indexes[id]] + "PlayerIcon";
     }
 
@@ -118,6 +120,10 @@ public class CharacterSelectorManager : MonoBehaviour
 
     public void LoadLevelScene(GameObject button)
     {
+        if (Configuration.instance)
+        {
+            Configuration.instance.selectedGrannies = selectedGrannies;
+        }
         mySceneContr.LoadScene(button);
     }
 }

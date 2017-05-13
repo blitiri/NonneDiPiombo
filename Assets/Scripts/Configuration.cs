@@ -92,7 +92,7 @@ public class Configuration : MonoBehaviour
 	/// <summary>
 	/// The selected grannies.
 	/// </summary>
-	private IList<GameObject> selectedGrannies;
+	public IList<GameObject> selectedGrannies;
 
 	/// <summary>
 	/// Awake the script.
@@ -103,7 +103,7 @@ public class Configuration : MonoBehaviour
 
 		if (instance == null) {
 			DontDestroyOnLoad (transform.gameObject);
-			if (SceneController.IsLevelSelectionScene () || SceneController.IsLevelScene ()) {
+			if (SceneController.IsLevelSelectionScene () || SceneController.IsLevelScene () || SceneController.IsCharacterSelectionScene()) {
 				numberOfPlayers = defaultNumberOfPlayers;
 				selectedGrannies = new GameObject[numberOfPlayers];
 				for (grannyIndex = 0; grannyIndex < numberOfPlayers; grannyIndex++) {

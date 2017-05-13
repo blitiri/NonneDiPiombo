@@ -29,10 +29,10 @@ public class Pickup : MonoBehaviour
 
 		if (other.gameObject.tag.StartsWith ("Player")) {
 			playerControl = other.gameObject.GetComponent<PlayerControl> ();
-		 if (gameObject.tag.Equals ("Stress") && playerControl.IsStressed ()) {
+		/* if (gameObject.tag.Equals ("Stress") && playerControl.IsStressed ()) {
 				Destroy (this.gameObject);
 				playerControl.AddStress (stressBonus);
-			}
+			}*/
 		}
 
 	}

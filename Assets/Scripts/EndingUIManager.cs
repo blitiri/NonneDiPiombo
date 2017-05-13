@@ -14,7 +14,7 @@ public class EndingUIManager : AbstractUIManager
 	/// <summary>
 	/// Scene to load on restart click.
 	/// </summary>
-	public string restartSceneName = "CharacterSelection";
+	public string restartSceneName = "CharacterSelectionMenu";
 
 	/// <summary>
 	/// Start the script.

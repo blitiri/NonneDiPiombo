@@ -28,7 +28,7 @@ public class PlayerControl : MonoBehaviour
 	/// <summary>
 	/// Check for respawn
 	/// </summary>
-	public bool dead = false;
+	public bool isDead = false;
     
 	/// <summary>
 	/// Player Movement 
@@ -112,6 +112,7 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	void Start ()
 	{
+		
         
 		inputManager = new InputManager (playerId, transform, angleCorrection);
 		if (inputManager.HasMouse ()) {
@@ -119,7 +120,6 @@ public class PlayerControl : MonoBehaviour
 		}
 		ResetStatus ();
 		StartCoroutine (DiminishStress ());
-        moveVector = inputManager.GetMoveVector();
     }
 
 	/// <summary>
@@ -129,8 +129,9 @@ public class PlayerControl : MonoBehaviour
 	{
 		transform.position = new Vector3 (transform.position.x, 0, transform.position.z);
       
-		if (!stopped && stopInputPlayer == false) {
+		if (!stopped && !stopInputPlayer) {
 			Move ();
+			moveVector = inputManager.GetMoveVector();
 			DashManaging ();
 			Aim ();
 
@@ -147,7 +148,7 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	public void ResetStatus ()
 	{
-		life = startingLife;
+		isDead = false;
 		stress = startingStress;
 		stopped = false;
 		UpdateUI ();
@@ -199,26 +200,17 @@ public class PlayerControl : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Determines whether player is dead.
-	/// </summary>
-	/// <returns><c>true</c> if player is dead; otherwise, <c>false</c>.</returns>
-	public bool IsDead ()
-	{
-		return life <= 0;
-	}
-
-	/// <summary>
 	/// Detects a trigger enter with a weapon
 	/// </summary>
 	/// <param name="other">Collider.</param>
 	void OnTriggerEnter (Collider other)
 	{
 		if (other.gameObject.tag.StartsWith ("Player")) {
-			Debug.Log ("Colpito");
-			IsDead ();
-		}
-		//PickWeapon
-      
+			isDead = true;
+			GameManager.instance.CheckRespawnPlayers ();
+			GetKillerTag (other.gameObject.tag);
+			UpdateUI ();
+		}    
 	}
 
 	/// <summary>
@@ -226,19 +218,14 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	/// <param name="damage">Damage.</param>
 	/// <param name="killerTag">Killer tag.</param>
-	private void AddDamage (int damage, string killerTag)
+	private void GetKillerTag (string killerTag)
 	{
-		if (dead == false) {
-			life -= damage;
 
-			if (IsDead ()) {
-				life = 0;
+		if (isDead) {
 				GameManager.instance.PlayerKilled (GetPlayerId (gameObject.tag), GetPlayerId (killerTag));
 			}
 			UpdateUI ();
-			StopCoroutine (BounceColor (toEmissionColor));
-			StartCoroutine (BounceColor (toEmissionColor));
-		}
+			
 	}
 
 	/// <summary>
@@ -308,6 +295,7 @@ public class PlayerControl : MonoBehaviour
 		if (inputManager.Dash ()) {
 			if (!isObstacle && !isDashing && dashTime <= Time.time - dashRecordedTime) {
 				StartCoroutine (Dashing (moveVector));
+
 			}
 		}
 	}
@@ -356,6 +344,7 @@ public class PlayerControl : MonoBehaviour
 			//                DashDone += moveVector.z > 0 ? dashSpeed * Time.deltaTime * moveVector.z : moveVector.x > 0 ? dashSpeed * Time.deltaTime * moveVector.x : dashSpeed * Time.deltaTime;
 		}
 		AddStress (stressIncrease);
+		GameManager.instance.CheckRespawnPlayers ();
 		isDashing = false;
 		dashRecordedTime = Time.time;
 	}
@@ -374,24 +363,7 @@ public class PlayerControl : MonoBehaviour
 	{
 		this.angleCorrection = angleCorrection;
 	}
-
-	private IEnumerator BounceColor (Color toColor)
-	{
-		float timer = 0;
-		float timeLimit = 0.2f;
-
-		while (timer < timeLimit) {
-			timer += Time.deltaTime;
-			float colorGradient = Mathf.PingPong (timer /* blinkColorTime*/, 1);
-			Color bouncingColor = toColor * Mathf.LinearToGammaSpace (colorGradient);
-			playerMat.SetColor ("_EmissionColor", bouncingColor);
-
-			//  Debug.Log(timer);
-			yield return new WaitForEndOfFrame ();
-		}
-		playerMat.SetColor ("_EmissionColor", Color.black);
-	}
-
+		
 	private void UpdateUI ()
 	{
 		LevelUIManager.instance.SetStress (stress / maxStressValue, playerId);

@@ -117,7 +117,7 @@ Transform:
   m_GameObject: {fileID: 1000013601061368}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.401332, y: 0.10000085, z: 6.713136}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 4000011496838656}
   - {fileID: 4000010159224256}
@@ -288,7 +288,7 @@ MonoBehaviour:
   stressIncrease: 24
   stressDecreaseFactor: 1.5
   timeToDiminishStress: 0.5
-  dead: 0
+  isDead: 0
   speed: 6
   rotSpeed: 2
   stopInputPlayer: 0
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoMagazine: 100
   ratioOfFire: 0.8
-  speedBullet: 50
+  speedBullet: 100
   bulletSpawnPoint: {fileID: 4000012614430540}
   standardBulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}

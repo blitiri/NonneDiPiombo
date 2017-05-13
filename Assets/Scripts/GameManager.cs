@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		CheckRespawnPlayers ();
+		//CheckRespawnPlayers ();
 		CheckGamePause ();
 		TimerUpdate ();
 	}
@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
 		int playerIndex;
 
 		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
-			if ((playersControls [playerIndex].IsDead ()) || (playersControls [playerIndex].IsCollapsed ())) {
+			if ((playersControls [playerIndex].isDead) || (playersControls [playerIndex].IsCollapsed ())) {
 				StartCoroutine (RespawnPlayer (playerIndex));
 			}
 		}
@@ -122,11 +122,10 @@ public class GameManager : MonoBehaviour
 		int spawnpointIndex;
 		GameObject player;
 
-		playersControls [playerIndex].ResetStatus ();
 		player = players [playerIndex];
 		SetMeshRendererEnabled (false, playerIndex);
+		player.GetComponent<PlayerControl> ().ResetStatus ();
 		player.GetComponent<PlayerControl> ().stopInputPlayer = true;
-		player.GetComponent<PlayerControl> ().dead = true;
 		player.GetComponent<BoxCollider> ().enabled = false;
 
 		yield return new WaitForSeconds (maxTimerBeforeRespawn);
@@ -135,7 +134,7 @@ public class GameManager : MonoBehaviour
 		player.transform.position = playersRespawns [spawnpointIndex].position;
 		SetMeshRendererEnabled (true, playerIndex);
 		player.GetComponent<PlayerControl> ().stopInputPlayer = false;
-		player.GetComponent<PlayerControl> ().dead = false;
+		player.GetComponent<PlayerControl> ().isDead = false;
 		player.GetComponent<BoxCollider> ().enabled = true;
 	}
 
@@ -154,17 +153,7 @@ public class GameManager : MonoBehaviour
 			}
 		}
 	}
-
-	/// <summary>
-	/// Spawn of the PostMan
-	/// </summary>
-	private void PostManSpawn ()
-	{
-		GameObject postMan;
-	
-		postMan = Instantiate (postManPrefab) as GameObject;
-	}
-
+		
 	/// <summary>
 	/// Update round countdown, back to menu at the end
 	/// </summary>

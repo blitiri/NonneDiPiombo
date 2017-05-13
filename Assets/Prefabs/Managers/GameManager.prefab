@@ -51,12 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb3304535d6b4d42bc8ec5597e46dfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfPlayers: 2
-  killedMalus: 1
-  killerBonus: 2
   timerToSpawn: 30
   maxTimerBeforeRespawn: 1
-  roundTimer: 180
+  roundTimer: 200
   restartButtonBoxCollider: {fileID: 0}
   restartButtonUISprite: {fileID: 0}
   restartButtonUILabel: {fileID: 0}
@@ -90,9 +87,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  playersPrefabs:
-  - {fileID: 1000013450537652, guid: 866d6ad70181106418fbc0ded8796c5e, type: 2}
-  - {fileID: 1000013601061368, guid: aeb60e339817a2f4e82ae38886639dd9, type: 2}
+  players: []
   weapons:
   - {fileID: 1000011209484526, guid: 951781682cf6f9e439ef3e848f269ff0, type: 2}
   - {fileID: 1000010466856672, guid: d4fdf5012a11965408a5c57a94c2515d, type: 2}

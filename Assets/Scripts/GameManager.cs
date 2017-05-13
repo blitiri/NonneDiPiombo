@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections;
 
 public class GameManager : MonoBehaviour
@@ -68,9 +67,17 @@ public class GameManager : MonoBehaviour
 		players = new GameObject[numberOfPlayers];
 		playersControls = new PlayerControl[numberOfPlayers];
 		for (playerIndex = 0; playerIndex < numberOfPlayers; playerIndex++) {
-			// Instantiate player
-			players [playerIndex] = Instantiate (Configuration.instance.granniesPrefabs [playerIndex % Configuration.instance.granniesPrefabs.Length]) as GameObject;
-			players [playerIndex].transform.position = playersStartRespawns [playerIndex].position;
+            // Instantiate player
+            if (Configuration.instance.selectedGrannies[playerIndex] != null)
+            {
+                players[playerIndex] = Instantiate(Configuration.instance.selectedGrannies[playerIndex]) as GameObject;
+                players[playerIndex].transform.position = playersStartRespawns[playerIndex].position;
+            }
+            else
+            {
+                players[playerIndex] = Instantiate(Configuration.instance.granniesPrefabs[Random.Range(0, Configuration.instance.granniesPrefabs.Length)]) as GameObject;
+                players[playerIndex].transform.position = playersStartRespawns[playerIndex].position;
+            }
 			// Initialize PlayerControl script
 			playersControls [playerIndex] = players [playerIndex].GetComponent<PlayerControl> ();
 			playersControls [playerIndex].SetPlayerId (playerIndex);

@@ -10,7 +10,7 @@ public class MenuUIManager : AbstractUIManager
 	/// The name of the next scene to load with start button.
 	/// </summary>
 	[Tooltip ("The name of the next scene to load with start button.")]
-	public string nextSceneName = "CharacterSelection";
+	public string nextSceneName = "CharacterSelectionMenu";
 	/// <summary>
 	/// The volume slider.
 	/// </summary>

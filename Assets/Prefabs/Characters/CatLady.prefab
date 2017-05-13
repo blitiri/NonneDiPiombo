@@ -288,10 +288,9 @@ MonoBehaviour:
   stressIncrease: 24
   stressDecreaseFactor: 1.5
   timeToDiminishStress: 0.5
-  dead: 0
+  isDead: 0
   speed: 6
   rotSpeed: 2
-  underAttackInactivityTime: 2
   stopInputPlayer: 0
   isObstacle: 0
   dashWallDistance: 1.5
@@ -305,6 +304,7 @@ MonoBehaviour:
     m_Bits: 1792
   crosshairCursor: {fileID: 2800000, guid: 129a1bd82137d4d6cacaf680296e0622, type: 3}
   cursorHotSpot: {x: 16, y: 16}
+  moveVector: {x: 0, y: 0, z: 0}
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}
   revolver: {fileID: 1000011290674412}
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoMagazine: 100
   ratioOfFire: 0.8
-  speedBullet: 50
+  speedBullet: 100
   bulletSpawnPoint: {fileID: 4000012614430540}
   standardBulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}

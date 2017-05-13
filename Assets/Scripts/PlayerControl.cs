@@ -120,7 +120,6 @@ public class PlayerControl : MonoBehaviour
 		}
 		ResetStatus ();
 		StartCoroutine (DiminishStress ());
-        moveVector = inputManager.GetMoveVector();
     }
 
 	/// <summary>
@@ -132,6 +131,7 @@ public class PlayerControl : MonoBehaviour
       
 		if (!stopped && !stopInputPlayer) {
 			Move ();
+			moveVector = inputManager.GetMoveVector();
 			DashManaging ();
 			Aim ();
 

@@ -134,6 +134,7 @@ public class PlayerControl : MonoBehaviour
 			Aim ();
 			if (inputManager.Shoot ()) {
 				weapon.Shoot (this.gameObject.tag);
+                UpdateUI();
 			}
 			//Assegna Shader Outline su arma attiva
 //			shaderApply.ShaderApply (revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);

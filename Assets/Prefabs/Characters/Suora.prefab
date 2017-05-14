@@ -246,7 +246,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1911374658595318}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 2fdaa08fad59daf488988b5473e3fe58, type: 3}
   m_Controller: {fileID: 9100000, guid: f1d7069988bfea14aa8ef0e4579a867f, type: 2}
   m_CullingMode: 0
@@ -275,6 +275,7 @@ MonoBehaviour:
     type: 2}
   powerUpBulletPrefab: {fileID: 0}
   weaponStress: 0
+  playerScript: {fileID: 114630631390475092}
   isDefaultWeapon: 0
 --- !u!114 &114630631390475092
 MonoBehaviour:
@@ -316,7 +317,6 @@ MonoBehaviour:
   moveVector: {x: 0, y: 0, z: 0}
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}
-  stressAnimation: {fileID: 95360861568008386}
   toEmissionColor: {r: 1, g: 0, b: 0, a: 0}
   blinkColorTime: 2
   outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}

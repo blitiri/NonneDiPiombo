@@ -11,8 +11,10 @@ public class WeaponControl : MonoBehaviour
 	public GameObject standardBulletPrefab;
 	public GameObject powerUpBulletPrefab;
 	public float weaponStress;
+    public PlayerControl playerScript;
 	private string playerID;
 	private float timerToShoot;
+    
 
 	public bool isDefaultWeapon;
 
@@ -40,7 +42,8 @@ public class WeaponControl : MonoBehaviour
 			bullet.tag = playerId;
 			bulletRigidbody = bullet.GetComponent<Rigidbody>();
 			bulletRigidbody.AddForce(bulletSpawnPoint.transform.up*speedBullet, ForceMode.Impulse);
-			timerToShoot = 0.0f;
+            playerScript.AddStress(weaponStress);
+            timerToShoot = 0.0f;
 		}
 	}
 }

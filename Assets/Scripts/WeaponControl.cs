@@ -14,6 +14,7 @@ public class WeaponControl : MonoBehaviour
     public PlayerControl playerScript;
 	private string playerID;
 	private float timerToShoot;
+    public float recoilForce;
     
 
 	public bool isDefaultWeapon;
@@ -43,6 +44,8 @@ public class WeaponControl : MonoBehaviour
 			bulletRigidbody = bullet.GetComponent<Rigidbody>();
 			bulletRigidbody.AddForce(bulletSpawnPoint.transform.up*speedBullet, ForceMode.Impulse);
             playerScript.AddStress(weaponStress);
+            //playerScript.gameObject.GetComponent<Rigidbody>().AddForce(transform.right * -recoilForce, ForceMode.Force);
+            playerScript.gameObject.transform.localPosition -= recoilForce * transform.right*Time.deltaTime;
             timerToShoot = 0.0f;
 		}
 	}

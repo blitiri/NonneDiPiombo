@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 65000012817736914}
   - component: {fileID: 54000010900623878}
   - component: {fileID: 114000012170572144}
+  - component: {fileID: 95529540440359810}
   m_Layer: 0
   m_Name: ChefAgata
   m_TagString: ChefAgata
@@ -238,6 +239,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0264688, y: 1.6317357, z: 1.0747453}
   m_Center: {x: 0.0037524998, y: 0.8151905, z: -0.13639742}
+--- !u!95 &95529540440359810
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013450537652}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 0879281e5315152438c13aae1bccd797, type: 3}
+  m_Controller: {fileID: 9100000, guid: f1d7069988bfea14aa8ef0e4579a867f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114000012170572144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -278,6 +296,7 @@ MonoBehaviour:
   moveVector: {x: 0, y: 0, z: 0}
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}
+  stressAnimation: {fileID: 95529540440359810}
   toEmissionColor: {r: 1, g: 0, b: 0, a: 0}
   blinkColorTime: 2
   outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}

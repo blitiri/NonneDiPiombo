@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
 
 		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
 			if ((playersControls [playerIndex].isDead) || (playersControls [playerIndex].IsCollapsed ())) {
-				StartCoroutine (RespawnPlayer (playerIndex));
+                StartCoroutine (RespawnPlayer (playerIndex));
 			}
 		}
 	}

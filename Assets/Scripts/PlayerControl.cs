@@ -76,6 +76,7 @@ public class PlayerControl : MonoBehaviour
 	private Rigidbody playerRigidbody;
 	public GameObject bulletPrefab;
 	private InputManager inputManager;
+   // public Animator stressAnimation;
 
 	/// <summary>
 	/// Blink (video feedback onDamage)
@@ -110,8 +111,7 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	void Start ()
 	{
-		
-        
+
 		inputManager = new InputManager (playerId, transform, angleCorrection);
 		if (inputManager.HasMouse ()) {
 			Cursor.SetCursor (crosshairCursor, cursorHotSpot, CursorMode.Auto);
@@ -132,21 +132,25 @@ public class PlayerControl : MonoBehaviour
 			moveVector = inputManager.GetMoveVector();
 			DashManaging ();
 			Aim ();
-
 			if (inputManager.Shoot ()) {
 				weapon.Shoot (this.gameObject.tag);
 			}
 			//Assegna Shader Outline su arma attiva
 //			shaderApply.ShaderApply (revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
 		}
-	}
+        /*if(stress>=100)
+        {
+            stressAnimation.Play("Death");
+        }*/
+    }
 
 	/// <summary>
 	/// Resets the player status.
 	/// </summary>
 	public void ResetStatus ()
 	{
-		isDead = false;
+        
+        isDead = false;
 		stress = startingStress;
 		stopped = false;
 		UpdateUI ();
@@ -227,15 +231,6 @@ public class PlayerControl : MonoBehaviour
 	{
 		stress = Mathf.Clamp (stress + stressToAdd, 0, maxStressValue);
 		UpdateUI ();
-	}
-
-	/// <summary>
-	/// Determines whether player is stressed.
-	/// </summary>
-	/// <returns><c>true</c> if player is stressed; otherwise, <c>false</c>.</returns>
-	public bool IsStressed ()
-	{
-		return stress > 0;
 	}
 
 	/// <summary>

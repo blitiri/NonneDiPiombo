@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 54000012924359704}
   - component: {fileID: 65000010885548284}
   - component: {fileID: 114000010476943500}
-  - component: {fileID: 95000013530483050}
+  - component: {fileID: 95468845045663266}
   m_Layer: 0
   m_Name: CatLady
   m_TagString: CatLady
@@ -252,7 +252,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.49728552, y: 0.32274264, z: 0.10049303}
   m_Center: {x: 0.1801758, y: 0.063317984, z: 0.01828348}
---- !u!95 &95000013530483050
+--- !u!95 &95468845045663266
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -309,6 +309,7 @@ MonoBehaviour:
   moveVector: {x: 0, y: 0, z: 0}
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}
+  stressAnimation: {fileID: 95468845045663266}
   toEmissionColor: {r: 1, g: 0, b: 0, a: 0}
   blinkColorTime: 2
   outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
@@ -365,6 +366,6 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ada58e733a819054da7263168a13c238, type: 3}
-  m_Color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  m_Color: {r: 1, g: 0.92156863, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

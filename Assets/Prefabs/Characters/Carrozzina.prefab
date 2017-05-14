@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 65261196437015782}
   - component: {fileID: 54911460456842146}
   - component: {fileID: 114423332126549376}
+  - component: {fileID: 95814324588813984}
   m_Layer: 0
   m_Name: Carrozzina
   m_TagString: Untagged
@@ -238,6 +239,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1402819, y: 1.5589215, z: 1.1413289}
   m_Center: {x: 0, y: 0.7794607, z: -0.000000059604645}
+--- !u!95 &95814324588813984
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1945111136031498}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 8bc984dcbaef2aa429a8f7a99130f5e7, type: 3}
+  m_Controller: {fileID: 9100000, guid: f1d7069988bfea14aa8ef0e4579a867f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114423332126549376
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -278,6 +296,7 @@ MonoBehaviour:
   moveVector: {x: 0, y: 0, z: 0}
   bulletPrefab: {fileID: 1000013077376894, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}
+  stressAnimation: {fileID: 95814324588813984}
   toEmissionColor: {r: 1, g: 0, b: 0, a: 0}
   blinkColorTime: 2
   outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}

@@ -6,6 +6,9 @@ using System.Collections;
 /// </summary>
 public class PlayerControl : MonoBehaviour
 {
+	/// <summary>
+	/// The player identifier.
+	/// </summary>
 	public int playerId;
 
 	/// <summary>
@@ -91,6 +94,12 @@ public class PlayerControl : MonoBehaviour
 	public Shader outlineShader;
 	public Shader standardShader;
 	private WeaponControl weapon;
+
+	/// <summary>
+	/// VFXs
+	/// </summary>
+	public GameObject bloodPrefab;
+	public float bloodDuration;
 
 
 	/// <summary>

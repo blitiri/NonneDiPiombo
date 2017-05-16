@@ -276,6 +276,7 @@ MonoBehaviour:
   powerUpBulletPrefab: {fileID: 0}
   weaponStress: 0
   playerScript: {fileID: 114630631390475092}
+  recoilForce: 0
   isDefaultWeapon: 0
 --- !u!114 &114630631390475092
 MonoBehaviour:
@@ -297,7 +298,7 @@ MonoBehaviour:
   stressDecreaseFactor: 1.5
   timeToDiminishStress: 0.5
   isDead: 0
-  brokenVersion: {fileID: 1433111526316190, guid: cee30f42f451c4049981f87510c43fc0,
+  brokenVersion: {fileID: 1668936334662730, guid: 57517e5de4f89bf43893452b8417b4b2,
     type: 2}
   speed: 6
   rotSpeed: 2
@@ -321,6 +322,9 @@ MonoBehaviour:
   blinkColorTime: 2
   outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
   standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  bloodPrefab: {fileID: 1322258342269630, guid: 4e6901942acb5614098c0fa8fb6a7509,
+    type: 2}
+  bloodDuration: 0
 --- !u!212 &212602372200372658
 SpriteRenderer:
   m_ObjectHideFlags: 1

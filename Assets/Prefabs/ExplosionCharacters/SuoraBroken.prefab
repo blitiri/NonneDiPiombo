@@ -133,6 +133,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4259887361706262}
+  - component: {fileID: 114989660485124490}
   m_Layer: 0
   m_Name: SuoraBroken
   m_TagString: Untagged
@@ -839,3 +840,18 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300014, guid: ab7f34743cf2dc443923e902d3345105, type: 3}
+--- !u!114 &114989660485124490
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1668936334662730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771743f0b26b778419763b95540f01df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: []
+  bloodPrefab: {fileID: 1322258342269630, guid: 4e6901942acb5614098c0fa8fb6a7509,
+    type: 2}
+  bloodDuration: 5

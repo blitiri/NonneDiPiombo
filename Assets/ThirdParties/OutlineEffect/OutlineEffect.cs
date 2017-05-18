@@ -143,10 +143,7 @@ namespace cakeslice
                 cameraGameObject.transform.parent = sourceCamera.transform;
 				
                 outlineCamera = cameraGameObject.AddComponent<Camera>();
-//				outlineCamera.renderingPath = RenderingPath.DeferredShading;
-//				antialiasing = cameraGameObject.AddComponent<Antialiasing> ();
-//				antialiasing.mode = AAMode.FXAA1PresetB;
-//				outlineCamera.RenderWithShader (outlineShader, "Outline");
+
             }
 
             renderTexture = new RenderTexture(sourceCamera.pixelWidth, sourceCamera.pixelHeight, 16, RenderTextureFormat.Default);
@@ -362,13 +359,14 @@ namespace cakeslice
         void UpdateOutlineCameraFromSource()
         {
             outlineCamera.CopyFrom(sourceCamera);
-            outlineCamera.renderingPath = RenderingPath.Forward;
+			outlineCamera.renderingPath = RenderingPath.Forward;
             outlineCamera.backgroundColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
             outlineCamera.clearFlags = CameraClearFlags.SolidColor;
             outlineCamera.rect = new Rect(0, 0, 1, 1);
             outlineCamera.enabled = true;
             outlineCamera.cullingMask = 1 << outlineLayer; // UI layer
             outlineCamera.targetTexture = renderTexture;
+			outlineCamera.hdr = false;
         }
 
         public void AddOutline(Outline outline)

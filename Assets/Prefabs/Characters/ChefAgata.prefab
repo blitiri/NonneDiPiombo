@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 54000010900623878}
   - component: {fileID: 114000012170572144}
   - component: {fileID: 95529540440359810}
+  - component: {fileID: 114491211425500852}
   m_Layer: 0
   m_Name: ChefAgata
   m_TagString: ChefAgata
@@ -303,6 +304,21 @@ MonoBehaviour:
   bloodPrefab: {fileID: 1322258342269630, guid: 4e6901942acb5614098c0fa8fb6a7509,
     type: 2}
   bloodDuration: 0
+--- !u!114 &114491211425500852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013450537652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  eraseRenderer: 0
+  originalLayer: 0
+  originalMaterials: []
 --- !u!114 &114850474168233186
 MonoBehaviour:
   m_ObjectHideFlags: 1

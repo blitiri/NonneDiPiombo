@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 54789201365882324}
   - component: {fileID: 114630631390475092}
   - component: {fileID: 95360861568008386}
+  - component: {fileID: 114468975654518002}
   m_Layer: 0
   m_Name: Suora
   m_TagString: Untagged
@@ -278,6 +279,21 @@ MonoBehaviour:
   playerScript: {fileID: 114630631390475092}
   recoilForce: 0
   isDefaultWeapon: 0
+--- !u!114 &114468975654518002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1911374658595318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  eraseRenderer: 0
+  originalLayer: 0
+  originalMaterials: []
 --- !u!114 &114630631390475092
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -39,6 +39,8 @@ GameObject:
   - component: {fileID: 92000010296992188}
   - component: {fileID: 124000010377530866}
   - component: {fileID: 81000013586263234}
+  - component: {fileID: 114655304946511780}
+  - component: {fileID: 114859050829320978}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -66,13 +68,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010473143092}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -66.5}
+  m_LocalRotation: {x: 0.007631732, y: -0.042899627, z: -0.00032773605, w: 0.99905026}
+  m_LocalPosition: {x: 4.4, y: 1, z: -59.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000010047244562}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.87200004, y: -4.918, z: -0.075}
 --- !u!20 &20000011929783188
 Camera:
   m_ObjectHideFlags: 1
@@ -89,8 +91,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 9.52
+  far clip plane: 80.63
   field of view: 17
   orthographic: 0
   orthographic size: 7
@@ -98,7 +100,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -132,10 +134,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e5f738979e3bbf4ba5e2b5881cecc9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dampTime: 0.2
-  screenEdgeBuffer: 3
+  dampTime: 0.5
+  screenEdgeBuffer: 8
   minSize: 6.5
-  maxSize: 14
+  maxSize: 17
   OutlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
   StandardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   targets:
@@ -143,6 +145,59 @@ MonoBehaviour:
   - {fileID: 4000011509078680, guid: aeb60e339817a2f4e82ae38886639dd9, type: 2}
   - {fileID: 4658768733013394, guid: f8167628168a65d48aad95d5671dc705, type: 2}
   - {fileID: 4264473601962514, guid: 159a9ee6262a3f64d966a3bf2f67610e, type: 2}
+--- !u!114 &114655304946511780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010473143092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646b5bc27a658f447b1d929fd5ffbd70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 3
+  showGeneratedNormals: 0
+  offsetScale: 0.2
+  blurRadius: 18
+  edgeThresholdMin: 0.12
+  edgeThreshold: 0.01
+  edgeSharpness: 4.65
+  dlaaSharp: 0
+  ssaaShader: {fileID: 4800000, guid: b3728d1488b02490cbd196c7941bf1f8, type: 3}
+  dlaaShader: {fileID: 4800000, guid: 017ca72b9e8a749058d13ebd527e98fa, type: 3}
+  nfaaShader: {fileID: 4800000, guid: ce0cb2621f6d84e21a87414e471a3cce, type: 3}
+  shaderFXAAPreset2: {fileID: 4800000, guid: 6f1418cffd12146f2a83be795f6fa5a7, type: 3}
+  shaderFXAAPreset3: {fileID: 4800000, guid: c182fa94a5a0a4c02870641efcd38cd5, type: 3}
+  shaderFXAAII: {fileID: 4800000, guid: cd5b323dcc592457790ff18b528f5e67, type: 3}
+  shaderFXAAIII: {fileID: 4800000, guid: c547503fff0e8482ea5793727057041c, type: 3}
+--- !u!114 &114859050829320978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010473143092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78da3f00f3328541b4526c0b0b5ec5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineThickness: 1.31
+  lineIntensity: 0.74
+  fillAmount: 0
+  lineColor0: {r: 0, g: 0, b: 0, a: 1}
+  lineColor1: {r: 0.34516466, g: 0.9485294, b: 0.055795845, a: 1}
+  lineColor2: {r: 1, g: 0.9724138, b: 0, a: 1}
+  lineColor3: {r: 0, g: 0.08767724, b: 0.97794116, a: 1}
+  backfaceCulling: 1
+  additiveRendering: 0
+  cornerOutlines: 0
+  addLinesBetweenColors: 0
+  scaleWithScreenSize: 1
+  alphaCutoff: 0.5
+  flipY: 0
+  sourceCamera: {fileID: 20000011929783188}
+  outlineCamera: {fileID: 0}
 --- !u!124 &124000010377530866
 Behaviour:
   m_ObjectHideFlags: 1

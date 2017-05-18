@@ -208,6 +208,7 @@ public class PlayerControl : MonoBehaviour
 	{
 		if (collision.gameObject.layer == 8 || collision.gameObject.layer == 9 || collision.gameObject.layer == 10) {
 			isDashing = false;
+			playerRigidbody.velocity = Vector3.zero;
 		}
 	}
 

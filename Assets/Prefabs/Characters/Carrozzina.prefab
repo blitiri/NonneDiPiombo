@@ -88,8 +88,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1062017220594484}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.324, z: 1.021}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.324, z: 1.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4412053468315162}
@@ -303,7 +303,7 @@ MonoBehaviour:
   standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   bloodPrefab: {fileID: 1322258342269630, guid: 4e6901942acb5614098c0fa8fb6a7509,
     type: 2}
-  bloodDuration: 0
+  bloodDuration: 5
 --- !u!114 &114960886667242236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -330,15 +330,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e601fb175e9f1964290bfcfcc5de6f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoMagazine: 0
-  ratioOfFire: 0
-  speedBullet: 0
-  bulletSpawnPoint: {fileID: 4432530260126448, guid: fe4b602bf1897bf499d8a7f54440813e,
+  ammoMagazine: 100
+  ratioOfFire: 0.6
+  speedBullet: 100
+  bulletSpawnPoint: {fileID: 4002969007669562}
+  standardBulletPrefab: {fileID: 1447244334383814, guid: 61d3733d2201af54d93c52a1692b6112,
     type: 2}
-  standardBulletPrefab: {fileID: 0}
   powerUpBulletPrefab: {fileID: 0}
   weaponStress: 0
-  playerScript: {fileID: 114423332126549376}
+  playerScript: {fileID: 114630631390475092, guid: 159a9ee6262a3f64d966a3bf2f67610e,
+    type: 2}
   recoilForce: 0
   isDefaultWeapon: 0
 --- !u!212 &212840442868428406

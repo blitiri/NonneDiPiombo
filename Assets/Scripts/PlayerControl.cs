@@ -137,31 +137,28 @@ public class PlayerControl : MonoBehaviour
       
 		if (!stopped && !stopInputPlayer) {
 			Move ();
-			moveVector = inputManager.GetMoveVector();
+			moveVector = inputManager.GetMoveVector ();
 			DashManaging ();
 			Aim ();
 
 			if (inputManager.Shoot ()) {
-                if(timerToShoot<weapon.ratioOfFire)
-                {
-                    timerToShoot += Time.deltaTime;
-                }
-                else
-                {
-                    weapon.Shoot(this.gameObject.tag);
-                    timerToShoot = 0.0f;
-                    UpdateUI();
-                }
+				if (timerToShoot < weapon.ratioOfFire) {
+					timerToShoot += Time.deltaTime;
+				} else {
+					weapon.Shoot (this.gameObject.tag);
+					timerToShoot = 0.0f;
+					UpdateUI ();
+				}
 				
 			}
 			//Assegna Shader Outline su arma attiva
 //			shaderApply.ShaderApply (revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
 		}
-        /*if(stress>=100)
+		/*if(stress>=100)
         {
             stressAnimation.Play("Death");
         }*/
-    }
+	}
 
 	/// <summary>
 	/// Resets the player status.

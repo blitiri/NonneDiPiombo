@@ -88,11 +88,9 @@ public class PlayerControl : MonoBehaviour
 	public float blinkColorTime = 2;
 
 	/// <summary>
-	/// Shading
+	/// weapon
 	/// </summary>
-	private OutlineShaderApply shaderApply;
-	public Shader outlineShader;
-	public Shader standardShader;
+
 	private WeaponControl weapon;
 
 	/// <summary>
@@ -107,7 +105,7 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	void Awake ()
 	{
-		shaderApply = new OutlineShaderApply ();
+		
 		weapon = GetComponentInChildren<WeaponControl> ();
 		playerRigidbody = GetComponent<Rigidbody> ();
 		meshPlayer = GetComponent<MeshRenderer> ();
@@ -132,7 +130,7 @@ public class PlayerControl : MonoBehaviour
 	/// <summary>
 	/// Updates the player instance.
 	/// </summary>
-	void Update ()
+	void FixedUpdate ()
 	{
 		transform.position = new Vector3 (transform.position.x, 0, transform.position.z);
       

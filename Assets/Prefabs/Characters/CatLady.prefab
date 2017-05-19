@@ -11,25 +11,6 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1000013601061368}
   m_IsPrefabParent: 1
---- !u!1 &1000011290674412
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4000011496838656}
-  - component: {fileID: 33000010607365608}
-  - component: {fileID: 23000013067695834}
-  - component: {fileID: 65000014223729700}
-  - component: {fileID: 114999944227081574}
-  m_Layer: 0
-  m_Name: Revolver
-  m_TagString: Revolver
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1000012533651644
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,14 +49,33 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000013720513686
+--- !u!1 &1477915835736328
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4597345593909676}
+  - component: {fileID: 33051859154994542}
+  - component: {fileID: 23943781617031630}
+  - component: {fileID: 65999970566610298}
+  - component: {fileID: 114342473193698422}
+  m_Layer: 0
+  m_Name: Uzi
+  m_TagString: Uzi
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1621612023118848
 GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4000012614430540}
+  - component: {fileID: 4893727177975634}
   m_Layer: 0
   m_Name: BulletSpawnpoint
   m_TagString: Untagged
@@ -96,20 +96,6 @@ Transform:
   m_Father: {fileID: 4000011509078680}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4000011496838656
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011290674412}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.11879861, y: 0.3790004, z: 0.28735876}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
-  m_Children:
-  - {fileID: 4000012614430540}
-  m_Father: {fileID: 4000011509078680}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000011509078680
 Transform:
   m_ObjectHideFlags: 1
@@ -117,25 +103,39 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013601061368}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.401332, y: 0.10000085, z: 6.713136}
+  m_LocalPosition: {x: -2.401332, y: 2.47, z: 6.713136}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
-  - {fileID: 4000011496838656}
+  - {fileID: 4597345593909676}
   - {fileID: 4000010159224256}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4000012614430540
+--- !u!4 &4597345593909676
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013720513686}
+  m_GameObject: {fileID: 1477915835736328}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
+  m_LocalPosition: {x: -0, y: 0.125, z: 0.259}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4893727177975634}
+  m_Father: {fileID: 4000011509078680}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4893727177975634
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1621612023118848}
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0.47, y: 0.157, z: 0.02}
+  m_LocalPosition: {x: 0.943, y: 0.314, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4000011496838656}
+  m_Father: {fileID: 4597345593909676}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23000011847025062
@@ -169,12 +169,12 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!23 &23000013067695834
+--- !u!23 &23943781617031630
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011290674412}
+  m_GameObject: {fileID: 1477915835736328}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -182,7 +182,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 050e08dc12feb864f86ab2d2159ebbfd, type: 2}
+  - {fileID: 2100000, guid: 6a0d08355eace184a8f1ad703013f4a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -207,13 +207,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013601061368}
   m_Mesh: {fileID: 4300000, guid: 37e955f07b110364a8f75387860e8aa6, type: 3}
---- !u!33 &33000010607365608
+--- !u!33 &33051859154994542
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011290674412}
-  m_Mesh: {fileID: 4300000, guid: 130db01a9b747f94988d36ec5273c3db, type: 3}
+  m_GameObject: {fileID: 1477915835736328}
+  m_Mesh: {fileID: 4300000, guid: 4fc7db80ebd8f9c4e93cf630cb50c659, type: 3}
 --- !u!54 &54000012924359704
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -222,7 +222,7 @@ Rigidbody:
   m_GameObject: {fileID: 1000013601061368}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 3
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -241,18 +241,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2138197, y: 1.7805839, z: 1.1521342}
   m_Center: {x: 0.000022113323, y: 0.8897785, z: -0.04172778}
---- !u!65 &65000014223729700
+--- !u!65 &65999970566610298
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011290674412}
+  m_GameObject: {fileID: 1477915835736328}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 0.49728552, y: 0.32274264, z: 0.10049303}
-  m_Center: {x: 0.1801758, y: 0.063317984, z: 0.01828348}
+  m_Size: {x: 1.0156412, y: 0.54369676, z: 0.15722916}
+  m_Center: {x: 0.35800186, y: 0.16708674, z: 0.028283522}
 --- !u!95 &95468845045663266
 Animator:
   serializedVersion: 3
@@ -312,11 +312,30 @@ MonoBehaviour:
     type: 2}
   toEmissionColor: {r: 1, g: 0, b: 0, a: 0}
   blinkColorTime: 2
-  outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
-  standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   bloodPrefab: {fileID: 1322258342269630, guid: 4e6901942acb5614098c0fa8fb6a7509,
     type: 2}
   bloodDuration: 5
+--- !u!114 &114342473193698422
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1477915835736328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e601fb175e9f1964290bfcfcc5de6f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoMagazine: 100
+  ratioOfFire: 0.6
+  speedBullet: 100
+  bulletSpawnPoint: {fileID: 4893727177975634}
+  standardBulletPrefab: {fileID: 1447244334383814, guid: 61d3733d2201af54d93c52a1692b6112,
+    type: 2}
+  powerUpBulletPrefab: {fileID: 0}
+  weaponStress: 5
+  playerScript: {fileID: 114000010476943500}
+  recoilForce: 100
 --- !u!114 &114644399019996104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -332,28 +351,6 @@ MonoBehaviour:
   eraseRenderer: 0
   originalLayer: 0
   originalMaterials: []
---- !u!114 &114999944227081574
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011290674412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e601fb175e9f1964290bfcfcc5de6f80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ammoMagazine: 100
-  ratioOfFire: 0.8
-  speedBullet: 100
-  bulletSpawnPoint: {fileID: 4000012614430540}
-  standardBulletPrefab: {fileID: 1447244334383814, guid: 61d3733d2201af54d93c52a1692b6112,
-    type: 2}
-  powerUpBulletPrefab: {fileID: 0}
-  weaponStress: 0
-  playerScript: {fileID: 114000010476943500}
-  recoilForce: 1
-  isDefaultWeapon: 0
 --- !u!212 &212000013749494948
 SpriteRenderer:
   m_ObjectHideFlags: 1

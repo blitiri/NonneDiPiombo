@@ -46,7 +46,7 @@ public class CameraControl : MonoBehaviour
 		Move ();
 		Zoom ();
 
-		WallDetection ();
+		//WallDetection ();
 	}
 
 

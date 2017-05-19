@@ -9,13 +9,12 @@ public class Bullet : MonoBehaviour {
 	public Shader outlineShader;
 	public Shader standardShader;
 	private CapsuleCollider bulletCollider;
-	private TrailRenderer bulletTrail;
+
 
 	void Awake(){
 		bulletRb = GetComponent<Rigidbody> ();
 		shaderApply = new OutlineShaderApply ();
 		bulletMeshRender = GetComponent<MeshRenderer> ();
-		bulletTrail = GetComponentInChildren<TrailRenderer> ();
 		bulletCollider = GetComponent<CapsuleCollider> ();
 	}
 
@@ -32,7 +31,7 @@ public class Bullet : MonoBehaviour {
 			bulletCollider.enabled = false;
 			
 			bulletRb.velocity = new Vector3 (0, 0, 0);
-			Destroy (bulletTrail, 0.25f);
+
 			Destroy (this.gameObject, 1f);
 		}
 

@@ -1,25 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+	
 public class WeaponControl : MonoBehaviour 
 {
 	public int ammoMagazine;
 	public float ratioOfFire;
 	public float speedBullet;
+
 	public Transform bulletSpawnPoint;
 	public GameObject standardBulletPrefab;
 	public GameObject powerUpBulletPrefab;
+
 	public float weaponStress;
     public PlayerControl playerScript;
+	private Rigidbody playerRb;
 	private string playerID;
 	private float timerToShoot;
-    public float recoilForce;
-    
 
-	public bool isDefaultWeapon;
+
+    public float recoilForce;
 
 	void Start(){
+		playerRb = playerScript.gameObject.GetComponent<Rigidbody> ();
 		timerToShoot = ratioOfFire;
 	}
 
@@ -44,7 +47,8 @@ public class WeaponControl : MonoBehaviour
 			bulletRigidbody = bullet.GetComponent<Rigidbody>();
 			bulletRigidbody.velocity = bulletSpawnPoint.transform.up * speedBullet;
             playerScript.AddStress(weaponStress);
-            playerScript.gameObject.transform.localPosition -= recoilForce * transform.right*Time.deltaTime;
+			//playerRb.MovePosition(playerRb.position - playerRb.transform.forward * recoilForce * Time.deltaTime);
+			playerRb.AddForce (playerRb.transform.forward * -recoilForce * Time.deltaTime, ForceMode.Impulse);
             timerToShoot = 0.0f;
 		}
 	}

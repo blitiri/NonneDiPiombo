@@ -5,44 +5,66 @@ using Rewired;
 
 public class UIControllerInputManager : MonoBehaviour
 {
-    public int index;
     /// <summary>
     /// The number of players.
     /// </summary>
     public static int numberOfPlayers;
     /// <summary>
-    /// index for browsing between buttons.
+    /// Index for browsing between buttons.
     /// </summary>
     private int buttonIndex;
-    ///// <summary>
-    ///// Affected buttons.
-    ///// </summary>
-    //private IList<UIButton> buttons;
     /// <summary>
-    /// This player.
+    /// This player's identifier.
+    /// </summary>
+    public int playerID;
+
+    private static string startButtonTag = "StartButton";
+    /// <summary>
+    /// all the players.
     /// </summary>
     public static Player[] players;
-    //private float[] axises;
-    //public UICamera uiCamera;
-
-    public int playerID;
-    public int buttonsIndex;
     public UIButton[] buttons;
+    public static UIButton startButton;
 
     //private void Awake()
     //{
     //    uiCamera = FindObjectOfType<UICamera>();
     //}
 
+    private void Awake()
+    {
+        if (SceneController.IsMenuScene() || SceneController.IsCharacterSelectionScene() || SceneController.IsLevelSelectionScene() || SceneController.IsEndingScene())
+        {
+            if (playerID == 0)
+            {
+                bool canAssignStart = true;
+                foreach (UIButton button in buttons)
+                {
+                    if (button.tag == startButtonTag)
+                        canAssignStart = false;
+                }
+                if (canAssignStart)
+                    startButton = GameObject.FindGameObjectWithTag(startButtonTag).GetComponent<UIButton>();
+            }
+        }
+    }
+
     private void Start()
     {
-        AssignPlayers();
+        if (playerID == 0)
+        {
+            //if (ReInput)
+            //    Debug.Log("SSSS");
+            AssignPlayers();
+        }
     }
 
     private void Update()
     {
         UpdateSelectedButtons();
         PressSelectedButton();
+        if (startButton != null && playerID == 0)
+            StartMatch();
     }
 
     //void AssignPlayersAndAxises()
@@ -68,6 +90,7 @@ public class UIControllerInputManager : MonoBehaviour
     void AssignPlayers()
     {
         numberOfPlayers = Configuration.instance.GetNumberOfPlayers();
+        //Debug.Log(numberOfPlayers);
         players = new Player[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++)
         {
@@ -75,11 +98,23 @@ public class UIControllerInputManager : MonoBehaviour
         }
     }
 
+    //void TakeDefaultColor()
+    //{
+    //    for (int i = 0; i < buttons.Length; i++)
+    //    {
+    //        buttons[i].defaultColor = buttons[i].;
+    //    }
+    //}
+
     void UpdateSelectedButtons()
     {
-        if (players[playerID].GetAxis("Horizontal") < -0.5f)
+        buttons[buttonIndex].SetState(UIButtonColor.State.Normal, true);
+        //Debug.Log(players.Length);
+        //Debug.Log(players[playerID].GetAxis("Move horizontal"));
+        if (players[playerID].GetAxis("Move horizontal") < -0.2f)
         {
-            if (buttonIndex < 0)
+            Debug.Log("SSSSSS");
+            if (buttonIndex <= 0)
             {
                 buttonIndex = buttons.Length - 1;
             }
@@ -88,9 +123,9 @@ public class UIControllerInputManager : MonoBehaviour
                 buttonIndex -= 1;
             }
         }
-        else if (players[playerID].GetAxis("Horizontal") > 0.5f)
+        else if (players[playerID].GetAxis("Move horizontal") > 0.2f)
         {
-            if (buttonIndex > buttons.Length - 1)
+            if (buttonIndex >= buttons.Length - 1)
             {
                 buttonIndex = 0;
             }
@@ -99,17 +134,55 @@ public class UIControllerInputManager : MonoBehaviour
                 buttonIndex += 1;
             }
         }
-        Debug.Log(buttonIndex);
-        UICamera.selectedObject = buttons[buttonIndex].gameObject;
+        if (players[playerID].GetAxis("Move vertical") < -0.2f)
+        {
+            Debug.Log("SSSSSS");
+            if (buttonIndex <= 0)
+            {
+                buttonIndex = buttons.Length - 1;
+            }
+            else
+            {
+                buttonIndex -= 1;
+            }
+        }
+        else if (players[playerID].GetAxis("Move vertical") > 0.2f)
+        {
+            if (buttonIndex >= buttons.Length - 1)
+            {
+                buttonIndex = 0;
+            }
+            else
+            {
+                buttonIndex += 1;
+            }
+        }
+        buttons[buttonIndex].SetState(UIButtonColor.State.Hover, true);
+        //Debug.Log(buttonIndex);
     }
 
     void PressSelectedButton()
     {
+        //Debug.Log(players[playerID].GetButtonDown("Cross"));
         if (players[playerID].GetButtonDown("Cross"))
         {
-            for(int i = 0; i < buttons[buttonIndex].onClick.Count - 1; i++)
+            //Debug.Log("AndreaInculaMichele");
+            for(int i = 0; i < buttons[buttonIndex].onClick.Count; i++)
             {
+                //Debug.Log("!AndreaTrombaMichele");
                 buttons[buttonIndex].onClick[i].Execute();
+            }
+        }
+    }
+
+    void StartMatch()
+    {
+        if (players[playerID].GetButtonDown("Start"))
+        {
+            for (int i = 0; i < startButton.onClick.Count; i++)
+            {
+                startButton.SetState(UIButtonColor.State.Pressed, true);
+                startButton.onClick[i].Execute();
             }
         }
     }

@@ -21,6 +21,8 @@ public class CharacterSelectorManager : MonoBehaviour
     /// The indexes needed to switch between grannies. One for each player.
     /// </summary>
     public int[] indexes;
+
+    public string nextSceneToLoadName = "LevelPostOffice";
     /// <summary>
     /// All the grannies.
     /// </summary>
@@ -56,6 +58,7 @@ public class CharacterSelectorManager : MonoBehaviour
     private void Start()
     {
         numberOfPlayers = Configuration.instance.GetNumberOfPlayers();
+        Debug.Log(numberOfPlayers);
         indexes = new int[numberOfPlayers];
         selectedGrannies = new GameObject[numberOfPlayers];
         SelectorsActivation();
@@ -118,12 +121,12 @@ public class CharacterSelectorManager : MonoBehaviour
         selectedGrannies[id] = grannies[indexes[id]];
     }
 
-    public void LoadLevelScene(GameObject button)
+    public void LoadLevelScene()
     {
         if (Configuration.instance)
         {
             Configuration.instance.selectedGrannies = selectedGrannies;
         }
-        mySceneContr.LoadScene(button);
+        mySceneContr.LoadSceneByName(nextSceneToLoadName);
     }
 }

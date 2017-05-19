@@ -103,7 +103,7 @@ public class Configuration : MonoBehaviour
 
 		if (instance == null) {
 			DontDestroyOnLoad (transform.gameObject);
-			if (SceneController.IsLevelSelectionScene () || SceneController.IsLevelScene () || SceneController.IsCharacterSelectionScene()) {
+			if (SceneController.IsLevelSelectionScene () || SceneController.IsLevelScene () || SceneController.IsCharacterSelectionScene() || SceneController.IsMenuScene() || SceneController.IsEndingScene()) {
 				numberOfPlayers = defaultNumberOfPlayers;
 				selectedGrannies = new GameObject[numberOfPlayers];
 				for (grannyIndex = 0; grannyIndex < numberOfPlayers; grannyIndex++) {

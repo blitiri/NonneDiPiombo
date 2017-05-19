@@ -87,11 +87,11 @@ public class PlayerControl : MonoBehaviour
 	public Color toEmissionColor;
 	public float blinkColorTime = 2;
 
-	/// <summary>
-	/// weapon
-	/// </summary>
-
-	private WeaponControl weapon;
+    /// <summary>
+    /// weapon
+    /// </summary>
+    private float timerToShoot;
+    private WeaponControl weapon;
 
 	/// <summary>
 	/// VFXs
@@ -118,8 +118,9 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	void Start ()
 	{
+        timerToShoot = weapon.ratioOfFire;
 
-		inputManager = new InputManager (playerId, transform, angleCorrection);
+        inputManager = new InputManager (playerId, transform, angleCorrection);
 		if (inputManager.HasMouse ()) {
 			Cursor.SetCursor (crosshairCursor, cursorHotSpot, CursorMode.Auto);
 		}
@@ -136,21 +137,28 @@ public class PlayerControl : MonoBehaviour
       
 		if (!stopped && !stopInputPlayer) {
 			Move ();
-			moveVector = inputManager.GetMoveVector();
+			moveVector = inputManager.GetMoveVector ();
 			DashManaging ();
 			Aim ();
+
 			if (inputManager.Shoot ()) {
-				weapon.Shoot (this.gameObject.tag);
-                UpdateUI();
+				if (timerToShoot < weapon.ratioOfFire) {
+					timerToShoot += Time.deltaTime;
+				} else {
+					weapon.Shoot (this.gameObject.tag);
+					timerToShoot = 0.0f;
+					UpdateUI ();
+				}
+				
 			}
 			//Assegna Shader Outline su arma attiva
 //			shaderApply.ShaderApply (revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
 		}
-        /*if(stress>=100)
+		/*if(stress>=100)
         {
             stressAnimation.Play("Death");
         }*/
-    }
+	}
 
 	/// <summary>
 	/// Resets the player status.

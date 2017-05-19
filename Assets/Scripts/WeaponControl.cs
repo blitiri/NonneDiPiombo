@@ -16,14 +16,14 @@ public class WeaponControl : MonoBehaviour
     public PlayerControl playerScript;
 	private Rigidbody playerRb;
 	private string playerID;
-	private float timerToShoot;
+	//private float timerToShoot;
 
 
     public float recoilForce;
 
 	void Start(){
 		playerRb = playerScript.gameObject.GetComponent<Rigidbody> ();
-		timerToShoot = ratioOfFire;
+		//timerToShoot = ratioOfFire;
 	}
 
 	/// <summary>
@@ -34,11 +34,11 @@ public class WeaponControl : MonoBehaviour
 		GameObject bullet;
 		Rigidbody bulletRigidbody;
 
-		if (timerToShoot < ratioOfFire)
+		/*if (timerToShoot < ratioOfFire)
 		{
 			timerToShoot += Time.deltaTime;
 		}
-		else if ((ammoMagazine > 0))
+		else*/ if ((ammoMagazine > 0))
 		{
 			bullet = Instantiate(standardBulletPrefab) as GameObject;
 			bullet.transform.rotation = bulletSpawnPoint.transform.rotation;
@@ -49,7 +49,7 @@ public class WeaponControl : MonoBehaviour
             playerScript.AddStress(weaponStress);
 			//playerRb.MovePosition(playerRb.position - playerRb.transform.forward * recoilForce * Time.deltaTime);
 			playerRb.AddForce (playerRb.transform.forward * -recoilForce * Time.deltaTime, ForceMode.Impulse);
-            timerToShoot = 0.0f;
+            //timerToShoot = 0.0f;
 		}
 	}
 }

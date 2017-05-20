@@ -32,9 +32,17 @@ public class CharacterSelectorManager : MonoBehaviour
     /// </summary>
     public string nextSceneToLoadName = "LevelPostOffice";
     /// <summary>
-    /// All the grannies.
+    /// All the grannies names in the atlas.
     /// </summary>
-    public string[] iconNames;
+    public string[] iconAtlasNames;
+    /// <summary>
+    /// All the grannies names.
+    /// </summary>
+    public string[] granniesNames;
+    /// <summary>
+    /// All the grannies names.
+    /// </summary>
+    public UILabel[] granniesLabels;
     /// <summary>
     /// All the selectors.
     /// </summary>
@@ -137,7 +145,7 @@ public class CharacterSelectorManager : MonoBehaviour
                 break;
         }
         //Debug.Log(indexes[id]);
-        centrals[id].normalSprite = iconNames[indexes[id]] + "PlayerIcon";
+        centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
     }
 
     public void MoveControllerAxis()
@@ -172,7 +180,8 @@ public class CharacterSelectorManager : MonoBehaviour
                 }
                 canSelect[id] = false;
                 //Debug.Log(indexes[id]);
-                centrals[id].normalSprite = iconNames[indexes[id]] + "PlayerIcon";
+                centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
+                granniesLabels[id].text = iconAtlasNames[indexes[id]];
             }
 
             if (!canSelect[id])
@@ -203,15 +212,15 @@ public class CharacterSelectorManager : MonoBehaviour
     public void ClickCentral(GameObject button)
     {
         int id = int.Parse(button.transform.parent.tag);
-        if (indexes[id] < grannies.Length - 1)
-        {
-            indexes[id]++;
-        }
-        else
-        {
-            indexes[id] = 0;
-        }
-        centrals[id].normalSprite = iconNames[indexes[id]] + "PlayerIcon";
+        //if (indexes[id] < grannies.Length - 1)
+        //{
+        //    indexes[id]++;
+        //}
+        //else
+        //{
+        //    indexes[id] = 0;
+        //}
+        //centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
         selectedGrannies[id] = grannies[indexes[id]];
     }
 

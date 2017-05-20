@@ -88,7 +88,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1458812371193866}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 0.509, y: 0.157, z: 0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -102,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1911374658595318}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.13, y: 0, z: 2.57}
+  m_LocalPosition: {x: -2.424296, y: 8.2344475, z: -1.8998785}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4368442570396342}
@@ -277,7 +277,7 @@ MonoBehaviour:
   powerUpBulletPrefab: {fileID: 0}
   weaponStress: 0
   playerScript: {fileID: 114630631390475092}
-  recoilForce: 0
+  recoilForce: 300
 --- !u!114 &114468975654518002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -310,7 +310,7 @@ MonoBehaviour:
   startingStress: 0
   maxStressValue: 100
   stressIncrease: 24
-  stressDecreaseFactor: 1.5
+  stressDecreaseFactor: 2
   timeToDiminishStress: 0.5
   isDead: 0
   brokenVersion: {fileID: 1668936334662730, guid: 57517e5de4f89bf43893452b8417b4b2,
@@ -323,7 +323,7 @@ MonoBehaviour:
   dashTime: 0.5
   dashDistance: 0
   dashSpeed: 20
-  dashLength: 2.5
+  dashLength: 2
   playerObstacleDistanceLimit: 3
   environment:
     serializedVersion: 2

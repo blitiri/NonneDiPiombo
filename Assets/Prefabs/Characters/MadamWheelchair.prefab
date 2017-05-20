@@ -274,7 +274,7 @@ MonoBehaviour:
   startingStress: 0
   maxStressValue: 100
   stressIncrease: 24
-  stressDecreaseFactor: 1.5
+  stressDecreaseFactor: 2
   timeToDiminishStress: 0.5
   isDead: 0
   brokenVersion: {fileID: 1177899906008654, guid: bc19704e85788664985ad9613372e7da,
@@ -287,7 +287,7 @@ MonoBehaviour:
   dashTime: 0.5
   dashDistance: 0
   dashSpeed: 20
-  dashLength: 2.5
+  dashLength: 2
   playerObstacleDistanceLimit: 3
   environment:
     serializedVersion: 2
@@ -337,7 +337,7 @@ MonoBehaviour:
   powerUpBulletPrefab: {fileID: 0}
   weaponStress: 0
   playerScript: {fileID: 114423332126549376}
-  recoilForce: 0
+  recoilForce: 400
 --- !u!212 &212840442868428406
 SpriteRenderer:
   m_ObjectHideFlags: 1

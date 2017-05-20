@@ -243,7 +243,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 40979196}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -338, y: -178, z: 0}
+  m_LocalPosition: {x: -339, y: -177, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 478161772}
@@ -1839,7 +1839,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 750996389}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -410, y: 220, z: 0}
+  m_LocalPosition: {x: -411, y: 221, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1825770375}
@@ -1912,7 +1912,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 805178005}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 328, y: -198, z: 0}
+  m_LocalPosition: {x: 327, y: -197, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1725525874}
@@ -1983,7 +1983,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 914056959}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1155168973}
@@ -2150,6 +2150,7 @@ GameObject:
   - component: {fileID: 1014060178}
   - component: {fileID: 1014060177}
   - component: {fileID: 1014060176}
+  - component: {fileID: 1014060181}
   m_Layer: 8
   m_Name: StartButton
   m_TagString: StartButton
@@ -2165,7 +2166,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1014060174}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 210, z: 0}
+  m_LocalPosition: {x: -1, y: 212, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1155168973}
@@ -2332,6 +2333,20 @@ MonoBehaviour:
   mAtlas: {fileID: 114920223871223468, guid: 5126f01a299d14817bce003a2a3154ef, type: 2}
   mSpriteName: StartButton
   mFillCenter: 1
+--- !u!114 &1014060181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1014060174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1971b2fdb428bcd4293f81c214569803, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 0
+  buttons:
+  - {fileID: 1014060179}
 --- !u!1 &1091585583
 GameObject:
   m_ObjectHideFlags: 0
@@ -3217,7 +3232,14 @@ MonoBehaviour:
   iconAtlasNames:
   - ChefAgata
   - CatLady
+  - MadameWheelchair
+  - SisterRedenta
   granniesNames:
+  - Chef Agata
+  - Cat Lady
+  - Madame Wheelchair
+  - Sister Redenta
+  playersLabels:
   - {fileID: 187541843}
   - {fileID: 1193913781}
   - {fileID: 418361465}
@@ -3230,7 +3252,10 @@ MonoBehaviour:
   grannies:
   - {fileID: 1000013450537652, guid: 866d6ad70181106418fbc0ded8796c5e, type: 2}
   - {fileID: 1000013601061368, guid: aeb60e339817a2f4e82ae38886639dd9, type: 2}
+  - {fileID: 100000, guid: 8bc984dcbaef2aa429a8f7a99130f5e7, type: 3}
+  - {fileID: 100000, guid: 2fdaa08fad59daf488988b5473e3fe58, type: 3}
   selectedGrannies: []
+  startButton: {fileID: 1014060179}
   centrals:
   - {fileID: 1270117816}
   - {fileID: 1576333430}
@@ -3692,7 +3717,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1693554020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 533, y: 255, z: 0}
+  m_LocalPosition: {x: 532, y: 256, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1840386054}

@@ -56,6 +56,10 @@ public class CharacterSelectorManager : MonoBehaviour
     /// </summary>
     public GameObject[] selectedGrannies;
     /// <summary>
+    /// Start button.
+    /// </summary>
+    public UIButton startButton;
+    /// <summary>
     /// An icon for each selector.
     /// </summary>
     public UIButton[] centrals;
@@ -232,12 +236,15 @@ public class CharacterSelectorManager : MonoBehaviour
 
     void StartMatch()
     {
-        if (players[playerID].GetButtonDown("Start"))
+        foreach (Player player in players)
         {
-            for (int i = 0; i < startButton.onClick.Count; i++)
+            if (player.GetButtonDown("Start"))
             {
-                startButton.SetState(UIButtonColor.State.Pressed, true);
-                startButton.onClick[i].Execute();
+                for (int i = 0; i < startButton.onClick.Count; i++)
+                {
+                    startButton.SetState(UIButtonColor.State.Pressed, true);
+                    startButton.onClick[i].Execute();
+                }
             }
         }
     }

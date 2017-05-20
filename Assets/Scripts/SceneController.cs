@@ -142,6 +142,11 @@ public class SceneController : MonoBehaviour
 		}
 	}
 
+    public void LoadActiveScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString(), LoadSceneMode.Single);
+    }
+
 	/// <summary>
 	/// Clicking on Quit button
 	/// </summary>

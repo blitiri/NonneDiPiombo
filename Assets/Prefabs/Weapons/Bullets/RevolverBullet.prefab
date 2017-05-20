@@ -39,8 +39,8 @@ GameObject:
   - component: {fileID: 33860548296234696}
   - component: {fileID: 23121370550680704}
   - component: {fileID: 54651002790542140}
-  - component: {fileID: 114204039274423640}
   - component: {fileID: 136377014356586222}
+  - component: {fileID: 114504199744785790}
   m_Layer: 0
   m_Name: RevolverBullet
   m_TagString: BulletPlayer0
@@ -159,7 +159,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 2
---- !u!114 &114204039274423640
+--- !u!114 &114504199744785790
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -167,11 +167,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1447244334383814}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa35f672305b94640ba19a8478730bb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a4f5969f01fa6e41aa063b4170402d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
-  standardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  isMoving: 1
+  bulletSpeed: 100
 --- !u!136 &136377014356586222
 CapsuleCollider:
   m_ObjectHideFlags: 1

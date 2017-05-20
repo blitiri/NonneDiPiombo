@@ -38,6 +38,7 @@ public class EndingUIManager : AbstractUIManager
 		UISprite winnerIcon;
 		int playerIndex;
 		int position;
+		string s;
 
 		ranking = Statistics.instance.GetRanking ();
 		for (playerIndex = 0, position = 0; playerIndex < ranking.Length; playerIndex++) {
@@ -61,6 +62,9 @@ public class EndingUIManager : AbstractUIManager
 				} else if (child.tag.Equals ("Score")) {
 					scoreLabel = child.gameObject.GetComponent<UILabel> ();
 					scoreLabel.text = "Score: " + ranking [playerIndex].GetScore ();
+				} else if (child.tag.Equals ("PlayerId")) {
+					scoreLabel = child.gameObject.GetComponent<UILabel> ();
+					scoreLabel.text = "P" + (ranking [playerIndex].GetPlayerId () + 1);
 				}
 			}
 		}

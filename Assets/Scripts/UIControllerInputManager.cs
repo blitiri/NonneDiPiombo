@@ -34,18 +34,21 @@ public class UIControllerInputManager : MonoBehaviour
 
     private void Awake()
     {
-        if (playerID == 0)
-        {
-            bool canAssignStart = true;
-            foreach (UIButton button in buttons)
-            {
-                if (button.tag == startButtonTag)
-                    canAssignStart = false;
-            }
-            if (canAssignStart)
-                startButton = GameObject.FindGameObjectWithTag(startButtonTag).GetComponent<UIButton>();
-        }
-        canSelect = true;
+		if (SceneController.IsMenuScene () || SceneController.IsCharacterSelectionScene () || SceneController.IsLevelSelectionScene ())
+		{
+			if (playerID == 0)
+			{
+				bool canAssignStart = true;
+				foreach (UIButton button in buttons)
+				{
+					if (button.tag == startButtonTag)
+						canAssignStart = false;
+				}
+				if (canAssignStart)
+					startButton = GameObject.FindGameObjectWithTag (startButtonTag).GetComponent<UIButton> ();
+			}
+			canSelect = true;
+		}
     }
 
     private void Start()

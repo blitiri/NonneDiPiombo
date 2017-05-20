@@ -20,18 +20,6 @@ public class LevelUIManager : AbstractUIManager
 	/// </summary>
 	public UIPanel[] playersInfos;
 	/// <summary>
-	/// Players ammo counters. Important: respect players order (first player1 ammoCounter, then player2 ammoCounter and so on)
-	/// </summary>
-	public UILabel[] ammoCounters;
-	/// <summary>
-	/// Players life level. Important: respect players order (first player1 lifeLevel, then player2 lifeLevel and so on)
-	/// </summary>
-	public UISlider[] lifeLevels;
-	/// <summary>
-	/// Players stress level. Important: respect players order (first player1 stressLevel, then player2 stressLevel and so on)
-	/// </summary>
-	public UISlider[] stressLevels;
-	/// <summary>
 	/// The players icons.
 	/// </summary>
 	public UISprite[] playersIcons;
@@ -71,42 +59,13 @@ public class LevelUIManager : AbstractUIManager
 	}
 
 	/// <summary>
-	/// Sets a player life.
-	/// </summary>
-	/// <param name="stress">Level of life (a value between 0 and 1).</param>
-	/// <param name="playerId">Player Id (a 0-based index).</param>
-	public void SetLife (float life, int playerId)
-	{
-		lifeLevels [playerId].value = Mathf.Clamp (life, 0, 1);
-	}
-
-	/// <summary>
 	/// Sets a player stress.
 	/// </summary>
 	/// <param name="stress">Level of stress (a value between 0 and 1).</param>
 	/// <param name="playerId">Player Id (a 0-based index).</param>
 	public void SetStress (float stress, int playerId)
 	{
-		stressLevels [playerId].value = Mathf.Clamp (stress, 0, 1);
-	}
-
-	/// <summary>
-	/// Sets infinite ammo to a player.
-	/// </summary>
-	/// <param name="playerId">Player Id (a 0-based index).</param>
-	public void SetInfiniteAmmo (int playerId)
-	{
-		ammoCounters [playerId].text = "--";
-	}
-
-	/// <summary>
-	/// Sets a player ammo.
-	/// </summary>
-	/// <param name="ammo">Ammo owned by player (a value &gt;= 0).</param>
-	/// <param name="playerId">Player Id (a 0-based index).</param>
-	public void SetAmmo (int ammo, int playerId)
-	{
-		ammoCounters [playerId].text = "x" + (ammo < 0 ? 0 : ammo);
+		//stressLevels [playerId].value = Mathf.Clamp (stress, 0, 1);
 	}
 
 	/// <summary>

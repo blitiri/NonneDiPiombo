@@ -39,8 +39,6 @@ public class WeaponControl : MonoBehaviour
 		bullet.transform.rotation = bulletSpawnPoint.transform.rotation;
 		bullet.transform.position = bulletSpawnPoint.position;
 		bullet.tag = playerId;
-		bulletRigidbody = bullet.GetComponent<Rigidbody>();
-		bulletRigidbody.velocity = bulletSpawnPoint.transform.up * speedBullet;
         playerScript.AddStress(weaponStress);
 		//playerRb.MovePosition(playerRb.position - playerRb.transform.forward * recoilForce * Time.deltaTime);
 		playerRb.AddForce (playerRb.transform.forward * -recoilForce * Time.deltaTime, ForceMode.Impulse);

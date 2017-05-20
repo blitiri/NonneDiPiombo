@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ShotgunBulletManager : DefaultBulletManager {
+	public float numberOfBullets;
+	public float bulletDistance;
+	public float spreadValue;
+
+	private bool canSpread = true;
 	protected override void Components(){
 		bulletRb = GetComponent<Rigidbody> ();
 		bulletMeshRender = GetComponent<MeshRenderer> ();
@@ -19,9 +24,22 @@ public class ShotgunBulletManager : DefaultBulletManager {
 
 	protected override void DefaultMovement(){
 		if (isMoving) {
+			
 			bulletRb.velocity = bulletRb.transform.up * bulletSpeed;
-
 		}
-		Destroy (this.gameObject, 0.03f);
+		if (canSpread) {
+			for (int i = 0; i < numberOfBullets; i++) {
+				Quaternion yValue = Quaternion.Euler (0, 0, Random.Range (-spreadValue, spreadValue));
+				GameObject proj = Instantiate (this.gameObject, transform.position, transform.rotation * yValue);
+				Rigidbody projRb = proj.GetComponent<Rigidbody> ();
+
+				ShotgunBulletManager projBulletManager = proj.GetComponent<ShotgunBulletManager> ();
+				projBulletManager.canSpread = false;
+
+				canSpread = false;
+			}
+		}
+		
+		Destroy (this.gameObject, bulletDistance);
 	}
 }

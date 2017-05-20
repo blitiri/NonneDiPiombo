@@ -6,6 +6,7 @@ public class ShotgunBulletManager : DefaultBulletManager {
 	public float numberOfBullets;
 	public float bulletDistance;
 	public float spreadValue;
+	private float timer;
 
 	private bool canSpread = true;
 	protected override void Components(){
@@ -24,8 +25,12 @@ public class ShotgunBulletManager : DefaultBulletManager {
 
 	protected override void DefaultMovement(){
 		if (isMoving) {
-			
-			bulletRb.velocity = bulletRb.transform.up * bulletSpeed;
+			if (timer < bulletDistance) {
+				bulletRb.velocity = bulletRb.transform.up * bulletSpeed;
+				timer += Time.deltaTime;
+			} else {
+				Trigger ();
+			}
 		}
 		if (canSpread) {
 			for (int i = 0; i < numberOfBullets; i++) {
@@ -39,7 +44,5 @@ public class ShotgunBulletManager : DefaultBulletManager {
 				canSpread = false;
 			}
 		}
-		
-		Destroy (this.gameObject, bulletDistance);
 	}
 }

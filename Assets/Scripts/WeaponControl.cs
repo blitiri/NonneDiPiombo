@@ -23,7 +23,6 @@ public class WeaponControl : MonoBehaviour
 
 	void Start(){
 		playerRb = playerScript.gameObject.GetComponent<Rigidbody> ();
-		//timerToShoot = ratioOfFire;
 	}
 
 	/// <summary>
@@ -40,8 +39,6 @@ public class WeaponControl : MonoBehaviour
 		bullet.transform.position = bulletSpawnPoint.position;
 		bullet.tag = playerId;
         playerScript.AddStress(weaponStress);
-		//playerRb.MovePosition(playerRb.position - playerRb.transform.forward * recoilForce * Time.deltaTime);
 		playerRb.AddForce (playerRb.transform.forward * -recoilForce * Time.deltaTime, ForceMode.Impulse);
-        //timerToShoot = 0.0f;
 	}
 }

@@ -3,10 +3,11 @@ using System.Collections;
 
 public class DefaultBulletManager : MonoBehaviour {
 	
-	private MeshRenderer bulletMeshRender;
-	private Rigidbody bulletRb;
-	private CapsuleCollider bulletCollider;
-	private bool isMoving = true;
+	protected MeshRenderer bulletMeshRender;
+	protected Rigidbody bulletRb;
+	protected CapsuleCollider bulletCapsuleCollider;
+	protected SphereCollider bulletSphereCollider;
+	protected bool isMoving = true;
 	public float bulletSpeed;
 
 	void Awake(){
@@ -14,17 +15,17 @@ public class DefaultBulletManager : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (other.gameObject.tag.StartsWith ("Player") || other.gameObject.tag.Equals ("Wall")) {
+		if (other.gameObject.tag.Equals ("Wall")) {
 			Trigger ();
 		}
 	}
 
 	void FixedUpdate(){
-		DefaultMovement (bulletSpeed);
+		DefaultMovement ();
 	}
 
 
-	protected virtual void DefaultMovement(float bulletSpeed){
+	protected virtual void DefaultMovement(){
 		if (isMoving) {
 			bulletRb.velocity = bulletRb.transform.up * bulletSpeed;
 		}
@@ -33,14 +34,14 @@ public class DefaultBulletManager : MonoBehaviour {
 	protected virtual void Components(){
 		bulletRb = GetComponent<Rigidbody> ();
 		bulletMeshRender = GetComponent<MeshRenderer> ();
-		bulletCollider = GetComponent<CapsuleCollider> ();
+		bulletCapsuleCollider = GetComponent<CapsuleCollider> ();
 	}
 
 	protected virtual void Trigger(){
 		isMoving = false;
 		bulletMeshRender.enabled = false;
-		bulletCollider.enabled = false;
-		bulletRb.velocity = bulletRb.transform.up * 0;
+		bulletCapsuleCollider.enabled = false;
+		bulletRb.velocity = Vector3.zero;
 		Destroy (this.gameObject, 1f);
 	}
 }

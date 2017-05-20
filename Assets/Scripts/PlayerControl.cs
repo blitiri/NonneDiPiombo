@@ -141,16 +141,18 @@ public class PlayerControl : MonoBehaviour
 			DashManaging ();
 			Aim ();
 
-			if (inputManager.Shoot ()) {
-				if (timerToShoot < weapon.ratioOfFire) {
-					timerToShoot += Time.deltaTime;
-				} else {
-					weapon.Shoot (this.gameObject.tag);
-					timerToShoot = 0.0f;
-					UpdateUI ();
-				}
-				
+			if (timerToShoot < weapon.ratioOfFire) {
+				timerToShoot += Time.deltaTime;
 			}
+			else if (inputManager.Shoot ()) {
+				/*if (timerToShoot < weapon.ratioOfFire) {
+					timerToShoot += Time.deltaTime;
+				} else {*/
+					weapon.Shoot (this.gameObject.tag);
+					UpdateUI ();
+				    timerToShoot = 0.0f;
+			}
+				
 			//Assegna Shader Outline su arma attiva
 //			shaderApply.ShaderApply (revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
 		}

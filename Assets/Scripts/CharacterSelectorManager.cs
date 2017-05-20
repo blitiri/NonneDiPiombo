@@ -100,6 +100,7 @@ public class CharacterSelectorManager : MonoBehaviour
     {
         MoveControllerAxis();
         PressControllerButton();
+        StartMatch();
     }
 
     private void SelectorsActivation()

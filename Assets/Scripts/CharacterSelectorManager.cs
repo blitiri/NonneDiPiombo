@@ -42,7 +42,7 @@ public class CharacterSelectorManager : MonoBehaviour
     /// <summary>
     /// All the grannies names.
     /// </summary>
-    public UILabel[] granniesLabels;
+    public UILabel[] playersLabels;
     /// <summary>
     /// All the selectors.
     /// </summary>
@@ -152,7 +152,7 @@ public class CharacterSelectorManager : MonoBehaviour
     {
         //string tag = button.tag;
         //int id = int.Parse(button.transform.parent.tag);
-        for (int id = 0; id < players.Length; id++)
+        for (int id = 0; id < numberOfPlayers; id++)
         {
             if (canSelect[id])
             {
@@ -181,7 +181,7 @@ public class CharacterSelectorManager : MonoBehaviour
                 canSelect[id] = false;
                 //Debug.Log(indexes[id]);
                 centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
-                granniesLabels[id].text = iconAtlasNames[indexes[id]];
+                playersLabels[id].text = granniesNames[indexes[id]];
             }
 
             if (!canSelect[id])
@@ -199,12 +199,13 @@ public class CharacterSelectorManager : MonoBehaviour
 
     void PressControllerButton()
     {
-        for (int id = 0; id < players.Length; id++)
+        for (int id = 0; id < numberOfPlayers; id++)
         {
             if (players[id].GetButtonDown("Cross"))
             {
                 centrals[id].SetState(UIButtonColor.State.Pressed, true);
                 selectedGrannies[id] = grannies[indexes[id]];
+                centrals[id].SetState(UIButtonColor.State.Normal, false);
             }
         }
     }
@@ -228,6 +229,18 @@ public class CharacterSelectorManager : MonoBehaviour
     //{
     //    int id = controll
     //}
+
+    void StartMatch()
+    {
+        if (players[playerID].GetButtonDown("Start"))
+        {
+            for (int i = 0; i < startButton.onClick.Count; i++)
+            {
+                startButton.SetState(UIButtonColor.State.Pressed, true);
+                startButton.onClick[i].Execute();
+            }
+        }
+    }
 
     public void LoadLevelScene()
     {

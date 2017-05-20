@@ -46,7 +46,7 @@ public class CameraControl : MonoBehaviour
 		Move ();
 		Zoom ();
 
-		WallDetection ();
+		//WallDetection ();
 	}
 
 
@@ -85,7 +85,7 @@ public class CameraControl : MonoBehaviour
 	{
 		
 		float requiredSize = FindRequiredSize ();
-		mainCamera.orthographicSize = Mathf.SmoothDamp (mainCamera.orthographicSize, requiredSize, ref zoomSpeed, dampTime);
+		mainCamera.fieldOfView = Mathf.SmoothDamp (mainCamera.fieldOfView, requiredSize, ref zoomSpeed, dampTime);
 	}
 
 

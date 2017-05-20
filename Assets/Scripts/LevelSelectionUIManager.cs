@@ -16,10 +16,6 @@ public class LevelSelectionUIManager : MonoBehaviour
 	/// </summary>
 	public UISprite levelScreenshot;
 	/// <summary>
-	/// The start button.
-	/// </summary>
-	public UIButton startButton;
-	/// <summary>
 	/// The level item managers.
 	/// </summary>
 	private LevelItemInfo[] levelItemManagers;
@@ -67,8 +63,6 @@ public class LevelSelectionUIManager : MonoBehaviour
 			Select (selectedLevelItemInfo);
 			levelScreenshot.spriteName = selectedLevelItemInfo.levelName;
 		}
-		// TODO non è la proprietà giusta per disabilitare il bottone
-		startButton.enabled = (Configuration.instance.GetSelectedLevel () != null);
 	}
 
 	/// <summary>
@@ -125,7 +119,7 @@ public class LevelSelectionUIManager : MonoBehaviour
 	/// <summary>
 	/// Start the game.
 	/// </summary>
-	public void OnStart ()
+	public void OnSelect ()
 	{
 		SceneController.instance.LoadSelectedScene ();
 	}

@@ -9,7 +9,7 @@ public class OutlineShaderApply  {
 		if (Physics.Raycast (Camera.main.transform.position, dir ,out hit )) {
 			if (hit.transform.tag == "Wall") {
 				//Debug.Log ("Wall Found!");
-				renderer.material.shader = outline;
+				renderer.sharedMaterial.shader = outline;
 			} else {
 				renderer.sharedMaterial.shader = standard;
 			}

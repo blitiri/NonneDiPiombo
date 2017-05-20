@@ -1,26 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+	
 public class WeaponControl : MonoBehaviour 
 {
 	public int ammoMagazine;
 	public float ratioOfFire;
 	public float speedBullet;
+
 	public Transform bulletSpawnPoint;
 	public GameObject standardBulletPrefab;
 	public GameObject powerUpBulletPrefab;
+
 	public float weaponStress;
     public PlayerControl playerScript;
+	private Rigidbody playerRb;
 	private string playerID;
-	private float timerToShoot;
-    public float recoilForce;
-    
+	//private float timerToShoot;
 
-	public bool isDefaultWeapon;
+
+    public float recoilForce;
 
 	void Start(){
-		timerToShoot = ratioOfFire;
+		playerRb = playerScript.gameObject.GetComponent<Rigidbody> ();
+		//timerToShoot = ratioOfFire;
 	}
 
 	/// <summary>
@@ -31,22 +34,22 @@ public class WeaponControl : MonoBehaviour
 		GameObject bullet;
 		Rigidbody bulletRigidbody;
 
-		if (timerToShoot < ratioOfFire)
+		/*if (timerToShoot < ratioOfFire)
 		{
 			timerToShoot += Time.deltaTime;
 		}
-		else if ((ammoMagazine > 0))
+		else*/ if ((ammoMagazine > 0))
 		{
 			bullet = Instantiate(standardBulletPrefab) as GameObject;
 			bullet.transform.rotation = bulletSpawnPoint.transform.rotation;
 			bullet.transform.position = bulletSpawnPoint.position;
 			bullet.tag = playerId;
 			bulletRigidbody = bullet.GetComponent<Rigidbody>();
-			bulletRigidbody.AddForce(bulletSpawnPoint.transform.up*speedBullet, ForceMode.Impulse);
+			bulletRigidbody.velocity = bulletSpawnPoint.transform.up * speedBullet;
             playerScript.AddStress(weaponStress);
-            //playerScript.gameObject.GetComponent<Rigidbody>().AddForce(transform.right * -recoilForce, ForceMode.Force);
-            playerScript.gameObject.transform.localPosition -= recoilForce * transform.right*Time.deltaTime;
-            timerToShoot = 0.0f;
+			//playerRb.MovePosition(playerRb.position - playerRb.transform.forward * recoilForce * Time.deltaTime);
+			playerRb.AddForce (playerRb.transform.forward * -recoilForce * Time.deltaTime, ForceMode.Impulse);
+            //timerToShoot = 0.0f;
 		}
 	}
 }

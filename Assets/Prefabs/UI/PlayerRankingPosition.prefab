@@ -98,7 +98,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014117031094}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 400, y: 0, z: 0}
+  m_LocalPosition: {x: 800, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000013008863540}
@@ -137,7 +137,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013719639030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -75, y: 286, z: 0}
+  m_LocalPosition: {x: -325, y: 286, z: 0}
   m_LocalScale: {x: 0.999, y: 0.999, z: 0.999}
   m_Children:
   - {fileID: 4000010830711840}
@@ -248,8 +248,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 1.5
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
+  mTrueTypeFont: {fileID: 12800000, guid: 4407210278cecd940b491a713eb8dee8, type: 3}
+  mFont: {fileID: 0}
   mText: 1st
   mFontSize: 90
   mFontStyle: 0
@@ -289,11 +289,11 @@ MonoBehaviour:
   leftAnchor:
     target: {fileID: 0}
     relative: 0.5
-    absolute: -150
+    absolute: -400
   rightAnchor:
     target: {fileID: 0}
     relative: 0.5
-    absolute: 0
+    absolute: -250
   bottomAnchor:
     target: {fileID: 0}
     relative: 0.5
@@ -389,11 +389,11 @@ MonoBehaviour:
   leftAnchor:
     target: {fileID: 4000013008863540}
     relative: 1
-    absolute: 50
+    absolute: 450
   rightAnchor:
     target: {fileID: 4000013008863540}
     relative: 1
-    absolute: 600
+    absolute: 1000
   bottomAnchor:
     target: {fileID: 4000013008863540}
     relative: 0.5
@@ -413,8 +413,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 5.5
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
+  mTrueTypeFont: {fileID: 12800000, guid: 4407210278cecd940b491a713eb8dee8, type: 3}
+  mFont: {fileID: 0}
   mText: 'Score: -5'
   mFontSize: 90
   mFontStyle: 0

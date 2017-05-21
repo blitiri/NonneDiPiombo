@@ -107,18 +107,6 @@ public class UIControllerInputManager : MonoBehaviour
             }
             if (players[playerID].GetAxis("Move vertical") < -0.2f)
             {
-                Debug.Log("SSSSSS");
-                if (buttonIndex <= 0)
-                {
-                    buttonIndex = buttons.Length - 1;
-                }
-                else
-                {
-                    buttonIndex -= 1;
-                }
-            }
-            else if (players[playerID].GetAxis("Move vertical") > 0.2f)
-            {
                 if (buttonIndex >= buttons.Length - 1)
                 {
                     buttonIndex = 0;
@@ -126,6 +114,17 @@ public class UIControllerInputManager : MonoBehaviour
                 else
                 {
                     buttonIndex += 1;
+                }
+            }
+            else if (players[playerID].GetAxis("Move vertical") > 0.2f)
+            {
+                if (buttonIndex <= 0)
+                {
+                    buttonIndex = buttons.Length - 1;
+                }
+                else
+                {
+                    buttonIndex -= 1;
                 }
             }
             canSelect = false;
@@ -151,6 +150,7 @@ public class UIControllerInputManager : MonoBehaviour
         {
             for(int i = 0; i < buttons[buttonIndex].onClick.Count; i++)
             {
+                buttons[buttonIndex].SetState(UIButtonColor.State.Hover, true);
                 buttons[buttonIndex].onClick[i].Execute();
             }
         }

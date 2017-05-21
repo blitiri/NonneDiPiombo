@@ -16,8 +16,7 @@ public class CharacterSelectorManager : MonoBehaviour
     /// <summary>
     /// The true number of players.
     /// </summary>
-    [Range(2,4)]
-    public int numberOfPlayers = 3;
+    private int numberOfPlayers;
     /// <summary>
     /// An instance of SceneController class.
     /// </summary>

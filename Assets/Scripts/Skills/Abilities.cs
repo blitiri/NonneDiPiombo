@@ -9,8 +9,5 @@ public abstract class Abilities : ScriptableObject {
 	public abstract void OnAbilityActivation();
 	public void SetPlayer(GameObject player){
 		this.player = player;
-
 	}
-
-
 }

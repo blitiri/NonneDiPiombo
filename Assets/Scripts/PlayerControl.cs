@@ -36,6 +36,7 @@ public class PlayerControl : MonoBehaviour
 	/// <summary>
 	/// Player Movement 
 	/// </summary>
+	public float speedMod;
 	public float speed = 2;
 	public float rotSpeed = 2;
 	private float horizontalMovement;
@@ -180,7 +181,7 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	private void Move ()
 	{
-		playerRigidbody.MovePosition (playerRigidbody.position + inputManager.GetMoveVector () * speed * Time.deltaTime);
+		playerRigidbody.MovePosition (playerRigidbody.position + inputManager.GetMoveVector () * (speed + speedMod) * Time.deltaTime);
 	}
 
 	/// <summary>
@@ -289,14 +290,14 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	private void DashManaging ()
 	{
+		float timer = 5.0f;
 		//Debug.Log (moveVector.magnitude);
 		ObstacleChecking (moveVector);
 		isObstacle = ObstacleChecking (moveVector);
 		if (inputManager.Dash ()) {
 			if (!isObstacle && !isDashing && dashTime <= Time.time - dashRecordedTime) {
-				ability.OnAbilityActivation ();
 				StartCoroutine (Dashing (moveVector));
-
+				StartCoroutine("Abilit",timer);
 			}
 		}
 	}
@@ -358,7 +359,13 @@ public class PlayerControl : MonoBehaviour
 		if (ability != null) {
 			ability.SetPlayer (gameObject);
 		}
+	}
 
+	IEnumerator Abilit(float timer)
+	{
+		ability.OnAbilityActivation ();
+		yield return new WaitForSeconds (timer);
+		speedMod = 0;
 	}
 
 	/// <summary>

@@ -33,4 +33,6 @@ public class CatMine : MonoBehaviour
 		explosionParticle.SetActive(true);
 		Destroy (this.gameObject,2.0f);
 	}
+
+
 }

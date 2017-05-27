@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class Pan : MonoBehaviour 
 {
+	public Animation panAnimation;
 
 	// Use this for initialization
 	void Start () 
 	{
-		
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		
+		panAnimation.Play ();
 	}
 }

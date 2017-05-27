@@ -231,15 +231,23 @@ public class PlayerControl : MonoBehaviour
 	/// <param name="other">Collider.</param>
 	void OnTriggerEnter (Collider other)
 	{
+		int playertagIndex;
+
+
+		playertagIndex = Utility.GetPlayerIndex (this.gameObject.tag);
+
+
 		if (other.gameObject.tag.StartsWith ("Bullet") && !isImmortal) {
-			isDead = true;
-			GameManager.instance.CheckRespawnPlayers ();
-			ExplodeCharacter ();
-
+			
 			int playerKillerId;
+			playerKillerId = Utility.GetPlayerIndexFromBullet(other.gameObject.tag);
 
-			playerKillerId = Utility.GetPlayerIndex (other.gameObject.tag);
-			GameManager.instance.PlayerKilled (playerId, playerKillerId);
+			if (playertagIndex != playerKillerId) {
+				isDead = true;
+				GameManager.instance.CheckRespawnPlayers ();
+				ExplodeCharacter ();
+				GameManager.instance.PlayerKilled (playerId, playerKillerId);
+			}
 		}    
 	}
 

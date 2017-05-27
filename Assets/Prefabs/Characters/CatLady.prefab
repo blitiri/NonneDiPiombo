@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 4893727177975634}
   m_Layer: 0
   m_Name: BulletSpawnpoint
-  m_TagString: Untagged
+  m_TagString: SMGBulletSpawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -314,6 +314,8 @@ MonoBehaviour:
     type: 2}
   bloodDuration: 5
   ability: {fileID: 11400000, guid: e84212acc06524e42ae30dc6d3af3560, type: 2}
+  isImmortal: 0
+  immortalTime: 0.5
 --- !u!114 &114342473193698422
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -329,7 +331,7 @@ MonoBehaviour:
   ratioOfFire: 0.6
   speedBullet: 0
   bulletSpawnPoint: {fileID: 4893727177975634}
-  standardBulletPrefab: {fileID: 1447244334383814, guid: 61d3733d2201af54d93c52a1692b6112,
+  standardBulletPrefab: {fileID: 1231832353222274, guid: cf46d446a6e31164298b5e122b0cd559,
     type: 2}
   powerUpBulletPrefab: {fileID: 0}
   weaponStress: 5

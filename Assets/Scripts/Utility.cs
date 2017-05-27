@@ -21,6 +21,8 @@ public class Utility
 
 	private const string bulletPrefix = "Bullet";
 
+	private const string bulletTag = "BulletPlayer";
+
 	/// <summary>
 	/// Gets the player identifier from player index.
 	/// </summary>
@@ -38,11 +40,11 @@ public class Utility
 	/// <param name="playerId">Player identifier.</param>
 	public static int GetPlayerIndex (string playerId)
 	{
-		return int.Parse (playerId.Substring (bulletPrefix.Length + playerIdPrefix.Length));
+		return int.Parse (playerId.Substring (playerIdPrefix.Length));
 	}
 
 	public static int GetPlayerIndexFromBullet(string playerId){
-		return int.Parse(playerId.Substring(bulletPrefix.Length + playerIdPrefix.Length));
+		return int.Parse(playerId.Substring(bulletTag.Length));
 	}
 
 	/// <summary>

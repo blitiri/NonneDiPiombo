@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class DefaultBulletManager : MonoBehaviour {
-	
 	protected MeshRenderer bulletMeshRender;
 	protected Rigidbody bulletRb;
 	protected CapsuleCollider bulletCapsuleCollider;
@@ -19,7 +18,7 @@ public class DefaultBulletManager : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (other.gameObject.tag.Equals ("Wall") || other.gameObject.tag.StartsWith("Player")) {
+		if (other.gameObject.tag.Equals ("Wall") || other.gameObject.tag.StartsWith("Player") || other.gameObject.tag.Equals("LevelWall")) {
 			Trigger ();
 		}
 	}

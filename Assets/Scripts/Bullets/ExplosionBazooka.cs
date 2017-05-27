@@ -6,33 +6,34 @@ public class ExplosionBazooka : MonoBehaviour {
 	private BazookaBulletManager bazooka;
 	private SphereCollider explosionCollider;
 
-	public float initialRadius;
+	public float minRadius;
 	public float maxRadius;
-	public float radiusExpansion;
+	private float timer;
+	public float explosionTime;
 	[HideInInspector]
 	public bool wallCollision;
 
 	void Start(){
 		explosionCollider = GetComponent<SphereCollider> ();
-		explosionCollider.radius = initialRadius;
 	}
 
 	void Update(){
-		if (initialRadius < maxRadius && !wallCollision) {
-			explosionCollider.radius = initialRadius;
-			Debug.Log ("Expanding Radius");
-			initialRadius += radiusExpansion;
+		if (timer < explosionTime) {
+			timer += Time.deltaTime;
 		} else {
 			explosionCollider.enabled = false;
-		} 
-			
-
+			timer = 0;
+		}
 	}
 
 	void OnTriggerEnter(Collider other){
 		if(other.gameObject.tag.Equals("Wall")){
 			Debug.Log ("Collision With Wall");
+			explosionCollider.radius = minRadius;
 			wallCollision = true;
+		} else if (other.gameObject.tag.Equals("LevelWall") || other.gameObject.tag.StartsWith("Player")){
+			explosionCollider.radius = maxRadius;
+			wallCollision = false;
 		}
 	}
 }

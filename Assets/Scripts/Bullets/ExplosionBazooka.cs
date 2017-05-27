@@ -9,13 +9,13 @@ public class ExplosionBazooka : MonoBehaviour {
 	public float initialRadius;
 	public float maxRadius;
 	public float radiusExpansion;
+	public float colliderDisabled;
 
 	public bool wallCollision;
 
 	void Start(){
 		explosionCollider = GetComponent<SphereCollider> ();
 		explosionCollider.radius = initialRadius;
-		initialRadius = 0;
 	}
 
 	void Update(){
@@ -23,7 +23,11 @@ public class ExplosionBazooka : MonoBehaviour {
 			explosionCollider.radius = initialRadius;
 			Debug.Log ("Expanding Radius");
 			initialRadius += radiusExpansion;
-		}
+		} else {
+			explosionCollider.enabled = false;
+		} 
+			
+
 	}
 
 	void OnTriggerEnter(Collider other){

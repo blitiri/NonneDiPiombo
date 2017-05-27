@@ -19,7 +19,7 @@ public class DefaultBulletManager : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (other.gameObject.tag.Equals ("Wall")) {
+		if (other.gameObject.tag.Equals ("Wall") || other.gameObject.tag.StartsWith("Player")) {
 			Trigger ();
 		}
 	}

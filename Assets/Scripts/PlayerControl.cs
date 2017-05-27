@@ -98,6 +98,9 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	public Abilities ability;
 
+	public bool isImmortal;
+	public float immortalTime = 0.5f;
+
 	/// <summary>
 	/// Awake this instance.
 	/// </summary>
@@ -228,7 +231,7 @@ public class PlayerControl : MonoBehaviour
 	/// <param name="other">Collider.</param>
 	void OnTriggerEnter (Collider other)
 	{
-		if (other.gameObject.tag.StartsWith ("Bullet")) {
+		if (other.gameObject.tag.StartsWith ("Bullet") && !isImmortal) {
 			isDead = true;
 			GameManager.instance.CheckRespawnPlayers ();
 			ExplodeCharacter ();

@@ -9,8 +9,7 @@ public class ExplosionBazooka : MonoBehaviour {
 	public float initialRadius;
 	public float maxRadius;
 	public float radiusExpansion;
-	public float colliderDisabled;
-
+	[HideInInspector]
 	public bool wallCollision;
 
 	void Start(){

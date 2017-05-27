@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class BazookaBulletManager : DefaultBulletManager {
 	public float bulletAccel;
-	public float initialRadius;
-	public float maxRadius;
-	public float radiusExplansion;
 	public float explosionDelay = 1f;
 	private SphereCollider explosionCollider;
 	private GameObject explosion;
-//	[HideInInspector]
-	public bool wallCollision;
+
 	public GameObject explosionPrefab;
 
 	protected override void DefaultMovement(){

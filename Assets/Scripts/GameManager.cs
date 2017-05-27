@@ -150,6 +150,10 @@ public class GameManager : MonoBehaviour
 		playerControl.stopInputPlayer = false;
 		playerControl.isDead = false;
 		playerCollider.enabled = true;
+
+		playerControl.isImmortal = true;
+		yield return new WaitForSeconds (playerControl.immortalTime);
+		playerControl.isImmortal = false;
 	}
 
 	private void SetMeshRendererEnabled (bool enabled, int playerIndex)

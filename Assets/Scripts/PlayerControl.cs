@@ -99,7 +99,7 @@ public class PlayerControl : MonoBehaviour
 	public GameObject bloodPrefab;
 	public float bloodDuration;
 
-
+	
 	/// <summary>
 	/// Awake this instance.
 	/// </summary>
@@ -118,6 +118,7 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	void Start ()
 	{
+		
         timerToShoot = weapon.ratioOfFire;
 
         inputManager = new InputManager (playerId, transform, angleCorrection);
@@ -230,7 +231,7 @@ public class PlayerControl : MonoBehaviour
 	/// <param name="other">Collider.</param>
 	void OnTriggerEnter (Collider other)
 	{
-		if (other.gameObject.tag.StartsWith ("Player")) {
+		if (other.gameObject.tag.StartsWith ("Bullet")) {
 			isDead = true;
 			GameManager.instance.CheckRespawnPlayers ();
 			ExplodeCharacter ();

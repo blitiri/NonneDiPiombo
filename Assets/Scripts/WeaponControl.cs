@@ -37,7 +37,7 @@ public class WeaponControl : MonoBehaviour
 		bullet = Instantiate(standardBulletPrefab) as GameObject;
 		bullet.transform.rotation = bulletSpawnPoint.transform.rotation;
 		bullet.transform.position = bulletSpawnPoint.position;
-		bullet.tag = playerId;
+		bullet.tag = "Bullet" + playerId;
         playerScript.AddStress(weaponStress);
 		playerRb.AddForce (playerRb.transform.forward * -recoilForce * Time.deltaTime, ForceMode.Impulse);
 	}

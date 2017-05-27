@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4087506180553550}
   - component: {fileID: 135254431582738088}
-  - component: {fileID: 114363571695387968}
+  - component: {fileID: 114545418461910428}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -103,7 +103,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1679874409593166}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.97, z: 0}
+  m_LocalPosition: {x: -4.8931627, y: 2.1, z: 2.5428903}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4972212365842964}
@@ -165,7 +165,7 @@ Transform:
   m_Father: {fileID: 4972212365842964}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114363571695387968
+--- !u!114 &114545418461910428
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -173,9 +173,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1679874409593166}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29033ee062e815e4086ca00a0a86c980, type: 3}
+  m_Script: {fileID: 11500000, guid: d6012b400afc1b140bf61c0bf34f4462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialRadius: 0
+  maxRadius: 2
+  radiusExpansion: 0.2
+  wallCollision: 0
 --- !u!135 &135254431582738088
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -186,7 +190,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.7606528
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198433381035198570
 ParticleSystem:

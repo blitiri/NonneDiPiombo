@@ -25,6 +25,5 @@ public class CatMine : MonoBehaviour
 		tweenColor.enabled=false;
 		yield return new WaitForSeconds (timerToExplode);
 		this.collider.radius = radiusOfCollider;
-
 	}
 }

@@ -228,7 +228,7 @@ public class PlayerControl : MonoBehaviour
 	/// <param name="other">Collider.</param>
 	void OnTriggerEnter (Collider other)
 	{
-		if (other.gameObject.tag.StartsWith ("Bullet")) {
+		if (other.gameObject.tag.StartsWith ("Bullet") || other.gameObject.layer==17) {
 			isDead = true;
 			GameManager.instance.CheckRespawnPlayers ();
 			ExplodeCharacter ();

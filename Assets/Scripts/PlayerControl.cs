@@ -81,12 +81,6 @@ public class PlayerControl : MonoBehaviour
 	private InputManager inputManager;
    // public Animator stressAnimation;
 
-	/// <summary>
-	/// Blink (video feedback onDamage)
-	/// </summary>
-	public Color toEmissionColor;
-	public float blinkColorTime = 2;
-
     /// <summary>
     /// weapon
     /// </summary>
@@ -99,6 +93,10 @@ public class PlayerControl : MonoBehaviour
 	public GameObject bloodPrefab;
 	public float bloodDuration;
 
+	/// <summary>
+	/// The ability.
+	/// </summary>
+	public Abilities ability;
 
 	/// <summary>
 	/// Awake this instance.
@@ -119,7 +117,7 @@ public class PlayerControl : MonoBehaviour
 	void Start ()
 	{
         timerToShoot = weapon.ratioOfFire;
-
+		InitAbility (ability);
         inputManager = new InputManager (playerId, transform, angleCorrection);
 		if (inputManager.HasMouse ()) {
 			Cursor.SetCursor (crosshairCursor, cursorHotSpot, CursorMode.Auto);
@@ -285,6 +283,7 @@ public class PlayerControl : MonoBehaviour
 		isObstacle = ObstacleChecking (moveVector);
 		if (inputManager.Dash ()) {
 			if (!isObstacle && !isDashing && dashTime <= Time.time - dashRecordedTime) {
+				ability.OnAbilityActivation ();
 				StartCoroutine (Dashing (moveVector));
 
 			}
@@ -338,6 +337,17 @@ public class PlayerControl : MonoBehaviour
 		GameManager.instance.CheckRespawnPlayers ();
 		isDashing = false;
 		dashRecordedTime = Time.time;
+	}
+
+	/// <summary>
+	/// Inits the ability.
+	/// </summary>
+	/// <param name="ability">Ability.</param>
+	private void InitAbility(Abilities ability){
+		if (ability != null) {
+			ability.SetPlayer (gameObject);
+		}
+
 	}
 
 	/// <summary>

@@ -14,14 +14,14 @@ public class DefaultBulletManager : MonoBehaviour {
 		Components ();
 	}
 
+	void FixedUpdate(){
+		DefaultMovement ();
+	}
+
 	void OnTriggerEnter(Collider other){
 		if (other.gameObject.tag.Equals ("Wall")) {
 			Trigger ();
 		}
-	}
-
-	void FixedUpdate(){
-		DefaultMovement ();
 	}
 
 

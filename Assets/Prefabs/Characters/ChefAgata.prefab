@@ -102,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013450537652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.4497579, y: -1.3066039e-17, z: 1.765326}
+  m_LocalPosition: {x: -4.630723, y: 0.010030329, z: -0.17312896}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 4514474677090032}
@@ -117,7 +117,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1542993880108958}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.043, y: 0.34, z: 1.16}
+  m_LocalPosition: {x: -0.043, y: 0.23, z: 0.542}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4514474677090032}
@@ -301,6 +301,8 @@ MonoBehaviour:
     type: 2}
   bloodDuration: 5
   ability: {fileID: 11400000, guid: e84212acc06524e42ae30dc6d3af3560, type: 2}
+  isImmortal: 0
+  immortalTime: 0.5
 --- !u!114 &114491211425500852
 MonoBehaviour:
   m_ObjectHideFlags: 1

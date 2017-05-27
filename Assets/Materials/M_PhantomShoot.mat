@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: M_WarpStreak
-  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 1
-  m_CustomRenderQueue: -1
+  m_Name: M_PhantomShoot
+  m_Shader: {fileID: 4800000, guid: eeae1f85fcecc9b4a81ebca510428844, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -48,7 +48,7 @@ Material:
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: bab07bea0290bee4483411ee80c7a87f, type: 3}
+        m_Texture: {fileID: 2800000, guid: bb0cae31eec296d4c950584b24d07a1d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -83,17 +83,14 @@ Material:
         name: _DstBlend
       second: 0
     - first:
-        name: _GlossMapScale
-      second: 1
-    - first:
         name: _Glossiness
       second: 0.5
     - first:
-        name: _GlossyReflections
-      second: 1
+        name: _HighlightThresholdMax
+      second: 0.12
     - first:
         name: _InvFade
-      second: 1
+      second: 0.1
     - first:
         name: _Metallic
       second: 0
@@ -107,12 +104,6 @@ Material:
         name: _Parallax
       second: 0.02
     - first:
-        name: _SmoothnessTextureChannel
-      second: 0
-    - first:
-        name: _SpecularHighlights
-      second: 1
-    - first:
         name: _SrcBlend
       second: 1
     - first:
@@ -121,6 +112,30 @@ Material:
     - first:
         name: _ZWrite
       second: 1
+    - first:
+        name: _alphaCutoffThreshold
+      second: -0.25
+    - first:
+        name: _cutoutThreshold
+      second: 0.609
+    - first:
+        name: _edgeThreshold
+      second: 0.5
+    - first:
+        name: _fadee
+      second: 10.4
+    - first:
+        name: _highlightColourStrength
+      second: 1.5
+    - first:
+        name: _highlightEdgeThreshold
+      second: 8
+    - first:
+        name: _highlightThresholdMax
+      second: 1
+    - first:
+        name: _textureBased
+      second: 0
     m_Colors:
     - first:
         name: _Color
@@ -129,5 +144,26 @@ Material:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
+        name: _HighlightColor
+      second: {r: 1, g: 0, b: 0, a: 0.5}
+    - first:
+        name: _HighlightColour
+      second: {r: 1, g: 0, b: 0, a: 0.5}
+    - first:
+        name: _RegularColor
+      second: {r: 0, g: 0, b: 0, a: 0}
+    - first:
+        name: _RegularColour
+      second: {r: 0, g: 0, b: 0, a: 0.5}
+    - first:
         name: _TintColor
       second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _highlightColour
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _intersectionColour
+      second: {r: 1, g: 1, b: 1, a: 0.5}
+    - first:
+        name: _regularColour
+      second: {r: 1, g: 1, b: 1, a: 0.5}

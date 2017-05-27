@@ -84,7 +84,7 @@ public class UIControllerInputManager : MonoBehaviour
         {
             if (players[playerID].GetAxis("Move horizontal") < -0.2f)
             {
-                Debug.Log("SSSSSS");
+                //Debug.Log("SSSSSS");
                 if (buttonIndex <= 0)
                 {
                     buttonIndex = buttons.Length - 1;

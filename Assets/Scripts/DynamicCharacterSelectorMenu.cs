@@ -76,7 +76,7 @@ public class DynamicCharacterSelectorManager : MonoBehaviour
     /// <summary>
     /// The instance of ChacaterSelectorManager.
     /// </summary>
-    public static CharacterSelectorManager instance;
+    public static DynamicCharacterSelectorManager instance;
 
     private void Awake()
     {

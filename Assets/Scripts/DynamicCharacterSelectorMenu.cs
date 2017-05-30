@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using Rewired;
 
-public class CharacterSelectorManager : MonoBehaviour
+public class DynamicCharacterSelectorManager : MonoBehaviour
 {
     /// <summary>
     /// They are needed to slowly switch between button.
     /// </summary>
     private bool[] canSelect;
+
+    private bool[] hasJoined;
     /// <summary>
     /// the maximum number of possible players.
     /// </summary>
@@ -25,6 +28,8 @@ public class CharacterSelectorManager : MonoBehaviour
     /// The indexes needed to switch between grannies. One for each player.
     /// </summary>
     public int[] indexes;
+
+    int?[] orderID;
     //public int[] ids;
     /// <summary>
     /// Name of the net scene.
@@ -66,6 +71,8 @@ public class CharacterSelectorManager : MonoBehaviour
     /// All the players.
     /// </summary>
     public Player[] players;
+
+    private IList<Player> playersInOrder = new List<Player>();
     /// <summary>
     /// The instance of ChacaterSelectorManager.
     /// </summary>
@@ -76,23 +83,18 @@ public class CharacterSelectorManager : MonoBehaviour
         instance = this;
         //DontDestroyOnLoad(gameObject);
         mySceneContr = new SceneController();
+        ReInput.ControllerConnectedEvent += OnControllerConnectedEvent;
     }
 
     private void Start()
     {
-        numberOfPlayers = Configuration.instance.GetNumberOfPlayers();
-        Debug.Log(numberOfPlayers);
-        indexes = new int[numberOfPlayers];
+        //numberOfPlayers = Configuration.instance.GetNumberOfPlayers();
+        //Debug.Log(numberOfPlayers);
+        RefreshNumberOfPlayers();
+        SetVariables();
         //ids = new int[numberOfPlayers];
         //ids = ReInput.players.GetPlayerIds();
-        selectedGrannies = new GameObject[numberOfPlayers];
         SelectorsActivation();
-        players = new Player[numberOfPlayers];
-        canSelect = new bool[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++)
-        {
-            players[i] = ReInput.players.GetPlayer(i);
-        }
     }
 
     private void Update()
@@ -101,6 +103,41 @@ public class CharacterSelectorManager : MonoBehaviour
         PressControllerButton();
         StartMatch();
     }
+
+    private void OnControllerConnectedEvent(ControllerStatusChangedEventArgs args)
+    {
+        RefreshNumberOfPlayers();
+        SelectorsActivation();
+    }
+
+    private void SetVariables()
+    {
+        indexes = new int[maxNumberOfPlayers];
+        hasJoined = new bool[maxNumberOfPlayers];
+        orderID = new int?[maxNumberOfPlayers];
+        for (int i = 0; i < orderID.Length; i++)
+        {
+            orderID[i] = null;
+        }
+        selectedGrannies = new GameObject[maxNumberOfPlayers];
+        canSelect = new bool[maxNumberOfPlayers];
+    }
+
+    private void RefreshNumberOfPlayers()
+    {
+        numberOfPlayers = ReInput.controllers.joystickCount;
+        players = new Player[maxNumberOfPlayers];
+        for (int i = 0; i < numberOfPlayers; i++)
+        {
+            players[i] = ReInput.players.GetPlayer(i);
+        }
+        //Configuration.instance.SetNumberOfPlayers(numberOfPlayers);
+    }
+
+    //private void OnControllerConnectedEvent(ControllerStatusChangedEventArgs args)
+    //{
+    //    numberOfPlayers++;
+    //}
 
     private void SelectorsActivation()
     {
@@ -158,7 +195,7 @@ public class CharacterSelectorManager : MonoBehaviour
         //int id = int.Parse(button.transform.parent.tag);
         for (int id = 0; id < numberOfPlayers; id++)
         {
-            if (canSelect[id])
+            if (hasJoined[id] && canSelect[id])
             {
                 if (players[id].GetAxis("Move horizontal") < -0.2f)
                 {
@@ -184,8 +221,10 @@ public class CharacterSelectorManager : MonoBehaviour
                 }
                 canSelect[id] = false;
                 //Debug.Log(indexes[id]);
-                centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
-                playersLabels[id].text = granniesNames[indexes[id]];
+                int orderIDint = (int)orderID[id];
+                centrals[orderIDint].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
+                playersLabels[orderIDint].text = granniesNames[indexes[id]];
+                //selectedGrannies[]
             }
 
             if (!canSelect[id])
@@ -203,13 +242,41 @@ public class CharacterSelectorManager : MonoBehaviour
 
     void PressControllerButton()
     {
-        for (int id = 0; id < numberOfPlayers; id++)
+        for (int id = 0; id < maxNumberOfPlayers; id++)
         {
-            if (players[id].GetButtonDown("Cross"))
+            if (players[id] != null)
             {
-                centrals[id].SetState(UIButtonColor.State.Pressed, true);
-                selectedGrannies[id] = grannies[indexes[id]];
-                centrals[id].SetState(UIButtonColor.State.Normal, false);
+                if (players[id].GetButtonDown("Cross"))
+                {
+                    Debug.Log(hasJoined[id]);
+                    if (hasJoined[id])
+                    {
+                        int orderIDint = (int)orderID[id];
+                        centrals[orderIDint].SetState(UIButtonColor.State.Pressed, true);
+                        selectedGrannies[id] = grannies[indexes[id]];
+                        centrals[orderIDint].SetState(UIButtonColor.State.Normal, false);
+                    }
+                    else
+                    {
+
+                        Debug.Log("PASS2");
+                        //numberOfPlayers++;
+                        playersInOrder.Add(players[id]);
+                        if (orderID[id] == null)
+                        {
+                            for (int i = 0; i < playersInOrder.Count; i++)
+                            {
+                                if (players[id] == playersInOrder[i])
+                                {
+                                    orderID[id] = i;
+                                }
+                            }
+                        }
+                        //numberOfPlayers++;
+                        //RefreshNumberOfPlayers();
+                        hasJoined[id] = true;
+                    }
+                }
             }
         }
     }
@@ -238,12 +305,15 @@ public class CharacterSelectorManager : MonoBehaviour
     {
         foreach (Player player in players)
         {
-            if (player.GetButtonDown("Start"))
+            if (player != null)
             {
-                for (int i = 0; i < startButton.onClick.Count; i++)
+                if (player.GetButtonDown("Start"))
                 {
-                    startButton.SetState(UIButtonColor.State.Pressed, true);
-                    startButton.onClick[i].Execute();
+                    for (int i = 0; i < startButton.onClick.Count; i++)
+                    {
+                        startButton.SetState(UIButtonColor.State.Pressed, true);
+                        startButton.onClick[i].Execute();
+                    }
                 }
             }
         }

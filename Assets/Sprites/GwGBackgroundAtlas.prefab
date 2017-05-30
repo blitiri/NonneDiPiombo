@@ -54,10 +54,23 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 09b60c87f88a04bb6ba66c8ecff2fa68, type: 2}
   mSprites:
   - name: BackgroundArenaSelection
-    x: 0
+    x: 2053
     y: 3014
     width: 1930
     height: 1082
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: BackgroundBlack
+    x: 2053
+    y: 3008
+    width: 1
+    height: 1
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -67,8 +80,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: BackgroundEmptyBook
-    x: 1935
-    y: 3014
+    x: 0
+    y: 1862
     width: 1930
     height: 1082
     borderLeft: 0
@@ -79,9 +92,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: BackgroundMenu
+  - name: BackgroundEnding
     x: 0
-    y: 842
+    y: 2949
+    width: 2048
+    height: 1147
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: BackgroundMenu
+    x: 1935
+    y: 1864
     width: 1920
     height: 1080
     borderLeft: 0
@@ -94,7 +120,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: BackgroundPlayerSelection
     x: 0
-    y: 1927
+    y: 775
     width: 1930
     height: 1082
     borderLeft: 0
@@ -106,8 +132,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: BackgroundPopup
-    x: 0
-    y: 17
+    x: 1935
+    y: 1039
     width: 615
     height: 820
     borderLeft: 0

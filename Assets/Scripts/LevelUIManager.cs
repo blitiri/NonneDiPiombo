@@ -119,4 +119,26 @@ public class LevelUIManager : AbstractUIManager
 			playersInfos [playerIndex].enabled = false;
 		}
 	}
+
+	/// <summary>
+	/// Clicking on resume button
+	/// </summary>
+	public void OnClickResumeButton ()
+	{
+		GameManager.instance.ResumePlay ();
+	}
+
+	/// <summary>
+	/// Clicking on restart button
+	/// </summary>
+	public void OnClickRestartButton() {
+		SceneController.instance.LoadActiveScene ();
+	}
+
+	/// <summary>
+	/// Clicking on quit button
+	/// </summary>
+	public void OnClickQuitButton() {
+		SceneController.instance.OnClickQuitButton ();
+	}
 }

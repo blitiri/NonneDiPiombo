@@ -232,10 +232,9 @@ public class GameManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Clicking on Pause button
+	/// Resumes the play.
 	/// </summary>
-	public void OnClickPauseButton ()
-	{
+	public void ResumePlay() {
 		isPaused = false;
 		Destroy (pauseScreen.GetComponent<TweenAlpha> ());
 		SetButtonsEnabled (false);

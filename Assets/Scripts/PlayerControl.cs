@@ -147,9 +147,6 @@ public class PlayerControl : MonoBehaviour
 				timerToShoot += Time.deltaTime;
 			}
 			else if (inputManager.Shoot ()) {
-				/*if (timerToShoot < weapon.ratioOfFire) {
-					timerToShoot += Time.deltaTime;
-				} else {*/
 					weapon.Shoot (this.gameObject.tag);
 					UpdateUI ();
 				    timerToShoot = 0.0f;
@@ -291,13 +288,12 @@ public class PlayerControl : MonoBehaviour
 	private void DashManaging ()
 	{
 		float timer = 5.0f;
-		//Debug.Log (moveVector.magnitude);
 		ObstacleChecking (moveVector);
 		isObstacle = ObstacleChecking (moveVector);
 		if (inputManager.Dash ()) {
 			if (!isObstacle && !isDashing && dashTime <= Time.time - dashRecordedTime) {
 				StartCoroutine (Dashing (moveVector));
-				StartCoroutine("Abilit",timer);
+				StartCoroutine("Ability",timer);
 			}
 		}
 	}
@@ -361,7 +357,7 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
-	IEnumerator Abilit(float timer)
+	IEnumerator Ability(float timer)
 	{
 		ability.OnAbilityActivation ();
 		yield return new WaitForSeconds (timer);

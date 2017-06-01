@@ -5,7 +5,7 @@ using UnityEngine;
 public class CatMine : MonoBehaviour 
 {
 	private TweenColor tweenColor;
-	private SphereCollider collider;
+	private SphereCollider colliderCat;
 	private MeshRenderer mesh;
 	public GameObject explosionParticle;
 	public float timerToExplode=5.0f;
@@ -15,7 +15,7 @@ public class CatMine : MonoBehaviour
 	void Awake () 
 	{
 		tweenColor = GetComponent<TweenColor> ();
-		collider = GetComponent<SphereCollider> ();
+		colliderCat = GetComponent<SphereCollider> ();
 		mesh = GetComponent<MeshRenderer> ();
 	}
 
@@ -28,11 +28,11 @@ public class CatMine : MonoBehaviour
 	{
 		tweenColor.enabled=true;
 		yield return new WaitForSeconds (timerToExplode);
-		this.collider.radius = radiusOfCollider;
+		colliderCat.radius = radiusOfCollider;
 		mesh.enabled = false;
 		explosionParticle.SetActive(true);
-		Destroy (this.gameObject,2.0f);
+        colliderCat.enabled = true;
+        Destroy (this.gameObject,2.0f);
 	}
-
 
 }

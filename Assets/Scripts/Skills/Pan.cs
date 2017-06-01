@@ -4,11 +4,24 @@ using UnityEngine;
 
 public class Pan : MonoBehaviour 
 {
-	public Animation panAnimation;
-
-	// Use this for initialization
-	void Start () 
+    public GameObject player;
+    public float lifeTime = 1.0f;
+    public float speedRotation = 20.0f;
+    private float timer=0.0f;
+	
+	void Update () 
 	{
-		panAnimation.Play ();
+        if(timer<lifeTime)
+        {
+            transform.RotateAround(player.transform.position, player.transform.up, speedRotation);
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+            timer = 0.0f;
+        }
+        
 	}
+
 }

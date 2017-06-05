@@ -8,6 +8,7 @@ public class Pan : MonoBehaviour
     public float lifeTime = 1.0f;
     public float speedRotation = 20.0f;
     private float timer=0.0f;
+    public float reflectionSpeed;
 	
 	void Update () 
 	{
@@ -23,5 +24,4 @@ public class Pan : MonoBehaviour
         }
         
 	}
-
 }

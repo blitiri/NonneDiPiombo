@@ -21,6 +21,13 @@ public class DefaultBulletManager : MonoBehaviour {
 		if (other.gameObject.tag.Equals ("Wall") || other.gameObject.tag.StartsWith("Player") || other.gameObject.tag.Equals("LevelWall")) {
 			Trigger ();
 		}
+        else if(other.gameObject.tag=="Pan")
+        {
+            Debug.Log("kappa");
+
+            transform.up = -transform.up;
+            bulletRb.velocity = -bulletRb.velocity*(bulletSpeed/2);
+        }
 	}
 
 

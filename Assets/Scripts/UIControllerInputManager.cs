@@ -64,7 +64,7 @@ public class UIControllerInputManager : MonoBehaviour
         UpdateSelectedButtons();
         PressSelectedButton();
         if (startButton != null && playerID == 0)
-            StartMatch();
+            PressStartButton();
     }
 
     void AssignPlayers()
@@ -156,7 +156,7 @@ public class UIControllerInputManager : MonoBehaviour
         }
     }
 
-    void StartMatch()
+    void PressStartButton()
     {
         if (players[playerID].GetButtonDown("Start"))
         {

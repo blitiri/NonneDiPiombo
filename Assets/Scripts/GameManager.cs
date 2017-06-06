@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 	public GameObject pauseButton;
 	public GameObject restartButton;
 	public GameObject quitButton;
+    public GameObject pauseMenu;
 
 	// array di transform per il respawn dei player
 	public Transform[] playersRespawns;
@@ -187,16 +188,21 @@ public class GameManager : MonoBehaviour
 
 	private void SetButtonsEnabled (bool enabled)
 	{
-		pauseScreen.GetComponent<UISprite> ().enabled = enabled;
-		pauseButton.GetComponent<BoxCollider> ().enabled = enabled;
-		pauseButton.GetComponent<UISprite> ().enabled = enabled;
-		pauseButton.GetComponentInChildren<UILabel> ().enabled = enabled;
-		restartButtonBoxCollider.enabled = enabled;
-		restartButtonUISprite.enabled = enabled;
-		restartButtonUILabel.enabled = enabled;
-		quitButton.GetComponent<BoxCollider> ().enabled = enabled;
-		quitButton.GetComponent<UISprite> ().enabled = enabled;
-		quitButton.GetComponentInChildren<UILabel> ().enabled = enabled;
+        pauseMenu.SetActive(enabled);
+        //pauseScreen.SetActive(enabled);
+        //pauseButton.SetActive(enabled);
+        //restartButton.SetActive(enabled);
+        //quitButton.SetActive(enabled);
+		//pauseScreen.GetComponent<UISprite> ().enabled = enabled;
+		//pauseButton.GetComponent<BoxCollider> ().enabled = enabled;
+		//pauseButton.GetComponent<UISprite> ().enabled = enabled;
+		//pauseButton.GetComponentInChildren<UILabel> ().enabled = enabled;
+		//restartButtonBoxCollider.enabled = enabled;
+		//restartButtonUISprite.enabled = enabled;
+		//restartButtonUILabel.enabled = enabled;
+		//quitButton.GetComponent<BoxCollider> ().enabled = enabled;
+		//quitButton.GetComponent<UISprite> ().enabled = enabled;
+		//quitButton.GetComponentInChildren<UILabel> ().enabled = enabled;
 	}
 
 	/// <summary>

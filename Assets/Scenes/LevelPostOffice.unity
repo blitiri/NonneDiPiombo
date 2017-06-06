@@ -1176,7 +1176,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3003
+  startingRenderQueue: 3001
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -2658,7 +2658,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3005
+  startingRenderQueue: 3003
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -3178,7 +3178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &843766374
 Transform:
   m_ObjectHideFlags: 0
@@ -3210,9 +3210,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 0
   buttons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2132546440}
+  - {fileID: 2025241879}
+  - {fileID: 1339497046}
 --- !u!1001 &844993427
 Prefab:
   m_ObjectHideFlags: 0
@@ -3231,7 +3231,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4056098973610876, guid: 3780461d746364c7693e935d8551c36d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -310
+      value: -311
       objectReference: {fileID: 0}
     - target: {fileID: 4056098973610876, guid: 3780461d746364c7693e935d8551c36d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3270,6 +3270,16 @@ Prefab:
         type: 2}
       propertyPath: onClick.Array.data[0].mMethodName
       value: OnClickQuitButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
+        type: 2}
+      propertyPath: mAtlas
+      value: 
+      objectReference: {fileID: 114920223871223468, guid: 5126f01a299d14817bce003a2a3154ef,
+        type: 2}
+    - target: {fileID: 1610761202224866, guid: 3780461d746364c7693e935d8551c36d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3780461d746364c7693e935d8551c36d, type: 2}
@@ -3481,7 +3491,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3007
+  startingRenderQueue: 3005
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -4617,7 +4627,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4056098973610876, guid: 3780461d746364c7693e935d8551c36d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 274
       objectReference: {fileID: 0}
     - target: {fileID: 4056098973610876, guid: 3780461d746364c7693e935d8551c36d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4686,11 +4696,11 @@ Prefab:
         type: 2}
       propertyPath: leftAnchor.target
       value: 
-      objectReference: {fileID: 1121990879}
+      objectReference: {fileID: 0}
     - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
         type: 2}
       propertyPath: leftAnchor.relative
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
         type: 2}
@@ -4701,11 +4711,11 @@ Prefab:
         type: 2}
       propertyPath: rightAnchor.target
       value: 
-      objectReference: {fileID: 1121990879}
+      objectReference: {fileID: 0}
     - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
         type: 2}
       propertyPath: rightAnchor.relative
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
         type: 2}
@@ -4716,7 +4726,7 @@ Prefab:
         type: 2}
       propertyPath: bottomAnchor.target
       value: 
-      objectReference: {fileID: 1121990879}
+      objectReference: {fileID: 0}
     - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
         type: 2}
       propertyPath: bottomAnchor.absolute
@@ -4726,11 +4736,11 @@ Prefab:
         type: 2}
       propertyPath: topAnchor.target
       value: 
-      objectReference: {fileID: 1121990879}
+      objectReference: {fileID: 0}
     - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
         type: 2}
       propertyPath: topAnchor.relative
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
         type: 2}
@@ -4760,7 +4770,22 @@ Prefab:
     - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
         type: 2}
       propertyPath: bottomAnchor.relative
-      value: 0.5
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
+        type: 2}
+      propertyPath: mAtlas
+      value: 
+      objectReference: {fileID: 114920223871223468, guid: 5126f01a299d14817bce003a2a3154ef,
+        type: 2}
+    - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
+        type: 2}
+      propertyPath: mSpriteName
+      value: StartButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610761202224866, guid: 3780461d746364c7693e935d8551c36d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3780461d746364c7693e935d8551c36d, type: 2}
@@ -5521,7 +5546,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3009
+  startingRenderQueue: 3007
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -5859,6 +5884,17 @@ MonoBehaviour:
   mAtlas: {fileID: 114958480739442036, guid: 2dc41a377201847e4b602114c9615e4b, type: 2}
   mSpriteName: PlayerIconBackground
   mFillCenter: 1
+--- !u!1 &1339497042 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1610761202224866, guid: 3780461d746364c7693e935d8551c36d,
+    type: 2}
+  m_PrefabInternal: {fileID: 844993427}
+--- !u!114 &1339497046 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114794090854080458, guid: 3780461d746364c7693e935d8551c36d,
+    type: 2}
+  m_PrefabInternal: {fileID: 844993427}
+  m_Script: {fileID: 11500000, guid: 1fdca5042b1d12a4890ec1bd4f04290d, type: 3}
 --- !u!1001 &1344476480
 Prefab:
   m_ObjectHideFlags: 0
@@ -6181,7 +6217,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.975
+  aspectRatio: 1.7777778
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -8166,17 +8202,17 @@ Prefab:
         type: 2}
       propertyPath: pauseButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2132546436}
     - target: {fileID: 114000014206299072, guid: 7adf6cab5a90b544a873bae1b9a9089c,
         type: 2}
       propertyPath: restartButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2025241875}
     - target: {fileID: 114000014206299072, guid: 7adf6cab5a90b544a873bae1b9a9089c,
         type: 2}
       propertyPath: quitButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1339497042}
     - target: {fileID: 114000014206299072, guid: 7adf6cab5a90b544a873bae1b9a9089c,
         type: 2}
       propertyPath: playersRespawns.Array.data[0]
@@ -8277,6 +8313,11 @@ Prefab:
       propertyPath: playersRespawns.Array.data[15]
       value: 
       objectReference: {fileID: 80606723}
+    - target: {fileID: 114000014206299072, guid: 7adf6cab5a90b544a873bae1b9a9089c,
+        type: 2}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 843766373}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7adf6cab5a90b544a873bae1b9a9089c, type: 2}
   m_IsPrefabParent: 0
@@ -8586,7 +8627,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4056098973610876, guid: 3780461d746364c7693e935d8551c36d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -619.69
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4056098973610876, guid: 3780461d746364c7693e935d8551c36d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -8647,6 +8688,21 @@ Prefab:
         type: 2}
       propertyPath: onClick.Array.data[0].mMethodName
       value: OnClickRestartButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
+        type: 2}
+      propertyPath: mAtlas
+      value: 
+      objectReference: {fileID: 114920223871223468, guid: 5126f01a299d14817bce003a2a3154ef,
+        type: 2}
+    - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
+        type: 2}
+      propertyPath: mSpriteName
+      value: RestartButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610761202224866, guid: 3780461d746364c7693e935d8551c36d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3780461d746364c7693e935d8551c36d, type: 2}
@@ -8983,6 +9039,17 @@ Transform:
   m_Father: {fileID: 392803992}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2025241875 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1610761202224866, guid: 3780461d746364c7693e935d8551c36d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1980071343}
+--- !u!114 &2025241879 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114794090854080458, guid: 3780461d746364c7693e935d8551c36d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1980071343}
+  m_Script: {fileID: 11500000, guid: 1fdca5042b1d12a4890ec1bd4f04290d, type: 3}
 --- !u!1001 &2041720433
 Prefab:
   m_ObjectHideFlags: 0
@@ -9123,6 +9190,17 @@ Transform:
   m_Father: {fileID: 1647467642}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2132546436 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1610761202224866, guid: 3780461d746364c7693e935d8551c36d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1161760821}
+--- !u!114 &2132546440 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114794090854080458, guid: 3780461d746364c7693e935d8551c36d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1161760821}
+  m_Script: {fileID: 11500000, guid: 1fdca5042b1d12a4890ec1bd4f04290d, type: 3}
 --- !u!1001 &2144419310
 Prefab:
   m_ObjectHideFlags: 0

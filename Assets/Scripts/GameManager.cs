@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 	/// </summary>
 	public static GameManager instance;
 
-	private bool isPaused = false;
+	public bool isPaused = false;
 	public float timerToSpawn = 5.0f;
 	private float timerPostManSpawn;
 	public float maxTimerBeforeRespawn = 1.0f;
@@ -52,13 +52,19 @@ public class GameManager : MonoBehaviour
 		LevelUIManager.instance.InitUI ();
 	}
 
-	// Update is called once per frame
-	void Update ()
-	{
-		//CheckRespawnPlayers ();
-		CheckGamePause ();
-		TimerUpdate ();
-	}
+    // Update is called once per frame
+    void Update()
+    {
+        //CheckRespawnPlayers ();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CheckGamePause();
+        }
+        if (!isPaused)
+        {
+            TimerUpdate();
+        }
+    }
 
 	private void InitPlayers ()
 	{
@@ -208,23 +214,22 @@ public class GameManager : MonoBehaviour
 	/// <summary>
 	/// Pause is on/off
 	/// </summary>
-	private void CheckGamePause ()
+	public void CheckGamePause ()
 	{
-		if (isPaused) {
-			if (Input.GetKeyDown (KeyCode.Escape)) {
-				isPaused = false;
-				Destroy (pauseScreen.GetComponent<TweenAlpha> ());
-				SetButtonsEnabled (false);
-			}
-			Time.timeScale = 0;
-		} else {
-			if (Input.GetKeyDown (KeyCode.Escape)) {
-				isPaused = true;
-				AddTween ();
-				SetButtonsEnabled (true);
-			}
-			Time.timeScale = 1;
-		}
+        if (isPaused)
+        {
+            isPaused = false;
+            Destroy(pauseScreen.GetComponent<TweenAlpha>());
+            SetButtonsEnabled(false);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            isPaused = true;
+            AddTween();
+            SetButtonsEnabled(true);
+            Time.timeScale = 1;
+        }
 	}
 
 	/// <summary>

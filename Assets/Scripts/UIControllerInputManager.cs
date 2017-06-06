@@ -63,7 +63,8 @@ public class UIControllerInputManager : MonoBehaviour
     {
         UpdateSelectedButtons();
         PressSelectedButton();
-        if (startButton != null && playerID == 0)
+        if (playerID == 0)
+            Debug.Log("MINCHIA");
             PressStartButton();
     }
 
@@ -160,10 +161,21 @@ public class UIControllerInputManager : MonoBehaviour
     {
         if (players[playerID].GetButtonDown("Start"))
         {
-            for (int i = 0; i < startButton.onClick.Count; i++)
+            Debug.Log("Merda");
+            if (startButton != null)
             {
-                startButton.SetState(UIButtonColor.State.Pressed, true);
-                startButton.onClick[i].Execute();
+                for (int i = 0; i < startButton.onClick.Count; i++)
+                {
+                    startButton.SetState(UIButtonColor.State.Pressed, true);
+                    startButton.onClick[i].Execute();
+                }
+            }
+            else
+            {
+                if (GameManager.instance != null)
+                {
+                    GameManager.instance.CheckGamePause();
+                }
             }
         }
     }

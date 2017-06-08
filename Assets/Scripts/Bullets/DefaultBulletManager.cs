@@ -18,13 +18,11 @@ public class DefaultBulletManager : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (other.gameObject.tag.Equals ("Wall") || other.gameObject.tag.StartsWith("Player") || other.gameObject.tag.Equals("LevelWall")) {
+		if (other.gameObject.tag.Equals ("Wall") || other.gameObject.tag.StartsWith("Player") || other.gameObject.tag.Equals("LevelWall") || other.gameObject.tag == "Cross") {
 			Trigger ();
 		}
-        else if(other.gameObject.tag=="Pan")
+        else if(other.gameObject.tag == "Pan")
         {
-            Debug.Log("kappa");
-
             transform.up = -transform.up;
             bulletRb.velocity = -bulletRb.velocity*(bulletSpeed/2);
         }

@@ -64,7 +64,7 @@ public class UIControllerInputManager : MonoBehaviour
         UpdateSelectedButtons();
         PressSelectedButton();
         if (playerID == 0)
-            Debug.Log("MINCHIA");
+            //Debug.Log("MINCHIA");
             PressStartButton();
     }
 

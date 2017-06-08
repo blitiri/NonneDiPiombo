@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 114000012170572144}
   - component: {fileID: 95529540440359810}
   - component: {fileID: 114491211425500852}
-  - component: {fileID: 135693889627067948}
   m_Layer: 0
   m_Name: ChefAgata
   m_TagString: ChefAgata
@@ -416,7 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c0786775df68504bb03afa100f5fa78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 1000013450537652}
   lifeTime: 1
   speedRotation: 20
 --- !u!114 &114491211425500852
@@ -467,18 +466,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.41
   m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &135693889627067948
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013450537652}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.39
-  m_Center: {x: 0.0037524998, y: 0.8151905, z: -0.13639742}
 --- !u!212 &212000010470281956
 SpriteRenderer:
   m_ObjectHideFlags: 1

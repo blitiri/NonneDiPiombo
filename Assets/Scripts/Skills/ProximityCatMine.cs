@@ -5,11 +5,16 @@ using UnityEngine;
 public class ProximityCatMine : Abilities {
 
 	public GameObject catPrefab;
+    public int maxCatNumber = 3;
 
 
 	public override void OnAbilityActivation ()
 	{
-		GameObject cat = Instantiate (catPrefab,player.transform.position,Quaternion.identity)as GameObject;
-        cat.tag = "Bullet" + player.tag;
+        if(GameManager.instance.catCounter!= maxCatNumber)
+        {
+            GameObject cat = Instantiate(catPrefab, player.transform.position, Quaternion.identity) as GameObject;
+            cat.tag = "Bullet" + player.tag;
+            GameManager.instance.catCounter++;
+        }
 	}
 }

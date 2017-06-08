@@ -7,8 +7,12 @@ public class GameManager : MonoBehaviour
 	/// GameManager instance.
 	/// </summary>
 	public static GameManager instance;
+    /// <summary>
+    /// Skill Counter.
+    /// </summary>
+    public int catCounter;
 
-	public bool isPaused = false;
+    public bool isPaused = false;
 	public float timerToSpawn = 5.0f;
 	private float timerPostManSpawn;
 	public float maxTimerBeforeRespawn = 1.0f;

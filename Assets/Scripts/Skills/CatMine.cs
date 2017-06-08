@@ -32,6 +32,7 @@ public class CatMine : MonoBehaviour
 		mesh.enabled = false;
 		explosionParticle.SetActive(true);
         colliderCat.enabled = true;
+        GameManager.instance.catCounter--;
         Destroy (this.gameObject,2.0f);
 	}
 

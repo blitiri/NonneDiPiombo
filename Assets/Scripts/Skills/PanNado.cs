@@ -7,6 +7,6 @@ public class PanNado : Abilities {
 
 	public override void OnAbilityActivation ()
 	{
-        player.transform.FindChild("Pan").gameObject.SetActive(true);
+        player.transform.GetChild(1).gameObject.SetActive(true);
 	}
 }

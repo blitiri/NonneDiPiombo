@@ -19,6 +19,7 @@ public class Shield : MonoBehaviour {
         else
         {
             this.gameObject.SetActive(false);
+            player.GetComponent<PlayerControl>().isImmortal = false;
             timer = 0.0f;
         }
 

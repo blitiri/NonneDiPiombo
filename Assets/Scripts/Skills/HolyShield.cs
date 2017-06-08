@@ -8,6 +8,7 @@ public class HolyShield : Abilities {
 
     public override void OnAbilityActivation()
     {
-        player.transform.FindChild("Cross").gameObject.SetActive(true);
+        player.transform.GetChild(1).gameObject.SetActive(true);
+        player.GetComponent<PlayerControl>().isImmortal = true;
     }
 }

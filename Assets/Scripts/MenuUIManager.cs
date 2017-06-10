@@ -27,6 +27,23 @@ public class MenuUIManager : AbstractUIManager
 	/// The credits window.
 	/// </summary>
 	public UIPanel creditsWindow;
+	/// <summary>
+	/// Default screen width
+	/// </summary>
+	private int defWidth;
+	/// <summary>
+	/// Default screen height
+	/// </summary>
+	private int defHeight;
+
+	/// <summary>
+	/// Awake the script.
+	/// </summary>
+	void Awake ()
+	{
+		defWidth = Screen.width; 
+		defHeight = Screen.height; 
+	}
 
 	/// <summary>
 	/// Start the script.
@@ -79,6 +96,7 @@ public class MenuUIManager : AbstractUIManager
 	public void OnFullscreen ()
 	{
 		checkedSprite.enabled = !checkedSprite.enabled;
+		SetFullScreen (checkedSprite.enabled);
 	}
 
 	/// <summary>
@@ -93,6 +111,20 @@ public class MenuUIManager : AbstractUIManager
 			Configuration.instance.SetSoundVolume (volumeSlider.value); 
 			Debug.Log ("Close - Fullscreen: " + Configuration.instance.IsFullScreen ());
 			Debug.Log ("Close - Sound volume: " + Configuration.instance.GetSoundVolume ());
+		}
+	}
+
+	/// <summary>
+	/// Sets the full screen.
+	/// </summary>
+	/// <param name="fullScreen">If set to <c>true</c> full screen.</param>
+	private void SetFullScreen (bool fullScreen)
+	{
+		Screen.fullScreen = fullScreen;
+		if (fullScreen) {
+			Screen.SetResolution (Screen.currentResolution.width, Screen.currentResolution.height, true);
+		} else {
+			Screen.SetResolution (defWidth, defHeight, false);
 		}
 	}
 }

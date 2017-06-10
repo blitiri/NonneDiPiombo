@@ -12,9 +12,9 @@ public class EndingUIManager : AbstractUIManager
 	/// </summary>
 	public GameObject[] playersRankingPositions;
 	/// <summary>
-	/// Scene to load on restart click.
+	/// The menu window.
 	/// </summary>
-	public string restartSceneName = "CharacterSelectionMenu";
+	public GameObject menuWindow;
 
 	/// <summary>
 	/// Start the script.
@@ -38,8 +38,8 @@ public class EndingUIManager : AbstractUIManager
 		UISprite winnerIcon;
 		int playerIndex;
 		int position;
-		string s;
 
+		menuWindow.SetActive (false);
 		ranking = Statistics.instance.GetRanking ();
 		for (playerIndex = 0, position = 0; playerIndex < ranking.Length; playerIndex++) {
 			if ((playerIndex == 0) || (ranking [playerIndex].GetScore () != ranking [playerIndex - 1].GetScore ())) {
@@ -48,7 +48,7 @@ public class EndingUIManager : AbstractUIManager
 			playerRankingPosition = playersRankingPositions [playerIndex];
 			playerRankingPosition.SetActive (true);
 			backgroundPlayerIcon = playerRankingPosition.GetComponent<UISprite> ();
-			backgroundPlayerIcon.color = Configuration.instance.playersColors [playerIndex];
+			//backgroundPlayerIcon.color = Configuration.instance.playersColors [playerIndex];
 			foreach (Transform child in playerRankingPosition.transform) {
 				if (child.tag.Equals ("Position")) {
 					positionLabel = child.gameObject.GetComponent<UILabel> ();
@@ -64,7 +64,8 @@ public class EndingUIManager : AbstractUIManager
 					scoreLabel.text = "Score: " + ranking [playerIndex].GetScore ();
 				} else if (child.tag.Equals ("PlayerId")) {
 					scoreLabel = child.gameObject.GetComponent<UILabel> ();
-					scoreLabel.text = "P" + (ranking [playerIndex].GetPlayerId () + 1);
+					scoreLabel.text = "P" + (ranking [playerIndex].GetPlayerId ());
+					scoreLabel.color = Configuration.instance.playersColors [playerIndex];
 				}
 			}
 		}
@@ -100,16 +101,28 @@ public class EndingUIManager : AbstractUIManager
 	}
 
 	/// <summary>
-	/// Restarts game loading characters selection scene.
+	/// Opens menu to restart game or quit.
 	/// </summary>
-	public void OnRestart ()
+	public void OnContinue ()
 	{
-		SceneController.instance.LoadSceneByName (restartSceneName);
+		menuWindow.SetActive (true);
 	}
 
-	/// <summary>
-	/// Quits the game.
-	/// </summary>
+	public void OnLevelSelection ()
+	{
+		SceneController.instance.LoadSceneByName ("LevelSelection");
+	}
+
+	public void OnCharacterSelecction ()
+	{
+		SceneController.instance.LoadSceneByName ("CharacterSelectionMenu");
+	}
+
+	public void OnBackToMenu ()
+	{
+		SceneController.instance.LoadSceneByName ("Menu");
+	}
+
 	public void OnQuit ()
 	{
 		Application.Quit ();

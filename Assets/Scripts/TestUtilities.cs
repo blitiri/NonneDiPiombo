@@ -14,9 +14,9 @@ public class TestUtilities
 	/// </summary>
 	private static readonly string madameHo = "MadameHoPlayerIcon";
 	/// <summary>
-	/// The Ms. Shaky player icon.
+	/// The sister Redenta player icon.
 	/// </summary>
-	private static readonly string msShaky = "MsShakyPlayerIcon";
+	private static readonly string sisterRedenta = "SisterRedentaPlayerIcon";
 	/// <summary>
 	/// The Cat lady player icon.
 	/// </summary>
@@ -51,35 +51,35 @@ public class TestUtilities
 			ranking = new RankingPosition[3];
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
 			ranking [playerIndex++] = new RankingPosition (playerIndex, -5, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, msShaky);
+			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, sisterRedenta);
 			break;
 		case 4:
 			// Three players with two with same score
 			ranking = new RankingPosition[3];
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, msShaky);
+			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, sisterRedenta);
 			break;
 		case 5:
 			// Three players with two with same score
 			ranking = new RankingPosition[3];
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, chefAgata);
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, msShaky);
+			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, sisterRedenta);
 			break;
 		case 6:
 			// Three players with same score
 			ranking = new RankingPosition[3];
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, chefAgata);
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, msShaky);
+			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, sisterRedenta);
 			break;
 		case 7:
 			// Four players with two with same score
 			ranking = new RankingPosition[4];
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, msShaky);
+			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, sisterRedenta);
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 0, catLady);
 			break;
 		case 8:
@@ -87,7 +87,7 @@ public class TestUtilities
 			ranking = new RankingPosition[4];
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, msShaky);
+			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, sisterRedenta);
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 0, catLady);
 			break;
 		case 9:
@@ -95,7 +95,7 @@ public class TestUtilities
 			ranking = new RankingPosition[4];
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, msShaky);
+			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, sisterRedenta);
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 22, catLady);
 			break;
 		case 10:
@@ -103,7 +103,7 @@ public class TestUtilities
 			ranking = new RankingPosition[4];
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, msShaky);
+			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, sisterRedenta);
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, catLady);
 			break;
 		case 11:
@@ -112,7 +112,7 @@ public class TestUtilities
 			ranking = new RankingPosition[4];
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
 			ranking [playerIndex++] = new RankingPosition (playerIndex, -5, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, msShaky);
+			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, sisterRedenta);
 			ranking [playerIndex++] = new RankingPosition (playerIndex, 0, catLady);
 			break;
 		}

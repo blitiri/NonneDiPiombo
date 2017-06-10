@@ -161,7 +161,6 @@ public class UIControllerInputManager : MonoBehaviour
     {
         if (players[playerID].GetButtonDown("Start"))
         {
-            Debug.Log("Merda");
             if (startButton != null)
             {
                 for (int i = 0; i < startButton.onClick.Count; i++)

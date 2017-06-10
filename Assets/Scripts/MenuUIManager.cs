@@ -27,6 +27,31 @@ public class MenuUIManager : AbstractUIManager
 	/// The credits window.
 	/// </summary>
 	public UIPanel creditsWindow;
+	/// <summary>
+	/// Tween alpha delle opzioni
+	/// </summary>
+	public TweenAlpha optionsTweenAlpha;
+	/// <summary>
+	/// Tween alpha delle crediti
+	/// </summary>
+	public TweenAlpha creditsTweenAlpha;
+	/// <summary>
+	/// Default screen width
+	/// </summary>
+	private int defWidth;
+	/// <summary>
+	/// Default screen height
+	/// </summary>
+	private int defHeight;
+
+	/// <summary>
+	/// Awake the script.
+	/// </summary>
+	void Awake ()
+	{
+		defWidth = Screen.width; 
+		defHeight = Screen.height; 
+	}
 
 	/// <summary>
 	/// Start the script.
@@ -54,6 +79,7 @@ public class MenuUIManager : AbstractUIManager
 		Debug.Log ("Open - Sound volume: " + Configuration.instance.GetSoundVolume ());
 		checkedSprite.enabled = Configuration.instance.IsFullScreen ();
 		volumeSlider.value = Configuration.instance.GetSoundVolume ();
+		optionsTweenAlpha.PlayForward ();
 		optionsWindow.gameObject.SetActive (true);
 	}
 
@@ -62,6 +88,7 @@ public class MenuUIManager : AbstractUIManager
 	/// </summary>
 	public void OnCredits ()
 	{
+		creditsTweenAlpha.PlayForward ();
 		creditsWindow.gameObject.SetActive (true);
 	}
 
@@ -79,6 +106,7 @@ public class MenuUIManager : AbstractUIManager
 	public void OnFullscreen ()
 	{
 		checkedSprite.enabled = !checkedSprite.enabled;
+		SetFullScreen (checkedSprite.enabled);
 	}
 
 	/// <summary>
@@ -93,6 +121,32 @@ public class MenuUIManager : AbstractUIManager
 			Configuration.instance.SetSoundVolume (volumeSlider.value); 
 			Debug.Log ("Close - Fullscreen: " + Configuration.instance.IsFullScreen ());
 			Debug.Log ("Close - Sound volume: " + Configuration.instance.GetSoundVolume ());
+			optionsTweenAlpha.ResetToBeginning ();
+			optionsTweenAlpha.from = 1;
+			optionsTweenAlpha.to = 0;
+			optionsTweenAlpha.Play ();
+		} else if (window.name.Equals ("CreditsWindow")) {
+			creditsTweenAlpha.ResetToBeginning ();
+			creditsTweenAlpha.PlayReverse ();
 		}
+	}
+
+	/// <summary>
+	/// Sets the full screen.
+	/// </summary>
+	/// <param name="fullScreen">If set to <c>true</c> full screen.</param>
+	private void SetFullScreen (bool fullScreen)
+	{
+		Screen.fullScreen = fullScreen;
+		if (fullScreen) {
+			Screen.SetResolution (Screen.currentResolution.width, Screen.currentResolution.height, true);
+		} else {
+			Screen.SetResolution (defWidth, defHeight, false);
+		}
+	}
+
+	public void Finished (TweenAlpha tween)
+	{
+		Debug.Log ("Finito alpha");
 	}
 }

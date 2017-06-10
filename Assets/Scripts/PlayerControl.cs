@@ -255,7 +255,7 @@ public class PlayerControl : MonoBehaviour
 		}    
 	}
 
-	public void RespawnOnTrigger(Collider other, int playerKillerId){
+	public void RespawnOnTrigger(Collision other, int playerKillerId){
 				isDead = true;
 				GameManager.instance.CheckRespawnPlayers ();
 				ExplodeCharacter ();

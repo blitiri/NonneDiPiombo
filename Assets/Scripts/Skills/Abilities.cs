@@ -3,11 +3,10 @@ using System.Collections;
 
 public abstract class Abilities : ScriptableObject {
 
-	protected GameObject player;
-	protected string tagPlayer;
+	protected GameObject[] players=new GameObject[Configuration.maxNumberOfPlayers];
 
 	public abstract void OnAbilityActivation();
-	public void SetPlayer(GameObject player){
-		this.player = player;
+	public void SetPlayer(GameObject player,int playerIndex){
+		this.players[playerIndex] = player;
 	}
 }

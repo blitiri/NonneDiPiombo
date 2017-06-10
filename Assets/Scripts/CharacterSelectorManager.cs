@@ -18,17 +18,29 @@ public class CharacterSelectorManager : MonoBehaviour
     /// </summary>
     private int numberOfPlayers;
     /// <summary>
-    /// Speed of the color of the specified frame.
-    /// </summary>
-    private float frameLerpSpeed = 0.5f;
-    /// <summary>
-    /// The fringe in which the color stops lerping.
-    /// </summary>
-    private float frameLerpFringe = 0.5f;
-    /// <summary>
     /// An instance of SceneController class.
     /// </summary>
     private SceneController mySceneContr;
+    /// <summary>
+    /// The from color of selectors' tweens.
+    /// </summary>
+    private Color tweenFromColor = Color.white;
+    /// <summary>
+    /// Number of ready players.
+    /// </summary>
+    public int readyCount;
+    /// <summary>
+    /// Seconds before the match starts.
+    /// </summary>
+    private const float cooldwonSeconds = 3;
+    /// <summary>
+    /// The count of seconds before the match starts.
+    /// </summary>
+    private float cooldownCount;
+    /// <summary>
+    /// The cooldown gameObject;
+    /// </summary>
+    public UILabel cooldown;
     /// <summary>
     /// Defines if a player is redy or not.
     /// </summary>
@@ -54,6 +66,10 @@ public class CharacterSelectorManager : MonoBehaviour
     /// </summary>
     public UILabel[] playersLabels;
     /// <summary>
+    /// Tweens of all selectors.
+    /// </summary>
+    public TweenColor[] tweens;
+    /// <summary>
     /// All the selectors.
     /// </summary>
     public GameObject[] selectors;
@@ -77,10 +93,6 @@ public class CharacterSelectorManager : MonoBehaviour
     /// An icon for each selector.
     /// </summary>
     public UIButton[] centrals;
-    /// <summary>
-    /// All the raedy buttons.
-    /// </summary>
-    public UIButton[] readyButtons;
     /// <summary>
     /// All the players.
     /// </summary>
@@ -113,6 +125,12 @@ public class CharacterSelectorManager : MonoBehaviour
         {
             players[i] = ReInput.players.GetPlayer(i);
         }
+        for (int id = 0; id < maxNumberOfPlayers; id++)
+        {
+            frames[id].color = tweenFromColor;
+            tweens[id].from = tweenFromColor;
+            tweens[id].to = Configuration.instance.playersColors[id];
+        }
     }
 
     private void Update()
@@ -144,33 +162,36 @@ public class CharacterSelectorManager : MonoBehaviour
     {
         string tag = button.tag;
         int id = int.Parse(button.transform.parent.tag);
-        //Debug.Log(id);
-        switch (tag)
+        if (!readys[id])
         {
-            case "Left":
-                if (indexes[id] > 0)
-                {
-                    indexes[id]--;
-                }
-                else
-                {
-                    indexes[id] = grannies.Length - 1;
-                }
-                break;
-            case "Right":
-                if (indexes[id] < grannies.Length - 1)
-                {
-                    indexes[id]++;
-                }
-                else
-                {
-                    indexes[id] = 0;
-                }
-                break;
+            //Debug.Log(id);
+            switch (tag)
+            {
+                case "Left":
+                    if (indexes[id] > 0)
+                    {
+                        indexes[id]--;
+                    }
+                    else
+                    {
+                        indexes[id] = grannies.Length - 1;
+                    }
+                    break;
+                case "Right":
+                    if (indexes[id] < grannies.Length - 1)
+                    {
+                        indexes[id]++;
+                    }
+                    else
+                    {
+                        indexes[id] = 0;
+                    }
+                    break;
+            }
+            //Debug.Log(indexes[id]);
+            centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
+            selectedGrannies[id] = grannies[indexes[id]];
         }
-        //Debug.Log(indexes[id]);
-        centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
-        selectedGrannies[id] = grannies[indexes[id]];
     }
 
     public void MoveControllerAxis()
@@ -179,7 +200,7 @@ public class CharacterSelectorManager : MonoBehaviour
         //int id = int.Parse(button.transform.parent.tag);
         for (int id = 0; id < numberOfPlayers; id++)
         {
-            if (canSelect[id])
+            if (!readys[id] && canSelect[id])
             {
                 if (players[id].GetAxis("Move horizontal") < -0.2f || players[id].GetAxis("Move horizontal") > 0.2f)
                 {
@@ -232,14 +253,100 @@ public class CharacterSelectorManager : MonoBehaviour
         {
             if (players[id].GetButtonDown("Cross"))
             {
-                readyButtons[id].SetState(UIButtonColor.State.Pressed, true);
-                for (int i = 0; i < readyButtons[id].onClick.Count; i++)
-                {
-                    readyButtons[id].onClick[i].Execute();
-                }
-                readyButtons[id].SetState(UIButtonColor.State.Normal, false);
+                //readyButtons[id].SetState(UIButtonColor.State.Pressed, true);
+                //for (int i = 0; i < readyButtons[id].onClick.Count; i++)
+                //{
+                //    readyButtons[id].onClick[i].Execute();
+                //}
+                //readyButtons[id].SetState(UIButtonColor.State.Normal, false);
+                //tweens[id].StopCoroutine(tweens[id].name);
+                //tweens[id].from = frames[id].color;
+                //if (!readys[id])
+                //{
+                //    tweens[id].PlayForward();
+                //    readys[id] = true;
+                //}
+                //else
+                //{
+                //    tweens[id].PlayReverse();
+                //    readys[id] = false;
+                //}
+                //tweens[id].from = tweenFromColor;
+                //tweens[id].ResetToBeginning();
+                Tweener(tweenFromColor, Configuration.instance.playersColors[id], id);
+                CheckReady();
             }
         }
+    }
+
+    private void CheckReady()
+    {
+        if (readyCount == numberOfPlayers)
+        {
+            StartCooldown();
+        }
+        else
+        {
+            if (cooldown.gameObject.activeInHierarchy)
+            {
+                StopCooldown();
+            }
+        }
+    }
+
+    /// <summary>
+    /// It sets ready players as well.
+    /// </summary>
+    /// <param name="defaultFrom"></param>
+    /// <param name="defaultTo"></param>
+    /// <param name="id"></param>
+    public void Tweener(Color defaultFrom, Color defaultTo, int id)
+    {
+        if (!readys[id])
+        {
+            tweens[id].SetStartToCurrentValue();
+            tweens[id].to = defaultTo;
+            tweens[id].PlayForward();
+            readys[id] = true;
+            readyCount++;
+        }
+        else
+        {
+            tweens[id].from = defaultFrom;
+            tweens[id].SetEndToCurrentValue();
+            tweens[id].PlayReverse();
+            readys[id] = false;
+            readyCount--;
+        }
+        tweens[id].ResetToBeginning();
+    }
+
+    public void StartCooldown()
+    {
+        if (cooldownCount != cooldwonSeconds)
+        {
+            cooldownCount = cooldwonSeconds;
+        }
+        cooldown.gameObject.SetActive(true);
+        StopCoroutine(RunCooldown());
+        StartCoroutine(RunCooldown());
+    }
+
+    public IEnumerator RunCooldown()
+    {
+        while(cooldownCount > 0)
+        {
+            cooldownCount -= Time.deltaTime;
+            cooldown.text = cooldownCount.ToString("#");
+            yield return null;
+        }
+        LoadLevelScene(nextSceneToLoadName);
+    }
+
+    public void StopCooldown()
+    {
+        StopCoroutine(RunCooldown());
+        cooldown.gameObject.SetActive(false);
     }
 
     public void ClickCentral(GameObject button)
@@ -255,6 +362,8 @@ public class CharacterSelectorManager : MonoBehaviour
         //}
         //centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
         selectedGrannies[id] = grannies[indexes[id]];
+        Tweener(tweenFromColor, Configuration.instance.playersColors[id], id);
+        CheckReady();
     }
 
     //public void UndoSelection(GameObject button)
@@ -262,40 +371,54 @@ public class CharacterSelectorManager : MonoBehaviour
     //    int id = controll
     //}
 
-    public void ClickReady(GameObject button)
-    {
-        int id = int.Parse(button.transform.parent.tag);
-        if (!readys[id])
-        {
-            //Debug.Log(Time.maximumDeltaTime);
-            //Debug.Log(Time.deltaTime);
-            float timeToWait = 0;
-            float rgb = frames[id].color.r + frames[id].color.g + frames[id].color.b;
-            float confRGB = Configuration.instance.playersColors[id].r + Configuration.instance.playersColors[id].g + Configuration.instance.playersColors[id].b;
-            while (rgb > confRGB + frameLerpFringe)
-            {
-                if (timeToWait >= Time.deltaTime)
-                {
-                    //Debug.Log("SSSSS");
-                    rgb = frames[id].color.r + frames[id].color.g + frames[id].color.b;
-                    frames[id].color = Color.Lerp(frames[id].color, Configuration.instance.playersColors[id], frameLerpSpeed);
-                }
-                else
-                {
-                    timeToWait += Time.deltaTime;
-                }
-            }
-            frames[id].color = Configuration.instance.playersColors[id];
-            readys[id] = true;
-        }
-        else
-        {
-            frames[id].color = Color.white;
-            readys[id] = false;
-        }
-    }
+    //public void ClickReady(GameObject button)
+    //{
+    //    int id = int.Parse(button.transform.parent.tag);
+    //    float frameLerpSpeed = 0.5f;
+    //    float frameLerpFringe = 0.5f;
+    //    if (!readys[id])
+    //    {
+    //        StopCoroutine(LerpFrameColor(frames[id].color, Configuration.instance.playersColors[id], frameLerpSpeed, frameLerpFringe));
+    //        StartCoroutine(LerpFrameColor(frames[id].color, C, frameLerpSpeed, frameLerpFringe));
+    //        readys[id] = true;
+    //    }
+    //    else
+    //    {
+    //        StopCoroutine(LerpFrameColor(frames[id].color, Configuration.instance.playersColors[id], frameLerpSpeed, frameLerpFringe));
+    //        frames[id].color = Color.white;
+    //        readys[id] = false;
+    //    }
+    //}
 
-    ienumerat
+    //IEnumerator LerpFrameColor(Color a, Color b, float time, float fringe)
+    //{
+    //    float aRGB = a.r + a.g + a.b;
+    //    float bRGB = b.r + b.g + b.b;
+    //    if (aRGB > bRGB)
+    //    {
+    //        while (aRGB > bRGB + fringe)
+    //        {
+    //            Debug.Log("SSSSSSSSSSS");
+    //            a = Color.Lerp(a, b, time);
+    //            aRGB = a.r + a.g + a.b;
+    //            yield return null;
+    //        }
+    //    }
+    //    else if (aRGB < bRGB)
+    //    {
+    //        while (aRGB < bRGB - fringe)
+    //        {
+    //            a = Color.Lerp(a, b, time);
+    //            aRGB = a.r + a.g + a.b;
+    //            yield return null;
+    //        }
+    //    }
+    //    else if (aRGB == bRGB)
+    //    {
+    //        yield break;
+    //    }
+    //    a = b;
+    //}
 
     void StartMatch()
     {
@@ -312,12 +435,12 @@ public class CharacterSelectorManager : MonoBehaviour
         }
     }
 
-    public void LoadLevelScene()
+    public void LoadLevelScene(string scene)
     {
         if (Configuration.instance)
         {
             Configuration.instance.selectedGrannies = selectedGrannies;
         }
-        mySceneContr.LoadSceneByName(nextSceneToLoadName);
+        mySceneContr.LoadSceneByName(scene);
     }
 }

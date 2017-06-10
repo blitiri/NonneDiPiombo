@@ -28,7 +28,7 @@ public class ExplosionBazooka : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
 		if(other.gameObject.tag.Equals("Wall")){
-			Debug.Log ("Collision With Wall");
+			//Debug.Log ("Collision With Wall");
 			explosionCollider.radius = minRadius;
 			wallCollision = true;
 		} else if (other.gameObject.tag.Equals("LevelWall") || other.gameObject.tag.StartsWith("Player")){

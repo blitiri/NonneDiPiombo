@@ -9,6 +9,12 @@ public class MovementSpeed : Abilities
 
 	public override void OnAbilityActivation ()
 	{
-		player.GetComponent<PlayerControl> ().speedMod = speedModify;
+		for (int i = 0; i < players.Length; i++) 
+		{
+			if (players [i] != null) {
+				players[i].GetComponent<PlayerControl> ().speedMod = speedModify;
+				players [i] = null;
+			}
+		}
 	}
 }

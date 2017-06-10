@@ -172,11 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 2
   bulletAccel: 120
-  initialRadius: 0.5
-  maxRadius: 2
-  radiusExplansion: 1
   explosionDelay: 1
-  wallCollision: 0
   explosionPrefab: {fileID: 1679874409593166, guid: 10da2bb9870a12d43a0b8dc5ee1a6c95,
     type: 2}
 --- !u!136 &136548305511213216
@@ -186,7 +182,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1294542274764470}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.1793639
   m_Height: 0.69874305

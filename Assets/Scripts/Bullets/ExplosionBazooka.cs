@@ -26,7 +26,7 @@ public class ExplosionBazooka : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter(Collider other){
+	void OnCollisionEnter(Collision other){
 		
 
 		if (other.gameObject.tag.Equals ("Wall")) {

@@ -17,7 +17,7 @@ public class DefaultBulletManager : MonoBehaviour {
 		DefaultMovement ();
 	}
 
-	void OnTriggerEnter(Collider other){
+	void OnCollisionEnter(Collision other){
 		if (other.gameObject.tag.Equals ("Wall") || other.gameObject.tag.Equals("LevelWall")) {
 			Trigger ();
 		}

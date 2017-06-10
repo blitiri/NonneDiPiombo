@@ -18,6 +18,7 @@ public class BazookaBulletManager : DefaultBulletManager {
 	}
 
 	protected override void Trigger(){
+		
 		isMoving = false;
 
 		explosion = Instantiate (explosionPrefab, transform.position, Quaternion.identity) as GameObject;

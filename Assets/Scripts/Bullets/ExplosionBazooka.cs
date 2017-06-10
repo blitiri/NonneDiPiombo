@@ -26,14 +26,26 @@ public class ExplosionBazooka : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter(Collider other){
-		if(other.gameObject.tag.Equals("Wall")){
+	void OnCollisionEnter(Collision other){
+		
+
+		if (other.gameObject.tag.Equals ("Wall")) {
 			Debug.Log ("Collision With Wall");
 			explosionCollider.radius = minRadius;
 			wallCollision = true;
-		} else if (other.gameObject.tag.Equals("LevelWall") || other.gameObject.tag.StartsWith("Player")){
+		} else if (other.gameObject.tag.Equals ("LevelWall")) {
 			explosionCollider.radius = maxRadius;
 			wallCollision = false;
-		}
+		} else if (other.gameObject.tag.StartsWith ("Player") && Utility.GetPlayerIndexFromBullet (this.gameObject.tag) == Utility.GetPlayerIndex (other.gameObject.tag) ) {
+			int explosionId;
+			explosionId = Utility.GetPlayerIndexFromBullet (this.gameObject.tag);
+
+			int playerId;
+			playerId = Utility.GetPlayerIndex (other.gameObject.tag);
+
+			Statistics.instance.PlayerSuicide (playerId);
+			LevelUIManager.instance.SetScore (Statistics.instance.getPlayersKills() [playerId], playerId);
+			other.gameObject.GetComponent<PlayerControl> ().RespawnOnTrigger (other, explosionId);
+		} 
 	}
 }

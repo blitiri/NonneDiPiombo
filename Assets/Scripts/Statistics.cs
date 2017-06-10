@@ -59,6 +59,10 @@ public class Statistics : MonoBehaviour
 
 	}
 
+	public void PlayerSuicide(int killedId){
+		playersKills [killedId] -= killedMalus * 2;
+	}
+
 	/// <summary>
 	/// Gets the players kills.
 	/// </summary>

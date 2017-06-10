@@ -53,11 +53,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 5b8c8a75a5cb04b2da0ac72ea76fc6d3, type: 2}
   mSprites:
-  - name: ControllerLayout
+  - name: BackToMenuButton
+    x: 1536
+    y: 2338
+    width: 505
+    height: 134
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: CharacterSelecionButton
+    x: 1026
+    y: 2199
+    width: 505
+    height: 134
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: ContinueButton
     x: 1047
-    y: 1303
-    width: 480
-    height: 260
+    y: 3477
+    width: 505
+    height: 134
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: ControllerLayout
+    x: 1692
+    y: 3756
+    width: 336
+    height: 340
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -67,8 +106,21 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: CreditsButton
-    x: 727
-    y: 103
+    x: 1047
+    y: 3338
+    width: 505
+    height: 134
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: LevelSelectionButton
+    x: 1026
+    y: 2338
     width: 505
     height: 134
     borderLeft: 0
@@ -81,7 +133,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: Locked
     x: 1692
-    y: 1798
+    y: 3501
     width: 250
     height: 250
     borderLeft: 0
@@ -93,8 +145,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: NoButton
-    x: 0
-    y: 69
+    x: 513
+    y: 2117
     width: 508
     height: 355
     borderLeft: 0
@@ -107,7 +159,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: NoScreenshot
     x: 1047
-    y: 1568
+    y: 3616
     width: 640
     height: 480
     borderLeft: 0
@@ -119,8 +171,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: OptionsButton
-    x: 1244
-    y: 777
+    x: 727
+    y: 2668
     width: 505
     height: 134
     borderLeft: 0
@@ -133,7 +185,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: PictureFrame
     x: 0
-    y: 1276
+    y: 3324
     width: 1042
     height: 772
     borderLeft: 0
@@ -146,7 +198,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: PolaroidFrame
     x: 0
-    y: 429
+    y: 2477
     width: 722
     height: 842
     borderLeft: 0
@@ -158,8 +210,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: QuitButton
-    x: 1244
-    y: 638
+    x: 727
+    y: 2529
     width: 505
     height: 134
     borderLeft: 0
@@ -172,7 +224,20 @@ MonoBehaviour:
     paddingBottom: 0
   - name: RestartButton
     x: 1244
-    y: 499
+    y: 2668
+    width: 505
+    height: 134
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: ResumeButton
+    x: 1244
+    y: 2529
     width: 505
     height: 134
     borderLeft: 0
@@ -184,8 +249,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: StartButton
-    x: 1244
-    y: 360
+    x: 1536
+    y: 2199
     width: 505
     height: 134
     borderLeft: 0
@@ -198,7 +263,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: TombstoneFrame
     x: 727
-    y: 759
+    y: 2807
     width: 512
     height: 512
     borderLeft: 0
@@ -210,8 +275,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: TombstoneFrameBackground
-    x: 727
-    y: 242
+    x: 1244
+    y: 2807
     width: 512
     height: 512
     borderLeft: 0
@@ -223,8 +288,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: YesButton
-    x: 1244
-    y: 916
+    x: 0
+    y: 2117
     width: 508
     height: 355
     borderLeft: 0

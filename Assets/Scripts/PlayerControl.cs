@@ -121,7 +121,6 @@ public class PlayerControl : MonoBehaviour
 	void Start ()
 	{
         timerToShoot = weapon.ratioOfFire;
-		InitAbility (ability);
         inputManager = new InputManager (playerId, transform, angleCorrection);
 		if (inputManager.HasMouse ()) {
 			Cursor.SetCursor (crosshairCursor, cursorHotSpot, CursorMode.Auto);
@@ -213,7 +212,7 @@ public class PlayerControl : MonoBehaviour
 	}
 
 		
-	/// <summary>
+	/*/// <summary>
 	/// Detects a collision enter with another player
 	/// </summary>
 	/// <param name="collision">Collision.</param>
@@ -223,7 +222,7 @@ public class PlayerControl : MonoBehaviour
 			isDashing = false;
 			playerRigidbody.velocity = Vector3.zero;
 		}
-	}
+	}*/
 
 	public void ExplodeCharacter(){
 		GameObject brokenGran = Instantiate(brokenVersion, transform.position, transform.rotation) as GameObject;
@@ -233,13 +232,17 @@ public class PlayerControl : MonoBehaviour
 	/// Detects a trigger enter with a weapon
 	/// </summary>
 	/// <param name="other">Collider.</param>
-	void OnTriggerEnter (Collider other)
+	void OnCollisionEnter (Collision other)
 	{
 		int playertagIndex;
 
 
 		playertagIndex = Utility.GetPlayerIndex (this.gameObject.tag);
 
+		if (other.gameObject.layer == 8 || other.gameObject.layer == 9 || other.gameObject.layer == 10) {
+			isDashing = false;
+			playerRigidbody.velocity = Vector3.zero;
+		}
 
 		if (other.gameObject.tag.StartsWith ("Bullet") && !isImmortal) {
 			
@@ -303,6 +306,7 @@ public class PlayerControl : MonoBehaviour
 		if (inputManager.Dash ()) {
 			if (!isObstacle && !isDashing && dashTime <= Time.time - dashRecordedTime) {
 				StartCoroutine (Dashing (moveVector));
+				InitAbility (ability);
 				StartCoroutine("Ability",timer);
 			}
 		}
@@ -363,7 +367,7 @@ public class PlayerControl : MonoBehaviour
 	/// <param name="ability">Ability.</param>
 	private void InitAbility(Abilities ability){
 		if (ability != null) {
-			ability.SetPlayer (gameObject);
+			ability.SetPlayer (gameObject,playerId);
 		}
 	}
 

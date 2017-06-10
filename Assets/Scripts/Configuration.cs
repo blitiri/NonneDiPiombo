@@ -15,7 +15,7 @@ public class Configuration : MonoBehaviour
 	/// <summary>
 	/// The max number of players.
 	/// </summary>
-	private const int maxNumberOfPlayers = 4;
+	public const int maxNumberOfPlayers = 4;
 	/// <summary>
 	/// The minimum number of players.
 	/// </summary>

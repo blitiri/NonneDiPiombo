@@ -108,21 +108,33 @@ public class EndingUIManager : AbstractUIManager
 		menuWindow.SetActive (true);
 	}
 
+	/// <summary>
+	/// Loads level selection scene.
+	/// </summary>
 	public void OnLevelSelection ()
 	{
 		SceneController.instance.LoadSceneByName ("LevelSelection");
 	}
 
+	/// <summary>
+	/// Loads character selection scene.
+	/// </summary>
 	public void OnCharacterSelecction ()
 	{
 		SceneController.instance.LoadSceneByName ("CharacterSelectionMenu");
 	}
 
+	/// <summary>
+	/// Loads menu scene.
+	/// </summary>
 	public void OnBackToMenu ()
 	{
 		SceneController.instance.LoadSceneByName ("Menu");
 	}
 
+	/// <summary>
+	/// Exit from game.
+	/// </summary>
 	public void OnQuit ()
 	{
 		Application.Quit ();

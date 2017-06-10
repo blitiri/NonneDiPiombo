@@ -18,14 +18,25 @@ public class CharacterSelectorManager : MonoBehaviour
     /// </summary>
     private int numberOfPlayers;
     /// <summary>
+    /// Speed of the color of the specified frame.
+    /// </summary>
+    private float frameLerpSpeed = 0.5f;
+    /// <summary>
+    /// The fringe in which the color stops lerping.
+    /// </summary>
+    private float frameLerpFringe = 0.5f;
+    /// <summary>
     /// An instance of SceneController class.
     /// </summary>
     private SceneController mySceneContr;
     /// <summary>
+    /// Defines if a player is redy or not.
+    /// </summary>
+    public bool[] readys;
+    /// <summary>
     /// The indexes needed to switch between grannies. One for each player.
     /// </summary>
     public int[] indexes;
-    //public int[] ids;
     /// <summary>
     /// Name of the net scene.
     /// </summary>
@@ -47,6 +58,10 @@ public class CharacterSelectorManager : MonoBehaviour
     /// </summary>
     public GameObject[] selectors;
     /// <summary>
+    /// All frames.
+    /// </summary>
+    public UISprite[] frames;
+    /// <summary>
     /// All playable grannies.
     /// </summary>
     public GameObject[] grannies;
@@ -62,6 +77,10 @@ public class CharacterSelectorManager : MonoBehaviour
     /// An icon for each selector.
     /// </summary>
     public UIButton[] centrals;
+    /// <summary>
+    /// All the raedy buttons.
+    /// </summary>
+    public UIButton[] readyButtons;
     /// <summary>
     /// All the players.
     /// </summary>
@@ -83,6 +102,7 @@ public class CharacterSelectorManager : MonoBehaviour
         numberOfPlayers = Configuration.instance.GetNumberOfPlayers();
         Debug.Log(numberOfPlayers);
         indexes = new int[numberOfPlayers];
+        readys = new bool[numberOfPlayers];
         //ids = new int[numberOfPlayers];
         //ids = ReInput.players.GetPlayerIds();
         selectedGrannies = new GameObject[numberOfPlayers];
@@ -150,6 +170,7 @@ public class CharacterSelectorManager : MonoBehaviour
         }
         //Debug.Log(indexes[id]);
         centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
+        selectedGrannies[id] = grannies[indexes[id]];
     }
 
     public void MoveControllerAxis()
@@ -160,27 +181,31 @@ public class CharacterSelectorManager : MonoBehaviour
         {
             if (canSelect[id])
             {
-                if (players[id].GetAxis("Move horizontal") < -0.2f)
+                if (players[id].GetAxis("Move horizontal") < -0.2f || players[id].GetAxis("Move horizontal") > 0.2f)
                 {
-                    if (indexes[id] > 0)
+                    if (players[id].GetAxis("Move horizontal") < -0.2f)
                     {
-                        indexes[id]--;
+                        if (indexes[id] > 0)
+                        {
+                            indexes[id]--;
+                        }
+                        else
+                        {
+                            indexes[id] = grannies.Length - 1;
+                        }
                     }
-                    else
+                    else if (players[id].GetAxis("Move horizontal") > 0.2f)
                     {
-                        indexes[id] = grannies.Length - 1;
+                        if (indexes[id] < grannies.Length - 1)
+                        {
+                            indexes[id]++;
+                        }
+                        else
+                        {
+                            indexes[id] = 0;
+                        }
                     }
-                }
-                else if (players[id].GetAxis("Move horizontal") > 0.2f)
-                {
-                    if (indexes[id] < grannies.Length - 1)
-                    {
-                        indexes[id]++;
-                    }
-                    else
-                    {
-                        indexes[id] = 0;
-                    }
+                    selectedGrannies[id] = grannies[indexes[id]];
                 }
                 canSelect[id] = false;
                 //Debug.Log(indexes[id]);
@@ -207,9 +232,12 @@ public class CharacterSelectorManager : MonoBehaviour
         {
             if (players[id].GetButtonDown("Cross"))
             {
-                centrals[id].SetState(UIButtonColor.State.Pressed, true);
-                selectedGrannies[id] = grannies[indexes[id]];
-                centrals[id].SetState(UIButtonColor.State.Normal, false);
+                readyButtons[id].SetState(UIButtonColor.State.Pressed, true);
+                for (int i = 0; i < readyButtons[id].onClick.Count; i++)
+                {
+                    readyButtons[id].onClick[i].Execute();
+                }
+                readyButtons[id].SetState(UIButtonColor.State.Normal, false);
             }
         }
     }
@@ -234,15 +262,50 @@ public class CharacterSelectorManager : MonoBehaviour
     //    int id = controll
     //}
 
+    public void ClickReady(GameObject button)
+    {
+        int id = int.Parse(button.transform.parent.tag);
+        if (!readys[id])
+        {
+            //Debug.Log(Time.maximumDeltaTime);
+            //Debug.Log(Time.deltaTime);
+            float timeToWait = 0;
+            float rgb = frames[id].color.r + frames[id].color.g + frames[id].color.b;
+            float confRGB = Configuration.instance.playersColors[id].r + Configuration.instance.playersColors[id].g + Configuration.instance.playersColors[id].b;
+            while (rgb > confRGB + frameLerpFringe)
+            {
+                if (timeToWait >= Time.deltaTime)
+                {
+                    //Debug.Log("SSSSS");
+                    rgb = frames[id].color.r + frames[id].color.g + frames[id].color.b;
+                    frames[id].color = Color.Lerp(frames[id].color, Configuration.instance.playersColors[id], frameLerpSpeed);
+                }
+                else
+                {
+                    timeToWait += Time.deltaTime;
+                }
+            }
+            frames[id].color = Configuration.instance.playersColors[id];
+            readys[id] = true;
+        }
+        else
+        {
+            frames[id].color = Color.white;
+            readys[id] = false;
+        }
+    }
+
+    ienumerat
+
     void StartMatch()
     {
         foreach (Player player in players)
         {
             if (player.GetButtonDown("Start"))
             {
+                startButton.SetState(UIButtonColor.State.Pressed, true);
                 for (int i = 0; i < startButton.onClick.Count; i++)
                 {
-                    startButton.SetState(UIButtonColor.State.Pressed, true);
                     startButton.onClick[i].Execute();
                 }
             }

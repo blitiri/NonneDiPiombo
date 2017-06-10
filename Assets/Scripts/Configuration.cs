@@ -30,10 +30,6 @@ public class Configuration : MonoBehaviour
 	[Range (minNumberOfPlayers, maxNumberOfPlayers)]
 	public int defaultNumberOfPlayers = maxNumberOfPlayers;
 	/// <summary>
-	/// The default full screen value.
-	/// </summary>
-	public bool defaultFullScreen = true;
-	/// <summary>
 	/// The default sound volume.
 	/// </summary>
 	public float defaultSoundVolume = 1;
@@ -103,7 +99,7 @@ public class Configuration : MonoBehaviour
 
 		if (instance == null) {
 			DontDestroyOnLoad (transform.gameObject);
-			if (SceneController.IsLevelSelectionScene () || SceneController.IsLevelScene () || SceneController.IsCharacterSelectionScene() || SceneController.IsMenuScene() || SceneController.IsEndingScene()) {
+			if (SceneController.IsLevelSelectionScene () || SceneController.IsLevelScene () || SceneController.IsCharacterSelectionScene () || SceneController.IsMenuScene () || SceneController.IsEndingScene ()) {
 				numberOfPlayers = defaultNumberOfPlayers;
 				selectedGrannies = new GameObject[numberOfPlayers];
 				for (grannyIndex = 0; grannyIndex < numberOfPlayers; grannyIndex++) {
@@ -114,7 +110,7 @@ public class Configuration : MonoBehaviour
 				selectedGrannies = new List<GameObject> ();
 			}
 			soundVolume = defaultSoundVolume;
-			fullScreen = defaultFullScreen;
+			fullScreen = Screen.fullScreen;
 			instance = this;
 		} else {
 			Destroy (gameObject);

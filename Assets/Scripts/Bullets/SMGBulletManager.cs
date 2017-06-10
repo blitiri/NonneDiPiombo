@@ -34,25 +34,29 @@ public class SMGBulletManager : DefaultBulletManager {
 		}
 	
 		if (canSpread) {
+			for(int i = 0; i < numberOfBullets; i++){
 				StartCoroutine (SMGBulletsBehaviour ());
+				canSpread = false;
+			}
 		}
 	}
 
 	protected IEnumerator SMGBulletsBehaviour(){
-		for (int i = 0; i < numberOfBullets; i++) {
+		
 			Quaternion yValue = Quaternion.Euler (0, 0, Random.Range (-spreadValue, spreadValue));
-			yield return new WaitForSeconds (shootInterval * i);
+			Debug.Log ("Shoot");
 			GameObject proj = Instantiate (this.gameObject, initialPosition.transform.position, initialPosition.transform.rotation * yValue);
+
 			Rigidbody projRb = proj.GetComponent<Rigidbody> ();
 			CapsuleCollider projCollider = proj.GetComponent<CapsuleCollider> ();
 			MeshRenderer projRenderer = proj.GetComponent<MeshRenderer> ();
-
 			SMGBulletManager projBulletManager = proj.GetComponent<SMGBulletManager> ();
 
 			projRenderer.enabled = true;
 			projCollider.enabled = true;
 			projBulletManager.canSpread = false;
-		}
-		canSpread = false;
+
+			yield return  null;
+			canSpread = false;
 	}
 }

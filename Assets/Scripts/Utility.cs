@@ -43,8 +43,8 @@ public class Utility
 		return int.Parse (playerId.Substring (playerIdPrefix.Length));
 	}
 
-	public static int GetPlayerIndexFromBullet(string playerId){
-		return int.Parse(playerId.Substring(bulletTag.Length));
+	public static int GetPlayerIndexFromBullet(string bulletId){
+		return int.Parse(bulletId.Substring(bulletTag.Length));
 	}
 
 	/// <summary>

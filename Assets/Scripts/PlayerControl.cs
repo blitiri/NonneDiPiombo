@@ -211,19 +211,6 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
-		
-	/*/// <summary>
-	/// Detects a collision enter with another player
-	/// </summary>
-	/// <param name="collision">Collision.</param>
-	void OnCollisionEnter (Collision collision)
-	{
-		if (collision.gameObject.layer == 8 || collision.gameObject.layer == 9 || collision.gameObject.layer == 10) {
-			isDashing = false;
-			playerRigidbody.velocity = Vector3.zero;
-		}
-	}*/
-
 	public void ExplodeCharacter(){
 		GameObject brokenGran = Instantiate(brokenVersion, transform.position, transform.rotation) as GameObject;
 	}

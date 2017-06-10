@@ -7,6 +7,7 @@ public class DefaultBulletManager : MonoBehaviour {
 	protected CapsuleCollider bulletCapsuleCollider;
 	protected SphereCollider bulletSphereCollider;
 	protected bool isMoving = true;
+	protected Transform reflectedPosition;
 	public float bulletSpeed;
 
 	void Awake(){
@@ -21,11 +22,12 @@ public class DefaultBulletManager : MonoBehaviour {
 		if (other.gameObject.tag.Equals ("Wall") || other.gameObject.tag.Equals("LevelWall")) {
 			Trigger ();
 		}
-        else if(other.gameObject.tag == "Pan")
+		else if(/*other.gameObject.tag.Equals("Pan")*/other.collider.GetType()==typeof(SphereCollider) && other.gameObject.tag.StartsWith("Player"))
         {
-            transform.up = -transform.up;
-            bulletRb.velocity = -bulletRb.velocity*(bulletSpeed/2);
-		} else if ( other.gameObject.tag.StartsWith("Player") && Utility.GetPlayerIndexFromBullet(this.gameObject.tag) != Utility.GetPlayerIndex(other.gameObject.tag)){
+			Debug.Log ("Skill");
+			bulletRb.velocity = -bulletRb.velocity;
+		} 
+		else if ( other.gameObject.tag.StartsWith("Player") && Utility.GetPlayerIndexFromBullet(this.gameObject.tag) != Utility.GetPlayerIndex(other.gameObject.tag)){
 			Trigger ();
 		}
         

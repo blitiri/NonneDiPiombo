@@ -28,17 +28,8 @@ public class DefaultBulletManager : MonoBehaviour {
 		} 
 		else if ( other.gameObject.tag.StartsWith("Player") && Utility.GetPlayerIndexFromBullet(this.gameObject.tag) != Utility.GetPlayerIndex(other.gameObject.tag)){
 			Trigger ();
-		}
-        
+		}       
 	} 
-
-	void OnCollisionExit(Collision other)
-	{
-		if(other.collider.GetType()==typeof(SphereCollider) && other.gameObject.tag.StartsWith("Player"))
-		{
-			transform.position=new Vector3(transform.position.x,0.0f,transform.position.z);
-		} 
-	}
 
 
 	protected virtual void DefaultMovement(){

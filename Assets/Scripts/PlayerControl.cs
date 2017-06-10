@@ -250,12 +250,16 @@ public class PlayerControl : MonoBehaviour
 			playerKillerId = Utility.GetPlayerIndexFromBullet(other.gameObject.tag);
 
 			if (playertagIndex != playerKillerId) {
+				RespawnOnTrigger (other, playerKillerId);
+			}
+		}    
+	}
+
+	public void RespawnOnTrigger(Collider other, int playerKillerId){
 				isDead = true;
 				GameManager.instance.CheckRespawnPlayers ();
 				ExplodeCharacter ();
 				GameManager.instance.PlayerKilled (playerId, playerKillerId);
-			}
-		}    
 	}
 
 	/// <summary>

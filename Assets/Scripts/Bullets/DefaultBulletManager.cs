@@ -7,7 +7,6 @@ public class DefaultBulletManager : MonoBehaviour {
 	protected CapsuleCollider bulletCapsuleCollider;
 	protected SphereCollider bulletSphereCollider;
 	protected bool isMoving = true;
-	protected Vector3 oldVelocity;
 	public float bulletSpeed;
 
 	void Awake(){
@@ -18,27 +17,24 @@ public class DefaultBulletManager : MonoBehaviour {
 		DefaultMovement ();
 	}
 
-	void OnCollisionEnter(Collision other){
-		if (other.gameObject.tag.Equals ("Wall") || other.gameObject.tag.StartsWith("Player") || other.gameObject.tag.Equals("LevelWall")) {
+	void OnTriggerEnter(Collider other){
+		if (other.gameObject.tag.Equals ("Wall") || other.gameObject.tag.Equals("LevelWall")) {
 			Trigger ();
 		}
         else if(other.gameObject.tag == "Pan")
         {
-			/*ContactPoint contact = other.contacts [0];
-
-			Vector3 reflectedVelocity = Vector3.Reflect (bulletRb.velocity, contact.normal);
-			bulletRb.velocity = reflectedVelocity;
-
-			Quaternion rotation = Quaternion.FromToRotation (oldVelocity,reflectedVelocity);
-			transform.rotation = rotation * transform.rotation;*/
-        }
-	}
+            transform.up = -transform.up;
+            bulletRb.velocity = -bulletRb.velocity*(bulletSpeed/2);
+		} else if ( other.gameObject.tag.StartsWith("Player") && Utility.GetPlayerIndexFromBullet(this.gameObject.tag) != Utility.GetPlayerIndex(other.gameObject.tag)){
+			Trigger ();
+		}
+        
+	} 
 
 
 	protected virtual void DefaultMovement(){
 		if (isMoving) {
 			bulletRb.velocity = bulletRb.transform.up * bulletSpeed;
-			oldVelocity = bulletRb.velocity;
 		}
 	}
 

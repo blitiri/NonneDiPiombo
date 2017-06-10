@@ -24,7 +24,7 @@ public class CharacterSelectorManager : MonoBehaviour
     /// <summary>
     /// The from color of selectors' tweens.
     /// </summary>
-    private Color tweenFromColor = Color.white;
+    private Color frameStartColor = Color.white;
     /// <summary>
     /// Number of ready players.
     /// </summary>
@@ -127,8 +127,8 @@ public class CharacterSelectorManager : MonoBehaviour
         }
         for (int id = 0; id < maxNumberOfPlayers; id++)
         {
-            frames[id].color = tweenFromColor;
-            tweens[id].from = tweenFromColor;
+            frames[id].color = frameStartColor;
+            tweens[id].from = frameStartColor;
             tweens[id].to = Configuration.instance.playersColors[id];
         }
     }
@@ -273,7 +273,7 @@ public class CharacterSelectorManager : MonoBehaviour
                 //}
                 //tweens[id].from = tweenFromColor;
                 //tweens[id].ResetToBeginning();
-                Tweener(tweenFromColor, Configuration.instance.playersColors[id], id);
+                Tweener(frameStartColor, Configuration.instance.playersColors[id], id);
                 CheckReady();
             }
         }
@@ -362,7 +362,7 @@ public class CharacterSelectorManager : MonoBehaviour
         //}
         //centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
         selectedGrannies[id] = grannies[indexes[id]];
-        Tweener(tweenFromColor, Configuration.instance.playersColors[id], id);
+        Tweener(frameStartColor, Configuration.instance.playersColors[id], id);
         CheckReady();
     }
 

@@ -19,9 +19,7 @@ public class DefaultBulletManager : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
 		if (other.gameObject.tag.Equals ("Wall") || other.gameObject.tag.Equals("LevelWall")) {
-			
 			Trigger ();
-
 		}
         else if(other.gameObject.tag == "Pan")
         {

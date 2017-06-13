@@ -10,6 +10,8 @@ public class DefaultBulletManager : MonoBehaviour {
 	protected Transform reflectedPosition;
 	public float bulletSpeed;
 
+	public GameObject sparkVFX;
+
 	void Awake(){
 		Components ();
 	}
@@ -19,6 +21,9 @@ public class DefaultBulletManager : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision other){
+		GameObject spark = Instantiate (sparkVFX, transform.position, transform.rotation) as GameObject;
+		Destroy (spark, 0.5f);
+
 		if (other.gameObject.tag.Equals ("Wall") || other.gameObject.tag.Equals("LevelWall")) {
 			Trigger ();
 		}
@@ -46,6 +51,7 @@ public class DefaultBulletManager : MonoBehaviour {
 
 	protected virtual void Trigger(){
 		isMoving = false;
+
 		bulletMeshRender.enabled = false;
 		bulletCapsuleCollider.enabled = false;
 		bulletRb.velocity = Vector3.zero;

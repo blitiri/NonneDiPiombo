@@ -19,7 +19,7 @@ public class WeaponControl : MonoBehaviour
 
     public float recoilForce;
 
-
+	public GameObject onShootVFX;
 	void Start(){
 		playerRb = playerScript.gameObject.GetComponent<Rigidbody> ();
 	}
@@ -32,7 +32,9 @@ public class WeaponControl : MonoBehaviour
 		GameObject bullet;
 		Rigidbody bulletRigidbody;
 
-	
+		GameObject shootVFX = Instantiate (onShootVFX, bulletSpawnPoint.position, Quaternion.identity) as GameObject;
+		Destroy (shootVFX, 0.5f);
+
 		bullet = Instantiate(standardBulletPrefab) as GameObject;
 		bullet.transform.rotation = bulletSpawnPoint.transform.rotation;
 		bullet.transform.position = bulletSpawnPoint.position;
@@ -48,7 +50,7 @@ public class WeaponControl : MonoBehaviour
 
 
 		bullet = Instantiate(standardBulletPrefab) as GameObject;
-		bullet.transform.rotation = bulletSpawnPoint.transform.rotation ;
+		bullet.transform.rotation = bulletSpawnPoint.rotation ;
 		bullet.transform.position = bulletSpawnPoint.position;
 		bullet.tag = "Bullet" + playerId;
 

@@ -6,6 +6,10 @@ using Rewired;
 public class CharacterSelectorManager : MonoBehaviour
 {
     /// <summary>
+    /// It is needed to know whether cooldown is running or not.
+    /// </summary>
+    private bool RunCooldownIsRunning;
+    /// <summary>
     /// They are needed to slowly switch between button.
     /// </summary>
     private bool[] canSelect;
@@ -32,11 +36,11 @@ public class CharacterSelectorManager : MonoBehaviour
     /// <summary>
     /// Seconds before the match starts.
     /// </summary>
-    private const float cooldwonSeconds = 3;
+    private const float cooldownSeconds = 3;
     /// <summary>
     /// The count of seconds before the match starts.
     /// </summary>
-    private float cooldownCount;
+    public float cooldownCount;
     /// <summary>
     /// The cooldown gameObject;
     /// </summary>
@@ -287,10 +291,7 @@ public class CharacterSelectorManager : MonoBehaviour
         }
         else
         {
-            if (cooldown.gameObject.activeInHierarchy)
-            {
-                StopCooldown();
-            }
+            StopCooldown();
         }
     }
 
@@ -323,18 +324,25 @@ public class CharacterSelectorManager : MonoBehaviour
 
     public void StartCooldown()
     {
-        if (cooldownCount != cooldwonSeconds)
+        if (cooldownCount != cooldownSeconds)
         {
-            cooldownCount = cooldwonSeconds;
+            cooldownCount = cooldownSeconds;
         }
-        cooldown.gameObject.SetActive(true);
-        StopCoroutine(RunCooldown());
-        StartCoroutine(RunCooldown());
+        if (!RunCooldownIsRunning)
+        {
+            StartCoroutine("RunCooldown");
+            RunCooldownIsRunning = true;
+        }
+        if (!cooldown.gameObject.activeInHierarchy)
+        {
+            cooldown.gameObject.SetActive(true);
+        }
     }
 
     public IEnumerator RunCooldown()
     {
-        while(cooldownCount > 0)
+        Debug.Log(cooldownCount);
+        while (cooldownCount > 0)
         {
             cooldownCount -= Time.deltaTime;
             cooldown.text = cooldownCount.ToString("#");
@@ -345,8 +353,19 @@ public class CharacterSelectorManager : MonoBehaviour
 
     public void StopCooldown()
     {
-        StopCoroutine(RunCooldown());
-        cooldown.gameObject.SetActive(false);
+        if (RunCooldownIsRunning)
+        {
+            StopCoroutine("RunCooldown");
+            RunCooldownIsRunning = false;
+        }
+        if (cooldown.gameObject.activeInHierarchy)
+        {
+            cooldown.gameObject.SetActive(false);
+        }
+        if (cooldownCount != cooldownSeconds)
+        {
+            cooldownCount = cooldownSeconds;
+        }
     }
 
     public void ClickCentral(GameObject button)

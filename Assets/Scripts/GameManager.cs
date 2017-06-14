@@ -222,17 +222,11 @@ public class GameManager : MonoBehaviour
 	{
         if (isPaused)
         {
-            isPaused = false;
-            Destroy(pauseScreen.GetComponent<TweenAlpha>());
-            SetButtonsEnabled(false);
-            Time.timeScale = 0;
+            ResumeGame();
         }
         else
         {
-            isPaused = true;
-            AddTween();
-            SetButtonsEnabled(true);
-            Time.timeScale = 1;
+            PauseGame();
         }
 	}
 
@@ -249,11 +243,20 @@ public class GameManager : MonoBehaviour
 	/// <summary>
 	/// Resumes the play.
 	/// </summary>
-	public void ResumePlay() {
+	public void ResumeGame() {
 		isPaused = false;
 		Destroy (pauseScreen.GetComponent<TweenAlpha> ());
 		SetButtonsEnabled (false);
-	}
+        Time.timeScale = 1;
+    }
+
+    public void PauseGame()
+    {
+        isPaused = true;
+        AddTween();
+        SetButtonsEnabled(true);
+        Time.timeScale = 0;
+    }
 
 	/// <summary>
 	/// Gets the players.

@@ -125,7 +125,7 @@ public class LevelUIManager : AbstractUIManager
 	/// </summary>
 	public void OnClickResumeButton ()
 	{
-		GameManager.instance.ResumePlay ();
+		GameManager.instance.ResumeGame ();
 	}
 
 	/// <summary>

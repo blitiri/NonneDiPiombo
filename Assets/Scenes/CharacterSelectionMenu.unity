@@ -1611,7 +1611,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 914056959}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1155168973}
@@ -1631,11 +1631,11 @@ MonoBehaviour:
   leftAnchor:
     target: {fileID: 1155168973}
     relative: 0
-    absolute: -2
+    absolute: -3
   rightAnchor:
     target: {fileID: 1155168973}
     relative: 1
-    absolute: 2
+    absolute: 3
   bottomAnchor:
     target: {fileID: 1155168973}
     relative: 0
@@ -1643,17 +1643,17 @@ MonoBehaviour:
   topAnchor:
     target: {fileID: 1155168973}
     relative: 1
-    absolute: 1
+    absolute: 0
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1924
-  mHeight: 1079
+  mWidth: 2319
+  mHeight: 1080
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
-  keepAspectRatio: 1
-  aspectRatio: 1.7837338
+  keepAspectRatio: 0
+  aspectRatio: 2.1444445
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -2436,6 +2436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readyCount: 0
+  cooldownCount: 0
   cooldown: {fileID: 459670179}
   readys: 
   indexes: 

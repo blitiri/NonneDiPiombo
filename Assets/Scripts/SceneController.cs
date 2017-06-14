@@ -144,7 +144,7 @@ public class SceneController : MonoBehaviour
 
     public void LoadActiveScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString(), LoadSceneMode.Single);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
 
 	/// <summary>

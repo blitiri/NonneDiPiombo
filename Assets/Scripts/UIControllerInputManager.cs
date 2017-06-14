@@ -16,7 +16,7 @@ public class UIControllerInputManager : MonoBehaviour
     /// <summary>
     /// Index for browsing between buttons.
     /// </summary>
-    private int buttonIndex;
+    public int buttonIndex;
     /// <summary>
     /// This player's identifier.
     /// </summary>
@@ -30,6 +30,7 @@ public class UIControllerInputManager : MonoBehaviour
     /// </summary>
     public static Player[] players;
     public UIButton[] buttons;
+    public UIPlayTween[] playTweens;
     public static UIButton startButton;
 
     private void Awake()
@@ -47,8 +48,13 @@ public class UIControllerInputManager : MonoBehaviour
 				if (canAssignStart)
 					startButton = GameObject.FindGameObjectWithTag (startButtonTag).GetComponent<UIButton> ();
 			}
-			canSelect = true;
 		}
+        playTweens = new UIPlayTween[buttons.Length];
+        for (int i = 0; i < playTweens.Length; i++)
+        {
+            playTweens[i] = buttons[i].gameObject.GetComponent<UIPlayTween>();
+        }
+        canSelect = true;
     }
 
     private void Start()
@@ -57,6 +63,9 @@ public class UIControllerInputManager : MonoBehaviour
         {
             AssignPlayers();
         }
+
+        if (buttons[buttonIndex].state != UIButtonColor.State.Hover)
+            buttons[buttonIndex].SetState(UIButtonColor.State.Hover, true);
     }
 
     private void Update()
@@ -80,11 +89,15 @@ public class UIControllerInputManager : MonoBehaviour
 
     void UpdateSelectedButtons()
     {
-        buttons[buttonIndex].SetState(UIButtonColor.State.Normal, true);
         if (canSelect)
         {
-            if (players[playerID].GetAxis("Move horizontal") < -0.2f)
+            if (players[playerID].GetAxis("Move horizontal") < -0.2f || players[playerID].GetAxis("Move vertical") > 0.2f)
             {
+                if (buttons[buttonIndex].state != UIButtonColor.State.Normal)
+                    buttons[buttonIndex].SetState(UIButtonColor.State.Normal, true);
+
+                //playTweens[buttonIndex].playDirection = AnimationOrTween.Direction.Reverse;
+
                 //Debug.Log("SSSSSS");
                 if (buttonIndex <= 0)
                 {
@@ -94,9 +107,17 @@ public class UIControllerInputManager : MonoBehaviour
                 {
                     buttonIndex -= 1;
                 }
+
+                if (buttons[buttonIndex].state != UIButtonColor.State.Hover)
+                    buttons[buttonIndex].SetState(UIButtonColor.State.Hover, true);
+
+                //playTweens[buttonIndex].Play(true);
             }
-            else if (players[playerID].GetAxis("Move horizontal") > 0.2f)
+            else if (players[playerID].GetAxis("Move horizontal") > 0.2f || players[playerID].GetAxis("Move vertical") < -0.2f)
             {
+                if (buttons[buttonIndex].state != UIButtonColor.State.Normal)
+                    buttons[buttonIndex].SetState(UIButtonColor.State.Normal, true);
+
                 if (buttonIndex >= buttons.Length - 1)
                 {
                     buttonIndex = 0;
@@ -105,33 +126,12 @@ public class UIControllerInputManager : MonoBehaviour
                 {
                     buttonIndex += 1;
                 }
-            }
-            if (players[playerID].GetAxis("Move vertical") < -0.2f)
-            {
-                if (buttonIndex >= buttons.Length - 1)
-                {
-                    buttonIndex = 0;
-                }
-                else
-                {
-                    buttonIndex += 1;
-                }
-            }
-            else if (players[playerID].GetAxis("Move vertical") > 0.2f)
-            {
-                if (buttonIndex <= 0)
-                {
-                    buttonIndex = buttons.Length - 1;
-                }
-                else
-                {
-                    buttonIndex -= 1;
-                }
+
+                if (buttons[buttonIndex].state != UIButtonColor.State.Hover)
+                    buttons[buttonIndex].SetState(UIButtonColor.State.Hover, true);
             }
             canSelect = false;
         }
-
-        buttons[buttonIndex].SetState(UIButtonColor.State.Hover, true);
 
         if (!canSelect)
         {

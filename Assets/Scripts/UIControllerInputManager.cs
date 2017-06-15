@@ -12,7 +12,7 @@ public class UIControllerInputManager : MonoBehaviour
 	/// <summary>
 	/// Index for browsing between buttons.
 	/// </summary>
-	public int buttonIndex;
+	private int selectedButtonIndex;
 	/// <summary>
 	/// This player's identifier.
 	/// </summary>
@@ -24,10 +24,10 @@ public class UIControllerInputManager : MonoBehaviour
 	/// <summary>
 	/// all the players.
 	/// </summary>
-	public Player[] players;
+	private Player[] players;
 	public UIButton[] buttons;
-	public UIPlayTween[] playTweens;
-	public UIButton startButton;
+	private UIPlayTween[] playTweens;
+	private UIButton startButton;
 
 	private void Awake ()
 	{
@@ -52,10 +52,10 @@ public class UIControllerInputManager : MonoBehaviour
 		}
 
 		if (buttons.Length > 0) {
-			if (buttons [buttonIndex].state != UIButtonColor.State.Hover)
-				buttons [buttonIndex].SetState (UIButtonColor.State.Hover, true);
+			if (buttons [selectedButtonIndex].state != UIButtonColor.State.Hover)
+				buttons [selectedButtonIndex].SetState (UIButtonColor.State.Hover, true);
 
-			playTweens [buttonIndex].Play (true);
+			playTweens [selectedButtonIndex].Play (true);
 		}
 	}
 
@@ -83,44 +83,44 @@ public class UIControllerInputManager : MonoBehaviour
 		if (buttons.Length > 0) {
 			if (canSelect) {
 				if (players [playerID].GetAxis ("Move horizontal") < -0.4f || players [playerID].GetAxis ("Move vertical") > 0.4f) {
-					if (buttons [buttonIndex].state != UIButtonColor.State.Normal)
-						buttons [buttonIndex].SetState (UIButtonColor.State.Normal, true);
+					if (buttons [selectedButtonIndex].state != UIButtonColor.State.Normal)
+						buttons [selectedButtonIndex].SetState (UIButtonColor.State.Normal, true);
 
-					if (playTweens [buttonIndex] != null)
-						playTweens [buttonIndex].Play (false);
+					if (playTweens [selectedButtonIndex] != null)
+						playTweens [selectedButtonIndex].Play (false);
 
 					//playTweens[buttonIndex].playDirection = AnimationOrTween.Direction.Reverse;
 
 					//Debug.Log("SSSSSS");
-					if (buttonIndex <= 0) {
-						buttonIndex = buttons.Length - 1;
+					if (selectedButtonIndex <= 0) {
+						selectedButtonIndex = buttons.Length - 1;
 					} else {
-						buttonIndex -= 1;
+						selectedButtonIndex -= 1;
 					}
 
-					if (buttons [buttonIndex].state != UIButtonColor.State.Hover)
-						buttons [buttonIndex].SetState (UIButtonColor.State.Hover, true);
+					if (buttons [selectedButtonIndex].state != UIButtonColor.State.Hover)
+						buttons [selectedButtonIndex].SetState (UIButtonColor.State.Hover, true);
 
-					if (playTweens [buttonIndex] != null)
-						playTweens [buttonIndex].Play (true);
+					if (playTweens [selectedButtonIndex] != null)
+						playTweens [selectedButtonIndex].Play (true);
 				} else if (players [playerID].GetAxis ("Move horizontal") > 0.4f || players [playerID].GetAxis ("Move vertical") < -0.4f) {
-					if (buttons [buttonIndex].state != UIButtonColor.State.Normal)
-						buttons [buttonIndex].SetState (UIButtonColor.State.Normal, true);
+					if (buttons [selectedButtonIndex].state != UIButtonColor.State.Normal)
+						buttons [selectedButtonIndex].SetState (UIButtonColor.State.Normal, true);
 
-					if (playTweens [buttonIndex] != null)
-						playTweens [buttonIndex].Play (false);
+					if (playTweens [selectedButtonIndex] != null)
+						playTweens [selectedButtonIndex].Play (false);
 
-					if (buttonIndex >= buttons.Length - 1) {
-						buttonIndex = 0;
+					if (selectedButtonIndex >= buttons.Length - 1) {
+						selectedButtonIndex = 0;
 					} else {
-						buttonIndex += 1;
+						selectedButtonIndex += 1;
 					}
 
-					if (buttons [buttonIndex].state != UIButtonColor.State.Hover)
-						buttons [buttonIndex].SetState (UIButtonColor.State.Hover, true);
+					if (buttons [selectedButtonIndex].state != UIButtonColor.State.Hover)
+						buttons [selectedButtonIndex].SetState (UIButtonColor.State.Hover, true);
 
-					if (playTweens [buttonIndex] != null)
-						playTweens [buttonIndex].Play (true);
+					if (playTweens [selectedButtonIndex] != null)
+						playTweens [selectedButtonIndex].Play (true);
 				}
 				canSelect = false;
 			}
@@ -139,9 +139,9 @@ public class UIControllerInputManager : MonoBehaviour
 	{
 		if (buttons.Length > 0) {
 			if (players [playerID].GetButtonDown ("Cross")) {
-				for (int i = 0; i < buttons [buttonIndex].onClick.Count; i++) {
-					buttons [buttonIndex].SetState (UIButtonColor.State.Pressed, true);
-					buttons [buttonIndex].onClick [i].Execute ();
+				for (int i = 0; i < buttons [selectedButtonIndex].onClick.Count; i++) {
+					buttons [selectedButtonIndex].SetState (UIButtonColor.State.Pressed, true);
+					buttons [selectedButtonIndex].onClick [i].Execute ();
 					//buttons[buttonIndex].SetState(UIButtonColor.State.Normal, true);
 				}
 			}

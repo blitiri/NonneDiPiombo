@@ -7,29 +7,21 @@ public class GameManager : MonoBehaviour
 	/// GameManager instance.
 	/// </summary>
 	public static GameManager instance;
-    /// <summary>
-    /// Skill Counter.
-    /// </summary>
-    public int catCounter;
+	/// <summary>
+	/// Skill Counter.
+	/// </summary>
+	public int catCounter;
 
-    public bool isPaused = false;
+	public bool isPaused = false;
 	public float timerToSpawn = 5.0f;
 	private float timerPostManSpawn;
 	public float maxTimerBeforeRespawn = 1.0f;
 	public float roundTimer;
 
-	public BoxCollider restartButtonBoxCollider;
-	public UISprite restartButtonUISprite;
-	public UILabel restartButtonUILabel;
 	public Transform cameraTransform;
 
-	public GameObject postManPrefab;
 	public GameObject rewiredInputManagerPrefab;
-	public GameObject pauseScreen;
-	public GameObject pauseButton;
-	public GameObject restartButton;
-	public GameObject quitButton;
-    public GameObject pauseMenu;
+	public GameObject pauseMenu;
 
 	// array di transform per il respawn dei player
 	public Transform[] playersRespawns;
@@ -40,15 +32,13 @@ public class GameManager : MonoBehaviour
 	public GameObject[] weapons;
 
 	public GameObject spawnVFXPrefab;
+
 	void Awake ()
 	{
 		instance = this;
 		Statistics.instance.Reset ();
 		Instantiate (rewiredInputManagerPrefab);
 		InitPlayers ();
-		restartButtonBoxCollider = restartButton.GetComponent<BoxCollider> ();
-		restartButtonUISprite = restartButton.GetComponent<UISprite> ();
-		restartButtonUILabel = restartButton.GetComponentInChildren<UILabel> ();
 	}
 
 	void Start ()
@@ -56,19 +46,17 @@ public class GameManager : MonoBehaviour
 		LevelUIManager.instance.InitUI ();
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        //CheckRespawnPlayers ();
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            CheckGamePause();
-        }
-        if (!isPaused)
-        {
-            TimerUpdate();
-        }
-    }
+	// Update is called once per frame
+	void Update ()
+	{
+		//CheckRespawnPlayers ();
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			CheckGamePause ();
+		}
+		if (!isPaused) {
+			TimerUpdate ();
+		}
+	}
 
 	private void InitPlayers ()
 	{
@@ -79,17 +67,14 @@ public class GameManager : MonoBehaviour
 		players = new GameObject[numberOfPlayers];
 		playersControls = new PlayerControl[numberOfPlayers];
 		for (playerIndex = 0; playerIndex < numberOfPlayers; playerIndex++) {
-            // Instantiate player
-            if (Configuration.instance.selectedGrannies[playerIndex] != null)
-            {
-                players[playerIndex] = Instantiate(Configuration.instance.selectedGrannies[playerIndex]) as GameObject;
-                players[playerIndex].transform.position = playersStartRespawns[playerIndex].position;
-            }
-            else
-            {
-                players[playerIndex] = Instantiate(Configuration.instance.granniesPrefabs[Random.Range(0, Configuration.instance.granniesPrefabs.Length)]) as GameObject;
-                players[playerIndex].transform.position = playersStartRespawns[playerIndex].position;
-            }
+			// Instantiate player
+			if (Configuration.instance.selectedGrannies [playerIndex] != null) {
+				players [playerIndex] = Instantiate (Configuration.instance.selectedGrannies [playerIndex]) as GameObject;
+				players [playerIndex].transform.position = playersStartRespawns [playerIndex].position;
+			} else {
+				players [playerIndex] = Instantiate (Configuration.instance.granniesPrefabs [Random.Range (0, Configuration.instance.granniesPrefabs.Length)]) as GameObject;
+				players [playerIndex].transform.position = playersStartRespawns [playerIndex].position;
+			}
 			// Initialize PlayerControl script
 			playersControls [playerIndex] = players [playerIndex].GetComponent<PlayerControl> ();
 			playersControls [playerIndex].SetPlayerId (playerIndex);
@@ -114,7 +99,7 @@ public class GameManager : MonoBehaviour
 
 		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
 			if ((playersControls [playerIndex].isDead) || (playersControls [playerIndex].IsCollapsed ())) {
-                StartCoroutine (RespawnPlayer (playerIndex));
+				StartCoroutine (RespawnPlayer (playerIndex));
 			}
 		}
 	}
@@ -127,8 +112,8 @@ public class GameManager : MonoBehaviour
 	public void PlayerKilled (int killedId, int killerId)
 	{
 		Statistics.instance.PlayerKilled (killedId, killerId);
-		LevelUIManager.instance.SetScore (Statistics.instance.getPlayersKills() [killedId], killedId);
-		LevelUIManager.instance.SetScore (Statistics.instance.getPlayersKills() [killerId], killerId);
+		LevelUIManager.instance.SetScore (Statistics.instance.getPlayersKills () [killedId], killedId);
+		LevelUIManager.instance.SetScore (Statistics.instance.getPlayersKills () [killerId], killerId);
 	}
 
 	private IEnumerator RespawnPlayer (int playerIndex)
@@ -155,7 +140,7 @@ public class GameManager : MonoBehaviour
 
 		spawnpointIndex = UnityEngine.Random.Range (0, playersRespawns.Length);
 		player.transform.position = playersRespawns [spawnpointIndex].position;
-		GameObject spawnVFX = Instantiate (spawnVFXPrefab, player.transform.position + new Vector3(0, 1,0), spawnVFXPrefab.transform.rotation) as GameObject;
+		GameObject spawnVFX = Instantiate (spawnVFXPrefab, player.transform.position + new Vector3 (0, 1, 0), spawnVFXPrefab.transform.rotation) as GameObject;
 		Destroy (spawnVFX, 3f);
 		SetMeshRendererEnabled (true, playerIndex);
 		playerControl.stopInputPlayer = false;
@@ -182,7 +167,7 @@ public class GameManager : MonoBehaviour
 			}
 		}
 	}
-		
+
 	/// <summary>
 	/// Update round countdown, back to menu at the end
 	/// </summary>
@@ -198,21 +183,7 @@ public class GameManager : MonoBehaviour
 
 	private void SetButtonsEnabled (bool enabled)
 	{
-        pauseMenu.SetActive(enabled);
-        //pauseScreen.SetActive(enabled);
-        //pauseButton.SetActive(enabled);
-        //restartButton.SetActive(enabled);
-        //quitButton.SetActive(enabled);
-		//pauseScreen.GetComponent<UISprite> ().enabled = enabled;
-		//pauseButton.GetComponent<BoxCollider> ().enabled = enabled;
-		//pauseButton.GetComponent<UISprite> ().enabled = enabled;
-		//pauseButton.GetComponentInChildren<UILabel> ().enabled = enabled;
-		//restartButtonBoxCollider.enabled = enabled;
-		//restartButtonUISprite.enabled = enabled;
-		//restartButtonUILabel.enabled = enabled;
-		//quitButton.GetComponent<BoxCollider> ().enabled = enabled;
-		//quitButton.GetComponent<UISprite> ().enabled = enabled;
-		//quitButton.GetComponentInChildren<UILabel> ().enabled = enabled;
+		pauseMenu.SetActive (enabled);
 	}
 
 	/// <summary>
@@ -220,42 +191,27 @@ public class GameManager : MonoBehaviour
 	/// </summary>
 	public void CheckGamePause ()
 	{
-        if (isPaused)
-        {
-            ResumeGame();
-        }
-        else
-        {
-            PauseGame();
-        }
-	}
-
-	/// <summary>
-	/// Adding tween to screen transition
-	/// </summary>
-	private void AddTween ()
-	{
-		pauseScreen.AddComponent<TweenAlpha> ().from = 0;
-		pauseScreen.GetComponent<TweenAlpha> ().to = 1;
-		pauseScreen.GetComponent<TweenAlpha> ().duration = 1.7f;
+		if (isPaused) {
+			ResumeGame ();
+		} else {
+			PauseGame ();
+		}
 	}
 
 	/// <summary>
 	/// Resumes the play.
 	/// </summary>
-	public void ResumeGame()
-    {
+	public void ResumeGame ()
+	{
 		isPaused = false;
-		Destroy (pauseScreen.GetComponent<TweenAlpha> ());
 		SetButtonsEnabled (false);
-    }
+	}
 
-    public void PauseGame()
-    {
-        isPaused = true;
-        AddTween();
-        SetButtonsEnabled(true);
-    }
+	public void PauseGame ()
+	{
+		isPaused = true;
+		SetButtonsEnabled (true);
+	}
 
 	/// <summary>
 	/// Gets the players.

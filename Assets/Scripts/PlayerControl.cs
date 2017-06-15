@@ -101,6 +101,9 @@ public class PlayerControl : MonoBehaviour
 
 	public bool isImmortal;
 	public float immortalTime = 0.5f;
+	public Transform heartPos;
+	public GameObject heartPrefab;
+	public GameObject heart;
 
 	/// <summary>
 	/// Awake this instance.
@@ -127,6 +130,8 @@ public class PlayerControl : MonoBehaviour
 		}
 		ResetStatus ();
 		StartCoroutine (DiminishStress ());
+		heart = Instantiate (heartPrefab,heartPos.position, Quaternion.identity);
+		heart.GetComponentInChildren<UISprite>().SetAnchor(heartPos);
     }
 
 	/// <summary>

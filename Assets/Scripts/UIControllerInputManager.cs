@@ -98,7 +98,8 @@ public class UIControllerInputManager : MonoBehaviour
                 if (buttons[buttonIndex].state != UIButtonColor.State.Normal)
                     buttons[buttonIndex].SetState(UIButtonColor.State.Normal, true);
 
-                playTweens[buttonIndex].Play(false);
+                if (playTweens[buttonIndex] != null)
+                    playTweens[buttonIndex].Play(false);
 
                 //playTweens[buttonIndex].playDirection = AnimationOrTween.Direction.Reverse;
 
@@ -115,14 +116,16 @@ public class UIControllerInputManager : MonoBehaviour
                 if (buttons[buttonIndex].state != UIButtonColor.State.Hover)
                     buttons[buttonIndex].SetState(UIButtonColor.State.Hover, true);
 
-                playTweens[buttonIndex].Play(true);
+                if (playTweens[buttonIndex] != null)
+                    playTweens[buttonIndex].Play(true);
             }
             else if (players[playerID].GetAxis("Move horizontal") > 0.4f || players[playerID].GetAxis("Move vertical") < -0.4f)
             {
                 if (buttons[buttonIndex].state != UIButtonColor.State.Normal)
                     buttons[buttonIndex].SetState(UIButtonColor.State.Normal, true);
 
-                playTweens[buttonIndex].Play(false);
+                if (playTweens[buttonIndex] != null)
+                    playTweens[buttonIndex].Play(false);
 
                 if (buttonIndex >= buttons.Length - 1)
                 {
@@ -136,7 +139,8 @@ public class UIControllerInputManager : MonoBehaviour
                 if (buttons[buttonIndex].state != UIButtonColor.State.Hover)
                     buttons[buttonIndex].SetState(UIButtonColor.State.Hover, true);
 
-                playTweens[buttonIndex].Play(true);
+                if (playTweens[buttonIndex] != null)
+                    playTweens[buttonIndex].Play(true);
             }
             canSelect = false;
         }

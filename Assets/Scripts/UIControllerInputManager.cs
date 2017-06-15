@@ -10,6 +10,10 @@ public class UIControllerInputManager : MonoBehaviour
     /// </summary>
     private bool canSelect;
     /// <summary>
+    /// The number of players.
+    /// </summary>
+    public int numberOfPlayers;
+    /// <summary>
     /// Index for browsing between buttons.
     /// </summary>
     public int buttonIndex;
@@ -60,12 +64,12 @@ public class UIControllerInputManager : MonoBehaviour
 
     private void Start()
     {
-        int numberOfPlayers = Configuration.instance.GetNumberOfPlayers();
+        numberOfPlayers = Configuration.instance.GetNumberOfPlayers();
 
-        //if (playerID == 0)
-        //{
-        AssignPlayers();
-        //}
+        if (playerID == 0)
+        {
+            AssignPlayers();
+        }
 
         if (buttons.Length > 0)
         {
@@ -174,8 +178,9 @@ public class UIControllerInputManager : MonoBehaviour
             {
                 for (int i = 0; i < buttons[buttonIndex].onClick.Count; i++)
                 {
-                    buttons[buttonIndex].SetState(UIButtonColor.State.Hover, true);
+                    buttons[buttonIndex].SetState(UIButtonColor.State.Pressed, true);
                     buttons[buttonIndex].onClick[i].Execute();
+                    //buttons[buttonIndex].SetState(UIButtonColor.State.Normal, true);
                 }
             }
         }
@@ -191,6 +196,7 @@ public class UIControllerInputManager : MonoBehaviour
                 {
                     startButton.SetState(UIButtonColor.State.Pressed, true);
                     startButton.onClick[i].Execute();
+                    //startButton.SetState(UIButtonColor.State.Normal, true);
                 }
             }
             else

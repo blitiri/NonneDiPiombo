@@ -94,10 +94,6 @@ public class CharacterSelectorManager : MonoBehaviour
 	/// </summary>
 	public GameObject[] selectedGrannies;
 	/// <summary>
-	/// Start button.
-	/// </summary>
-	public UIButton startButton;
-	/// <summary>
 	/// An icon for each selector.
 	/// </summary>
 	public UIButton[] centrals;
@@ -156,7 +152,7 @@ public class CharacterSelectorManager : MonoBehaviour
 	{
 		MoveControllerAxis ();
 		PressControllerButton ();
-		StartMatch ();
+		//StartMatch ();
 	}
 
 	private void SelectorsActivation ()
@@ -420,17 +416,17 @@ public class CharacterSelectorManager : MonoBehaviour
 	//    a = b;
 	//}
 
-	void StartMatch ()
-	{
-		foreach (Player player in players) {
-			if (player.GetButtonDown ("Start")) {
-				startButton.SetState (UIButtonColor.State.Pressed, true);
-				for (int i = 0; i < startButton.onClick.Count; i++) {
-					startButton.onClick [i].Execute ();
-				}
-			}
-		}
-	}
+	//void StartMatch ()
+	//{
+	//	foreach (Player player in players) {
+	//		if (player.GetButtonDown ("Start")) {
+	//			startButton.SetState (UIButtonColor.State.Pressed, true);
+	//			for (int i = 0; i < startButton.onClick.Count; i++) {
+	//				startButton.onClick [i].Execute ();
+	//			}
+	//		}
+	//	}
+	//}
 
 	public void LoadLevelScene (string scene)
 	{

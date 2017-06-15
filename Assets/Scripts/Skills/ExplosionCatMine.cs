@@ -36,7 +36,7 @@ public class ExplosionCatMine : MonoBehaviour {
 		} else if (other.gameObject.tag.Equals ("LevelWall")) {
 			explosionCollider.radius = maxRadius;
 			wallCollision = false;
-		} else if (other.gameObject.tag.StartsWith ("Player") && Utility.GetPlayerIndexFromBullet (this.gameObject.tag) != Utility.GetPlayerIndex (other.gameObject.tag) ) {
+		} else if (other.gameObject.tag.StartsWith ("Player") && Utility.GetPlayerIndexFromBullet (this.gameObject.tag) == Utility.GetPlayerIndex (other.gameObject.tag) ) {
 			int explosionId;
 			explosionId = Utility.GetPlayerIndexFromBullet (this.gameObject.tag);
 

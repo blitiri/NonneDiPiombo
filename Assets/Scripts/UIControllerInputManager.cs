@@ -10,10 +10,6 @@ public class UIControllerInputManager : MonoBehaviour
     /// </summary>
     private bool canSelect;
     /// <summary>
-    /// The number of players.
-    /// </summary>
-    public int numberOfPlayers;
-    /// <summary>
     /// Index for browsing between buttons.
     /// </summary>
     public int buttonIndex;
@@ -64,7 +60,6 @@ public class UIControllerInputManager : MonoBehaviour
 
     private void Start()
     {
-        numberOfPlayers = Configuration.instance.GetNumberOfPlayers();
 
         if (playerID == 0)
         {
@@ -91,6 +86,7 @@ public class UIControllerInputManager : MonoBehaviour
 
     void AssignPlayers()
     {
+        int numberOfPlayers = Configuration.instance.GetNumberOfPlayers();
 
         players = new Player[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++)

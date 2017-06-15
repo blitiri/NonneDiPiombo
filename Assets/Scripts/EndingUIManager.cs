@@ -64,7 +64,7 @@ public class EndingUIManager : AbstractUIManager
 					scoreLabel.text = "Score: " + ranking [playerIndex].GetScore ();
 				} else if (child.tag.Equals ("PlayerId")) {
 					scoreLabel = child.gameObject.GetComponent<UILabel> ();
-					scoreLabel.text = "P" + (ranking [playerIndex].GetPlayerId ());
+					scoreLabel.text = "P" + (ranking [playerIndex].GetPlayerId () + 1);
 					scoreLabel.color = Configuration.instance.playersColors [playerIndex];
 				}
 			}

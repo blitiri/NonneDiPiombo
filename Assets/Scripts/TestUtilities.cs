@@ -37,83 +37,108 @@ public class TestUtilities
 		case 1:
 			// Two players
 			ranking = new RankingPosition[2];
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, -5, madameHo);
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, chefAgata);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, -5, madameHo);
 			break;
 		case 2:
 			// Two players with same score
 			ranking = new RankingPosition[2];
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, madameHo);
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, chefAgata);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, madameHo);
 			break;
 		case 3:
 			// Three players
 			ranking = new RankingPosition[3];
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, -5, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, sisterRedenta);
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, chefAgata);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, -5, madameHo);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 7, sisterRedenta);
 			break;
 		case 4:
 			// Three players with two with same score
 			ranking = new RankingPosition[3];
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, sisterRedenta);
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, chefAgata);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 7, madameHo);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, sisterRedenta);
 			break;
 		case 5:
 			// Three players with two with same score
 			ranking = new RankingPosition[3];
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, chefAgata);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, sisterRedenta);
+			ranking [playerIndex] = new RankingPosition (playerIndex, 7, chefAgata);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, madameHo);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 7, sisterRedenta);
 			break;
 		case 6:
 			// Three players with same score
 			ranking = new RankingPosition[3];
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, chefAgata);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, sisterRedenta);
+			ranking [playerIndex] = new RankingPosition (playerIndex, 7, chefAgata);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 7, madameHo);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 7, sisterRedenta);
 			break;
 		case 7:
 			// Four players with two with same score
 			ranking = new RankingPosition[4];
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, sisterRedenta);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 0, catLady);
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, chefAgata);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, madameHo);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 7, sisterRedenta);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 0, catLady);
 			break;
 		case 8:
 			// Four players with three with same score
 			ranking = new RankingPosition[4];
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, sisterRedenta);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 0, catLady);
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, chefAgata);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, madameHo);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, sisterRedenta);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 0, catLady);
 			break;
 		case 9:
 			// Four players with three with same score
 			ranking = new RankingPosition[4];
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, sisterRedenta);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 22, catLady);
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, chefAgata);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, madameHo);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, sisterRedenta);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 22, catLady);
 			break;
 		case 10:
 			// Four players with same score
 			ranking = new RankingPosition[4];
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, sisterRedenta);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, catLady);
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, chefAgata);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, madameHo);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, sisterRedenta);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, catLady);
 			break;
 		case 11:
 		default:
 			// Four players
 			ranking = new RankingPosition[4];
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 10, chefAgata);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, -5, madameHo);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 7, sisterRedenta);
-			ranking [playerIndex++] = new RankingPosition (playerIndex, 0, catLady);
+			ranking [playerIndex] = new RankingPosition (playerIndex, 10, chefAgata);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, -5, madameHo);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 7, sisterRedenta);
+			playerIndex++;
+			ranking [playerIndex] = new RankingPosition (playerIndex, 0, catLady);
 			break;
 		}
 		Array.Sort (ranking);

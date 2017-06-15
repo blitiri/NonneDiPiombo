@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosionBazooka : MonoBehaviour {
+public class ExplosionCatMine : MonoBehaviour {
 	private BazookaBulletManager bazooka;
 	private SphereCollider explosionCollider;
 
@@ -27,7 +27,7 @@ public class ExplosionBazooka : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision other){
-		
+
 
 		if (other.gameObject.tag.Equals ("Wall")) {
 			Debug.Log ("Collision With Wall");
@@ -36,7 +36,7 @@ public class ExplosionBazooka : MonoBehaviour {
 		} else if (other.gameObject.tag.Equals ("LevelWall")) {
 			explosionCollider.radius = maxRadius;
 			wallCollision = false;
-		} else if (other.gameObject.tag.StartsWith ("Player") && Utility.GetPlayerIndexFromBullet (this.gameObject.tag) == Utility.GetPlayerIndex (other.gameObject.tag)) {
+		} else if (other.gameObject.tag.StartsWith ("Player") && Utility.GetPlayerIndexFromBullet (this.gameObject.tag) == Utility.GetPlayerIndex (other.gameObject.tag) ) {
 			int explosionId;
 			explosionId = Utility.GetPlayerIndexFromBullet (this.gameObject.tag);
 

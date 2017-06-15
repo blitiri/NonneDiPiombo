@@ -23,6 +23,7 @@ public class Utility
 
 	private const string bulletTag = "BulletPlayer";
 
+	private const string catTag = "Cat";
 	/// <summary>
 	/// Gets the player identifier from player index.
 	/// </summary>
@@ -47,6 +48,11 @@ public class Utility
 	public static int GetPlayerIndexFromBullet (string bulletId)
 	{
 		return int.Parse (bulletId.Substring (bulletTag.Length));
+	}
+
+	public static int GetPlayerIndexFromMine (string mineId)
+	{
+		return int.Parse (mineId.Substring (catTag.Length));
 	}
 
 	/// <summary>

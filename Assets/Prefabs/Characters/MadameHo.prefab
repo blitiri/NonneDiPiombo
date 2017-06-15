@@ -42,6 +42,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1298872746265648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4835611221112408}
+  m_Layer: 0
+  m_Name: HeartPos
+  m_TagString: HeartPos
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1879835817852994
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,8 +166,22 @@ Transform:
   - {fileID: 4412053468315162}
   - {fileID: 4174215308232056}
   - {fileID: 4876456091905198}
+  - {fileID: 4835611221112408}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4835611221112408
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1298872746265648}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 0.79999995, y: 0.79999995, z: 0.79999995}
+  m_Children: []
+  m_Father: {fileID: 4658768733013394}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4876456091905198
 Transform:
@@ -368,6 +397,10 @@ MonoBehaviour:
   ability: {fileID: 11400000, guid: c2e393be7ee4d7c4e953bdfa6ed6f589, type: 2}
   isImmortal: 0
   immortalTime: 0.5
+  heartPos: {fileID: 4835611221112408}
+  heartPrefab: {fileID: 1133736549780474, guid: f28702446cb77ae40a6b502bc90de8a8,
+    type: 2}
+  heart: {fileID: 0}
 --- !u!114 &114960886667242236
 MonoBehaviour:
   m_ObjectHideFlags: 1

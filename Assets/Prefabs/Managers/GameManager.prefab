@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb3304535d6b4d42bc8ec5597e46dfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  catCounter: 0
+  isPaused: 0
   timerToSpawn: 30
   maxTimerBeforeRespawn: 1
   roundTimer: 100
@@ -58,15 +60,19 @@ MonoBehaviour:
   restartButtonUISprite: {fileID: 0}
   restartButtonUILabel: {fileID: 0}
   cameraTransform: {fileID: 0}
-  postManPrefab: {fileID: 1000012890417878, guid: a2ab385db67f55f4e8c527ef7cac8f8b,
+  heartPos: {fileID: 4642394323345934, guid: 9faee4d0b9619a44aba4891a049458c7, type: 2}
+  heartPrefab: {fileID: 1133736549780474, guid: f28702446cb77ae40a6b502bc90de8a8,
     type: 2}
+  postManPrefab: {fileID: 0}
   rewiredInputManagerPrefab: {fileID: 1000011443848920, guid: 08cd78c1862ac854a9349da0e52c5473,
     type: 2}
   pauseScreen: {fileID: 0}
   pauseButton: {fileID: 0}
   restartButton: {fileID: 0}
   quitButton: {fileID: 0}
+  pauseMenu: {fileID: 0}
   playersRespawns:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

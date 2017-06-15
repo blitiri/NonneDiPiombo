@@ -670,7 +670,7 @@ Transform:
   m_GameObject: {fileID: 258685564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.002232143, y: 0.002232143, z: 0.002232143}
+  m_LocalScale: {x: 0.0018518518, y: 0.0018518518, z: 0.0018518518}
   m_Children:
   - {fileID: 324208158}
   - {fileID: 1290857007}
@@ -978,7 +978,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   ignoreTimeScale: 1
   delay: 0
-  duration: 0.5
+  duration: 0.4
   steeperCurves: 0
   tweenGroup: 0
   onFinished: []
@@ -1334,7 +1334,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 437868242}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -89, z: 0}
+  m_LocalPosition: {x: -1, y: -90, z: 0}
   m_LocalScale: {x: 0.999, y: 0.999, z: 0.999}
   m_Children:
   - {fileID: 2046105314}
@@ -1451,7 +1451,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   ignoreTimeScale: 1
   delay: 0
-  duration: 1
+  duration: 0.4
   steeperCurves: 0
   tweenGroup: 0
   onFinished:
@@ -1537,7 +1537,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 114022574571177052, guid: 5c256a2a8095d86408c7cc2814516576, type: 2}
-  mText: Quit
+  mText: Close
   mFontSize: 20
   mFontStyle: 0
   mAlignment: 0
@@ -1969,7 +1969,7 @@ Prefab:
         type: 2}
     - target: {fileID: 1610761202224866, guid: 3780461d746364c7693e935d8551c36d, type: 2}
       propertyPath: m_Name
-      value: QuitButton
+      value: CloseButton
       objectReference: {fileID: 0}
     - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
         type: 2}
@@ -2026,6 +2026,16 @@ Prefab:
       propertyPath: onClick.Array.data[0].mParameters.Array.data[0].obj
       value: 
       objectReference: {fileID: 961401072}
+    - target: {fileID: 114996897224222058, guid: 3780461d746364c7693e935d8551c36d,
+        type: 2}
+      propertyPath: mText
+      value: Close
+      objectReference: {fileID: 0}
+    - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
+        type: 2}
+      propertyPath: mSpriteName
+      value: CloseButton
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3780461d746364c7693e935d8551c36d, type: 2}
   m_IsPrefabParent: 0
@@ -2116,7 +2126,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1634656108}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -199, z: 0}
+  m_LocalPosition: {x: -1, y: -200, z: 0}
   m_LocalScale: {x: 0.999, y: 0.999, z: 0.999}
   m_Children:
   - {fileID: 1538477957}
@@ -2137,8 +2147,9 @@ GameObject:
   - component: {fileID: 1253367889}
   - component: {fileID: 1253367888}
   - component: {fileID: 1253367887}
+  - component: {fileID: 1253367892}
   m_Layer: 8
-  m_Name: QuitButton
+  m_Name: CloseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2305,8 +2316,31 @@ MonoBehaviour:
   bottomType: 1
   topType: 1
   mAtlas: {fileID: 114920223871223468, guid: 5126f01a299d14817bce003a2a3154ef, type: 2}
-  mSpriteName: QuitButton
+  mSpriteName: CloseButton
   mFillCenter: 1
+--- !u!114 &1253367892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1253367886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaee0fa3c7a782f43ac65b3fea68c1d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweenTarget: {fileID: 344483545}
+  tweenGroup: 0
+  trigger: 0
+  playDirection: 1
+  resetOnPlay: 0
+  resetIfDisabled: 0
+  ifDisabledOnPlay: 0
+  disableWhenFinished: 0
+  includeChildren: 0
+  onFinished: []
+  eventReceiver: {fileID: 0}
+  callWhenFinished: 
 --- !u!1 &1264891570
 GameObject:
   m_ObjectHideFlags: 0
@@ -2604,7 +2638,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1290857006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 258685568}
@@ -2640,13 +2674,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1919
-  mHeight: 896
+  mWidth: 1920
+  mHeight: 1080
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.141741
+  aspectRatio: 1.7777778
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -3887,7 +3921,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 248363101}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -309, z: 0}
+  m_LocalPosition: {x: -1, y: -310, z: 0}
   m_LocalScale: {x: 0.999, y: 0.999, z: 0.999}
   m_Children:
   - {fileID: 1068820215}
@@ -4112,7 +4146,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1276495051}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 21, z: 0}
+  m_LocalPosition: {x: -1, y: 20, z: 0}
   m_LocalScale: {x: 1.0008, y: 1.0008, z: 1.0008}
   m_Children:
   - {fileID: 1528296827}

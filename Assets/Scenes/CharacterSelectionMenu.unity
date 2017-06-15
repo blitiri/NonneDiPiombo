@@ -174,7 +174,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1978170358915288, guid: 69316f5ef432a3941b05d97d69a25d04, type: 2}
       propertyPath: m_Name
-      value: SelectorPrefab3
+      value: Player2Selector
       objectReference: {fileID: 0}
     - target: {fileID: 114490448312662432, guid: 69316f5ef432a3941b05d97d69a25d04,
         type: 2}
@@ -479,48 +479,13 @@ Prefab:
       objectReference: {fileID: 1465452730}
     - target: {fileID: 1978170358915288, guid: 69316f5ef432a3941b05d97d69a25d04, type: 2}
       propertyPath: m_Name
-      value: SelectorPrefab1
+      value: Player0Selector
       objectReference: {fileID: 0}
     - target: {fileID: 114589146286620662, guid: 69316f5ef432a3941b05d97d69a25d04,
         type: 2}
       propertyPath: onClick.Array.data[0].mTarget
       value: 
       objectReference: {fileID: 1465452730}
-    - target: {fileID: 114310936390798052, guid: 69316f5ef432a3941b05d97d69a25d04,
-        type: 2}
-      propertyPath: mEffectDistance.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114490448312662432, guid: 69316f5ef432a3941b05d97d69a25d04,
-        type: 2}
-      propertyPath: mEffectDistance.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114310936390798052, guid: 69316f5ef432a3941b05d97d69a25d04,
-        type: 2}
-      propertyPath: mEffectDistance.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114490448312662432, guid: 69316f5ef432a3941b05d97d69a25d04,
-        type: 2}
-      propertyPath: mEffectDistance.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114269457011634520, guid: 69316f5ef432a3941b05d97d69a25d04,
-        type: 2}
-      propertyPath: mEffectColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114269457011634520, guid: 69316f5ef432a3941b05d97d69a25d04,
-        type: 2}
-      propertyPath: mEffectColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114269457011634520, guid: 69316f5ef432a3941b05d97d69a25d04,
-        type: 2}
-      propertyPath: mEffectColor.b
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 69316f5ef432a3941b05d97d69a25d04, type: 2}
   m_IsPrefabParent: 0
@@ -1185,7 +1150,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 459670177}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1155168973}
@@ -1203,21 +1168,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
+    target: {fileID: 1155168973}
+    relative: 0.5
+    absolute: -275
   rightAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
+    target: {fileID: 1155168973}
+    relative: 0.5
+    absolute: 275
   bottomAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
+    target: {fileID: 1155168973}
+    relative: 0.5
+    absolute: -275
   topAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
+    target: {fileID: 1155168973}
+    relative: 0.5
+    absolute: 275
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
@@ -1230,7 +1195,7 @@ MonoBehaviour:
   aspectRatio: 1
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 4407210278cecd940b491a713eb8dee8, type: 3}
-  mFont: {fileID: 0}
+  mFont: {fileID: 114137326848002066, guid: 9de0bc2e1f1f665469a3210118cebece, type: 2}
   mText: 3
   mFontSize: 500
   mFontStyle: 0
@@ -1339,7 +1304,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1978170358915288, guid: 69316f5ef432a3941b05d97d69a25d04, type: 2}
       propertyPath: m_Name
-      value: SelectorPrefab4
+      value: Player3Selector
       objectReference: {fileID: 0}
     - target: {fileID: 114490448312662432, guid: 69316f5ef432a3941b05d97d69a25d04,
         type: 2}
@@ -1647,13 +1612,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 2319
+  mWidth: 1926
   mHeight: 1080
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.1444445
+  aspectRatio: 1.7833333
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -1750,7 +1715,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1978170358915288, guid: 69316f5ef432a3941b05d97d69a25d04, type: 2}
       propertyPath: m_Name
-      value: SelectorPrefab2
+      value: Player1Selector
       objectReference: {fileID: 0}
     - target: {fileID: 114490448312662432, guid: 69316f5ef432a3941b05d97d69a25d04,
         type: 2}
@@ -2186,8 +2151,8 @@ MonoBehaviour:
     absolute: 148
   topAnchor:
     target: {fileID: 1155168973}
-    relative: 1
-    absolute: -267
+    relative: 0.5
+    absolute: 273
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
@@ -2436,8 +2401,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readyCount: 0
-  cooldownCount: 0
-  cooldown: {fileID: 459670179}
+  countdownCount: 0
+  countdown: {fileID: 0}
   readys: 
   indexes: 
   nextSceneToLoadName: LevelPostOfficeDay

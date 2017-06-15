@@ -162,7 +162,7 @@ public class GameManager : MonoBehaviour
 		playerControl.isDead = false;
 		playerCollider.enabled = true;
 
-		playerControl.isImmortal = true;
+		//playerControl.isImmortal = true;
 		yield return new WaitForSeconds (playerControl.immortalTime);
 		playerControl.isImmortal = false;
 	}

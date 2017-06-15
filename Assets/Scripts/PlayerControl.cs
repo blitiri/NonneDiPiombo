@@ -243,6 +243,7 @@ public class PlayerControl : MonoBehaviour
 	}
 
 	public void RespawnOnTrigger(Collision other, int playerKillerId){
+		        isImmortal = true;
 				isDead = true;
 				GameManager.instance.CheckRespawnPlayers ();
 				ExplodeCharacter ();

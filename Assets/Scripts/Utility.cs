@@ -40,11 +40,13 @@ public class Utility
 	/// <param name="playerId">Player identifier.</param>
 	public static int GetPlayerIndex (string playerId)
 	{
+		Debug.Log ("PlayerID: " + playerId);
 		return int.Parse (playerId.Substring (playerIdPrefix.Length));
 	}
 
-	public static int GetPlayerIndexFromBullet(string bulletId){
-		return int.Parse(bulletId.Substring(bulletTag.Length));
+	public static int GetPlayerIndexFromBullet (string bulletId)
+	{
+		return int.Parse (bulletId.Substring (bulletTag.Length));
 	}
 
 	/// <summary>

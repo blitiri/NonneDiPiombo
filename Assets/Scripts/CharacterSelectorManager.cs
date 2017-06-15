@@ -69,10 +69,22 @@ public class CharacterSelectorManager : MonoBehaviour
 	/// All the selectors.
 	/// </summary>
 	public GameObject[] selectors;
+    /// <summary>
+    /// Sprites of selectors.
+    /// </summary>
+    public UISprite[] selectorSprites;
+    /// <summary>
+    /// Selector's color when granny is clicked.
+    /// </summary>
+    public Color[] frameColors;
 	/// <summary>
 	/// All frames.
 	/// </summary>
 	public UISprite[] frames;
+    /// <summary>
+    /// The player's number.
+    /// </summary>
+    public UILabel[] playerNumbers;
 	/// <summary>
 	/// All playable grannies.
 	/// </summary>
@@ -119,14 +131,25 @@ public class CharacterSelectorManager : MonoBehaviour
 		SelectorsActivation ();
 		players = new Player[numberOfPlayers];
 		canSelect = new bool[numberOfPlayers];
+        frameColors = new Color[selectors.Length];
 		for (int i = 0; i < numberOfPlayers; i++) {
 			players [i] = ReInput.players.GetPlayer (i);
 		}
-		for (int id = 0; id < Configuration.maxNumberOfPlayers; id++) {
-			frames [id].color = frameStartColor;
+		for (int id = 0; id < numberOfPlayers; id++)
+        {
+            Color playerColor = Configuration.instance.playersColors[id];
+            float h;
+            float s;
+            float v;
+
+            frames [id].color = frameStartColor;
 			tweens [id].from = frameStartColor;
-			tweens [id].to = Configuration.instance.playersColors [id];
-		}
+			tweens [id].to = playerColor;
+            playersLabels[id].color = playerColor;
+            playerNumbers[id].color = playerColor;
+            Color.RGBToHSV(playerColor, out h, out s, out v);
+            frameColors[id] = Color.HSVToRGB(h, s / 3, v);
+        }
 	}
 
 	private void Update ()
@@ -225,33 +248,50 @@ public class CharacterSelectorManager : MonoBehaviour
 	{
 		for (int id = 0; id < Configuration.instance.GetNumberOfPlayers (); id++) {
 			if (players [id].GetButtonDown ("Cross")) {
-				//readyButtons[id].SetState(UIButtonColor.State.Pressed, true);
-				//for (int i = 0; i < readyButtons[id].onClick.Count; i++)
-				//{
-				//    readyButtons[id].onClick[i].Execute();
-				//}
-				//readyButtons[id].SetState(UIButtonColor.State.Normal, false);
-				//tweens[id].StopCoroutine(tweens[id].name);
-				//tweens[id].from = frames[id].color;
-				//if (!readys[id])
-				//{
-				//    tweens[id].PlayForward();
-				//    readys[id] = true;
-				//}
-				//else
-				//{
-				//    tweens[id].PlayReverse();
-				//    readys[id] = false;
-				//}
-				//tweens[id].from = tweenFromColor;
-				//tweens[id].ResetToBeginning();
-				Tweener (frameStartColor, Configuration.instance.playersColors [id], id);
-				CheckReady ();
+                //readyButtons[id].SetState(UIButtonColor.State.Pressed, true);
+                //for (int i = 0; i < readyButtons[id].onClick.Count; i++)
+                //{
+                //    readyButtons[id].onClick[i].Execute();
+                //}
+                //readyButtons[id].SetState(UIButtonColor.State.Normal, false);
+                //tweens[id].StopCoroutine(tweens[id].name);
+                //tweens[id].from = frames[id].color;
+                //if (!readys[id])
+                //{
+                //    tweens[id].PlayForward();
+                //    readys[id] = true;
+                //}
+                //else
+                //{
+                //    tweens[id].PlayReverse();
+                //    readys[id] = false;
+                //}
+                //tweens[id].from = tweenFromColor;
+                //tweens[id].ResetToBeginning();
+                Tweener(frameStartColor, frameColors[id], id);
+                CheckReady ();
 			}
 		}
 	}
 
-	private void CheckReady ()
+    public void ClickCentral(GameObject button)
+    {
+        int id = int.Parse(button.transform.parent.tag);
+        //if (indexes[id] < grannies.Length - 1)
+        //{
+        //    indexes[id]++;
+        //}
+        //else
+        //{
+        //    indexes[id] = 0;
+        //}
+        //centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
+        selectedGrannies[id] = grannies[indexes[id]];
+        Tweener(frameStartColor, frameColors[id], id);
+        CheckReady();
+    }
+
+    private void CheckReady ()
 	{
 		if (readyCount == Configuration.instance.GetNumberOfPlayers ()) {
 			StartCountdown ();
@@ -263,19 +303,19 @@ public class CharacterSelectorManager : MonoBehaviour
 	/// <summary>
 	/// It sets ready players as well.
 	/// </summary>
-	/// <param name="defaultFrom"></param>
-	/// <param name="defaultTo"></param>
+	/// <param name="from"></param>
+	/// <param name="to"></param>
 	/// <param name="id"></param>
-	public void Tweener (Color defaultFrom, Color defaultTo, int id)
+	public void Tweener (Color from, Color to, int id)
 	{
 		if (!readys [id]) {
 			tweens [id].SetStartToCurrentValue ();
-			tweens [id].to = defaultTo;
+			tweens [id].to = to;
 			tweens [id].PlayForward ();
 			readys [id] = true;
 			readyCount++;
 		} else {
-			tweens [id].from = defaultFrom;
+			tweens [id].from = from;
 			tweens [id].SetEndToCurrentValue ();
 			tweens [id].PlayReverse ();
 			readys [id] = false;
@@ -324,23 +364,6 @@ public class CharacterSelectorManager : MonoBehaviour
 		if (countdownCount != countdownSeconds) {
 			countdownCount = countdownSeconds;
 		}
-	}
-
-	public void ClickCentral (GameObject button)
-	{
-		int id = int.Parse (button.transform.parent.tag);
-		//if (indexes[id] < grannies.Length - 1)
-		//{
-		//    indexes[id]++;
-		//}
-		//else
-		//{
-		//    indexes[id] = 0;
-		//}
-		//centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
-		selectedGrannies [id] = grannies [indexes [id]];
-		Tweener (frameStartColor, Configuration.instance.playersColors [id], id);
-		CheckReady ();
 	}
 
 	//public void UndoSelection(GameObject button)

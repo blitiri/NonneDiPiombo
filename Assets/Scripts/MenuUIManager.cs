@@ -79,7 +79,7 @@ public class MenuUIManager : AbstractUIManager
 		Debug.Log ("Open - Sound volume: " + Configuration.instance.GetSoundVolume ());
 		checkedSprite.enabled = Configuration.instance.IsFullScreen ();
 		volumeSlider.value = Configuration.instance.GetSoundVolume ();
-		optionsTweenAlpha.PlayForward ();
+		FadeIn (optionsTweenAlpha);
 		optionsWindow.gameObject.SetActive (true);
 	}
 
@@ -88,7 +88,7 @@ public class MenuUIManager : AbstractUIManager
 	/// </summary>
 	public void OnCredits ()
 	{
-		creditsTweenAlpha.PlayForward ();
+		FadeIn (creditsTweenAlpha);
 		creditsWindow.gameObject.SetActive (true);
 	}
 
@@ -115,18 +115,46 @@ public class MenuUIManager : AbstractUIManager
 	/// <param name="window">Window to close.</param>
 	public void OnClose (GameObject window)
 	{
-		window.SetActive (false);
+		//window.SetActive (false);
 		if (window.name.Equals ("OptionsWindow")) {
 			Configuration.instance.SetFullScreen (checkedSprite.enabled);
 			Configuration.instance.SetSoundVolume (volumeSlider.value); 
 			Debug.Log ("Close - Fullscreen: " + Configuration.instance.IsFullScreen ());
 			Debug.Log ("Close - Sound volume: " + Configuration.instance.GetSoundVolume ());
-			optionsTweenAlpha.ResetToBeginning ();
-			creditsTweenAlpha.PlayReverse ();
+			FadeOut (optionsTweenAlpha);
 		} else if (window.name.Equals ("CreditsWindow")) {
-			creditsTweenAlpha.ResetToBeginning ();
-			creditsTweenAlpha.PlayReverse ();
+			FadeOut (creditsTweenAlpha);
 		}
+	}
+
+	/// <summary>
+	/// Execute popup fade in.
+	/// </summary>
+	/// <param name="tween">Tween.</param>
+	private void FadeIn (TweenAlpha tween)
+	{
+		Debug.Log ("FadeIn");
+		tween.SetStartToCurrentValue ();
+		tween.from = 0;
+		tween.to = 1;
+		//tween.ResetToBeginning ();
+		tween.PlayForward ();
+		tween.ResetToBeginning ();
+	}
+
+	/// <summary>
+	/// Execute popup fade out.
+	/// </summary>
+	/// <param name="tween">Tween.</param>
+	private void FadeOut (TweenAlpha tween)
+	{
+		Debug.Log ("FadeOut");
+		tween.SetEndToCurrentValue ();
+		tween.from = 0;
+		tween.to = 1;
+		//tween.ResetToBeginning ();
+		tween.PlayReverse ();
+		tween.ResetToBeginning ();
 	}
 
 	/// <summary>

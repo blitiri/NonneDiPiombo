@@ -85,10 +85,6 @@ public class CharacterSelectorManager : MonoBehaviour
     /// The player's number.
     /// </summary>
     public UILabel[] playerNumbers;
-    /// <summary>
-    /// Arrows of right and left buttons. Two for each selector. First rights and then lefts.
-    /// </summary>
-    public UILabel[] buttonArrows;
 	/// <summary>
 	/// All playable grannies.
 	/// </summary>
@@ -151,8 +147,6 @@ public class CharacterSelectorManager : MonoBehaviour
 			tweens [id].to = playerColor;
             playersLabels[id].color = playerColor;
             playerNumbers[id].color = playerColor;
-            buttonArrows[id].color = playerColor;
-            buttonArrows[id + buttonArrows.Length/2].color = playerColor;
             Color.RGBToHSV(playerColor, out h, out s, out v);
             frameColors[id] = Color.HSVToRGB(h, s / 3, v);
         }
@@ -254,33 +248,50 @@ public class CharacterSelectorManager : MonoBehaviour
 	{
 		for (int id = 0; id < Configuration.instance.GetNumberOfPlayers (); id++) {
 			if (players [id].GetButtonDown ("Cross")) {
-				//readyButtons[id].SetState(UIButtonColor.State.Pressed, true);
-				//for (int i = 0; i < readyButtons[id].onClick.Count; i++)
-				//{
-				//    readyButtons[id].onClick[i].Execute();
-				//}
-				//readyButtons[id].SetState(UIButtonColor.State.Normal, false);
-				//tweens[id].StopCoroutine(tweens[id].name);
-				//tweens[id].from = frames[id].color;
-				//if (!readys[id])
-				//{
-				//    tweens[id].PlayForward();
-				//    readys[id] = true;
-				//}
-				//else
-				//{
-				//    tweens[id].PlayReverse();
-				//    readys[id] = false;
-				//}
-				//tweens[id].from = tweenFromColor;
-				//tweens[id].ResetToBeginning();
-				Tweener (frameStartColor, Configuration.instance.playersColors [id], id);
-				CheckReady ();
+                //readyButtons[id].SetState(UIButtonColor.State.Pressed, true);
+                //for (int i = 0; i < readyButtons[id].onClick.Count; i++)
+                //{
+                //    readyButtons[id].onClick[i].Execute();
+                //}
+                //readyButtons[id].SetState(UIButtonColor.State.Normal, false);
+                //tweens[id].StopCoroutine(tweens[id].name);
+                //tweens[id].from = frames[id].color;
+                //if (!readys[id])
+                //{
+                //    tweens[id].PlayForward();
+                //    readys[id] = true;
+                //}
+                //else
+                //{
+                //    tweens[id].PlayReverse();
+                //    readys[id] = false;
+                //}
+                //tweens[id].from = tweenFromColor;
+                //tweens[id].ResetToBeginning();
+                Tweener(frameStartColor, frameColors[id], id);
+                CheckReady ();
 			}
 		}
 	}
 
-	private void CheckReady ()
+    public void ClickCentral(GameObject button)
+    {
+        int id = int.Parse(button.transform.parent.tag);
+        //if (indexes[id] < grannies.Length - 1)
+        //{
+        //    indexes[id]++;
+        //}
+        //else
+        //{
+        //    indexes[id] = 0;
+        //}
+        //centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
+        selectedGrannies[id] = grannies[indexes[id]];
+        Tweener(frameStartColor, frameColors[id], id);
+        CheckReady();
+    }
+
+    private void CheckReady ()
 	{
 		if (readyCount == Configuration.instance.GetNumberOfPlayers ()) {
 			StartCountdown ();
@@ -353,23 +364,6 @@ public class CharacterSelectorManager : MonoBehaviour
 		if (countdownCount != countdownSeconds) {
 			countdownCount = countdownSeconds;
 		}
-	}
-
-	public void ClickCentral (GameObject button)
-	{
-		int id = int.Parse (button.transform.parent.tag);
-		//if (indexes[id] < grannies.Length - 1)
-		//{
-		//    indexes[id]++;
-		//}
-		//else
-		//{
-		//    indexes[id] = 0;
-		//}
-		//centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
-		selectedGrannies [id] = grannies [indexes [id]];
-		Tweener (frameStartColor, frameColors[id], id);
-		CheckReady ();
 	}
 
 	//public void UndoSelection(GameObject button)

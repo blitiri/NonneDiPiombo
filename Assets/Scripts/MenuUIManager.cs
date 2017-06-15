@@ -122,9 +122,7 @@ public class MenuUIManager : AbstractUIManager
 			Debug.Log ("Close - Fullscreen: " + Configuration.instance.IsFullScreen ());
 			Debug.Log ("Close - Sound volume: " + Configuration.instance.GetSoundVolume ());
 			optionsTweenAlpha.ResetToBeginning ();
-			optionsTweenAlpha.from = 1;
-			optionsTweenAlpha.to = 0;
-			optionsTweenAlpha.Play ();
+			creditsTweenAlpha.PlayReverse ();
 		} else if (window.name.Equals ("CreditsWindow")) {
 			creditsTweenAlpha.ResetToBeginning ();
 			creditsTweenAlpha.PlayReverse ();

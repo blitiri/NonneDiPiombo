@@ -101,18 +101,23 @@ public class PlayerControl : MonoBehaviour
 
 	public bool isImmortal;
 	public float immortalTime = 0.5f;
+	public Transform heartPos;
+	public GameObject heartPrefab;
+	private GameObject heart;
+	private TweenScale heartScale;
+	private TweenRotation heartRotation;
 
 	/// <summary>
 	/// Awake this instance.
 	/// </summary>
 	void Awake ()
 	{
-		
 		weapon = GetComponentInChildren<WeaponControl> ();
 		playerRigidbody = GetComponent<Rigidbody> ();
 		meshPlayer = GetComponent<MeshRenderer> ();
 		playerMat = meshPlayer.material;
-        
+		//heartScale = heart.GetComponent<TweenScale> ();
+		//heartRotation = heart.GetComponent<TweenRotation> ();     
 	}
 
 	/// <summary>
@@ -127,8 +132,15 @@ public class PlayerControl : MonoBehaviour
 		}
 		ResetStatus ();
 		StartCoroutine (DiminishStress ());
+		heart = Instantiate (heartPrefab,heartPos.position, Quaternion.identity);
+		heart.GetComponentInChildren<UISprite>().SetAnchor(heartPos);
     }
 
+
+	void Update()
+	{
+		StressHeart ();
+	}
 	/// <summary>
 	/// Updates the player instance.
 	/// </summary>
@@ -384,5 +396,16 @@ public class PlayerControl : MonoBehaviour
 	private void UpdateUI ()
 	{
 		LevelUIManager.instance.SetStress (stress / maxStressValue, playerId);
+	}
+
+	public void StressHeart()
+	{
+		if (stress >= maxStressValue / 2) {
+			heart.SetActive (true);
+		} 
+		else if (stress < maxStressValue / 2)
+		{
+			heart.SetActive (false);
+		}
 	}
 }

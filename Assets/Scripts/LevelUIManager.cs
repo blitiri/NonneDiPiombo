@@ -131,14 +131,40 @@ public class LevelUIManager : AbstractUIManager
 	/// <summary>
 	/// Clicking on restart button
 	/// </summary>
-	public void OnClickRestartButton() {
+	public void OnClickRestartButton ()
+	{
 		SceneController.instance.LoadActiveScene ();
 	}
 
 	/// <summary>
 	/// Clicking on quit button
 	/// </summary>
-	public void OnClickQuitButton() {
+	public void OnClickQuitButton ()
+	{
 		SceneController.instance.OnClickQuitButton ();
+	}
+
+	/// <summary>
+	/// Loads level selection scene.
+	/// </summary>
+	public void OnClickLevelSelection ()
+	{
+		SceneController.instance.LoadSceneByName ("LevelSelection");
+	}
+
+	/// <summary>
+	/// Loads character selection scene.
+	/// </summary>
+	public void OnClickCharacterSelecction ()
+	{
+		SceneController.instance.LoadSceneByName ("CharacterSelectionMenu");
+	}
+
+	/// <summary>
+	/// Loads menu scene.
+	/// </summary>
+	public void OnClickBackToMenu ()
+	{
+		SceneController.instance.LoadSceneByName ("Menu");
 	}
 }

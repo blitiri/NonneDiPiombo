@@ -118,7 +118,7 @@ public class CharacterSelectorManager : MonoBehaviour
 		int numberOfPlayers;
 
 		numberOfPlayers = Configuration.instance.GetNumberOfPlayers ();
-		Debug.Log (numberOfPlayers);
+		//Debug.Log (numberOfPlayers);
 		indexes = new int[numberOfPlayers];
 		readys = new bool[numberOfPlayers];
 		//ids = new int[numberOfPlayers];

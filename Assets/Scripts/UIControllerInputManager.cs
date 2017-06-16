@@ -5,8 +5,28 @@ using Rewired;
 
 public class UIControllerInputManager : MonoBehaviour
 {
+    /// <summary>
+    /// The instance of this class. It is needed to check whether the gameobject containing this component has "Main" or "Secondary" tag.
+    /// </summary>
+    private static UIControllerInputManager instance;
+    /// <summary>
+    /// The tag of the current active UIControllerInputManager.
+    /// </summary>
+    public static string currentTag;
+    /// <summary>
+    /// The tag for Main UI Controller Input Manager containing gameobject.
+    /// </summary>
+    private const string mainTag = "Main";
+    /// <summary>
+    /// The tag for Secondary UI Controller Input Manager containing gameobject.
+    /// </summary>
+    private const string secondaryTag = "Secondary";
+    /// <summary>
+    /// Component attached to the first menu in the current scene.
+    /// </summary>
+    private static UIControllerInputManager main;
 	/// <summary>
-	/// It is needed to slowly switch between button.
+	/// It is needed to slowly switch between buttons.
 	/// </summary>
 	private bool canSelect;
 	/// <summary>
@@ -27,18 +47,31 @@ public class UIControllerInputManager : MonoBehaviour
 	private Player[] players;
 	public UIButton[] buttons;
 	private UIPlayTween[] playTweens;
-	private UIButton startButton;
+    //private UIButton startButton;
 
-	private void Awake ()
+    private void OnEnable()
+    {
+        //Debug.Log(1);
+        instance = this;
+    }
+
+    private void OnDisable()
+    {
+        //Debug.Log(2);
+        instance = main;
+    }
+
+    private void Awake ()
 	{
-		GameObject startButtonGameObject;
+        //GameObject startButtonGameObject;
 
-		startButtonGameObject = GameObject.FindGameObjectWithTag (startButtonTag);
-		if (startButtonGameObject) {
-			startButton = startButtonGameObject.GetComponent<UIButton> ();
-		}
-		playTweens = new UIPlayTween[buttons.Length];
-		for (int i = 0; i < playTweens.Length; i++) {
+        //startButtonGameObject = GameObject.FindGameObjectWithTag (startButtonTag);
+        //if (startButtonGameObject) {
+        //	startButton = startButtonGameObject.GetComponent<UIButton> ();
+        //}
+        playTweens = new UIPlayTween[buttons.Length];
+		for (int i = 0; i < playTweens.Length; i++)
+        {
 			playTweens [i] = buttons [i].gameObject.GetComponent<UIPlayTween> ();
 		}
 		canSelect = true;
@@ -46,26 +79,37 @@ public class UIControllerInputManager : MonoBehaviour
 
 	private void Start ()
 	{
+        //Debug.Log(3);
 
-		if (playerID == 0) {
+        if (gameObject.tag == mainTag)
+        {
+            instance = this;
+            main = this;
+        }
+        if (playerID == 0) {
 			AssignPlayers ();
 		}
 
-		if (buttons.Length > 0) {
+		if (buttons.Length > 0)
+        {
 			if (buttons [selectedButtonIndex].state != UIButtonColor.State.Hover)
 				buttons [selectedButtonIndex].SetState (UIButtonColor.State.Hover, true);
 
-			playTweens [selectedButtonIndex].Play (true);
+            if (playTweens[selectedButtonIndex] != null)
+                playTweens [selectedButtonIndex].Play (true);
 		}
 	}
 
 	private void Update ()
 	{
-		UpdateSelectedButtons ();
-		PressSelectedButton ();
-		if (playerID == 0)
-            //Debug.Log("MINCHIA");
-            PressStartButton ();
+        if (instance == this)
+        {
+            UpdateSelectedButtons();
+            PressSelectedButton();
+            if (playerID == 0)
+                //Debug.Log("MINCHIA");
+                PressStartButton();
+        }
 	}
 
 	void AssignPlayers ()
@@ -150,18 +194,24 @@ public class UIControllerInputManager : MonoBehaviour
 
 	void PressStartButton ()
 	{
-		if (startButton != null) {
-			if (players [playerID].GetButtonDown ("Start")) {
-				for (int i = 0; i < startButton.onClick.Count; i++) {
-					startButton.SetState (UIButtonColor.State.Pressed, true);
-					startButton.onClick [i].Execute ();
-					//startButton.SetState(UIButtonColor.State.Normal, true);
-				}
-			} else {
-				if (GameManager.instance != null) {
+		//if (startButton != null)
+  //      {
+		if (players [playerID].GetButtonDown ("Start"))
+        {
+			//	for (int i = 0; i < startButton.onClick.Count; i++)
+   //             {
+			//		startButton.SetState (UIButtonColor.State.Pressed, true);
+			//		startButton.onClick [i].Execute ();
+			//		//startButton.SetState(UIButtonColor.State.Normal, true);
+			//	}
+			//}
+   //         else
+        //{
+			if (GameManager.instance != null)
+                {
 					GameManager.instance.CheckGamePause ();
 				}
-			}
-		}
+	    }
+		//}
 	}
 }

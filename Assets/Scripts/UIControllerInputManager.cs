@@ -20,7 +20,7 @@ public class UIControllerInputManager : MonoBehaviour
     /// <summary>
     /// The tag for Secondary UI Controller Input Manager containing gameobject.
     /// </summary>
-    private const string secondaryTag = "Secondary";
+    private const string sliderTag = "Slider";
     /// <summary>
     /// Component attached to the first menu in the current scene.
     /// </summary>
@@ -104,6 +104,8 @@ public class UIControllerInputManager : MonoBehaviour
 	{
         if (instance == this)
         {
+            //Debug.Log(selectedButtonIndex);
+            //Debug.Log("FFFFFFUck Together");
             UpdateSelectedButtons();
             PressSelectedButton();
             if (playerID == 0)
@@ -184,7 +186,7 @@ public class UIControllerInputManager : MonoBehaviour
 		if (buttons.Length > 0) {
 			if (players [playerID].GetButtonDown ("Cross")) {
 				for (int i = 0; i < buttons [selectedButtonIndex].onClick.Count; i++) {
-					buttons [selectedButtonIndex].SetState (UIButtonColor.State.Pressed, true);
+					//buttons [selectedButtonIndex].SetState (UIButtonColor.State.Pressed, true);
 					buttons [selectedButtonIndex].onClick [i].Execute ();
 					//buttons[buttonIndex].SetState(UIButtonColor.State.Normal, true);
 				}

@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	private void SetButtonsEnabled (bool enabled)
+	private void SetPauseMenu (bool enabled)
 	{
 		pauseMenu.SetActive (enabled);
 	}
@@ -204,13 +204,13 @@ public class GameManager : MonoBehaviour
 	public void ResumeGame ()
 	{
 		isPaused = false;
-		SetButtonsEnabled (false);
+		SetPauseMenu (false);
 	}
 
 	public void PauseGame ()
 	{
 		isPaused = true;
-		SetButtonsEnabled (true);
+		SetPauseMenu (true);
 	}
 
 	/// <summary>

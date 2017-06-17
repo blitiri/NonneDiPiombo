@@ -157,8 +157,9 @@ public class GameManager : MonoBehaviour
 		spawnpointIndex = UnityEngine.Random.Range (0, playersRespawns.Length);
 		GameObject spawnVFX = Instantiate (spawnVFXPrefab, playersRespawns [spawnpointIndex].position + new Vector3 (0, 1, 0), spawnVFXPrefab.transform.rotation) as GameObject;
 		particleSystems = spawnVFX.GetComponentsInChildren<ParticleSystem> ();
+        player.transform.position = playersRespawns[spawnpointIndex].position;
 
-		foreach (ParticleSystem particles in particleSystems) 
+        foreach (ParticleSystem particles in particleSystems) 
 		{
 			main = particles.main;
 			main.startColor = Configuration.instance.playersColors [playersControls [playerIndex].playerId];
@@ -166,7 +167,6 @@ public class GameManager : MonoBehaviour
 
 		yield return new WaitForSeconds (maxTimerBeforeRespawn);
 
-		player.transform.position = playersRespawns [spawnpointIndex].position;
 		Destroy (spawnVFX, 3f);
 		SetMeshRendererEnabled (true, playerIndex);
 		playerControl.stopInputPlayer = false;

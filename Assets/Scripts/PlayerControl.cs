@@ -93,6 +93,7 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	public GameObject bloodPrefab;
 	public float bloodDuration;
+    public GameObject dashParticle;
 
 	/// <summary>
 	/// The ability.
@@ -120,8 +121,8 @@ public class PlayerControl : MonoBehaviour
 		weapon = GetComponentInChildren<WeaponControl> ();
 		playerRigidbody = GetComponent<Rigidbody> ();
 		meshPlayer = GetComponent<MeshRenderer> ();
-		playerMat = meshPlayer.material;  
-	}
+		playerMat = meshPlayer.material;
+    }
 
 	/// <summary>
 	/// Start this instance.
@@ -133,11 +134,11 @@ public class PlayerControl : MonoBehaviour
 		if (inputManager.HasMouse ()) {
 			Cursor.SetCursor (crosshairCursor, cursorHotSpot, CursorMode.Auto);
 		}
-		ResetStatus ();
+        heart = Instantiate(heartPrefab, heartPos.position, Quaternion.identity);
+        heart.GetComponentInChildren<UISprite>().SetAnchor(heartPos);
+        heartScale = heart.GetComponent<TweenScale>().GetComponent<UITweener>();
+        ResetStatus ();
 		StartCoroutine (DiminishStress ());
-		heart = Instantiate (heartPrefab, heartPos.position, Quaternion.identity);
-		heart.GetComponentInChildren<UISprite> ().SetAnchor (heartPos);
-		heartScale = heart.GetComponent<TweenScale> ().GetComponent<UITweener> ();
 	}
 
 
@@ -172,10 +173,6 @@ public class PlayerControl : MonoBehaviour
 				//			shaderApply.ShaderApply (revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
 			}
 		}
-		/*if(stress>=100)
-        {
-            stressAnimation.Play("Death");
-        }*/
 	}
 
 	/// <summary>
@@ -195,7 +192,7 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	private void Move ()
 	{
-		playerRigidbody.MovePosition (playerRigidbody.position + inputManager.GetMoveVector () * (speed + speedMod) * Time.deltaTime);
+		playerRigidbody.MovePosition (playerRigidbody.position + inputManager.GetMoveVector () * speed * Time.deltaTime);
 	}
 
 	/// <summary>
@@ -307,11 +304,10 @@ public class PlayerControl : MonoBehaviour
 		isObstacle = ObstacleChecking (moveVector);
 		if (inputManager.Dash ()) {
 			if (!isObstacle && !isDashing && dashTime <= Time.time - dashRecordedTime) {
-				//StopCoroutine("Ability");
-				StartCoroutine (Dashing (moveVector));
+                StartCoroutine (Dashing (moveVector));
 				InitAbility (ability);
 				StartCoroutine ("Ability", timer);
-			}
+            }
 		}
 	}
 
@@ -325,7 +321,7 @@ public class PlayerControl : MonoBehaviour
 		bool result = false;
 		Vector3 ray = new Vector3 (transform.position.x, rayy, transform.position.z);
 		Vector3 rayDirection = moveVector;
-		//        RaycastHit obstacleInfo;
+		
 
 		Debug.DrawRay (ray, rayDirection, Color.blue);
 
@@ -334,30 +330,37 @@ public class PlayerControl : MonoBehaviour
 		} else {
 			result = false;
 		}
-		//Debug.Log("result: " + result);
+		
 		return result;
 	}
 
 	private IEnumerator Dashing (Vector3 moveVector)
 	{
 		Vector3 newPosition = Vector3.zero;
-		//float scaleProp;
+		
 		float dashDone = 0;
 
 		isDashing = true;
 
 		while (dashDone < dashLength && isDashing && !isObstacle) {
-			//Debug.Log ("isObstacle" + isObstacle);
 			if (moveVector.magnitude > 0) {
-				transform.localPosition += dashSpeed * Time.deltaTime * moveVector; //= new Vector3(transform.localPosition.x + dashSpeed * Time.deltaTime * moveVector.x, transform.localPosition.y, transform.localPosition.z + dashSpeed * Time.deltaTime * moveVector.z);
-			} else {
+				transform.localPosition += dashSpeed * Time.deltaTime * moveVector;
+                if (dashParticle != null)
+                {
+                    dashParticle.SetActive(true);
+                }
+            } else {
 				transform.localPosition += dashSpeed * Time.deltaTime * transform.forward;
-			}
-			//                Debug.Log(moveVector);
+                if (dashParticle != null)
+                {
+                    dashParticle.SetActive(true);
+                }
+            }
+
 			dashDone += dashSpeed * Time.deltaTime;
 			yield return null;
-			//                DashDone += moveVector.z > 0 ? dashSpeed * Time.deltaTime * moveVector.z : moveVector.x > 0 ? dashSpeed * Time.deltaTime * moveVector.x : dashSpeed * Time.deltaTime;
-		}
+            dashParticle.SetActive(false);
+        }
 		AddStress (stressIncrease);
 		GameManager.instance.CheckRespawnPlayers ();
 		isDashing = false;

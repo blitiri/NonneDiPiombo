@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
 	public GameObject rewiredInputManagerPrefab;
 	public GameObject pauseMenu;
+    public TweenAlpha pauseMenuTweenAlpha;
 
 	// array di transform per il respawn dei player
 	public Transform[] playersRespawns;
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
 	{
 		instance = this;
 		Statistics.instance.Reset ();
-		Instantiate (rewiredInputManagerPrefab);
+        Instantiate (rewiredInputManagerPrefab);
 		InitPlayers ();
 	}
 
@@ -203,7 +204,10 @@ public class GameManager : MonoBehaviour
 	/// </summary>
 	public void ResumeGame ()
 	{
-		isPaused = false;
+        pauseMenuTweenAlpha.from = 0;
+        pauseMenuTweenAlpha.SetEndToCurrentValue();
+        pauseMenuTweenAlpha.PlayReverse();
+        isPaused = false;
 		SetPauseMenu (false);
 	}
 
@@ -211,7 +215,11 @@ public class GameManager : MonoBehaviour
 	{
 		isPaused = true;
 		SetPauseMenu (true);
-	}
+        pauseMenuTweenAlpha.SetStartToCurrentValue();
+        pauseMenuTweenAlpha.to = 1;
+        pauseMenuTweenAlpha.PlayForward();
+
+    }
 
 	/// <summary>
 	/// Gets the players.

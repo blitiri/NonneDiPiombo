@@ -259,9 +259,9 @@ public class PlayerControl : MonoBehaviour
 	{
 		isImmortal = true;
 		isDead = true;
-		GameManager.instance.CheckRespawnPlayers ();
 		ExplodeCharacter ();
 		GameManager.instance.PlayerKilled (playerId, playerKillerId);
+		GameManager.instance.CheckRespawnPlayers ();
 	}
 
 	/// <summary>

@@ -139,6 +139,8 @@ public class GameManager : MonoBehaviour
 	{
 		int spawnpointIndex;
 		GameObject player;
+		ParticleSystem[] particleSystems;
+		ParticleSystem.MainModule main;
 
 		player = players [playerIndex];
 		SetMeshRendererEnabled (false, playerIndex);
@@ -152,11 +154,19 @@ public class GameManager : MonoBehaviour
 		playerCollider = player.GetComponent<BoxCollider> ();
 		playerCollider.enabled = false;
 
+		spawnpointIndex = UnityEngine.Random.Range (0, playersRespawns.Length);
+		GameObject spawnVFX = Instantiate (spawnVFXPrefab, playersRespawns [spawnpointIndex].position + new Vector3 (0, 1, 0), spawnVFXPrefab.transform.rotation) as GameObject;
+		particleSystems = spawnVFX.GetComponentsInChildren<ParticleSystem> ();
+
+		foreach (ParticleSystem particles in particleSystems) 
+		{
+			main = particles.main;
+			main.startColor = Configuration.instance.playersColors [playersControls [playerIndex].playerId];
+		}
+
 		yield return new WaitForSeconds (maxTimerBeforeRespawn);
 
-		spawnpointIndex = UnityEngine.Random.Range (0, playersRespawns.Length);
 		player.transform.position = playersRespawns [spawnpointIndex].position;
-		GameObject spawnVFX = Instantiate (spawnVFXPrefab, player.transform.position + new Vector3 (0, 1, 0), spawnVFXPrefab.transform.rotation) as GameObject;
 		Destroy (spawnVFX, 3f);
 		SetMeshRendererEnabled (true, playerIndex);
 		playerControl.stopInputPlayer = false;

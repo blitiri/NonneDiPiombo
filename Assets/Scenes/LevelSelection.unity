@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 518896184}
   - component: {fileID: 518896185}
   m_Layer: 8
-  m_Name: LevelPostoffice
+  m_Name: LevelPostofficeDay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -313,8 +313,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 6
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 4407210278cecd940b491a713eb8dee8, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 114540969631458776, guid: 1850124b541ca14409cac953daef9646, type: 2}
   mText: Postoffice
   mFontSize: 80
   mFontStyle: 0
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lockedIcon: {fileID: 115387252}
   levelLabel: {fileID: 518896182}
-  levelName: LevelPostOffice
+  levelName: LevelPostOfficeDay
   locked: 0
   defaultLevel: 1
 --- !u!114 &518896185
@@ -639,7 +639,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 864798621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 577366863}
@@ -943,8 +943,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 6
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 4407210278cecd940b491a713eb8dee8, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 114540969631458776, guid: 1850124b541ca14409cac953daef9646, type: 2}
   mText: Sample map 2
   mFontSize: 80
   mFontStyle: 0
@@ -1187,8 +1187,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 6
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 4407210278cecd940b491a713eb8dee8, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 114540969631458776, guid: 1850124b541ca14409cac953daef9646, type: 2}
   mText: Sample map 1
   mFontSize: 80
   mFontStyle: 0
@@ -1268,7 +1268,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1645052505}
   m_LocalRotation: {x: 0, y: 0, z: 0.13052633, w: -0.9914449}
-  m_LocalPosition: {x: 390, y: 20, z: 0}
+  m_LocalPosition: {x: 389, y: 21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2085830649}
@@ -1634,7 +1634,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.3568282
+  aspectRatio: 1.3577586
   mType: 0
   mFillDirection: 4
   mFillAmount: 1

@@ -35,6 +35,14 @@ public class LevelUIManager : AbstractUIManager
 	/// The best player symbols.
 	/// </summary>
 	public UISprite[] bestPlayers;
+	/// <summary>
+	/// The pause menu.
+	/// </summary>
+	public UIPanel pauseMenu;
+	/// <summary>
+	/// The pause menu tween alpha.
+	/// </summary>
+	public TweenAlpha pauseMenuTweenAlpha;
 
 	/// <summary>
 	/// Awake this instance.
@@ -121,11 +129,33 @@ public class LevelUIManager : AbstractUIManager
 	}
 
 	/// <summary>
+	/// Sets the pause menu visible.
+	/// </summary>
+	/// <param name="visible">If set to <c>true</c> visible.</param>
+	public void SetPauseMenuVisible (bool visible)
+	{
+		if (visible) {
+			Utility.OpenPopup (pauseMenu, pauseMenuTweenAlpha);
+		} else {
+			Utility.FadeOut (pauseMenuTweenAlpha, this, "ClosePauseMenu");
+		}
+	}
+
+	/// <summary>
+	/// Closes the pause menu.
+	/// </summary>
+	private void ClosePauseMenu ()
+	{
+		pauseMenu.gameObject.SetActive (false);
+		GameManager.instance.SetPause (false);
+	}
+
+	/// <summary>
 	/// Clicking on resume button
 	/// </summary>
 	public void OnClickResumeButton ()
 	{
-		GameManager.instance.ResumeGame ();
+		SetPauseMenuVisible (false);
 	}
 
 	/// <summary>
@@ -142,22 +172,6 @@ public class LevelUIManager : AbstractUIManager
 	public void OnClickQuitButton ()
 	{
 		SceneController.instance.OnClickQuitButton ();
-	}
-
-	/// <summary>
-	/// Loads level selection scene.
-	/// </summary>
-	public void OnClickLevelSelection ()
-	{
-		SceneController.instance.LoadSceneByName ("LevelSelection");
-	}
-
-	/// <summary>
-	/// Loads character selection scene.
-	/// </summary>
-	public void OnClickCharacterSelecction ()
-	{
-		SceneController.instance.LoadSceneByName ("CharacterSelectionMenu");
 	}
 
 	/// <summary>

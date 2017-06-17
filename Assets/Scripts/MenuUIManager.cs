@@ -75,12 +75,10 @@ public class MenuUIManager : AbstractUIManager
 	/// </summary>
 	public void OnOptions ()
 	{
-		Debug.Log ("Open - Fullscreen: " + Configuration.instance.IsFullScreen ());
 		Debug.Log ("Open - Sound volume: " + Configuration.instance.GetSoundVolume ());
 		checkedSprite.enabled = Configuration.instance.IsFullScreen ();
 		volumeSlider.value = Configuration.instance.GetSoundVolume ();
-		FadeIn (optionsTweenAlpha);
-		optionsWindow.gameObject.SetActive (true);
+		OpenPopup (optionsWindow, optionsTweenAlpha);
 	}
 
 	/// <summary>
@@ -88,8 +86,18 @@ public class MenuUIManager : AbstractUIManager
 	/// </summary>
 	public void OnCredits ()
 	{
-		FadeIn (creditsTweenAlpha);
-		creditsWindow.gameObject.SetActive (true);
+		OpenPopup (creditsWindow, creditsTweenAlpha);
+	}
+
+	/// <summary>
+	/// Opens a popup.
+	/// </summary>
+	/// <param name="popup">Popup to open.</param>
+	/// <param name="tween">Tween to use.</param>
+	private void OpenPopup (UIPanel popup, TweenAlpha tween)
+	{
+		FadeIn (tween);
+		popup.gameObject.SetActive (true);
 	}
 
 	/// <summary>
@@ -119,11 +127,10 @@ public class MenuUIManager : AbstractUIManager
 		if (window.name.Equals ("OptionsWindow")) {
 			Configuration.instance.SetFullScreen (checkedSprite.enabled);
 			Configuration.instance.SetSoundVolume (volumeSlider.value); 
-			Debug.Log ("Close - Fullscreen: " + Configuration.instance.IsFullScreen ());
 			Debug.Log ("Close - Sound volume: " + Configuration.instance.GetSoundVolume ());
-			FadeOut (optionsTweenAlpha);
+			FadeOut (optionsTweenAlpha, "Close" + window.name);
 		} else if (window.name.Equals ("CreditsWindow")) {
-			FadeOut (creditsTweenAlpha);
+			FadeOut (creditsTweenAlpha, "Close" + window.name);
 		}
 	}
 
@@ -133,11 +140,9 @@ public class MenuUIManager : AbstractUIManager
 	/// <param name="tween">Tween.</param>
 	private void FadeIn (TweenAlpha tween)
 	{
-		Debug.Log ("FadeIn");
-		tween.SetStartToCurrentValue ();
+		tween.onFinished.Clear ();
 		tween.from = 0;
 		tween.to = 1;
-		//tween.ResetToBeginning ();
 		tween.PlayForward ();
 		tween.ResetToBeginning ();
 	}
@@ -146,15 +151,29 @@ public class MenuUIManager : AbstractUIManager
 	/// Execute popup fade out.
 	/// </summary>
 	/// <param name="tween">Tween.</param>
-	private void FadeOut (TweenAlpha tween)
+	private void FadeOut (TweenAlpha tween, string closeMethodName)
 	{
-		Debug.Log ("FadeOut");
-		tween.SetEndToCurrentValue ();
+		tween.onFinished.Add (new EventDelegate (this, closeMethodName));
 		tween.from = 0;
 		tween.to = 1;
-		//tween.ResetToBeginning ();
 		tween.PlayReverse ();
 		tween.ResetToBeginning ();
+	}
+
+	/// <summary>
+	/// Closes the options window.
+	/// </summary>
+	private void CloseOptionsWindow ()
+	{
+		optionsWindow.gameObject.SetActive (false);
+	}
+
+	/// <summary>
+	/// Closes the credits window.
+	/// </summary>
+	private void CloseCreditsWindow ()
+	{
+		creditsWindow.gameObject.SetActive (false);
 	}
 
 	/// <summary>
@@ -169,10 +188,5 @@ public class MenuUIManager : AbstractUIManager
 		} else {
 			Screen.SetResolution (defWidth, defHeight, false);
 		}
-	}
-
-	public void Finished (TweenAlpha tween)
-	{
-		Debug.Log ("Finito alpha");
 	}
 }

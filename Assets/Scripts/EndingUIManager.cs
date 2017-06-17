@@ -48,7 +48,6 @@ public class EndingUIManager : AbstractUIManager
 			playerRankingPosition = playersRankingPositions [playerIndex];
 			playerRankingPosition.SetActive (true);
 			backgroundPlayerIcon = playerRankingPosition.GetComponent<UISprite> ();
-			//backgroundPlayerIcon.color = Configuration.instance.playersColors [playerIndex];
 			foreach (Transform child in playerRankingPosition.transform) {
 				if (child.tag.Equals ("Position")) {
 					positionLabel = child.gameObject.GetComponent<UILabel> ();
@@ -65,7 +64,7 @@ public class EndingUIManager : AbstractUIManager
 				} else if (child.tag.Equals ("PlayerId")) {
 					scoreLabel = child.gameObject.GetComponent<UILabel> ();
 					scoreLabel.text = "P" + (ranking [playerIndex].GetPlayerId () + 1);
-					scoreLabel.color = Configuration.instance.playersColors [playerIndex];
+					scoreLabel.color = Configuration.instance.playersColors [ranking [playerIndex].GetPlayerId ()];
 				}
 			}
 		}

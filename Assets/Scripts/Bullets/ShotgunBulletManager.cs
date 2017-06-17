@@ -7,12 +7,15 @@ public class ShotgunBulletManager : DefaultBulletManager {
 	public float bulletDistance;
 	public float spreadValue;
 	private float timer;
+	private ParticleSystem trail;
+	private ParticleSystem.MainModule trailMain;
 
 	private bool canSpread = true;
 	protected override void Components(){
 		bulletRb = GetComponent<Rigidbody> ();
 		bulletMeshRender = GetComponent<MeshRenderer> ();
 		bulletSphereCollider = GetComponent<SphereCollider> ();
+		trail = GetComponentInChildren<ParticleSystem> ();
 	}
 
 	protected override void Trigger(){

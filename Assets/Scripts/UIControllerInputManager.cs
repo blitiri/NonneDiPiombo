@@ -86,9 +86,13 @@ public class UIControllerInputManager : MonoBehaviour
             instance = this;
             main = this;
         }
-        if (playerID == 0) {
-			AssignPlayers ();
-		}
+        if (ReInput.controllers.joystickCount > 0)
+        {
+            if (playerID == 0)
+            {
+                AssignPlayers();
+            }
+        }
 
 		if (buttons.Length > 0)
         {
@@ -104,13 +108,14 @@ public class UIControllerInputManager : MonoBehaviour
 	{
         if (instance == this)
         {
-            //Debug.Log(selectedButtonIndex);
-            //Debug.Log("FFFFFFUck Together");
-            UpdateSelectedButtons();
-            PressSelectedButton();
-            if (playerID == 0)
-                //Debug.Log("MINCHIA");
-                PressStartButton();
+            if (ReInput.controllers.joystickCount > 0)
+            {
+                UpdateSelectedButtons();
+                PressSelectedButton();
+
+                if (playerID == 0)
+                    PressStartButton();
+            }
         }
 	}
 
@@ -126,8 +131,12 @@ public class UIControllerInputManager : MonoBehaviour
 
 	void UpdateSelectedButtons ()
 	{
-		if (buttons.Length > 0) {
-			if (canSelect) {
+		if (buttons.Length > 0)
+        {
+			if (canSelect)
+            {
+                //if (ReInput.controllers.joystickCount > 0)
+                //{
 				if (players [playerID].GetAxis ("Move horizontal") < -0.4f || players [playerID].GetAxis ("Move vertical") > 0.4f) {
 					if (buttons [selectedButtonIndex].state != UIButtonColor.State.Normal)
 						buttons [selectedButtonIndex].SetState (UIButtonColor.State.Normal, true);
@@ -140,7 +149,9 @@ public class UIControllerInputManager : MonoBehaviour
 					//Debug.Log("SSSSSS");
 					if (selectedButtonIndex <= 0) {
 						selectedButtonIndex = buttons.Length - 1;
-					} else {
+					}
+                    else
+                    {
 						selectedButtonIndex -= 1;
 					}
 
@@ -149,7 +160,9 @@ public class UIControllerInputManager : MonoBehaviour
 
 					if (playTweens [selectedButtonIndex] != null)
 						playTweens [selectedButtonIndex].Play (true);
-				} else if (players [playerID].GetAxis ("Move horizontal") > 0.4f || players [playerID].GetAxis ("Move vertical") < -0.4f) {
+				}
+                else if (players [playerID].GetAxis ("Move horizontal") > 0.4f || players [playerID].GetAxis ("Move vertical") < -0.4f)
+                {
 					if (buttons [selectedButtonIndex].state != UIButtonColor.State.Normal)
 						buttons [selectedButtonIndex].SetState (UIButtonColor.State.Normal, true);
 
@@ -158,7 +171,9 @@ public class UIControllerInputManager : MonoBehaviour
 
 					if (selectedButtonIndex >= buttons.Length - 1) {
 						selectedButtonIndex = 0;
-					} else {
+					}
+                    else
+                    {
 						selectedButtonIndex += 1;
 					}
 
@@ -170,10 +185,12 @@ public class UIControllerInputManager : MonoBehaviour
 				}
 				canSelect = false;
 			}
-
-			if (!canSelect) {
-				if (players [playerID].GetAxis ("Move horizontal") >= -0.4f && players [playerID].GetAxis ("Move horizontal") <= 0.4f) {
-					if (players [playerID].GetAxis ("Move vertical") >= -0.4f && players [playerID].GetAxis ("Move vertical") <= 0.4f) {
+			else
+            {
+				if (players [playerID].GetAxis ("Move horizontal") >= -0.4f && players [playerID].GetAxis ("Move horizontal") <= 0.4f)
+                {
+					if (players [playerID].GetAxis ("Move vertical") >= -0.4f && players [playerID].GetAxis ("Move vertical") <= 0.4f)
+                    {
 						canSelect = true;
 					}
 				}
@@ -183,9 +200,12 @@ public class UIControllerInputManager : MonoBehaviour
 
 	void PressSelectedButton ()
 	{
-		if (buttons.Length > 0) {
-			if (players [playerID].GetButtonDown ("Cross")) {
-				for (int i = 0; i < buttons [selectedButtonIndex].onClick.Count; i++) {
+		if (buttons.Length > 0)
+        {
+			if (players [playerID].GetButtonDown ("Cross"))
+            {
+				for (int i = 0; i < buttons [selectedButtonIndex].onClick.Count; i++)
+                {
 					//buttons [selectedButtonIndex].SetState (UIButtonColor.State.Pressed, true);
 					buttons [selectedButtonIndex].onClick [i].Execute ();
 					//buttons[buttonIndex].SetState(UIButtonColor.State.Normal, true);
@@ -210,9 +230,9 @@ public class UIControllerInputManager : MonoBehaviour
    //         else
         //{
 			if (GameManager.instance != null)
-                {
-					GameManager.instance.CheckGamePause ();
-				}
+            {
+				GameManager.instance.CheckGamePause ();
+			}
 	    }
 		//}
 	}

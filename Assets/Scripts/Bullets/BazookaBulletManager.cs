@@ -12,8 +12,9 @@ public class BazookaBulletManager : DefaultBulletManager {
 
 	protected override void DefaultMovement(){
 		if (isMoving) {
-			bulletSpeed += bulletAccel * Time.deltaTime;
+			bulletSpeed += (bulletSpeed * bulletAccel) * Time.deltaTime;
 			bulletRb.velocity = bulletRb.transform.up * bulletSpeed;
+			Destroy (this.gameObject, 5.0f);
 		}
 	}
 

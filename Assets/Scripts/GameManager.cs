@@ -11,34 +11,33 @@ public class GameManager : MonoBehaviour
 	/// Skill Counter.
 	/// </summary>
 	public int catCounter;
-
-	public bool isPaused = false;
 	public float timerToSpawn = 5.0f;
-	private float timerPostManSpawn;
 	public float maxTimerBeforeRespawn = 1.0f;
 	public float roundTimer;
 
 	public Transform cameraTransform;
 
 	public GameObject rewiredInputManagerPrefab;
-	public GameObject pauseMenu;
-    public TweenAlpha pauseMenuTweenAlpha;
 
 	// array di transform per il respawn dei player
 	public Transform[] playersRespawns;
 	public Transform[] playersStartRespawns;
 
 	public GameObject[] players;
-	private PlayerControl[] playersControls;
+
 	public GameObject[] weapons;
 
 	public GameObject spawnVFXPrefab;
+
+	private bool isPaused = false;
+	private float timerPostManSpawn;
+	private PlayerControl[] playersControls;
 
 	void Awake ()
 	{
 		instance = this;
 		Statistics.instance.Reset ();
-        Instantiate (rewiredInputManagerPrefab);
+		Instantiate (rewiredInputManagerPrefab);
 		InitPlayers ();
 	}
 
@@ -52,11 +51,31 @@ public class GameManager : MonoBehaviour
 	{
 		//CheckRespawnPlayers ();
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			CheckGamePause ();
+			isPaused = !isPaused;
+			LevelUIManager.instance.SetPauseMenuVisible (isPaused);
 		}
 		if (!isPaused) {
 			TimerUpdate ();
 		}
+	}
+
+	/// <summary>
+	/// Sets game pause.
+	/// </summary>
+	/// <param name="pause">If set to <c>true</c> pause.</param>
+	public void SetPause (bool pause)
+	{
+		isPaused = pause;
+	}
+
+	public void InvertPause ()
+	{
+		isPaused = !isPaused;
+	}
+
+	public bool IsPaused ()
+	{
+		return isPaused;
 	}
 
 	private void InitPlayers ()
@@ -95,7 +114,6 @@ public class GameManager : MonoBehaviour
 
 	public void CheckRespawnPlayers ()
 	{
-
 		int playerIndex;
 
 		for (playerIndex = 0; playerIndex < players.Length; playerIndex++) {
@@ -125,8 +143,6 @@ public class GameManager : MonoBehaviour
 		player = players [playerIndex];
 		SetMeshRendererEnabled (false, playerIndex);
 
-
-
 		PlayerControl playerControl;
 		playerControl = player.GetComponent<PlayerControl> ();
 		playerControl.ResetStatus ();
@@ -137,7 +153,6 @@ public class GameManager : MonoBehaviour
 		playerCollider.enabled = false;
 
 		yield return new WaitForSeconds (maxTimerBeforeRespawn);
-
 
 		spawnpointIndex = UnityEngine.Random.Range (0, playersRespawns.Length);
 		player.transform.position = playersRespawns [spawnpointIndex].position;
@@ -181,45 +196,6 @@ public class GameManager : MonoBehaviour
 			LevelUIManager.instance.InitUI ();
 		}
 	}
-
-	private void SetPauseMenu (bool enabled)
-	{
-		pauseMenu.SetActive (enabled);
-	}
-
-	/// <summary>
-	/// Pause is on/off
-	/// </summary>
-	public void CheckGamePause ()
-	{
-		if (isPaused) {
-			ResumeGame ();
-		} else {
-			PauseGame ();
-		}
-	}
-
-	/// <summary>
-	/// Resumes the play.
-	/// </summary>
-	public void ResumeGame ()
-	{
-        pauseMenuTweenAlpha.from = 0;
-        pauseMenuTweenAlpha.SetEndToCurrentValue();
-        pauseMenuTweenAlpha.PlayReverse();
-        isPaused = false;
-		SetPauseMenu (false);
-	}
-
-	public void PauseGame ()
-	{
-		isPaused = true;
-		SetPauseMenu (true);
-        pauseMenuTweenAlpha.SetStartToCurrentValue();
-        pauseMenuTweenAlpha.to = 1;
-        pauseMenuTweenAlpha.PlayForward();
-
-    }
 
 	/// <summary>
 	/// Gets the players.

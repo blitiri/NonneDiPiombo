@@ -24,6 +24,7 @@ public class Utility
 	private const string bulletTag = "BulletPlayer";
 
 	private const string catTag = "Cat";
+
 	/// <summary>
 	/// Gets the player identifier from player index.
 	/// </summary>
@@ -64,5 +65,43 @@ public class Utility
 	{
 		return player.name.Replace (cloneSuffix, "") + playerIconSuffix;
 	}
-}
 
+	/// <summary>
+	/// Opens a popup.
+	/// </summary>
+	/// <param name="popup">Popup to open.</param>
+	/// <param name="tween">Tween to use.</param>
+	public static void OpenPopup (UIPanel popup, TweenAlpha tween)
+	{
+		FadeIn (tween);
+		popup.gameObject.SetActive (true);
+	}
+
+	/// <summary>
+	/// Execute popup fade in.
+	/// </summary>
+	/// <param name="tween">Tween.</param>
+	public static void FadeIn (TweenAlpha tween)
+	{
+		tween.onFinished.Clear ();
+		tween.from = 0;
+		tween.to = 1;
+		tween.PlayForward ();
+		tween.ResetToBeginning ();
+	}
+
+	/// <summary>
+	/// Fades the out.
+	/// </summary>
+	/// <param name="tween">Tween to use.</param>
+	/// <param name="delegated">Delegated instance.</param>
+	/// <param name="closeMethodName">Close method name.</param>
+	public static void FadeOut (TweenAlpha tween, MonoBehaviour delegated, string closeMethodName)
+	{
+		tween.onFinished.Add (new EventDelegate (delegated, closeMethodName));
+		tween.from = 0;
+		tween.to = 1;
+		tween.PlayReverse ();
+		tween.ResetToBeginning ();
+	}
+}

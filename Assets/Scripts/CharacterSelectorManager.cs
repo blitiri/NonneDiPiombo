@@ -44,7 +44,7 @@ public class CharacterSelectorManager : MonoBehaviour
 	/// <summary>
 	/// Name of the net scene.
 	/// </summary>
-	public string nextSceneToLoadName = "LevelPostOffice";
+	public string nextSceneToLoadName = "LevelPostOfficeDay";
 	/// <summary>
 	/// All the grannies names in the atlas.
 	/// </summary>
@@ -202,17 +202,27 @@ public class CharacterSelectorManager : MonoBehaviour
 		//int id = int.Parse(button.transform.parent.tag);
 		for (int id = 0; id < Configuration.instance.GetNumberOfPlayers (); id++) {
 			if (!readys [id] && canSelect [id]) {
-				if (players [id].GetAxis ("Move horizontal") < -0.2f || players [id].GetAxis ("Move horizontal") > 0.2f) {
-					if (players [id].GetAxis ("Move horizontal") < -0.2f) {
-						if (indexes [id] > 0) {
+				if (players [id].GetAxis ("Move horizontal") < -0.2f || players [id].GetAxis ("Move horizontal") > 0.2f)
+                {
+					if (players [id].GetAxis ("Move horizontal") < -0.2f)
+                    {
+						if (indexes [id] > 0)
+                        {
 							indexes [id]--;
-						} else {
+						}
+                        else
+                        {
 							indexes [id] = grannies.Length - 1;
 						}
-					} else if (players [id].GetAxis ("Move horizontal") > 0.2f) {
-						if (indexes [id] < grannies.Length - 1) {
+					}
+                    else if (players [id].GetAxis ("Move horizontal") > 0.2f)
+                    {
+						if (indexes [id] < grannies.Length - 1)
+                        {
 							indexes [id]++;
-						} else {
+						}
+                        else
+                        {
 							indexes [id] = 0;
 						}
 					}
@@ -224,9 +234,12 @@ public class CharacterSelectorManager : MonoBehaviour
 				playersLabels [id].text = granniesNames [indexes [id]];
 			}
 
-			if (!canSelect [id]) {
-				if (players [id].GetAxis ("Move horizontal") >= -0.2f && players [id].GetAxis ("Move horizontal") <= 0.2f) {
-					if (players [id].GetAxis ("Move vertical") >= -0.2f && players [id].GetAxis ("Move vertical") <= 0.2f) {
+			if (!canSelect [id])
+            {
+				if (players [id].GetAxis ("Move horizontal") >= -0.2f && players [id].GetAxis ("Move horizontal") <= 0.2f)
+                {
+					if (players [id].GetAxis ("Move vertical") >= -0.2f && players [id].GetAxis ("Move vertical") <= 0.2f)
+                    {
 						canSelect [id] = true;
 					}
 				}

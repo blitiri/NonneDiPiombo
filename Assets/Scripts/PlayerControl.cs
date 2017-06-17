@@ -101,11 +101,16 @@ public class PlayerControl : MonoBehaviour
 
 	public bool isImmortal;
 	public float immortalTime = 0.5f;
+
+    /// <summary>
+    /// Heart variables.
+    /// </summary>
 	public Transform heartPos;
 	public GameObject heartPrefab;
 	private GameObject heart;
-	private TweenScale heartScale;
+	private UITweener heartScale;
 	private TweenRotation heartRotation;
+    public float heartBit = 30;
 
 	/// <summary>
 	/// Awake this instance.
@@ -115,9 +120,7 @@ public class PlayerControl : MonoBehaviour
 		weapon = GetComponentInChildren<WeaponControl> ();
 		playerRigidbody = GetComponent<Rigidbody> ();
 		meshPlayer = GetComponent<MeshRenderer> ();
-		playerMat = meshPlayer.material;
-		//heartScale = heart.GetComponent<TweenScale> ();
-		//heartRotation = heart.GetComponent<TweenRotation> ();     
+		playerMat = meshPlayer.material;  
 	}
 
 	/// <summary>
@@ -134,6 +137,7 @@ public class PlayerControl : MonoBehaviour
 		StartCoroutine (DiminishStress ());
 		heart = Instantiate (heartPrefab,heartPos.position, Quaternion.identity);
 		heart.GetComponentInChildren<UISprite>().SetAnchor(heartPos);
+        heartScale = heart.GetComponent<TweenScale>().GetComponent<UITweener>();
     }
 
 
@@ -305,6 +309,7 @@ public class PlayerControl : MonoBehaviour
 		isObstacle = ObstacleChecking (moveVector);
 		if (inputManager.Dash ()) {
 			if (!isObstacle && !isDashing && dashTime <= Time.time - dashRecordedTime) {
+                //StopCoroutine("Ability");
 				StartCoroutine (Dashing (moveVector));
 				InitAbility (ability);
 				StartCoroutine("Ability",timer);
@@ -374,8 +379,25 @@ public class PlayerControl : MonoBehaviour
 	IEnumerator Ability(float timer)
 	{
 		ability.OnAbilityActivation ();
+        foreach(Transform child in transform)
+        {
+            if(child.tag=="Nos")
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+        
 		yield return new WaitForSeconds (timer);
-		speedMod = 0;
+
+        foreach (Transform child in transform)
+        {
+            if (child.tag == "Nos")
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+
+        speedMod = 0;
 	}
 
 	/// <summary>
@@ -400,9 +422,15 @@ public class PlayerControl : MonoBehaviour
 
 	public void StressHeart()
 	{
-		if (stress >= maxStressValue / 2) {
+		if (stress >= maxStressValue / 2)
+        {
 			heart.SetActive (true);
+            heartScale.duration = 0.4f;
 		} 
+        if(stress>=(maxStressValue-heartBit))
+        {
+            heartScale.duration = 0.1f;
+        }
 		else if (stress < maxStressValue / 2)
 		{
 			heart.SetActive (false);

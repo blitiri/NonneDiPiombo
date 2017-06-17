@@ -30,7 +30,7 @@ public class ExplosionCatMine : MonoBehaviour {
 
 
 		if (other.gameObject.tag.Equals ("Wall")) {
-			Debug.Log ("Collision With Wall");
+			//Debug.Log ("Collision With Wall");
 			explosionCollider.radius = minRadius;
 			wallCollision = true;
 		} else if (other.gameObject.tag.Equals ("LevelWall")) {

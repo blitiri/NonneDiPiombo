@@ -712,14 +712,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1971b2fdb428bcd4293f81c214569803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonIndex: 0
   playerID: 0
   buttons:
   - {fileID: 1276495055}
   - {fileID: 437868246}
   - {fileID: 1634656112}
   - {fileID: 248363105}
-  playTweens: []
 --- !u!1001 &268306806
 Prefab:
   m_ObjectHideFlags: 0
@@ -875,6 +873,7 @@ GameObject:
   - component: {fileID: 344483546}
   - component: {fileID: 344483547}
   - component: {fileID: 344483549}
+  - component: {fileID: 344483548}
   m_Layer: 8
   m_Name: CreditsWindow
   m_TagString: Untagged
@@ -944,6 +943,20 @@ MonoBehaviour:
   mDepth: 5
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
+--- !u!114 &344483548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 344483545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1971b2fdb428bcd4293f81c214569803, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 0
+  buttons:
+  - {fileID: 1253367890}
 --- !u!114 &344483549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1274,7 +1287,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1918578534}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &867439720
 MonoBehaviour:
@@ -1351,6 +1364,7 @@ GameObject:
   - component: {fileID: 961401073}
   - component: {fileID: 961401074}
   - component: {fileID: 961401075}
+  - component: {fileID: 961401076}
   m_Layer: 8
   m_Name: OptionsWindow
   m_TagString: Untagged
@@ -1465,6 +1479,22 @@ MonoBehaviour:
   callWhenFinished: 
   from: 0
   to: 1
+--- !u!114 &961401076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 961401072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1971b2fdb428bcd4293f81c214569803, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 0
+  buttons:
+  - {fileID: 985545845}
+  - {fileID: 1775320300}
+  - {fileID: 1176829602}
 --- !u!1 &980028536
 GameObject:
   m_ObjectHideFlags: 0
@@ -1577,7 +1607,7 @@ GameObject:
   - component: {fileID: 985545844}
   m_Layer: 8
   m_Name: VolumeSlider
-  m_TagString: Untagged
+  m_TagString: Slider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1959,7 +1989,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4056098973610876, guid: 3780461d746364c7693e935d8551c36d, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114334021408748416, guid: 3780461d746364c7693e935d8551c36d,
         type: 2}
@@ -2118,6 +2148,12 @@ MonoBehaviour:
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
   mSpriteName: Checkmark
   mFillCenter: 1
+--- !u!114 &1176829602 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114794090854080458, guid: 3780461d746364c7693e935d8551c36d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1085815703}
+  m_Script: {fileID: 11500000, guid: 1fdca5042b1d12a4890ec1bd4f04290d, type: 3}
 --- !u!4 &1230864343
 Transform:
   m_ObjectHideFlags: 0
@@ -3032,13 +3068,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1583443468}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1847924902}
   m_Father: {fileID: 1918578534}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1583443470
 MonoBehaviour:
@@ -3076,7 +3112,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3010
+  startingRenderQueue: 3013
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -3706,7 +3742,7 @@ Transform:
   - {fileID: 1007507996}
   - {fileID: 42047783}
   m_Father: {fileID: 1918578534}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1816289915
 MonoBehaviour:
@@ -3744,7 +3780,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3007
+  startingRenderQueue: 3010
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -4081,10 +4117,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1749425763}
-  - {fileID: 1270894781}
-  - {fileID: 867439719}
   - {fileID: 1816289914}
   - {fileID: 1583443469}
+  - {fileID: 1270894781}
+  - {fileID: 867439719}
   m_Father: {fileID: 961401073}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

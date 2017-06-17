@@ -73,20 +73,20 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	public Texture2D crosshairCursor;
 	public Vector2 cursorHotSpot = new Vector2 (16, 16);
-    public Vector3 moveVector;
-    private Material playerMat;
+	public Vector3 moveVector;
+	private Material playerMat;
 	private MeshRenderer meshPlayer;
 	private MeshRenderer revolverMeshRenderer;
 	private Rigidbody playerRigidbody;
 	public GameObject bulletPrefab;
 	private InputManager inputManager;
-   // public Animator stressAnimation;
+	// public Animator stressAnimation;
 
-    /// <summary>
-    /// weapon
-    /// </summary>
-    private float timerToShoot;
-    private WeaponControl weapon;
+	/// <summary>
+	/// weapon
+	/// </summary>
+	private float timerToShoot;
+	private WeaponControl weapon;
 
 	/// <summary>
 	/// VFXs
@@ -102,15 +102,15 @@ public class PlayerControl : MonoBehaviour
 	public bool isImmortal;
 	public float immortalTime = 0.5f;
 
-    /// <summary>
-    /// Heart variables.
-    /// </summary>
+	/// <summary>
+	/// Heart variables.
+	/// </summary>
 	public Transform heartPos;
 	public GameObject heartPrefab;
 	private GameObject heart;
 	private UITweener heartScale;
 	private TweenRotation heartRotation;
-    public float heartBit = 30;
+	public float heartBit = 30;
 
 	/// <summary>
 	/// Awake this instance.
@@ -128,54 +128,50 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	void Start ()
 	{
-        timerToShoot = weapon.ratioOfFire;
-        inputManager = new InputManager (playerId, transform, angleCorrection);
+		timerToShoot = weapon.ratioOfFire;
+		inputManager = new InputManager (playerId, transform, angleCorrection);
 		if (inputManager.HasMouse ()) {
 			Cursor.SetCursor (crosshairCursor, cursorHotSpot, CursorMode.Auto);
 		}
 		ResetStatus ();
 		StartCoroutine (DiminishStress ());
-		heart = Instantiate (heartPrefab,heartPos.position, Quaternion.identity);
-		heart.GetComponentInChildren<UISprite>().SetAnchor(heartPos);
-        heartScale = heart.GetComponent<TweenScale>().GetComponent<UITweener>();
-    }
+		heart = Instantiate (heartPrefab, heartPos.position, Quaternion.identity);
+		heart.GetComponentInChildren<UISprite> ().SetAnchor (heartPos);
+		heartScale = heart.GetComponent<TweenScale> ().GetComponent<UITweener> ();
+	}
 
 
-	void Update()
+	void Update ()
 	{
 		StressHeart ();
 	}
+
 	/// <summary>
 	/// Updates the player instance.
 	/// </summary>
 	void FixedUpdate ()
 	{
-        if (!GameManager.instance.isPaused)
-        {
-            transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+		if (!GameManager.instance.IsPaused ()) {
+			transform.position = new Vector3 (transform.position.x, 0, transform.position.z);
 
-            if (!stopped && !stopInputPlayer)
-            {
-                Move();
-                moveVector = inputManager.GetMoveVector();
-                DashManaging();
-                Aim();
+			if (!stopped && !stopInputPlayer) {
+				Move ();
+				moveVector = inputManager.GetMoveVector ();
+				DashManaging ();
+				Aim ();
 
-                if (timerToShoot < weapon.ratioOfFire)
-                {
-                    timerToShoot += Time.deltaTime;
-                }
-                else if (inputManager.Shoot())
-                {
-                    weapon.Shoot(this.gameObject.tag);
-                    UpdateUI();
-                    timerToShoot = 0.0f;
-                }
+				if (timerToShoot < weapon.ratioOfFire) {
+					timerToShoot += Time.deltaTime;
+				} else if (inputManager.Shoot ()) {
+					weapon.Shoot (this.gameObject.tag);
+					UpdateUI ();
+					timerToShoot = 0.0f;
+				}
 
-                //Assegna Shader Outline su arma attiva
-                //			shaderApply.ShaderApply (revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
-            }
-        }
+				//Assegna Shader Outline su arma attiva
+				//			shaderApply.ShaderApply (revolverMeshRenderer, revolver.transform.position, outlineShader, standardShader);
+			}
+		}
 		/*if(stress>=100)
         {
             stressAnimation.Play("Death");
@@ -188,7 +184,7 @@ public class PlayerControl : MonoBehaviour
 	public void ResetStatus ()
 	{
         
-        isDead = false;
+		isDead = false;
 		stress = startingStress;
 		stopped = false;
 		UpdateUI ();
@@ -227,8 +223,9 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
-	public void ExplodeCharacter(){
-		GameObject brokenGran = Instantiate(brokenVersion, transform.position, transform.rotation) as GameObject;
+	public void ExplodeCharacter ()
+	{
+		GameObject brokenGran = Instantiate (brokenVersion, transform.position, transform.rotation) as GameObject;
 	}
 
 	/// <summary>
@@ -250,7 +247,7 @@ public class PlayerControl : MonoBehaviour
 		if (other.gameObject.tag.StartsWith ("Bullet") && !isImmortal) {
 			
 			int playerKillerId;
-			playerKillerId = Utility.GetPlayerIndexFromBullet(other.gameObject.tag);
+			playerKillerId = Utility.GetPlayerIndexFromBullet (other.gameObject.tag);
 
 			if (playertagIndex != playerKillerId) {
 				RespawnOnTrigger (other, playerKillerId);
@@ -258,12 +255,13 @@ public class PlayerControl : MonoBehaviour
 		}    
 	}
 
-	public void RespawnOnTrigger(Collision other, int playerKillerId){
-		        isImmortal = true;
-				isDead = true;
-				GameManager.instance.CheckRespawnPlayers ();
-				ExplodeCharacter ();
-				GameManager.instance.PlayerKilled (playerId, playerKillerId);
+	public void RespawnOnTrigger (Collision other, int playerKillerId)
+	{
+		isImmortal = true;
+		isDead = true;
+		GameManager.instance.CheckRespawnPlayers ();
+		ExplodeCharacter ();
+		GameManager.instance.PlayerKilled (playerId, playerKillerId);
 	}
 
 	/// <summary>
@@ -309,10 +307,10 @@ public class PlayerControl : MonoBehaviour
 		isObstacle = ObstacleChecking (moveVector);
 		if (inputManager.Dash ()) {
 			if (!isObstacle && !isDashing && dashTime <= Time.time - dashRecordedTime) {
-                //StopCoroutine("Ability");
+				//StopCoroutine("Ability");
 				StartCoroutine (Dashing (moveVector));
 				InitAbility (ability);
-				StartCoroutine("Ability",timer);
+				StartCoroutine ("Ability", timer);
 			}
 		}
 	}
@@ -370,34 +368,31 @@ public class PlayerControl : MonoBehaviour
 	/// Inits the ability.
 	/// </summary>
 	/// <param name="ability">Ability.</param>
-	private void InitAbility(Abilities ability){
+	private void InitAbility (Abilities ability)
+	{
 		if (ability != null) {
-			ability.SetPlayer (gameObject,playerId);
+			ability.SetPlayer (gameObject, playerId);
 		}
 	}
 
-	IEnumerator Ability(float timer)
+	IEnumerator Ability (float timer)
 	{
 		ability.OnAbilityActivation ();
-        foreach(Transform child in transform)
-        {
-            if(child.tag=="Nos")
-            {
-                child.gameObject.SetActive(true);
-            }
-        }
+		foreach (Transform child in transform) {
+			if (child.tag == "Nos") {
+				child.gameObject.SetActive (true);
+			}
+		}
         
 		yield return new WaitForSeconds (timer);
 
-        foreach (Transform child in transform)
-        {
-            if (child.tag == "Nos")
-            {
-                child.gameObject.SetActive(false);
-            }
-        }
+		foreach (Transform child in transform) {
+			if (child.tag == "Nos") {
+				child.gameObject.SetActive (false);
+			}
+		}
 
-        speedMod = 0;
+		speedMod = 0;
 	}
 
 	/// <summary>
@@ -414,25 +409,21 @@ public class PlayerControl : MonoBehaviour
 	{
 		this.angleCorrection = angleCorrection;
 	}
-		
+
 	private void UpdateUI ()
 	{
 		LevelUIManager.instance.SetStress (stress / maxStressValue, playerId);
 	}
 
-	public void StressHeart()
+	public void StressHeart ()
 	{
-		if (stress >= maxStressValue / 2)
-        {
+		if (stress >= maxStressValue / 2) {
 			heart.SetActive (true);
-            heartScale.duration = 0.4f;
+			heartScale.duration = 0.4f;
 		} 
-        if(stress>=(maxStressValue-heartBit))
-        {
-            heartScale.duration = 0.1f;
-        }
-		else if (stress < maxStressValue / 2)
-		{
+		if (stress >= (maxStressValue - heartBit)) {
+			heartScale.duration = 0.1f;
+		} else if (stress < maxStressValue / 2) {
 			heart.SetActive (false);
 		}
 	}

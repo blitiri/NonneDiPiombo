@@ -155,7 +155,7 @@ Transform:
   m_GameObject: {fileID: 1000011126496772}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.01, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 4000014017114100}
   m_RootOrder: 2
@@ -496,11 +496,11 @@ MonoBehaviour:
   bloodDuration: 5
   ability: {fileID: 11400000, guid: a037ce8b393e6084db3b93c8335a7a33, type: 2}
   isImmortal: 0
-  immortalTime: 0.5
+  immortalTime: 1
   heartPos: {fileID: 4838046963988118}
   heartPrefab: {fileID: 1133736549780474, guid: f28702446cb77ae40a6b502bc90de8a8,
     type: 2}
-  heart: {fileID: 0}
+  heartBit: 30
 --- !u!114 &114442234910852308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -541,9 +541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e601fb175e9f1964290bfcfcc5de6f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoMagazine: 100
   ratioOfFire: 1.2
-  speedBullet: 0
   bulletSpawnPoint: {fileID: 4207821426125918}
   standardBulletPrefab: {fileID: 1100206468118028, guid: ee047fd4d3c88e340b729cebe2b069d8,
     type: 2}

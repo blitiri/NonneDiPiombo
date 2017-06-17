@@ -309,7 +309,7 @@ public class PlayerControl : MonoBehaviour
 		isObstacle = ObstacleChecking (moveVector);
 		if (inputManager.Dash ()) {
 			if (!isObstacle && !isDashing && dashTime <= Time.time - dashRecordedTime) {
-                StopCoroutine("Ability");
+                //StopCoroutine("Ability");
 				StartCoroutine (Dashing (moveVector));
 				InitAbility (ability);
 				StartCoroutine("Ability",timer);

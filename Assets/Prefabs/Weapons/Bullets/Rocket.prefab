@@ -129,7 +129,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1473148331119034}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -44.09, y: 8.2, z: 7.27}
+  m_LocalPosition: {x: -0.49411964, y: 2.848515, z: -8.717938}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4459804926975842}
@@ -252,9 +252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66cd417f89b2e96409bbba8cc8b28b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 2
+  bulletSpeed: 1
   sparkVFX: {fileID: 1014289148363408, guid: 7347f52fbd53e8f42a0f3c6bbc9b6649, type: 2}
-  bulletAccel: 120
+  bulletAccel: 240
   explosionDelay: 1
   explosionPrefab: {fileID: 1679874409593166, guid: 10da2bb9870a12d43a0b8dc5ee1a6c95,
     type: 2}
@@ -267,8 +267,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.18754281
-  m_Height: 1.0379812
+  m_Radius: 0.3
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: -0.000000037252903, y: 0.5189906, z: 0.000000059604645}
 --- !u!198 &198314583957455384

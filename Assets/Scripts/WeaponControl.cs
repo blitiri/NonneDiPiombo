@@ -4,9 +4,7 @@ using UnityEngine;
 	
 public class WeaponControl : MonoBehaviour 
 {
-	public int ammoMagazine;
 	public float ratioOfFire;
-	public float speedBullet;
 
 	public Transform bulletSpawnPoint;
 	public GameObject standardBulletPrefab;

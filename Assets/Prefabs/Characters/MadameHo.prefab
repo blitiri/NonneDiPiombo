@@ -549,7 +549,7 @@ MonoBehaviour:
   bloodDuration: 5
   ability: {fileID: 11400000, guid: c2e393be7ee4d7c4e953bdfa6ed6f589, type: 2}
   isImmortal: 0
-  immortalTime: 0.5
+  immortalTime: 1
   heartPos: {fileID: 4835611221112408}
   heartPrefab: {fileID: 1133736549780474, guid: f28702446cb77ae40a6b502bc90de8a8,
     type: 2}
@@ -580,16 +580,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e601fb175e9f1964290bfcfcc5de6f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoMagazine: 100
-  ratioOfFire: 2
-  speedBullet: 100
+  ratioOfFire: 1.5
   bulletSpawnPoint: {fileID: 4002969007669562}
   standardBulletPrefab: {fileID: 1473148331119034, guid: 8857b5840fa1d8e44acd98f4578cf6bb,
     type: 2}
   powerUpBulletPrefab: {fileID: 0}
   weaponStress: 5
   playerScript: {fileID: 114423332126549376}
-  recoilForce: 50
+  recoilForce: 120
   onShootVFX: {fileID: 1284787593007262, guid: 7c590b69f49994e48a5e246b9743e797, type: 2}
 --- !u!198 &198370386297423824
 ParticleSystem:

@@ -69,10 +69,10 @@ public class Configuration : MonoBehaviour
 	/// The color of the bottom unselected.
 	/// </summary>
 	public Color bottomUnselectedColor = Color.black;
-    /// <summary>
-    /// The number of players.
-    /// </summary>
-    private int numberOfPlayers;
+	/// <summary>
+	/// The number of players.
+	/// </summary>
+	private int numberOfPlayers;
 	/// <summary>
 	/// The selected level.
 	/// </summary>
@@ -100,7 +100,7 @@ public class Configuration : MonoBehaviour
 		if (instance == null) {
 			DontDestroyOnLoad (transform.gameObject);
 			if (SceneController.IsLevelSelectionScene () || SceneController.IsLevelScene () || SceneController.IsCharacterSelectionScene () || SceneController.IsMenuScene () || SceneController.IsEndingScene ()) {
-                numberOfPlayers = defaultNumberOfPlayers;
+				numberOfPlayers = defaultNumberOfPlayers;
 				selectedGrannies = new GameObject[numberOfPlayers];
 				for (grannyIndex = 0; grannyIndex < numberOfPlayers; grannyIndex++) {
 					selectedGrannies [grannyIndex] = granniesPrefabs [grannyIndex % granniesPrefabs.Length];

@@ -14,10 +14,6 @@ public class CharacterSelectorManager : MonoBehaviour
 	/// </summary>
 	private bool[] canSelect;
 	/// <summary>
-	/// An instance of SceneController class.
-	/// </summary>
-	private SceneController mySceneContr;
-	/// <summary>
 	/// The from color of selectors' tweens.
 	/// </summary>
 	private Color frameStartColor = Color.white;
@@ -69,22 +65,22 @@ public class CharacterSelectorManager : MonoBehaviour
 	/// All the selectors.
 	/// </summary>
 	public GameObject[] selectors;
-    /// <summary>
-    /// Sprites of selectors.
-    /// </summary>
-    public UISprite[] selectorSprites;
-    /// <summary>
-    /// Selector's color when granny is clicked.
-    /// </summary>
-    public Color[] frameColors;
+	/// <summary>
+	/// Sprites of selectors.
+	/// </summary>
+	public UISprite[] selectorSprites;
+	/// <summary>
+	/// Selector's color when granny is clicked.
+	/// </summary>
+	public Color[] frameColors;
 	/// <summary>
 	/// All frames.
 	/// </summary>
 	public UISprite[] frames;
-    /// <summary>
-    /// The player's number.
-    /// </summary>
-    public UILabel[] playerNumbers;
+	/// <summary>
+	/// The player's number.
+	/// </summary>
+	public UILabel[] playerNumbers;
 	/// <summary>
 	/// All playable grannies.
 	/// </summary>
@@ -110,7 +106,6 @@ public class CharacterSelectorManager : MonoBehaviour
 	{
 		instance = this;
 		//DontDestroyOnLoad(gameObject);
-		mySceneContr = new SceneController ();
 	}
 
 	private void Start ()
@@ -127,25 +122,24 @@ public class CharacterSelectorManager : MonoBehaviour
 		SelectorsActivation ();
 		players = new Player[numberOfPlayers];
 		canSelect = new bool[numberOfPlayers];
-        frameColors = new Color[selectors.Length];
+		frameColors = new Color[selectors.Length];
 		for (int i = 0; i < numberOfPlayers; i++) {
 			players [i] = ReInput.players.GetPlayer (i);
 		}
-		for (int id = 0; id < numberOfPlayers; id++)
-        {
-            Color playerColor = Configuration.instance.playersColors[id];
-            float h;
-            float s;
-            float v;
+		for (int id = 0; id < numberOfPlayers; id++) {
+			Color playerColor = Configuration.instance.playersColors [id];
+			float h;
+			float s;
+			float v;
 
-            frames [id].color = frameStartColor;
+			frames [id].color = frameStartColor;
 			tweens [id].from = frameStartColor;
 			tweens [id].to = playerColor;
-            playersLabels[id].color = playerColor;
-            playerNumbers[id].color = playerColor;
-            Color.RGBToHSV(playerColor, out h, out s, out v);
-            frameColors[id] = Color.HSVToRGB(h, s / 3, v);
-        }
+			playersLabels [id].color = playerColor;
+			playerNumbers [id].color = playerColor;
+			Color.RGBToHSV (playerColor, out h, out s, out v);
+			frameColors [id] = Color.HSVToRGB (h, s / 3, v);
+		}
 	}
 
 	private void Update ()
@@ -244,50 +238,50 @@ public class CharacterSelectorManager : MonoBehaviour
 	{
 		for (int id = 0; id < Configuration.instance.GetNumberOfPlayers (); id++) {
 			if (players [id].GetButtonDown ("Cross")) {
-                //readyButtons[id].SetState(UIButtonColor.State.Pressed, true);
-                //for (int i = 0; i < readyButtons[id].onClick.Count; i++)
-                //{
-                //    readyButtons[id].onClick[i].Execute();
-                //}
-                //readyButtons[id].SetState(UIButtonColor.State.Normal, false);
-                //tweens[id].StopCoroutine(tweens[id].name);
-                //tweens[id].from = frames[id].color;
-                //if (!readys[id])
-                //{
-                //    tweens[id].PlayForward();
-                //    readys[id] = true;
-                //}
-                //else
-                //{
-                //    tweens[id].PlayReverse();
-                //    readys[id] = false;
-                //}
-                //tweens[id].from = tweenFromColor;
-                //tweens[id].ResetToBeginning();
-                Tweener(frameStartColor, frameColors[id], id);
-                CheckReady ();
+				//readyButtons[id].SetState(UIButtonColor.State.Pressed, true);
+				//for (int i = 0; i < readyButtons[id].onClick.Count; i++)
+				//{
+				//    readyButtons[id].onClick[i].Execute();
+				//}
+				//readyButtons[id].SetState(UIButtonColor.State.Normal, false);
+				//tweens[id].StopCoroutine(tweens[id].name);
+				//tweens[id].from = frames[id].color;
+				//if (!readys[id])
+				//{
+				//    tweens[id].PlayForward();
+				//    readys[id] = true;
+				//}
+				//else
+				//{
+				//    tweens[id].PlayReverse();
+				//    readys[id] = false;
+				//}
+				//tweens[id].from = tweenFromColor;
+				//tweens[id].ResetToBeginning();
+				Tweener (frameStartColor, frameColors [id], id);
+				CheckReady ();
 			}
 		}
 	}
 
-    public void ClickCentral(GameObject button)
-    {
-        int id = int.Parse(button.transform.parent.tag);
-        //if (indexes[id] < grannies.Length - 1)
-        //{
-        //    indexes[id]++;
-        //}
-        //else
-        //{
-        //    indexes[id] = 0;
-        //}
-        //centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
-        selectedGrannies[id] = grannies[indexes[id]];
-        Tweener(frameStartColor, frameColors[id], id);
-        CheckReady();
-    }
+	public void ClickCentral (GameObject button)
+	{
+		int id = int.Parse (button.transform.parent.tag);
+		//if (indexes[id] < grannies.Length - 1)
+		//{
+		//    indexes[id]++;
+		//}
+		//else
+		//{
+		//    indexes[id] = 0;
+		//}
+		//centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
+		selectedGrannies [id] = grannies [indexes [id]];
+		Tweener (frameStartColor, frameColors [id], id);
+		CheckReady ();
+	}
 
-    private void CheckReady ()
+	private void CheckReady ()
 	{
 		if (readyCount == Configuration.instance.GetNumberOfPlayers ()) {
 			StartCountdown ();
@@ -433,6 +427,6 @@ public class CharacterSelectorManager : MonoBehaviour
 		if (Configuration.instance) {
 			Configuration.instance.selectedGrannies = selectedGrannies;
 		}
-		mySceneContr.LoadSceneByName (scene);
+		SceneController.instance.LoadSceneByName (scene);
 	}
 }

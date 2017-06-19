@@ -62,10 +62,10 @@ public class PlayerControl : MonoBehaviour
 	public float playerObstacleDistanceLimit;
 	public LayerMask environment;
 
-	/// <summary>
-	/// Player Tagging
-	/// </summary>
-	private const string bulletTagPrefix = "Bullet";
+    /// <summary>
+    /// Player Tagging
+    /// </summary>
+    private const string bulletTagPrefix = "Bullet";
 	private const string playerTagPrefix = "Player";
 
 	/// <summary>
@@ -94,11 +94,13 @@ public class PlayerControl : MonoBehaviour
 	public GameObject bloodPrefab;
 	public float bloodDuration;
     public GameObject dashParticle;
+    private ParticleSystem dashVFX;
+    private ParticleSystem.MainModule main;
 
-	/// <summary>
-	/// The ability.
-	/// </summary>
-	public Abilities ability;
+    /// <summary>
+    /// The ability.
+    /// </summary>
+    public Abilities ability;
 
 	public bool isImmortal;
 	public float immortalTime = 0.5f;
@@ -122,6 +124,8 @@ public class PlayerControl : MonoBehaviour
 		playerRigidbody = GetComponent<Rigidbody> ();
 		meshPlayer = GetComponent<MeshRenderer> ();
 		playerMat = meshPlayer.material;
+        dashVFX = dashParticle.GetComponentInChildren<ParticleSystem>();
+        main = dashVFX.main;
     }
 
 	/// <summary>
@@ -337,8 +341,8 @@ public class PlayerControl : MonoBehaviour
 	private IEnumerator Dashing (Vector3 moveVector)
 	{
 		Vector3 newPosition = Vector3.zero;
-		
-		float dashDone = 0;
+
+        float dashDone = 0;
 
 		isDashing = true;
 
@@ -348,12 +352,14 @@ public class PlayerControl : MonoBehaviour
                 if (dashParticle != null)
                 {
                     dashParticle.SetActive(true);
+                    main.startColor = Configuration.instance.playersColors[playerId];
                 }
             } else {
 				transform.localPosition += dashSpeed * Time.deltaTime * transform.forward;
                 if (dashParticle != null)
                 {
                     dashParticle.SetActive(true);
+                    main.startColor = Configuration.instance.playersColors[playerId];
                 }
             }
 

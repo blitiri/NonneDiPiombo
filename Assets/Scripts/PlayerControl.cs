@@ -165,7 +165,7 @@ public class PlayerControl : MonoBehaviour
 					timerToShoot += Time.deltaTime;
 				} else if (inputManager.Shoot ()) {
 					weapon.Shoot (this.gameObject.tag);
-					UpdateUI ();
+					//UpdateUI ();
 					timerToShoot = 0.0f;
 				}
 
@@ -184,7 +184,7 @@ public class PlayerControl : MonoBehaviour
 		isDead = false;
 		stress = startingStress;
 		stopped = false;
-		UpdateUI ();
+		//UpdateUI ();
 	}
 
 	/// <summary>
@@ -254,6 +254,7 @@ public class PlayerControl : MonoBehaviour
 
 	public void RespawnOnTrigger (Collision other, int playerKillerId)
 	{
+		playerRigidbody.velocity = Vector3.zero;
 		isImmortal = true;
 		isDead = true;
 		ExplodeCharacter ();
@@ -268,7 +269,7 @@ public class PlayerControl : MonoBehaviour
 	public void AddStress (float stressToAdd)
 	{
 		stress = Mathf.Clamp (stress + stressToAdd, 0, maxStressValue);
-		UpdateUI ();
+		//UpdateUI ();
 	}
 
 	/// <summary>
@@ -288,9 +289,8 @@ public class PlayerControl : MonoBehaviour
 	{
 		while (stress < 100) {
 			yield return new WaitForSeconds (timeToDiminishStress);
-           
 			stress = Mathf.Clamp (stress - stressDecreaseFactor, 0, maxStressValue);
-			UpdateUI ();
+			//UpdateUI ();
 		}
 	}
 
@@ -413,10 +413,10 @@ public class PlayerControl : MonoBehaviour
 		this.angleCorrection = angleCorrection;
 	}
 
-	private void UpdateUI ()
+	/*private void UpdateUI ()
 	{
 		LevelUIManager.instance.SetStress (stress / maxStressValue, playerId);
-	}
+	}*/
 
 	public void StressHeart ()
 	{

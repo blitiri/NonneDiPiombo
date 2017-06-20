@@ -96,6 +96,7 @@ public class PlayerControl : MonoBehaviour
     public GameObject dashParticle;
     private ParticleSystem dashVFX;
     private ParticleSystem.MainModule main;
+    private AudioSource source;
 
     /// <summary>
     /// The ability.
@@ -126,6 +127,7 @@ public class PlayerControl : MonoBehaviour
 		playerMat = meshPlayer.material;
         dashVFX = dashParticle.GetComponentInChildren<ParticleSystem>();
         main = dashVFX.main;
+        source = GetComponent<AudioSource>();
     }
 
 	/// <summary>
@@ -169,7 +171,6 @@ public class PlayerControl : MonoBehaviour
 					timerToShoot += Time.deltaTime;
 				} else if (inputManager.Shoot ()) {
 					weapon.Shoot (this.gameObject.tag);
-					//UpdateUI ();
 					timerToShoot = 0.0f;
 				}
 
@@ -188,7 +189,6 @@ public class PlayerControl : MonoBehaviour
 		isDead = false;
 		stress = startingStress;
 		stopped = false;
-		//UpdateUI ();
 	}
 
 	/// <summary>
@@ -273,7 +273,6 @@ public class PlayerControl : MonoBehaviour
 	public void AddStress (float stressToAdd)
 	{
 		stress = Mathf.Clamp (stress + stressToAdd, 0, maxStressValue);
-		//UpdateUI ();
 	}
 
 	/// <summary>

@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 114630631390475092}
   - component: {fileID: 95360861568008386}
   - component: {fileID: 114468975654518002}
+  - component: {fileID: 82212978842507748}
   m_Layer: 0
   m_Name: SisterRedenta
   m_TagString: Untagged
@@ -521,6 +522,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0010415, y: 1.480822, z: 1.0334489}
   m_Center: {x: 0, y: 0.73973364, z: -0.08479075}
+--- !u!82 &82212978842507748
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1911374658595318}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95360861568008386
 Animator:
   serializedVersion: 3
@@ -591,6 +672,8 @@ MonoBehaviour:
   weaponStress: 0
   playerScript: {fileID: 114630631390475092}
   recoilForce: 100
+  weaponSound: {fileID: 0}
+  volumeSound: 1
   onShootVFX: {fileID: 1577941067716300, guid: e23f2c2733da9f9479dcff8790b2664b, type: 2}
 --- !u!114 &114468975654518002
 MonoBehaviour:
@@ -673,6 +756,7 @@ MonoBehaviour:
   player: {fileID: 1911374658595318}
   lifeTime: 1
   speedRotation: 5
+  holyShieldSound: {fileID: 8300000, guid: 1957ac832d472ab4fad62a068357d794, type: 3}
 --- !u!135 &135887032937734208
 SphereCollider:
   m_ObjectHideFlags: 1

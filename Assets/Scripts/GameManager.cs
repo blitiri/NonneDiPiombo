@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 	public float timerToSpawn = 5.0f;
 	public float maxTimerBeforeRespawn = 1.0f;
 	public float roundTimer;
+    public AudioClip respawnfogSound;
+    public float volumeSound = 1.0f;
 
 	public Transform cameraTransform;
 
@@ -143,6 +145,7 @@ public class GameManager : MonoBehaviour
 		ParticleSystem.MainModule main;
 		BoxCollider playerCollider;
 		PlayerControl playerControl;
+        AudioSource source;
 
 		player = players [playerIndex];
 		SetMeshRendererEnabled (false, playerIndex);
@@ -160,6 +163,7 @@ public class GameManager : MonoBehaviour
 			main = particles.main;
 			main.startColor = Configuration.instance.playersColors [playersControls [playerIndex].playerId];
 		}
+        spawnVFX.GetComponent<AudioSource>().PlayOneShot(respawnfogSound, volumeSound);
 		Destroy (spawnVFX, 3f);
 		player.transform.position = playersRespawns[spawnpointIndex].position;
 

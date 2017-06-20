@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 114423332126549376}
   - component: {fileID: 95814324588813984}
   - component: {fileID: 114960886667242236}
+  - component: {fileID: 82291997280908830}
   m_Layer: 0
   m_Name: MadameHo
   m_TagString: Untagged
@@ -512,6 +513,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1402819, y: 1.5589215, z: 1.1413289}
   m_Center: {x: 0, y: 0.7794607, z: -0.000000059604645}
+--- !u!82 &82291997280908830
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1945111136031498}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95814324588813984
 Animator:
   serializedVersion: 3
@@ -607,7 +688,7 @@ MonoBehaviour:
   bloodPrefab: {fileID: 1322258342269630, guid: 4e6901942acb5614098c0fa8fb6a7509,
     type: 2}
   bloodDuration: 5
-  dashParticle: {fileID: 0}
+  dashParticle: {fileID: 1917214405074806}
   ability: {fileID: 11400000, guid: c2e393be7ee4d7c4e953bdfa6ed6f589, type: 2}
   isImmortal: 0
   immortalTime: 1
@@ -649,6 +730,8 @@ MonoBehaviour:
   weaponStress: 5
   playerScript: {fileID: 114423332126549376}
   recoilForce: 120
+  weaponSound: {fileID: 0}
+  volumeSound: 1
   onShootVFX: {fileID: 1284787593007262, guid: 7c590b69f49994e48a5e246b9743e797, type: 2}
 --- !u!198 &198018137319898036
 ParticleSystem:

@@ -7,20 +7,26 @@ public class CatMine : MonoBehaviour
 	private TweenColor tweenColor;
 	private SphereCollider colliderCat;
 	private MeshRenderer mesh;
+    private AudioSource source;
 	public GameObject explosionPrefab;
 	public float timerToExplode=5.0f;
 	public float radiusOfCollider;
 	public float explosionDuration;
+    public AudioClip catMeow;
+    public AudioClip explosionSound;
+    public float volumeSound = 1.0f;
 
 	void Awake () 
 	{
 		tweenColor = GetComponent<TweenColor> ();
 		colliderCat = GetComponent<SphereCollider> ();
 		mesh = GetComponent<MeshRenderer> ();
+        source = GetComponent<AudioSource>();
 	}
 
 	void Start()
 	{
+        source.PlayOneShot(catMeow, volumeSound);
 		StartCoroutine ("CatExplosion");
 	}
 
@@ -42,7 +48,9 @@ public class CatMine : MonoBehaviour
 		mesh.enabled = false;
 
 		GameObject explosion = Instantiate (explosionPrefab) as GameObject;
-		explosion.transform.position = this.gameObject.transform.position + new Vector3 (0, 1, 0);
+        explosion.GetComponent<AudioSource>();
+        source.PlayOneShot(explosionSound, volumeSound);
+        explosion.transform.position = this.gameObject.transform.position + new Vector3 (0, 1, 0);
 		explosion.transform.rotation = Quaternion.identity;
 		explosion.tag = this.gameObject.tag;
 

@@ -16,8 +16,17 @@ public class WeaponControl : MonoBehaviour
 	private string playerID;
 
     public float recoilForce;
+    private AudioSource source;
+    public AudioClip weaponSound;
+    public float volumeSound = 1.0f;
 
-	public GameObject onShootVFX;
+    public GameObject onShootVFX;
+
+    void Awake()
+    {
+        //source = GetComponent<AudioSource>();
+    }
+
 	void Start(){
 		playerRb = playerScript.gameObject.GetComponent<Rigidbody> ();
 	}
@@ -28,9 +37,9 @@ public class WeaponControl : MonoBehaviour
 	public void Shoot(string playerId)
 	{
 		GameObject bullet;
-		Rigidbody bulletRigidbody;
 
-		GameObject shootVFX = Instantiate (onShootVFX, bulletSpawnPoint.position, Quaternion.identity) as GameObject;
+        GameObject shootVFX = Instantiate (onShootVFX, bulletSpawnPoint.position, Quaternion.identity) as GameObject;
+        //source.PlayOneShot(weaponSound, volumeSound);
 		Destroy (shootVFX, 0.5f);
 
 		bullet = Instantiate(standardBulletPrefab) as GameObject;
@@ -43,11 +52,10 @@ public class WeaponControl : MonoBehaviour
 
 	public void ShootSMG(string playerId, float spreadValue){
 		GameObject bullet;
-		Rigidbody bulletRigidbody;
+
 		Quaternion yValue = Quaternion.Euler (0, 0, Random.Range (-spreadValue, spreadValue));
 
-
-		bullet = Instantiate(standardBulletPrefab) as GameObject;
+        bullet = Instantiate(standardBulletPrefab) as GameObject;
 		bullet.transform.rotation = bulletSpawnPoint.rotation ;
 		bullet.transform.position = bulletSpawnPoint.position;
 		bullet.tag = "Bullet" + playerId;

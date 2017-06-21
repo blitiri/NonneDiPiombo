@@ -16,16 +16,8 @@ public class WeaponControl : MonoBehaviour
 	private string playerID;
 
     public float recoilForce;
-    private AudioSource source;
-    public AudioClip weaponSound;
-    public float volumeSound = 1.0f;
 
     public GameObject onShootVFX;
-
-    void Awake()
-    {
-        //source = GetComponent<AudioSource>();
-    }
 
 	void Start(){
 		playerRb = playerScript.gameObject.GetComponent<Rigidbody> ();
@@ -39,7 +31,7 @@ public class WeaponControl : MonoBehaviour
 		GameObject bullet;
 
         GameObject shootVFX = Instantiate (onShootVFX, bulletSpawnPoint.position, Quaternion.identity) as GameObject;
-        //source.PlayOneShot(weaponSound, volumeSound);
+
 		Destroy (shootVFX, 0.5f);
 
 		bullet = Instantiate(standardBulletPrefab) as GameObject;

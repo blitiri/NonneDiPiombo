@@ -367,7 +367,8 @@ public class PlayerControl : MonoBehaviour
             dashParticle.SetActive(false);
         }
 		AddStress (stressIncrease);
-		isDashing = false;
+        GameManager.instance.CheckRespawnPlayers();
+        isDashing = false;
 		dashRecordedTime = Time.time;
 	}
 

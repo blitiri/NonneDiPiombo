@@ -162,8 +162,9 @@ public class GameManager : MonoBehaviour
 		}
 		Destroy (spawnVFX, 3f);
 		player.transform.position = playersRespawns[spawnpointIndex].position;
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
-		yield return new WaitForSeconds (maxTimerBeforeRespawn);
+        yield return new WaitForSeconds (maxTimerBeforeRespawn);
 
 		SetMeshRendererEnabled (true, playerIndex);
 		playerControl.stopInputPlayer = false;

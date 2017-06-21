@@ -251,14 +251,16 @@ public class PlayerControl : MonoBehaviour
 			playerKillerId = Utility.GetPlayerIndexFromBullet (other.gameObject.tag);
 
 			if (playertagIndex != playerKillerId) {
-				RespawnOnTrigger (other, playerKillerId);
+                playerRigidbody.velocity = Vector3.zero;
+                RespawnOnTrigger (other, playerKillerId);
 			}
 		}    
 	}
 
 	public void RespawnOnTrigger (Collision other, int playerKillerId)
 	{
-		playerRigidbody.velocity = Vector3.zero;
+        StopCoroutine("Dashing");
+		//playerRigidbody.velocity = Vector3.zero;
 		isImmortal = true;
 		isDead = true;
 		ExplodeCharacter ();
@@ -346,7 +348,7 @@ public class PlayerControl : MonoBehaviour
 
 		isDashing = true;
 
-		while (dashDone < dashLength && isDashing && !isObstacle) {
+		while (dashDone < dashLength && isDashing && !isObstacle && !stopInputPlayer) {
 			if (moveVector.magnitude > 0) {
 				transform.localPosition += dashSpeed * Time.deltaTime * moveVector;
                 if (dashParticle != null)
@@ -368,7 +370,6 @@ public class PlayerControl : MonoBehaviour
             dashParticle.SetActive(false);
         }
 		AddStress (stressIncrease);
-		GameManager.instance.CheckRespawnPlayers ();
 		isDashing = false;
 		dashRecordedTime = Time.time;
 	}

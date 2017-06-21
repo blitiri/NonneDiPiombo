@@ -25,9 +25,10 @@ public class DefaultBulletManager : MonoBehaviour
 
 	void OnCollisionEnter (Collision other)
 	{
-		GameObject spark = Instantiate (sparkVFX, transform.position, transform.rotation) as GameObject;
-		Destroy (spark, 0.5f);
+		
 		if (other.gameObject.tag.Equals ("Wall") || other.gameObject.tag.Equals ("LevelWall")) {
+			GameObject spark = Instantiate (sparkVFX, transform.position, transform.rotation) as GameObject;
+			Destroy (spark, 0.5f);
 			Trigger ();
 		} else if (other.collider.GetType () == typeof(SphereCollider) && other.gameObject.tag.StartsWith ("Player")) {
 			transform.forward = Vector3.Reflect (transform.forward, other.contacts [0].normal);

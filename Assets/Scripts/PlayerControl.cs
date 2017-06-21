@@ -345,7 +345,7 @@ public class PlayerControl : MonoBehaviour
 
 		isDashing = true;
 
-		while (dashDone < dashLength && isDashing && !isObstacle) {
+		while (dashDone < dashLength && isDashing && !isObstacle && !stopInputPlayer) {
 			if (moveVector.magnitude > 0) {
 				transform.localPosition += dashSpeed * Time.deltaTime * moveVector;
                 if (dashParticle != null)
@@ -367,7 +367,6 @@ public class PlayerControl : MonoBehaviour
             dashParticle.SetActive(false);
         }
 		AddStress (stressIncrease);
-		GameManager.instance.CheckRespawnPlayers ();
 		isDashing = false;
 		dashRecordedTime = Time.time;
 	}

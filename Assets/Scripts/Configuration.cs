@@ -16,10 +16,10 @@ public class Configuration : MonoBehaviour
 	/// The max number of players.
 	/// </summary>
 	public const int maxNumberOfPlayers = 4;
-	/// <summary>
-	/// The minimum number of players.
-	/// </summary>
-	private const int minNumberOfPlayers = 2;
+    /// <summary>
+    /// The minimum number of players.
+    /// </summary>
+    public const int minNumberOfPlayers = 2;
 	/// <summary>
 	/// The grannies prefabs.
 	/// </summary>

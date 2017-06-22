@@ -82,6 +82,10 @@ public class CharacterSelectionManager : MonoBehaviour
     /// </summary>
     [SerializeField] private UIButton[] centrals;
     /// <summary>
+    /// All arrows, rights first, the lefts.
+    /// </summary>
+    [SerializeField] private UIButton[] arrows;
+    /// <summary>
     /// Indexes needed to choose your granny. One for each player.
     /// </summary>
     private int[] indexes;
@@ -111,19 +115,27 @@ public class CharacterSelectionManager : MonoBehaviour
 
     void Start()
     {
-        for(int id = 0; id < Configuration.instance.playersColors.Length; id++)
+        for(int id = 0; id < Configuration.maxNumberOfPlayers; id++)
         {
-            Color playerColor = Configuration.instance.playersColors[id];
+            int leftIndex = id + arrows.Length / 2;
 
-            playerLabels[id].color = playerColor;
-            playerNumbers[id].color = playerColor;
+            Color color = Configuration.instance.playersColors[id];
 
             float h;
             float s;
             float v;
 
-            Color.RGBToHSV(playerColor, out h, out s, out v);
+            playerLabels[id].color = color;
+            playerNumbers[id].color = color;
+
+            Color.RGBToHSV(color, out h, out s, out v);
             frameColors[id] = Color.HSVToRGB(h, s / 3, v);
+
+            Color.RGBToHSV(arrows[id].defaultColor, out h, out s, out v);
+            arrows[id].pressed = Color.HSVToRGB(h, s * 3, v);
+
+            Color.RGBToHSV(arrows[leftIndex].defaultColor, out h, out s, out v);
+            arrows[leftIndex].pressed = Color.HSVToRGB(h, s * 3, v);
         }
     }
 
@@ -162,6 +174,7 @@ public class CharacterSelectionManager : MonoBehaviour
     private void MoveControllerAxis(Player player)
     {
         int id = orderedPlayers.IndexOf(player);
+
         Debug.Log("id: " + id);
         if (!readys[id] && canSelect[id])
         {
@@ -177,6 +190,7 @@ public class CharacterSelectionManager : MonoBehaviour
                     {
                         indexes[id] = iconAtlasNames.Length - 1;
                     }
+                    arrows[id + arrows.Length / 2].SetState(UIButtonColor.State.Pressed, false);
                 }
                 else if (player.GetAxis("Move horizontal") > 0.2f)          //To increase the index of the player which moves the axis.
                 {
@@ -188,6 +202,7 @@ public class CharacterSelectionManager : MonoBehaviour
                     {
                         indexes[id] = 0;
                     }
+                    arrows[id].SetState(UIButtonColor.State.Pressed, false);
                 }
                 canSelect[id] = false;
                 centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
@@ -198,81 +213,82 @@ public class CharacterSelectionManager : MonoBehaviour
         {
             if (player.GetAxis("Move horizontal") > -0.2f && player.GetAxis("Move horizontal") < 0.2f)
             {
-                if (player.GetAxis("Move vertical") > -0.2f && player.GetAxis("Move vertical") < 0.2f)
-                {
-                    canSelect[id] = true;
-                }
+                if (arrows[id + arrows.Length / 2].state == UIButtonColor.State.Pressed)
+                    arrows[id + arrows.Length / 2].SetState(UIButtonColor.State.Normal, false);
+                else if (arrows[id].state == UIButtonColor.State.Pressed)
+                    arrows[id].SetState(UIButtonColor.State.Normal, false);
+                canSelect[id] = true;
             }
         }
     }
 
-    public void ClickArrow(GameObject button)
-    {
-        string tag = button.tag;
-        int id = int.Parse(button.transform.parent.tag);
-        if (!readys[id])
-        {
-            //Debug.Log(id);
-            switch (tag)
-            {
-                case "Left":
-                    if (indexes[id] > 0)
-                    {
-                        indexes[id]--;
-                    }
-                    else
-                    {
-                        indexes[id] = grannies.Length - 1;
-                    }
-                    break;
-                case "Right":
-                    if (indexes[id] < grannies.Length - 1)
-                    {
-                        indexes[id]++;
-                    }
-                    else
-                    {
-                        indexes[id] = 0;
-                    }
-                    break;
-            }
-            //Debug.Log(indexes[id]);
-            centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
-        }
-    }
+    //public void ClickArrow(GameObject button)
+    //{
+    //    string tag = button.tag;
+    //    int id = int.Parse(button.transform.parent.tag);
+    //    if (!readys[id])
+    //    {
+    //        //Debug.Log(id);
+    //        switch (tag)
+    //        {
+    //            case "Left":
+    //                if (indexes[id] > 0)
+    //                {
+    //                    indexes[id]--;
+    //                }
+    //                else
+    //                {
+    //                    indexes[id] = grannies.Length - 1;
+    //                }
+    //                break;
+    //            case "Right":
+    //                if (indexes[id] < grannies.Length - 1)
+    //                {
+    //                    indexes[id]++;
+    //                }
+    //                else
+    //                {
+    //                    indexes[id] = 0;
+    //                }
+    //                break;
+    //        }
+    //        //Debug.Log(indexes[id]);
+    //        centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
+    //    }
+    //}
 
-    public void ClickCentral(GameObject button)
-    {
-        int id = int.Parse(button.transform.parent.tag);
-        //if (indexes[id] < grannies.Length - 1)
-        //{
-        //    indexes[id]++;
-        //}
-        //else
-        //{
-        //    indexes[id] = 0;
-        //}
-        //centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
-        if (!readys[id])
-        {
-            readys[id] = true;
-            selectedGrannies[id] = grannies[indexes[id]];
-            tweens[id].SetStartToCurrentValue();
-            tweens[id].to = frameColors[id];
-            tweens[id].PlayForward();
-            readyCount++;
-            CheckReady();
-        }
-        else
-        {
-            tweens[id].SetEndToCurrentValue();
-            tweens[id].from = Color.white;
-            tweens[id].PlayReverse();
-            readys[id] = false;
-            readyCount--;
-            CheckReady();
-        }
-    }
+    //public void ClickCentral(GameObject button)
+    //{
+    //    int id = int.Parse(button.transform.parent.tag);
+    //    //if (indexes[id] < grannies.Length - 1)
+    //    //{
+    //    //    indexes[id]++;
+    //    //}
+    //    //else
+    //    //{
+    //    //    indexes[id] = 0;
+    //    //}
+    //    //centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
+    //    if (!readys[id])
+    //    {
+    //        readys[id] = true;
+    //        selectedGrannies[id] = grannies[indexes[id]];
+    //        tweens[id].SetStartToCurrentValue();
+    //        tweens[id].to = frameColors[id];
+    //        tweens[id].PlayForward();
+    //        readyCount++;
+    //        CheckReady();
+    //    }
+    //    else
+    //    {
+    //        tweens[id].SetEndToCurrentValue();
+    //        tweens[id].from = Color.white;
+    //        tweens[id].PlayReverse();
+    //        readys[id] = false;
+    //        readyCount--;
+    //        CheckReady();
+    //    }
+    //}
 
     //private void PressEnter()
     //{

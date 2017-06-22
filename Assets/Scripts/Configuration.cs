@@ -69,10 +69,10 @@ public class Configuration : MonoBehaviour
 	/// The color of the bottom unselected.
 	/// </summary>
 	public Color bottomUnselectedColor = Color.black;
-	/// <summary>
-	/// The number of players.
-	/// </summary>
-	private int numberOfPlayers;
+    /// <summary>
+    /// The number of players.
+    /// </summary>
+    public int numberOfPlayers;
 	/// <summary>
 	/// The selected level.
 	/// </summary>

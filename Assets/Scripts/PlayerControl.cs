@@ -62,10 +62,10 @@ public class PlayerControl : MonoBehaviour
 	public float playerObstacleDistanceLimit;
 	public LayerMask environment;
 
-	/// <summary>
-	/// Player Tagging
-	/// </summary>
-	private const string bulletTagPrefix = "Bullet";
+    /// <summary>
+    /// Player Tagging
+    /// </summary>
+    private const string bulletTagPrefix = "Bullet";
 	private const string playerTagPrefix = "Player";
 
 	/// <summary>
@@ -94,11 +94,13 @@ public class PlayerControl : MonoBehaviour
 	public GameObject bloodPrefab;
 	public float bloodDuration;
     public GameObject dashParticle;
+    private ParticleSystem dashVFX;
+    private ParticleSystem.MainModule main;
 
-	/// <summary>
-	/// The ability.
-	/// </summary>
-	public Abilities ability;
+    /// <summary>
+    /// The ability.
+    /// </summary>
+    public Abilities ability;
 
 	public bool isImmortal;
 	public float immortalTime = 0.5f;
@@ -122,6 +124,8 @@ public class PlayerControl : MonoBehaviour
 		playerRigidbody = GetComponent<Rigidbody> ();
 		meshPlayer = GetComponent<MeshRenderer> ();
 		playerMat = meshPlayer.material;
+        dashVFX = dashParticle.GetComponentInChildren<ParticleSystem>();
+        main = dashVFX.main;
     }
 
 	/// <summary>
@@ -165,7 +169,7 @@ public class PlayerControl : MonoBehaviour
 					timerToShoot += Time.deltaTime;
 				} else if (inputManager.Shoot ()) {
 					weapon.Shoot (this.gameObject.tag);
-					UpdateUI ();
+					//UpdateUI ();
 					timerToShoot = 0.0f;
 				}
 
@@ -184,7 +188,7 @@ public class PlayerControl : MonoBehaviour
 		isDead = false;
 		stress = startingStress;
 		stopped = false;
-		UpdateUI ();
+		//UpdateUI ();
 	}
 
 	/// <summary>
@@ -247,13 +251,16 @@ public class PlayerControl : MonoBehaviour
 			playerKillerId = Utility.GetPlayerIndexFromBullet (other.gameObject.tag);
 
 			if (playertagIndex != playerKillerId) {
-				RespawnOnTrigger (other, playerKillerId);
+                playerRigidbody.velocity = Vector3.zero;
+                RespawnOnTrigger (other, playerKillerId);
 			}
 		}    
 	}
 
 	public void RespawnOnTrigger (Collision other, int playerKillerId)
 	{
+        StopCoroutine("Dashing");
+		//playerRigidbody.velocity = Vector3.zero;
 		isImmortal = true;
 		isDead = true;
 		ExplodeCharacter ();
@@ -268,7 +275,7 @@ public class PlayerControl : MonoBehaviour
 	public void AddStress (float stressToAdd)
 	{
 		stress = Mathf.Clamp (stress + stressToAdd, 0, maxStressValue);
-		UpdateUI ();
+		//UpdateUI ();
 	}
 
 	/// <summary>
@@ -288,9 +295,8 @@ public class PlayerControl : MonoBehaviour
 	{
 		while (stress < 100) {
 			yield return new WaitForSeconds (timeToDiminishStress);
-           
 			stress = Mathf.Clamp (stress - stressDecreaseFactor, 0, maxStressValue);
-			UpdateUI ();
+			//UpdateUI ();
 		}
 	}
 
@@ -337,23 +343,25 @@ public class PlayerControl : MonoBehaviour
 	private IEnumerator Dashing (Vector3 moveVector)
 	{
 		Vector3 newPosition = Vector3.zero;
-		
-		float dashDone = 0;
+
+        float dashDone = 0;
 
 		isDashing = true;
 
-		while (dashDone < dashLength && isDashing && !isObstacle) {
+		while (dashDone < dashLength && isDashing && !isObstacle && !stopInputPlayer) {
 			if (moveVector.magnitude > 0) {
 				transform.localPosition += dashSpeed * Time.deltaTime * moveVector;
                 if (dashParticle != null)
                 {
                     dashParticle.SetActive(true);
+                    main.startColor = Configuration.instance.playersColors[playerId];
                 }
             } else {
 				transform.localPosition += dashSpeed * Time.deltaTime * transform.forward;
                 if (dashParticle != null)
                 {
                     dashParticle.SetActive(true);
+                    main.startColor = Configuration.instance.playersColors[playerId];
                 }
             }
 
@@ -362,10 +370,10 @@ public class PlayerControl : MonoBehaviour
             dashParticle.SetActive(false);
         }
 		AddStress (stressIncrease);
-		GameManager.instance.CheckRespawnPlayers ();
-		isDashing = false;
-		dashRecordedTime = Time.time;
-	}
+        isDashing = false;
+        dashRecordedTime = Time.time;
+        GameManager.instance.CheckRespawnPlayers();
+    }
 
 	/// <summary>
 	/// Inits the ability.
@@ -413,10 +421,10 @@ public class PlayerControl : MonoBehaviour
 		this.angleCorrection = angleCorrection;
 	}
 
-	private void UpdateUI ()
+	/*private void UpdateUI ()
 	{
 		LevelUIManager.instance.SetStress (stress / maxStressValue, playerId);
-	}
+	}*/
 
 	public void StressHeart ()
 	{

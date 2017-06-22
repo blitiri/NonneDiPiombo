@@ -148,33 +148,31 @@ public class GameManager : MonoBehaviour
 		GameObject player;
 		ParticleSystem[] particleSystems;
 		ParticleSystem.MainModule main;
+		BoxCollider playerCollider;
+		PlayerControl playerControl;
 
 		player = players [playerIndex];
 		SetMeshRendererEnabled (false, playerIndex);
-
-		PlayerControl playerControl;
 		playerControl = player.GetComponent<PlayerControl> ();
 		playerControl.ResetStatus ();
 		playerControl.stopInputPlayer = true;
-
-		BoxCollider playerCollider;
-		playerCollider = player.GetComponent<BoxCollider> ();
+	    playerCollider = player.GetComponent<BoxCollider> ();
 		playerCollider.enabled = false;
 
 		spawnpointIndex = UnityEngine.Random.Range (0, playersRespawns.Length);
 		GameObject spawnVFX = Instantiate (spawnVFXPrefab, playersRespawns [spawnpointIndex].position + new Vector3 (0, 1, 0), spawnVFXPrefab.transform.rotation) as GameObject;
 		particleSystems = spawnVFX.GetComponentsInChildren<ParticleSystem> ();
-        player.transform.position = playersRespawns[spawnpointIndex].position;
-
-        foreach (ParticleSystem particles in particleSystems) 
+		foreach (ParticleSystem particles in particleSystems) 
 		{
 			main = particles.main;
 			main.startColor = Configuration.instance.playersColors [playersControls [playerIndex].playerId];
 		}
-
-		yield return new WaitForSeconds (maxTimerBeforeRespawn);
-
 		Destroy (spawnVFX, 3f);
+		player.transform.position = playersRespawns[spawnpointIndex].position;
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+        yield return new WaitForSeconds (maxTimerBeforeRespawn);
+
 		SetMeshRendererEnabled (true, playerIndex);
 		playerControl.stopInputPlayer = false;
 		playerControl.isDead = false;

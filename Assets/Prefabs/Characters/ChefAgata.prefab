@@ -125,7 +125,6 @@ GameObject:
   - component: {fileID: 33575270526991614}
   - component: {fileID: 23622908371506472}
   - component: {fileID: 114850474168233186}
-  - component: {fileID: 65862000539044830}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: Untagged
@@ -219,7 +218,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1542993880108958}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.043, y: 0.227, z: -0.03}
+  m_LocalPosition: {x: -0.043, y: 0.227, z: -0.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4514474677090032}
@@ -232,7 +231,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1898812241172454}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.11, y: 0.445, z: -0.97}
+  m_LocalPosition: {x: -0.11, y: 0.445, z: -0.44}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_Children:
   - {fileID: 4512518501078386}
@@ -246,7 +245,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1122765613433546}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.06, y: -0.03, z: 0.063}
+  m_LocalPosition: {x: 0.06, y: -0.03, z: 0.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4395392078350708}
@@ -460,18 +459,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0264688, y: 1.6317357, z: 1.0747453}
   m_Center: {x: 0.0037524998, y: 0.8151905, z: -0.13639742}
---- !u!65 &65862000539044830
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1420421747179188}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.3579206, y: 0.51933825, z: 0.62972957}
-  m_Center: {x: -0.037027624, y: 0.15490785, z: 0.5690531}
 --- !u!95 &95529540440359810
 Animator:
   serializedVersion: 3
@@ -567,7 +554,8 @@ MonoBehaviour:
   bloodPrefab: {fileID: 1322258342269630, guid: 4e6901942acb5614098c0fa8fb6a7509,
     type: 2}
   bloodDuration: 5
-  dashParticle: {fileID: 1898812241172454}
+  dashParticle: {fileID: 1886941857289196, guid: 159a9ee6262a3f64d966a3bf2f67610e,
+    type: 2}
   ability: {fileID: 11400000, guid: a037ce8b393e6084db3b93c8335a7a33, type: 2}
   isImmortal: 0
   immortalTime: 1
@@ -588,7 +576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1000013450537652}
   lifeTime: 1
-  speedRotation: 20
+  speedRotation: 30
 --- !u!114 &114491211425500852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -696,7 +684,7 @@ ParticleSystem:
     serializedVersion: 3
     enabled: 1
     startLifetime:
-      scalar: 0.2
+      scalar: 0.3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -867,7 +855,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 0.5019608}
       minMaxState: 2
     startSize:
-      scalar: 0.5
+      scalar: 0.6
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -885,7 +873,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.6
+          value: 0.8333333
           inSlope: 0
           outSlope: 0
           tangentMode: 0

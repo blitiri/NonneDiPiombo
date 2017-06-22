@@ -24,7 +24,7 @@ public class CharacterSelectionManager : MonoBehaviour
     /// <summary>
     /// Total number of players.
     /// </summary>
-    private int totalPlayers;
+    public int totalPlayers;
     /// <summary>
     /// Seconds before the match starts.
     /// </summary>
@@ -317,16 +317,17 @@ public class CharacterSelectionManager : MonoBehaviour
         {
             if (toInsert)
             {
-                Debug.Log("Is inserted, not added");
                 orderedPlayers[slotToFillId] = player;
-                selectors[orderedPlayers.IndexOf(player)].SetActive(true);
-                totalPlayers++;
-                Configuration.instance.SetNumberOfPlayers(totalPlayers);
             }
             else if (!toInsert)
             {
                 orderedPlayers.Add(player);
-                selectors[orderedPlayers.IndexOf(player)].SetActive(true);
+            }
+
+            selectors[orderedPlayers.IndexOf(player)].SetActive(true);
+
+            if (totalPlayers <= 4)
+            {
                 totalPlayers++;
                 Configuration.instance.SetNumberOfPlayers(totalPlayers);
             }
@@ -365,8 +366,11 @@ public class CharacterSelectionManager : MonoBehaviour
         {
             selectors[id].SetActive(false);
             orderedPlayers[id] = null;
-            totalPlayers--;
-            Configuration.instance.SetNumberOfPlayers(totalPlayers);
+            if (totalPlayers >= 2)
+            {
+                totalPlayers--;
+                Configuration.instance.SetNumberOfPlayers(totalPlayers);
+            }
         }
     }
 

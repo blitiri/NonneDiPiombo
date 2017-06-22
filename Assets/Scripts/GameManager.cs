@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
                 }
                 // Initialize PlayerControl script
                 playersControls[playerIndex] = players[playerIndex].GetComponent<PlayerControl>();
-                //playersControls[playerIndex].SetPlayerId(Configuration.instance.players[playerIndex].id);
+                playersControls[playerIndex].SetPlayerId(Configuration.instance.players[playerIndex].id);
                 playersControls[playerIndex].SetAngleCorrection(cameraTransform.rotation.eulerAngles.y);
                 players[playerIndex].SetActive(true);
             }

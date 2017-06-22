@@ -45,10 +45,7 @@ GameObject:
   - component: {fileID: 114385584436212116}
   - component: {fileID: 114959356517361582}
   - component: {fileID: 114137332585730816}
-  - component: {fileID: 114982222323339320}
-  - component: {fileID: 114961399357634020}
-  - component: {fileID: 114539927607774304}
-  - component: {fileID: 114379838827331968}
+  - component: {fileID: 82258919277796910}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -124,6 +121,86 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010473143092}
   m_Enabled: 1
+--- !u!82 &82258919277796910
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010473143092}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: c99c307fecb615e4db0d270b2405913c, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.3
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 187
+  DopplerLevel: 0
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!92 &92000010296992188
 Behaviour:
   m_ObjectHideFlags: 1
@@ -153,33 +230,8 @@ MonoBehaviour:
   - {fileID: 4000011509078680, guid: aeb60e339817a2f4e82ae38886639dd9, type: 2}
   - {fileID: 4658768733013394, guid: b1eb7a553b9036040b39e540e82ee4b0, type: 2}
   - {fileID: 4264473601962514, guid: 159a9ee6262a3f64d966a3bf2f67610e, type: 2}
+  - {fileID: 400000, guid: 4aa6e5e87b6fa24498858846c3cf337c, type: 3}
 --- !u!114 &114137332585730816
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010473143092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9191284b058eef549b7108b5f04e1117, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  intensityMultiplier: 0.4
-  generalIntensity: 0.4
-  blackIntensity: 1
-  whiteIntensity: 0
-  midGrey: 0
-  dx11Grain: 0
-  softness: 0
-  monochrome: 1
-  intensities: {x: 1, y: 1, z: 1}
-  tiling: {x: 64, y: 64, z: 64}
-  monochromeTiling: 64
-  filterMode: 1
-  noiseTexture: {fileID: 2800000, guid: 7a632f967e8ad42f5bd275898151ab6a, type: 3}
-  noiseShader: {fileID: 4800000, guid: b0249d8c935344451aa4de6db76f0688, type: 3}
-  dx11NoiseShader: {fileID: 4800000, guid: 8b30686bb4322ab42ad5eb50a0210b58, type: 3}
---- !u!114 &114379838827331968
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -254,44 +306,6 @@ MonoBehaviour:
   adaptionSpeed: 1.5
   tonemapper: {fileID: 4800000, guid: 003377fc2620a44939dadde6fe3f8190, type: 3}
   validRenderTextureFormat: 1
---- !u!114 &114539927607774304
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010473143092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fceaeb339b971b429c4cc600acabd13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tweakMode: 0
-  screenBlendMode: 1
-  hdr: 0
-  sepBlurSpread: 2.5
-  quality: 1
-  bloomIntensity: 0.5
-  bloomThreshold: 0.73
-  bloomThresholdColor: {r: 1, g: 1, b: 1, a: 1}
-  bloomBlurIterations: 2
-  hollywoodFlareBlurIterations: 2
-  flareRotation: 0
-  lensflareMode: 1
-  hollyStretchWidth: 2.5
-  lensflareIntensity: 0
-  lensflareThreshold: 0.3
-  lensFlareSaturation: 0.75
-  flareColorA: {r: 0.4, g: 0.4, b: 0.8, a: 0.75}
-  flareColorB: {r: 0.4, g: 0.8, b: 0.8, a: 0.75}
-  flareColorC: {r: 0.8, g: 0.4, b: 0.8, a: 0.75}
-  flareColorD: {r: 0.8, g: 0.4, b: 0, a: 0.75}
-  lensFlareVignetteMask: {fileID: 2800000, guid: 95ef4804fe0be4c999ddaa383536cde8,
-    type: 3}
-  lensFlareShader: {fileID: 4800000, guid: 459fe69d2f6d74ddb92f04dbf45a866b, type: 3}
-  screenBlendShader: {fileID: 4800000, guid: 7856cbff0a0ca45c787d5431eb805bb0, type: 3}
-  blurAndFlaresShader: {fileID: 4800000, guid: be6e39cf196f146d5be72fbefb18ed75, type: 3}
-  brightPassFilterShader: {fileID: 4800000, guid: 0aeaa4cb29f5d4e9c8455f04c8575c8c,
-    type: 3}
 --- !u!114 &114655304946511780
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -382,72 +396,6 @@ MonoBehaviour:
   screenBlendShader: {fileID: 4800000, guid: 7856cbff0a0ca45c787d5431eb805bb0, type: 3}
   blurAndFlaresShader: {fileID: 4800000, guid: be6e39cf196f146d5be72fbefb18ed75, type: 3}
   brightPassFilterShader: {fileID: 4800000, guid: 0aeaa4cb29f5d4e9c8455f04c8575c8c,
-    type: 3}
---- !u!114 &114961399357634020
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010473143092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e50e925fb93c78246bf995d9dc3a2330, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 1
-  adaptiveTextureSize: 256
-  remapCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 1.0091678
-      outSlope: 1.0091678
-      tangentMode: 34
-    - serializedVersion: 2
-      time: 0.22724351
-      value: 0.22932684
-      inSlope: 1.9724422
-      outSlope: 1.9724422
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.70665365
-      value: 0.6217473
-      inSlope: 1.0539947
-      outSlope: 1.0539947
-      tangentMode: 34
-    - serializedVersion: 2
-      time: 1
-      value: 1
-      inSlope: -0.047618777
-      outSlope: -0.047618777
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  exposureAdjustment: 1.5
-  middleGrey: 0.4
-  white: 2
-  adaptionSpeed: 1.5
-  tonemapper: {fileID: 4800000, guid: 003377fc2620a44939dadde6fe3f8190, type: 3}
-  validRenderTextureFormat: 0
---- !u!114 &114982222323339320
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010473143092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3309686a9fbbe6e42a182d5e0257704c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  intensity: 0.173
-  threshold: 0
-  blurSpread: 1
-  separableBlurShader: {fileID: 4800000, guid: e97c14fbb5ea04c3a902cc533d7fc5d1, type: 3}
-  contrastCompositeShader: {fileID: 4800000, guid: 273404942eede4ea1883ca1fb2942507,
     type: 3}
 --- !u!114 &114995740256037074
 MonoBehaviour:

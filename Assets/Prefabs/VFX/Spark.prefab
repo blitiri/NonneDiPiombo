@@ -34,13 +34,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1014289148363408}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.7185436, y: -0, z: -0, w: 0.695482}
+  m_LocalPosition: {x: 2.367822, y: 2.17, z: -7.602}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -91.868996, y: 0, z: 0}
 --- !u!198 &198148185620696310
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -50,7 +50,7 @@ ParticleSystem:
   serializedVersion: 5
   lengthInSec: 1
   simulationSpeed: 1
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   autoRandomSeed: 1
@@ -101,7 +101,7 @@ ParticleSystem:
     serializedVersion: 3
     enabled: 1
     startLifetime:
-      scalar: 0.5
+      scalar: 0.3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -119,7 +119,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.6
+          value: 0.5
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -260,7 +260,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 0.27058825, b: 0, a: 1}
       minMaxState: 0
     startSize:
-      scalar: 0.4
+      scalar: 0.35
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -278,7 +278,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.5
+          value: 0.42857146
           inSlope: 0
           outSlope: 0
           tangentMode: 0

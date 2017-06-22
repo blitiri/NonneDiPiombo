@@ -196,7 +196,7 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	private void Move ()
 	{
-		playerRigidbody.MovePosition (playerRigidbody.position + inputManager.GetMoveVector () * speed * Time.deltaTime);
+		playerRigidbody.MovePosition (playerRigidbody.position + inputManager.GetMoveVector () * (speed + speedMod) * Time.deltaTime);
 	}
 
 	/// <summary>

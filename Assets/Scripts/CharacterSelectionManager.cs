@@ -22,6 +22,10 @@ public class CharacterSelectionManager : MonoBehaviour
     /// </summary>
     private int readyCount;
     /// <summary>
+    /// Total number of players.
+    /// </summary>
+    private int totalPlayers;
+    /// <summary>
     /// Seconds before the match starts.
     /// </summary>
     private const float countdownSeconds = 3;
@@ -44,7 +48,7 @@ public class CharacterSelectionManager : MonoBehaviour
     /// <summary>
     /// Selector's color when granny is clicked.
     /// </summary>
-    private Color[] frameColors;
+    [SerializeField] private Color[] frameColors;
     /// <summary>
     /// Tweens of all selectors.
     /// </summary>
@@ -82,18 +86,27 @@ public class CharacterSelectionManager : MonoBehaviour
     /// </summary>
     private int[] indexes;
     /// <summary>
+    /// All the players.
+    /// </summary>
+    private List<Player> players;
+    /// <summary>
     /// Players on the basis of who pressed Cross button first.
     /// </summary>
-    private IList<Player> players;
+    private List<Player> orderedPlayers;
 
     void Awake()
     {
-
         indexes = new int[Configuration.maxNumberOfPlayers];
         canSelect = new bool[Configuration.maxNumberOfPlayers];
         readys = new bool[Configuration.maxNumberOfPlayers];
         selectedGrannies = new GameObject[Configuration.maxNumberOfPlayers];
+        frameColors = new Color[Configuration.maxNumberOfPlayers];
         players = new List<Player>();
+        orderedPlayers = new List<Player>();
+        for (int i = 0; i < Configuration.maxNumberOfPlayers; i++)
+        {
+            players.Add(ReInput.players.GetPlayer(i));
+        }
     }
 
     void Start()
@@ -116,49 +129,69 @@ public class CharacterSelectionManager : MonoBehaviour
 
     void Update()
     {
-        foreach (Player player in players)
+        //Debug.Log("capacity: " + orderedPlayers.Capacity);
+        Debug.Log("count: " + orderedPlayers.Count);
+        for (int id = 0; id < orderedPlayers.Count; id++)
         {
-
-            int index = players.IndexOf(player);
-            Debug.Log(index);
-            MoveControllerAxis(player, index);
-            PressCross(player, index);
-            PressCircle(player, index);
+            //Debug.Log(id + " id - name " + orderedPlayers[id].name);
+            //Debug.Log("orderedPlayersindex: " + orderedPlayers.IndexOf(players[id]));
+            //Debug.Log("playersid.id: " + players[id].id);
+            if (orderedPlayers[id] != null)
+            {
+                MoveControllerAxis(orderedPlayers[id]);
+                if (orderedPlayers[id].GetButtonDown("Cross"))
+                {
+                    PressCross(orderedPlayers[id]);
+                }
+                if (orderedPlayers[id].GetButtonDown("Circle"))
+                {
+                    //Debug.Log("SSSSSSSSS");
+                    PressCircle(orderedPlayers[id]);
+                }
+            }
+        }
+        for (int id = 0; id < players.Count; id++)
+        {
+            if (players[id].GetButtonDown("Cross"))
+            {
+                PressCross(players[id]);
+            }
         }
     }
 
-    private void MoveControllerAxis(Player player, int index)
+    private void MoveControllerAxis(Player player)
     {
-        if (readys[index] && canSelect[index])
+        int id = orderedPlayers.IndexOf(player);
+        Debug.Log("id: " + id);
+        if (!readys[id] && canSelect[id])
         {
-            Debug.Log("SSSSS");
             if (player.GetAxis("Move horizontal") < -0.2f || player.GetAxis("Move horizontal") > 0.2f)
             {
                 if (player.GetAxis("Move horizontal") < -0.2f)          //To decrease the index of the player which moves the axis.
                 {
-                    if (indexes[index] > 0)
+                    if (indexes[id] > 0)
                     {
-                        indexes[index]--;
+                        indexes[id]--;
                     }
                     else
                     {
-                        indexes[index] = iconAtlasNames.Length - 1;
+                        indexes[id] = iconAtlasNames.Length - 1;
                     }
                 }
                 else if (player.GetAxis("Move horizontal") > 0.2f)          //To increase the index of the player which moves the axis.
                 {
-                    if (indexes[index] < iconAtlasNames.Length - 1)
+                    if (indexes[id] < iconAtlasNames.Length - 1)
                     {
-                        indexes[index]++;
+                        indexes[id]++;
                     }
                     else
                     {
-                        indexes[index] = 0;
+                        indexes[id] = 0;
                     }
                 }
-                canSelect[index] = false;
-                centrals[index].normalSprite = iconAtlasNames[indexes[index]] + "PlayerIcon";
-                playerLabels[index].text = granniesNames[indexes[index]];
+                canSelect[id] = false;
+                centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
+                playerLabels[id].text = granniesNames[indexes[id]];
             }
         }
         else
@@ -167,7 +200,7 @@ public class CharacterSelectionManager : MonoBehaviour
             {
                 if (player.GetAxis("Move vertical") > -0.2f && player.GetAxis("Move vertical") < 0.2f)
                 {
-                    canSelect[index] = true;
+                    canSelect[id] = true;
                 }
             }
         }
@@ -208,50 +241,116 @@ public class CharacterSelectionManager : MonoBehaviour
         }
     }
 
-    private void PressCross(Player player, int index)
+    public void ClickCentral(GameObject button)
     {
-        if (player.GetButtonDown("Cross"))
+        int id = int.Parse(button.transform.parent.tag);
+        //if (indexes[id] < grannies.Length - 1)
+        //{
+        //    indexes[id]++;
+        //}
+        //else
+        //{
+        //    indexes[id] = 0;
+        //}
+        //centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
+        if (!readys[id])
         {
-            if (!players.Contains(player))
+            readys[id] = true;
+            selectedGrannies[id] = grannies[indexes[id]];
+            tweens[id].SetStartToCurrentValue();
+            tweens[id].to = frameColors[id];
+            tweens[id].PlayForward();
+            readyCount++;
+            CheckReady();
+        }
+        else
+        {
+            tweens[id].SetEndToCurrentValue();
+            tweens[id].from = Color.white;
+            tweens[id].PlayReverse();
+            readys[id] = false;
+            readyCount--;
+            CheckReady();
+        }
+    }
+
+    //private void PressEnter()
+    //{
+
+    //}
+
+    private void PressCross(Player player)
+    {
+        bool toInsert = false;
+        int slotToFillId = 0;
+
+        for (int i = 0; i < orderedPlayers.Count; i++)
+        {
+            if (!orderedPlayers.Contains(player))
             {
-                players.Add(player);
-                selectors[index].SetActive(true);
-            }
-            else
-            {
-                if (!readys[index])
+                if (orderedPlayers[i] == null)
                 {
-                    selectedGrannies[index] = grannies[indexes[index]];
-                    tweens[index].SetStartToCurrentValue();
-                    tweens[index].to = frameColors[index];
-                    tweens[index].PlayForward();
-                    readys[index] = true;
-                    readyCount++;
+                    Debug.Log("capacityChecked");
+                    toInsert = true;
+                    slotToFillId = i;
+                    break;
                 }
+            }
+        }
+        if (!orderedPlayers.Contains(player))
+        {
+            if (toInsert)
+            {
+                Debug.Log("Is inserted, not added");
+                orderedPlayers[slotToFillId] = player;
+                selectors[orderedPlayers.IndexOf(player)].SetActive(true);
+                totalPlayers++;
+                Configuration.instance.SetNumberOfPlayers(totalPlayers);
+            }
+            else if (!toInsert)
+            {
+                orderedPlayers.Add(player);
+                selectors[orderedPlayers.IndexOf(player)].SetActive(true);
+                totalPlayers++;
+                Configuration.instance.SetNumberOfPlayers(totalPlayers);
+            }
+        }
+               
+        else
+        {
+            int id = orderedPlayers.IndexOf(player);
+            if (!readys[id])
+            {
+                readys[id] = true;
+                selectedGrannies[id] = grannies[indexes[id]];
+                tweens[id].SetStartToCurrentValue();
+                tweens[id].to = frameColors[id];
+                tweens[id].PlayForward();
+                readyCount++;
+                CheckReady();
             }
         }
     }
 
-    private void PressCircle(Player player, int index)
+    private void PressCircle(Player player)
     {
-        if (player.GetButtonDown("Circle"))
+        int id = orderedPlayers.IndexOf(player);
+
+        if (orderedPlayers.Contains(player) && readys[id])
         {
-            if (players.Contains(player))
-            {
-                selectors[index].SetActive(false);
-                players.Remove(player);
-            }
-            else
-            {
-                if (readys[index])
-                {
-                    tweens[index].SetEndToCurrentValue();
-                    tweens[index].from = Color.white;
-                    tweens[index].PlayReverse();
-                    readys[index] = false;
-                    readyCount--;
-                }
-            }
+            tweens[id].SetEndToCurrentValue();
+            tweens[id].from = Color.white;
+            tweens[id].PlayReverse();
+            readys[id] = false;
+            readyCount--;
+            CheckReady();
+        }
+        else if (orderedPlayers.Contains(player) && !readys[id])
+        {
+            selectors[id].SetActive(false);
+            orderedPlayers[id] = null;
+            totalPlayers--;
+            Configuration.instance.SetNumberOfPlayers(totalPlayers);
         }
     }
 
@@ -286,7 +385,6 @@ public class CharacterSelectionManager : MonoBehaviour
 
     public IEnumerator RunCountdown()
     {
-        Debug.Log(countdownCount);
         // +1 to leave last number a while to screen
         while (countdownCount + 1 > 0)
         {
@@ -297,6 +395,7 @@ public class CharacterSelectionManager : MonoBehaviour
             }
             yield return null;
         }
+        Configuration.instance.players = orderedPlayers;
         LoadLevelScene(nextSceneToLoadName);
     }
 

@@ -89,6 +89,10 @@ public class Configuration : MonoBehaviour
 	/// The selected grannies.
 	/// </summary>
 	public IList<GameObject> selectedGrannies;
+    /// <summary>
+    /// Players on the basis of who pressed Cross button first.
+    /// </summary>
+    public List<Rewired.Player> players;
 
 	/// <summary>
 	/// Awake the script.
@@ -123,7 +127,7 @@ public class Configuration : MonoBehaviour
 	/// <param name="numberOfPlayers">Number of players.</param>
 	public void SetNumberOfPlayers (int numberOfPlayers)
 	{
-		this.numberOfPlayers = Mathf.Clamp (numberOfPlayers, 0, maxNumberOfPlayers);
+		this.numberOfPlayers = Mathf.Clamp (minNumberOfPlayers, 0, maxNumberOfPlayers);
 		ResizeSelectedGrannies ();
 	}
 

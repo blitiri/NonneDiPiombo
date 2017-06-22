@@ -127,7 +127,7 @@ public class Configuration : MonoBehaviour
 	/// <param name="numberOfPlayers">Number of players.</param>
 	public void SetNumberOfPlayers (int numberOfPlayers)
 	{
-		this.numberOfPlayers = Mathf.Clamp (minNumberOfPlayers, 0, maxNumberOfPlayers);
+		this.numberOfPlayers = Mathf.Clamp (numberOfPlayers, minNumberOfPlayers, maxNumberOfPlayers);
 		ResizeSelectedGrannies ();
 	}
 

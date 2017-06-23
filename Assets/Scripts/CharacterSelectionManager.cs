@@ -24,7 +24,7 @@ public class CharacterSelectionManager : MonoBehaviour
     /// <summary>
     /// Total number of players.
     /// </summary>
-    private int totalPlayers;
+    public int totalPlayers;
     /// <summary>
     /// Seconds before the match starts.
     /// </summary>
@@ -155,7 +155,7 @@ public class CharacterSelectionManager : MonoBehaviour
     void Update()
     {
         //Debug.Log("capacity: " + orderedPlayers.Capacity);
-        Debug.Log("count: " + orderedPlayers.Count);
+        //Debug.Log("count: " + orderedPlayers.Count);
         for (int id = 0; id < orderedPlayers.Count; id++)
         {
             //Debug.Log(id + " id - name " + orderedPlayers[id].name);
@@ -188,7 +188,7 @@ public class CharacterSelectionManager : MonoBehaviour
     {
         int id = orderedPlayers.IndexOf(player);
 
-        Debug.Log("id: " + id);
+        //Debug.Log("id: " + id);
         if (!readys[id] && canSelect[id])
         {
             if (player.GetAxis("Move horizontal") < -0.2f || player.GetAxis("Move horizontal") > 0.2f)
@@ -330,21 +330,18 @@ public class CharacterSelectionManager : MonoBehaviour
         {
             if (toInsert)
             {
-                Debug.Log("Is inserted, not added");
                 orderedPlayers[slotToFillId] = player;
-                selectors[orderedPlayers.IndexOf(player)].SetActive(true);
-                totalPlayers++;
-                Configuration.instance.SetNumberOfPlayers(totalPlayers);
             }
             else if (!toInsert)
             {
                 orderedPlayers.Add(player);
-                selectors[orderedPlayers.IndexOf(player)].SetActive(true);
-                totalPlayers++;
-                Configuration.instance.SetNumberOfPlayers(totalPlayers);
             }
-        }
 
+            selectors[orderedPlayers.IndexOf(player)].SetActive(true);
+
+            totalPlayers++;
+            Configuration.instance.SetNumberOfPlayers(totalPlayers);
+        }
         else
         {
             int id = orderedPlayers.IndexOf(player);
@@ -376,6 +373,7 @@ public class CharacterSelectionManager : MonoBehaviour
         }
         else if (orderedPlayers.Contains(player) && !readys[id])
         {
+            Debug.Log("BITCH");
             selectors[id].SetActive(false);
             orderedPlayers[id] = null;
             totalPlayers--;

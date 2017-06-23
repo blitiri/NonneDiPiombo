@@ -19,7 +19,7 @@ public class Configuration : MonoBehaviour
     /// <summary>
     /// The minimum number of players.
     /// </summary>
-    private const int minNumberOfPlayers = 2;
+    public const int minNumberOfPlayers = 2;
     /// <summary>
     /// The grannies prefabs.
     /// </summary>
@@ -72,7 +72,7 @@ public class Configuration : MonoBehaviour
     /// <summary>
     /// The number of players.
     /// </summary>
-    private int numberOfPlayers;
+    public int numberOfPlayers;
     /// <summary>
     /// The selected level.
     /// </summary>
@@ -92,7 +92,7 @@ public class Configuration : MonoBehaviour
     /// <summary>
     /// Players on the basis of who pressed Cross button first.
     /// </summary>
-    public List<Rewired.Player> players;
+    public List<Rewired.Player> players = new List<Rewired.Player>();
 
     /// <summary>
     /// Awake the script.
@@ -134,7 +134,7 @@ public class Configuration : MonoBehaviour
     /// <param name="numberOfPlayers">Number of players.</param>
     public void SetNumberOfPlayers(int numberOfPlayers)
     {
-        this.numberOfPlayers = Mathf.Clamp(minNumberOfPlayers, 0, maxNumberOfPlayers);
+        this.numberOfPlayers = Mathf.Clamp(numberOfPlayers, minNumberOfPlayers, maxNumberOfPlayers);
         ResizeSelectedGrannies();
     }
 

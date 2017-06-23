@@ -87,29 +87,42 @@ public class GameManager : MonoBehaviour
         int numberOfPlayers;
 
         numberOfPlayers = Configuration.instance.GetNumberOfPlayers();
+        Debug.Log(numberOfPlayers);
         players = new GameObject[numberOfPlayers];
         playersControls = new PlayerControl[numberOfPlayers];
         for (playerIndex = 0; playerIndex < numberOfPlayers; playerIndex++)
         {
             // Instantiate player
-            if (Configuration.instance.players[playerIndex] != null)
+            if (Configuration.instance.selectedGrannies[playerIndex] != null)
             {
-                if (Configuration.instance.selectedGrannies[playerIndex] != null)
-                {
-                    players[playerIndex] = Instantiate(Configuration.instance.selectedGrannies[playerIndex]) as GameObject;
-                    players[playerIndex].transform.position = playersStartRespawns[playerIndex].position;
-                }
-                else
-                {
-                    players[playerIndex] = Instantiate(Configuration.instance.granniesPrefabs[Random.Range(0, Configuration.instance.granniesPrefabs.Length)]) as GameObject;
-                    players[playerIndex].transform.position = playersStartRespawns[playerIndex].position;
-                }
-                // Initialize PlayerControl script
-                playersControls[playerIndex] = players[playerIndex].GetComponent<PlayerControl>();
-                playersControls[playerIndex].SetPlayerId(Configuration.instance.players[playerIndex].id);
-                playersControls[playerIndex].SetAngleCorrection(cameraTransform.rotation.eulerAngles.y);
-                players[playerIndex].SetActive(true);
+                players[playerIndex] = Instantiate(Configuration.instance.selectedGrannies[playerIndex]) as GameObject;
+                players[playerIndex].transform.position = playersStartRespawns[playerIndex].position;
             }
+            else
+            {
+                Debug.Log("fuckingbitch");
+                players[playerIndex] = Instantiate(Configuration.instance.granniesPrefabs[Random.Range(0, Configuration.instance.granniesPrefabs.Length)]) as GameObject;
+                players[playerIndex].transform.position = playersStartRespawns[playerIndex].position;
+            }
+            // Initialize PlayerControl script
+            playersControls[playerIndex] = players[playerIndex].GetComponent<PlayerControl>();
+            playersControls[playerIndex].SetPlayerId(playerIndex);
+            //foreach(Rewired.Player player in Configuration.instance.players)
+            //{
+            //    Debug.Log(player.id);
+            //}
+            //playersControls[playerIndex].SetPlayerId(Configuration.instance.players[playerIndex].id);
+            playersControls[playerIndex].SetAngleCorrection(cameraTransform.rotation.eulerAngles.y);
+            //playersControls[playerIndex].myPlayer = Configuration.instance.players[playerIndex];
+            if (Configuration.instance.players.Count > 0)
+            {
+                playersControls[playerIndex].controllerId = Configuration.instance.players[playerIndex].id;
+            }
+            else
+            {
+                playersControls[playerIndex].controllerId = playerIndex;
+            }
+            players[playerIndex].SetActive(true);
         }
     }
 

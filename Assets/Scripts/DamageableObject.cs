@@ -10,7 +10,7 @@ public class DamageableObject : MonoBehaviour {
     private BoxCollider bCollider;
     private MeshRenderer meshrenderer;
     public float maxTimer = 1.0f;
-    private float timer = 1.0f;
+    private float timer = 0.0f;
     private bool rebuild = false;
 	
     void Awake()
@@ -31,6 +31,8 @@ public class DamageableObject : MonoBehaviour {
                 bCollider.enabled = true;
                 bCollider.isTrigger = false;
                 meshrenderer.enabled = true;
+                rebuild = false;
+                bulletCount = 0;
                 timer = 0.0f;
             }
         }

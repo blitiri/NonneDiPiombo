@@ -10,6 +10,14 @@ public class PlayerControl : MonoBehaviour
 	/// The player identifier.
 	/// </summary>
 	public int playerId;
+    /// <summary>
+    /// The controller which can command this character.
+    /// </summary>
+    public int controllerId;
+    ///// <summary>
+    ///// The player controlling this character.
+    ///// </summary>
+    //public Rewired.Player myPlayer;
 
 	/// <summary>
 	///Variables Managing player Life 
@@ -134,7 +142,7 @@ public class PlayerControl : MonoBehaviour
 	void Start ()
 	{
 		timerToShoot = weapon.ratioOfFire;
-		inputManager = new InputManager (playerId, transform, angleCorrection);
+		inputManager = new InputManager (controllerId, transform, angleCorrection);
 		if (inputManager.HasMouse ()) {
 			Cursor.SetCursor (crosshairCursor, cursorHotSpot, CursorMode.Auto);
 		}
@@ -143,6 +151,7 @@ public class PlayerControl : MonoBehaviour
         heartScale = heart.GetComponent<TweenScale>().GetComponent<UITweener>();
         ResetStatus ();
 		StartCoroutine (DiminishStress ());
+        //controllerId = myPlayer.id;
 	}
 
 

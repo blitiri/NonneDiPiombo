@@ -103,12 +103,15 @@ public class GameManager : MonoBehaviour
                 }
                 // Initialize PlayerControl script
                 playersControls[playerIndex] = players[playerIndex].GetComponent<PlayerControl>();
-                foreach(Rewired.Player player in Configuration.instance.players)
-                {
-                    Debug.Log(player.id);
-                }
-                playersControls[playerIndex].SetPlayerId(Configuration.instance.players[playerIndex].id);
+                playersControls[playerIndex].SetPlayerId(playerIndex);
+                //foreach(Rewired.Player player in Configuration.instance.players)
+                //{
+                //    Debug.Log(player.id);
+                //}
+                //playersControls[playerIndex].SetPlayerId(Configuration.instance.players[playerIndex].id);
                 playersControls[playerIndex].SetAngleCorrection(cameraTransform.rotation.eulerAngles.y);
+                //playersControls[playerIndex].myPlayer = Configuration.instance.players[playerIndex];
+                playersControls[playerIndex].controllerId = Configuration.instance.players[playerIndex].id;
                 players[playerIndex].SetActive(true);
             }
 		}

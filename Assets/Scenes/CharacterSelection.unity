@@ -558,6 +558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canSelect: 
   readys: 
+  totalPlayers: 0
   countdownCount: 0
   nextSceneToLoadName: LevelPostOfficeDay
   iconAtlasNames:
@@ -3974,7 +3975,22 @@ Prefab:
     - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
         type: 2}
       propertyPath: _userData.joystickMaps.Array.data[6].actionElementMaps.Array.size
-      value: 4
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.size
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
         type: 2}
@@ -4346,7 +4362,7 @@ Prefab:
     - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
         type: 2}
       propertyPath: _userData.joystickMaps.Array.data[6].id
-      value: 9
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
         type: 2}
@@ -4356,7 +4372,7 @@ Prefab:
     - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
         type: 2}
       propertyPath: _userData.joystickMaps.Array.data[6].hardwareGuidString
-      value: 83b427e4-086f-47f3-bb06-be266abd1ca5
+      value: 71dfe6c8-9e81-428f-a58e-c7e664b7fbed
       objectReference: {fileID: 0}
     - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
         type: 2}
@@ -4411,7 +4427,7 @@ Prefab:
     - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
         type: 2}
       propertyPath: _userData.joystickMaps.Array.data[6].actionElementMaps.Array.data[3]._actionId
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
         type: 2}
@@ -4421,7 +4437,7 @@ Prefab:
     - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
         type: 2}
       propertyPath: _userData.joystickMaps.Array.data[6].actionElementMaps.Array.data[3]._elementIdentifierId
-      value: 14
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
         type: 2}
@@ -4607,6 +4623,411 @@ Prefab:
         type: 2}
       propertyPath: _userData.actionIdCounter
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMapIdCounter
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].id
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].categoryId
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].hardwareGuidString
+      value: 71dfe6c8-9e81-428f-a58e-c7e664b7fbed
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].id
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].categoryId
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].hardwareGuidString
+      value: 71dfe6c8-9e81-428f-a58e-c7e664b7fbed
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].id
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].categoryId
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].hardwareGuidString
+      value: 71dfe6c8-9e81-428f-a58e-c7e664b7fbed
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[6].actionElementMaps.Array.data[0]._elementType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[6].actionElementMaps.Array.data[0]._elementIdentifierId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[6].actionElementMaps.Array.data[1]._elementType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[0]._actionId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[0]._elementType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[0]._elementIdentifierId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[1]._actionId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[1]._elementType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[1]._elementIdentifierId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[0]._actionCategoryId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[1]._actionCategoryId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[2]._actionId
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[2]._elementType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[2]._elementIdentifierId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[3]._actionId
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[3]._elementType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[3]._elementIdentifierId
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[2]._actionCategoryId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[3]._actionCategoryId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[2]._axisRange
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[3]._axisRange
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[0]._actionId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[0]._elementType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[0]._elementIdentifierId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[1]._actionId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[1]._elementType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[1]._elementIdentifierId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[0]._actionCategoryId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[1]._actionCategoryId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[0]._actionId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[0]._elementType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[0]._elementIdentifierId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[1]._actionId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[1]._elementType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[1]._elementIdentifierId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[2]._actionId
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[2]._elementType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[2]._elementIdentifierId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[3]._actionId
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[3]._elementType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[3]._elementIdentifierId
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[4]._actionId
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[4]._elementType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[4]._elementIdentifierId
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[0]._actionCategoryId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[1]._actionCategoryId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[2]._actionCategoryId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[3]._actionCategoryId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[9].actionElementMaps.Array.data[4]._actionCategoryId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[6].actionElementMaps.Array.data[2]._axisRange
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[6].actionElementMaps.Array.data[3]._axisRange
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[2]._actionCategoryId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[2]._actionId
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[2]._elementType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[2]._elementIdentifierId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[3]._actionCategoryId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[3]._actionId
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[3]._elementType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[3]._elementIdentifierId
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[4]._actionCategoryId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[4]._actionId
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[4]._elementType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[8].actionElementMaps.Array.data[4]._elementIdentifierId
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[4]._actionCategoryId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[4]._actionId
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[4]._elementType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[7].actionElementMaps.Array.data[4]._elementIdentifierId
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[6].actionElementMaps.Array.data[4]._actionCategoryId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[6].actionElementMaps.Array.data[4]._actionId
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[6].actionElementMaps.Array.data[4]._elementType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010773812138, guid: 08cd78c1862ac854a9349da0e52c5473,
+        type: 2}
+      propertyPath: _userData.joystickMaps.Array.data[6].actionElementMaps.Array.data[4]._elementIdentifierId
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 08cd78c1862ac854a9349da0e52c5473, type: 2}

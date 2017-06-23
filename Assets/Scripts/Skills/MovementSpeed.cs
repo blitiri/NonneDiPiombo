@@ -12,7 +12,7 @@ public class MovementSpeed : Abilities
 		for (int i = 0; i < players.Length; i++) 
 		{
 			if (players [i] != null) {
-				players[i].GetComponent<PlayerControl> ().speed += speedModify;
+				players[i].GetComponent<PlayerControl> ().speedMod = speedModify;
 				players [i] = null;
 			}
 		}

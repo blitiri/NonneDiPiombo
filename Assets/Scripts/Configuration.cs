@@ -92,7 +92,7 @@ public class Configuration : MonoBehaviour
     /// <summary>
     /// Players on the basis of who pressed Cross button first.
     /// </summary>
-    public List<Rewired.Player> players;
+    public List<Rewired.Player> players = new List<Rewired.Player>();
 
 	/// <summary>
 	/// Awake the script.

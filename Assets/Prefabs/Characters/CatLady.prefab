@@ -390,7 +390,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 175
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -527,7 +527,7 @@ MonoBehaviour:
   brokenVersion: {fileID: 1139754313795208, guid: 2d74cf6832829304680ccb6f421dd9c9,
     type: 2}
   speedMod: 0
-  speed: 6
+  speed: 5.5
   rotSpeed: 2
   stopInputPlayer: 0
   isObstacle: 0
@@ -549,6 +549,7 @@ MonoBehaviour:
     type: 2}
   bloodDuration: 5
   dashParticle: {fileID: 1714087792661068}
+  weaponSound: {fileID: 8300000, guid: f4bf17823ef512f418e0d0959e088d6e, type: 3}
   ability: {fileID: 11400000, guid: e84212acc06524e42ae30dc6d3af3560, type: 2}
   isImmortal: 0
   immortalTime: 1
@@ -575,8 +576,6 @@ MonoBehaviour:
   weaponStress: 5
   playerScript: {fileID: 114000010476943500}
   recoilForce: 100
-  weaponSound: {fileID: 0}
-  volumeSound: 1
   onShootVFX: {fileID: 1577941067716300, guid: e23f2c2733da9f9479dcff8790b2664b, type: 2}
 --- !u!114 &114644399019996104
 MonoBehaviour:

@@ -627,7 +627,7 @@ MonoBehaviour:
   brokenVersion: {fileID: 1433111526316190, guid: cee30f42f451c4049981f87510c43fc0,
     type: 2}
   speedMod: 0
-  speed: 6
+  speed: 5.5
   rotSpeed: 2
   stopInputPlayer: 0
   isObstacle: 0
@@ -650,6 +650,7 @@ MonoBehaviour:
   bloodDuration: 5
   dashParticle: {fileID: 1886941857289196, guid: 159a9ee6262a3f64d966a3bf2f67610e,
     type: 2}
+  weaponSound: {fileID: 8300000, guid: 4972914209dc0c548b34e38883a12d93, type: 3}
   ability: {fileID: 11400000, guid: a037ce8b393e6084db3b93c8335a7a33, type: 2}
   isImmortal: 0
   immortalTime: 1
@@ -670,7 +671,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1000013450537652}
   lifeTime: 1
-  speedRotation: 20
+  speedRotation: 30
 --- !u!114 &114491211425500852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -705,8 +706,6 @@ MonoBehaviour:
   weaponStress: 0
   playerScript: {fileID: 114000012170572144}
   recoilForce: 400
-  weaponSound: {fileID: 0}
-  volumeSound: 1
   onShootVFX: {fileID: 1284787593007262, guid: 7c590b69f49994e48a5e246b9743e797, type: 2}
 --- !u!135 &135501448280559894
 SphereCollider:

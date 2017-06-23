@@ -97,6 +97,7 @@ public class PlayerControl : MonoBehaviour
     private ParticleSystem dashVFX;
     private ParticleSystem.MainModule main;
     private AudioSource source;
+    public AudioClip weaponSound;
 
     /// <summary>
     /// The ability.
@@ -171,6 +172,7 @@ public class PlayerControl : MonoBehaviour
 					timerToShoot += Time.deltaTime;
 				} else if (inputManager.Shoot ()) {
 					weapon.Shoot (this.gameObject.tag);
+                    source.PlayOneShot(weaponSound);
 					timerToShoot = 0.0f;
 				}
 
@@ -196,7 +198,7 @@ public class PlayerControl : MonoBehaviour
 	/// </summary>
 	private void Move ()
 	{
-		playerRigidbody.MovePosition (playerRigidbody.position + inputManager.GetMoveVector () * speed * Time.deltaTime);
+		playerRigidbody.MovePosition (playerRigidbody.position + inputManager.GetMoveVector () * (speed + speedMod) * Time.deltaTime);
 	}
 
 	/// <summary>

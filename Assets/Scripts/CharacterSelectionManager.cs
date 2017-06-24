@@ -319,7 +319,7 @@ public class CharacterSelectionManager : MonoBehaviour
             {
                 if (orderedPlayers[i] == null)
                 {
-                    Debug.Log("capacityChecked");
+                    //Debug.Log("capacityChecked");
                     toInsert = true;
                     slotToFillId = i;
                     break;
@@ -373,7 +373,7 @@ public class CharacterSelectionManager : MonoBehaviour
         }
         else if (orderedPlayers.Contains(player) && !readys[id])
         {
-            Debug.Log("BITCH");
+            //Debug.Log("BITCH");
             selectors[id].SetActive(false);
             orderedPlayers[id] = null;
             totalPlayers--;

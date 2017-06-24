@@ -49,6 +49,7 @@ public class DamageableObject : MonoBehaviour {
                 GameObject brokenObj = Instantiate(brokenVersion, transform.position, transform.rotation) as GameObject;
                 bCollider.enabled = false;
                 bCollider.isTrigger = true;
+                CameraShake.instance.shake = true;
                 meshrenderer.enabled = false;
                 rebuild = true;
             }

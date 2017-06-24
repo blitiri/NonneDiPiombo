@@ -5,8 +5,15 @@ using UnityEngine;
 public class BrokenObject : MonoBehaviour {
 
     public float lifeTime = 2.0f;
+    public float force = 50.0f;
     public Rigidbody[] rb;
+    private AudioSource source;
+    public AudioClip rockFalling;
 
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
 
     void Start()
     {
@@ -14,7 +21,8 @@ public class BrokenObject : MonoBehaviour {
 
         foreach (Rigidbody rigid in rb)
         {
-            rigid.AddForce(rigid.transform.forward * Random.Range(20,40), ForceMode.Impulse);
+            rigid.AddForce(rigid.transform.forward *force*Time.deltaTime /* ForceMode.Force*/);
+            source.PlayOneShot(rockFalling);
             Destroy(this.gameObject, lifeTime);
         }
     }

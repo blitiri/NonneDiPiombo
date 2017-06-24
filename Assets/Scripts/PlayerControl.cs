@@ -104,6 +104,8 @@ public class PlayerControl : MonoBehaviour
     public GameObject dashParticle;
     private ParticleSystem dashVFX;
     private ParticleSystem.MainModule main;
+    private AudioSource source;
+    public AudioClip weaponSound;
 
     /// <summary>
     /// The ability.
@@ -134,6 +136,7 @@ public class PlayerControl : MonoBehaviour
         playerMat = meshPlayer.material;
         dashVFX = dashParticle.GetComponentInChildren<ParticleSystem>();
         main = dashVFX.main;
+        source = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -184,7 +187,7 @@ public class PlayerControl : MonoBehaviour
                 else if (inputManager.Shoot())
                 {
                     weapon.Shoot(this.gameObject.tag);
-                    //UpdateUI ();
+                    source.PlayOneShot(weaponSound);
                     timerToShoot = 0.0f;
                 }
 

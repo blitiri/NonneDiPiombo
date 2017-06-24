@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000010047244562}
   - component: {fileID: 114000013682419940}
+  - component: {fileID: 114515010815748476}
   m_Layer: 0
   m_Name: CameraRig
   m_TagString: Untagged
@@ -138,7 +139,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 187
+  Priority: 230
   DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 500
@@ -230,7 +231,7 @@ MonoBehaviour:
   - {fileID: 4000011509078680, guid: aeb60e339817a2f4e82ae38886639dd9, type: 2}
   - {fileID: 4658768733013394, guid: b1eb7a553b9036040b39e540e82ee4b0, type: 2}
   - {fileID: 4264473601962514, guid: 159a9ee6262a3f64d966a3bf2f67610e, type: 2}
-  - {fileID: 400000, guid: 4aa6e5e87b6fa24498858846c3cf337c, type: 3}
+  - {fileID: 0}
 --- !u!114 &114137332585730816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -306,6 +307,20 @@ MonoBehaviour:
   adaptionSpeed: 1.5
   tonemapper: {fileID: 4800000, guid: 003377fc2620a44939dadde6fe3f8190, type: 3}
   validRenderTextureFormat: 1
+--- !u!114 &114515010815748476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010178594844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5894b2de5aa3ff5458017a47bb8b135f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shake: 0
+  amplitude: 0.3
+  duration: 2
 --- !u!114 &114655304946511780
 MonoBehaviour:
   m_ObjectHideFlags: 1

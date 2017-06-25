@@ -71,7 +71,7 @@ public class SceneController : MonoBehaviour
     /// <returns><c>true</c> if is character selection scene; otherwise, <c>false</c>.</returns>
     public static bool IsCharacterSelectionScene ()
 	{
-		return IsScene ("CharacterSelectionMenu");
+		return IsScene ("CharacterSelection");
 	}
 
 	/// <summary>

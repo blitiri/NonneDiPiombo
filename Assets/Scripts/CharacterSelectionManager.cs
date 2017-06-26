@@ -60,6 +60,11 @@ public class CharacterSelectionManager : MonoBehaviour
     [SerializeField]
     private TweenColor[] tweens;
     /// <summary>
+    /// All "join" sprites.
+    /// </summary>
+    [SerializeField]
+    private UISprite[] joinSprites;
+    /// <summary>
     /// The countdown gameObject;
     /// </summary>
     [SerializeField]
@@ -336,8 +341,10 @@ public class CharacterSelectionManager : MonoBehaviour
             {
                 orderedPlayers.Add(player);
             }
+            int id = orderedPlayers.IndexOf(player);
 
-            selectors[orderedPlayers.IndexOf(player)].SetActive(true);
+            joinSprites[id].enabled = false;
+            selectors[id].SetActive(true);
 
             totalPlayers++;
             Configuration.instance.SetNumberOfPlayers(totalPlayers);
@@ -375,6 +382,7 @@ public class CharacterSelectionManager : MonoBehaviour
         {
             Debug.Log("BITCH");
             selectors[id].SetActive(false);
+            joinSprites[id].enabled = true;
             orderedPlayers[id] = null;
             totalPlayers--;
             Configuration.instance.SetNumberOfPlayers(totalPlayers);

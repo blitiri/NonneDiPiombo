@@ -197,8 +197,11 @@ public class UIControllerInputManager : MonoBehaviour
 		if (players [playerID].GetButtonDown ("Start")) {
 			// Se non si è in una scena di livello, l'istanza del GameManager è null
 			if (GameManager.instance != null) {
-				GameManager.instance.InvertPause ();
-				LevelUIManager.instance.SetPauseMenuVisible (GameManager.instance.IsPaused ());
+                if (!GameManager.instance.countdownIsRunning)
+                {
+                    GameManager.instance.InvertPause();
+                    LevelUIManager.instance.SetPauseMenuVisible(GameManager.instance.IsPaused());
+                }
 			}
 		}
 	}

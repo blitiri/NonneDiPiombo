@@ -12,11 +12,24 @@ public class GameManager : MonoBehaviour
     /// Skill Counter.
     /// </summary>
     public int catCounter;
+    public float countdownCount;
     public float timerToSpawn = 5.0f;
     public float maxTimerBeforeRespawn = 1.0f;
     public float roundTimer;
 
+    public bool countdownIsRunning;
+
+    public string readySpriteName;
+
+    public string fightSpriteName;
+
     public Transform cameraTransform;
+
+    public UISprite countdown;
+
+    public TweenAlpha countdownTA;
+
+    public TweenScale countdownTS;
 
     public GameObject rewiredInputManagerPrefab;
 
@@ -29,6 +42,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] weapons;
 
     public GameObject spawnVFXPrefab;
+
+    private EventDelegate eventDelegate;
 
     private bool isPaused = false;
     private float timerPostManSpawn;
@@ -45,6 +60,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         LevelUIManager.instance.InitUI();
+        TimerUpdate();
+        StartCoroutine("RunCountdown");
     }
 
     // Update is called once per frame
@@ -53,8 +70,11 @@ public class GameManager : MonoBehaviour
         //CheckRespawnPlayers ();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            isPaused = !isPaused;
-            LevelUIManager.instance.SetPauseMenuVisible(isPaused);
+            if (!countdownIsRunning)
+            {
+                isPaused = !isPaused;
+                LevelUIManager.instance.SetPauseMenuVisible(isPaused);
+            }
         }
         if (!isPaused)
         {
@@ -234,4 +254,80 @@ public class GameManager : MonoBehaviour
     {
         return players;
     }
+
+    public IEnumerator RunCountdown()
+    {
+        countdownIsRunning = true;
+
+        Debug.Log("SSSSS");
+        countdown.gameObject.SetActive(true);
+        isPaused = true;
+        //foreach(PlayerControl player in playersControls)
+        //{
+        //    player.stopInputPlayer = true;
+        //}
+        //stopInputPlayer = true;
+        float maxCountdown = countdownCount;
+        // +1 to leave last number a while to screen
+        while (countdownCount > 0)
+        {
+
+            if (countdownCount < maxCountdown && countdownCount > 0.5f)
+            {
+
+                if (countdown.spriteName != readySpriteName)
+                {
+                    countdown.spriteName = readySpriteName;
+                    //countdown.alpha = countdownTA.from;
+                    countdown.transform.localScale = countdownTS.from;
+                    //countdownTA.PlayForward();
+                    countdownTS.PlayForward();
+                    //onfinishedTweens, reset countdown initial alpha and scale.
+                }
+            }
+            if (countdownCount <= 0.5f)
+            {
+                if (countdown.spriteName != fightSpriteName)
+                {
+                    Debug.Log("Puttana");
+                    countdown.spriteName = fightSpriteName;
+                    //countdown.alpha = countdownTA.from;
+                    countdown.transform.localScale = countdownTS.from;
+                    //countdownTA.ResetToBeginning();
+                    countdownTS.ResetToBeginning();
+                    //countdownTA.PlayForward();
+                    countdownTS.PlayForward();
+                    eventDelegate = new EventDelegate(this, "OnFinishedCountdownTSPlayReverse");
+                    EventDelegate.Set(countdownTS.onFinished, eventDelegate);
+                    //onfinishedTweens, reset countdown initial alpha and scale.
+                }
+            }
+            countdownCount -= Time.deltaTime;
+            yield return null;
+        }
+        //foreach (PlayerControl player in playersControls)
+        //{
+        //    player.stopInputPlayer = false;
+        //}
+        //stopInpitPlayer = false;
+    }
+
+    public void OnFinishedCountdownTSPlayReverse()
+    {
+        eventDelegate = new EventDelegate(this, "OnFinishedCountdownTSSetIBools");
+        EventDelegate.Set(countdownTS.onFinished, eventDelegate);
+
+        countdownTS.delay = 0.5f;
+        countdownTS.from = countdown.transform.localScale;
+        countdownTS.to = new Vector3(0, 0, 0);
+        countdownTS.animationCurve = AnimationCurve.Linear(0, 0, 1, 1);
+        countdownTS.ResetToBeginning();
+        countdownTS.PlayForward();
+    }
+
+    public void OnFinishedCountdownTSSetIBools()
+    {
+        isPaused = false;
+        countdownIsRunning = false;
+}
 }

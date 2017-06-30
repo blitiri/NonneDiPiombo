@@ -19,13 +19,13 @@ public class GameManager : MonoBehaviour
 
     public bool countdownIsRunning;
 
-    public string readySpriteName;
+    public string readyString;
 
-    public string fightSpriteName;
+    public string fightString;
 
     public Transform cameraTransform;
 
-    public UISprite countdown;
+    public UILabel countdown;
 
     public TweenAlpha countdownTA;
 
@@ -275,9 +275,9 @@ public class GameManager : MonoBehaviour
             if (countdownCount < maxCountdown && countdownCount > 0.5f)
             {
 
-                if (countdown.spriteName != readySpriteName)
+                if (countdown.text != readyString)
                 {
-                    countdown.spriteName = readySpriteName;
+                    countdown.text = readyString;
                     //countdown.alpha = countdownTA.from;
                     countdown.transform.localScale = countdownTS.from;
                     //countdownTA.PlayForward();
@@ -287,10 +287,10 @@ public class GameManager : MonoBehaviour
             }
             if (countdownCount <= 0.5f)
             {
-                if (countdown.spriteName != fightSpriteName)
+                if (countdown.text != fightString)
                 {
                     Debug.Log("Puttana");
-                    countdown.spriteName = fightSpriteName;
+                    countdown.text = fightString;
                     //countdown.alpha = countdownTA.from;
                     countdown.transform.localScale = countdownTS.from;
                     //countdownTA.ResetToBeginning();

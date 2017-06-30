@@ -50,6 +50,11 @@ public class CharacterSelectionManager : MonoBehaviour
     [SerializeField]
     private string[] granniesNames;
     /// <summary>
+    /// Names of all weapons.
+    /// </summary>
+    [SerializeField]
+    private string[] weaponsNames;
+    /// <summary>
     /// Selector's color when granny is clicked.
     /// </summary>
     [SerializeField]
@@ -63,7 +68,7 @@ public class CharacterSelectionManager : MonoBehaviour
     /// All "join" sprites.
     /// </summary>
     [SerializeField]
-    private UISprite[] joinSprites;
+    private UILabel[] joinLabels;
     /// <summary>
     /// The countdown gameObject;
     /// </summary>
@@ -93,6 +98,11 @@ public class CharacterSelectionManager : MonoBehaviour
     /// </summary>
     [SerializeField]
     private GameObject[] grannies;
+    /// <summary>
+    /// Weapons' icons.
+    /// </summary>
+    [SerializeField]
+    private UISprite[] weapons;
     /// <summary>
     /// An icon for each selector.
     /// </summary>
@@ -224,6 +234,7 @@ public class CharacterSelectionManager : MonoBehaviour
                 }
                 canSelect[id] = false;
                 centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
+                weapons[id].spriteName = weaponsNames[indexes[id]];
                 playerLabels[id].text = granniesNames[indexes[id]];
             }
         }
@@ -343,7 +354,7 @@ public class CharacterSelectionManager : MonoBehaviour
             }
             int id = orderedPlayers.IndexOf(player);
 
-            joinSprites[id].enabled = false;
+            joinLabels[id].enabled = false;
             selectors[id].SetActive(true);
 
             totalPlayers++;
@@ -382,7 +393,7 @@ public class CharacterSelectionManager : MonoBehaviour
         {
             //Debug.Log("BITCH");
             selectors[id].SetActive(false);
-            joinSprites[id].enabled = true;
+            joinLabels[id].enabled = true;
             orderedPlayers[id] = null;
             totalPlayers--;
             Configuration.instance.SetNumberOfPlayers(totalPlayers);

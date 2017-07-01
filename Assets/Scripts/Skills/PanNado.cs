@@ -13,6 +13,7 @@ public class PanNado : Abilities {
 			if (players [i] != null) {
 				players[i].transform.GetChild(1).gameObject.SetActive(true);
 				players[i].GetComponent<PlayerControl>().isImmortal = true;
+				players[i].GetComponent<PlayerControl>().canShoot = false;
 				players [i] = null;
 			}
 		}  

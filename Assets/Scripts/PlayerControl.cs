@@ -178,7 +178,6 @@ public class PlayerControl : MonoBehaviour
 
             if (!stopped && !stopInputPlayer)
             {
-                Debug.Log("LIttleshit");
                 Move();
                 moveVector = inputManager.GetMoveVector();
                 DashManaging();

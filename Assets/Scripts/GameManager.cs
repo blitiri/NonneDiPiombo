@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
         int numberOfPlayers;
 
         numberOfPlayers = Configuration.instance.GetNumberOfPlayers();
-        Debug.Log(numberOfPlayers);
+        //Debug.Log(numberOfPlayers);
         players = new GameObject[numberOfPlayers];
         playersControls = new PlayerControl[numberOfPlayers];
         for (playerIndex = 0; playerIndex < numberOfPlayers; playerIndex++)

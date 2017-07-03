@@ -102,12 +102,10 @@ public class UIControllerInputManager : MonoBehaviour
 
         for (int i = 0; i < buttons.Length; i++)
         {
-            Debug.Log("PPPPPPPPP");
             UISlider slider;
             slider = buttons[i].GetComponent<UISlider>();
             if (slider != null)
             {
-                Debug.Log("SSSSSSSSSS");
                 sliders.Add(i, slider);
             }
         }

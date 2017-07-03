@@ -20,7 +20,7 @@ public class CameraShake : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-
+		initialLocalPos = transform.localPosition;
 		if(shake == true)
         {
             if (timer < duration)

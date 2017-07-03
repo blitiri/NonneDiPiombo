@@ -125,6 +125,9 @@ public class PlayerControl : MonoBehaviour
     private TweenRotation heartRotation;
     public float heartBit = 30;
 
+	[HideInInspector]
+	public bool canShoot = true;
+
     /// <summary>
     /// Awake this instance.
     /// </summary>
@@ -184,7 +187,7 @@ public class PlayerControl : MonoBehaviour
                 {
                     timerToShoot += Time.deltaTime;
                 }
-                else if (inputManager.Shoot())
+				else if (inputManager.Shoot() && canShoot == true)
                 {
                     weapon.Shoot(this.gameObject.tag);
                     source.PlayOneShot(weaponSound);
@@ -332,7 +335,7 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     private void DashManaging()
     {
-        float timer = 5.0f;
+        float timer = 1.5f;
         ObstacleChecking(moveVector);
         isObstacle = ObstacleChecking(moveVector);
         if (inputManager.Dash())
@@ -435,6 +438,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         yield return new WaitForSeconds(timer);
+		canShoot = true;
 
         foreach (Transform child in transform)
         {

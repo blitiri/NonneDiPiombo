@@ -5,14 +5,18 @@ using UnityEngine;
 public class DamageableObject : MonoBehaviour {
 
     public int bulletTaken;
-    private int bulletCount = 0;
+	public int bulletCount = 0;
     public GameObject brokenVersion;
     private BoxCollider bCollider;
     private MeshRenderer meshrenderer;
     public float maxTimer = 1.0f;
     private float timer = 0.0f;
     private bool rebuild = false;
-	
+
+	private GameObject brokenObj;
+
+	Component[] meshRenderers;
+
     void Awake()
     {
         Components();
@@ -46,12 +50,24 @@ public class DamageableObject : MonoBehaviour {
 
             if (bulletCount >= bulletTaken)
             {
-                GameObject brokenObj = Instantiate(brokenVersion, transform.position, transform.rotation) as GameObject;
+                brokenObj = Instantiate(brokenVersion, transform.position, transform.rotation) as GameObject;
+				meshRenderers = brokenObj.GetComponentsInChildren (typeof(MeshRenderer));
+				if (meshRenderers != null) {
+					foreach (MeshRenderer mesh in meshRenderers){
+						if (mesh.gameObject.name == "Base" && mesh.gameObject.name == "Body") {
+							mesh.enabled = true;
+						} else {
+							Destroy (mesh, 8.0f);
+						}
+					}
+				}
+
+
                 bCollider.enabled = false;
                 bCollider.isTrigger = true;
                 CameraShake.instance.shake = true;
                 meshrenderer.enabled = false;
-                rebuild = true;
+				rebuild = false;
             }
         }
        

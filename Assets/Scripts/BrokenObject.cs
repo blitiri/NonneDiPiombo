@@ -23,7 +23,7 @@ public class BrokenObject : MonoBehaviour {
         {
             rigid.AddForce(rigid.transform.forward *force*Time.deltaTime /* ForceMode.Force*/);
             source.PlayOneShot(rockFalling);
-            Destroy(this.gameObject, lifeTime);
+//            Destroy(this.gameObject, lifeTime);
         }
     }
 }

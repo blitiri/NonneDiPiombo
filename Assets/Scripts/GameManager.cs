@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     private EventDelegate eventDelegate;
 
-    private bool isPaused = false;
+    public bool isPaused = false;
     private float timerPostManSpawn;
     private PlayerControl[] playersControls;
 
@@ -70,15 +70,24 @@ public class GameManager : MonoBehaviour
         //CheckRespawnPlayers ();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!countdownIsRunning)
-            {
-                isPaused = !isPaused;
-                LevelUIManager.instance.SetPauseMenuVisible(isPaused);
-            }
+            PauseGame();
         }
         if (!isPaused)
         {
             TimerUpdate();
+        }
+    }
+
+    public void PauseGame()
+    {
+        if (!countdownIsRunning && LevelUIManager.instance.canPause)
+        {
+            Time.timeScale = 0.0f;
+            Debug.Log("MAMMAMIA");
+            LevelUIManager.instance.canPause = false;
+            InvertPause();
+            Debug.Log(isPaused);
+            LevelUIManager.instance.SetPauseMenuVisible(isPaused);
         }
     }
 
@@ -93,13 +102,21 @@ public class GameManager : MonoBehaviour
 
     public void InvertPause()
     {
-        isPaused = !isPaused;
+        if (LevelUIManager.instance.pauseMenu.gameObject.activeInHierarchy)
+        {
+            isPaused = false;
+        }
+        else
+        {
+            isPaused = true;
+            Debug.Log(isPaused);
+        }
     }
 
-    public bool IsPaused()
-    {
-        return isPaused;
-    }
+    //public bool IsPaused()
+    //{
+    //    return isPaused;
+    //}
 
     private void InitPlayers()
     {
@@ -259,7 +276,7 @@ public class GameManager : MonoBehaviour
     {
         countdownIsRunning = true;
 
-        Debug.Log("SSSSS");
+        //Debug.Log("SSSSS");
         countdown.gameObject.SetActive(true);
         isPaused = true;
         //foreach(PlayerControl player in playersControls)
@@ -289,7 +306,7 @@ public class GameManager : MonoBehaviour
             {
                 if (countdown.text != fightString)
                 {
-                    Debug.Log("Puttana");
+                    //Debug.Log("Puttana");
                     countdown.text = fightString;
                     //countdown.alpha = countdownTA.from;
                     countdown.transform.localScale = countdownTS.from;
@@ -329,5 +346,5 @@ public class GameManager : MonoBehaviour
     {
         isPaused = false;
         countdownIsRunning = false;
-}
+    }
 }

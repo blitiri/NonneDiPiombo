@@ -125,8 +125,8 @@ public class PlayerControl : MonoBehaviour
     private TweenRotation heartRotation;
     public float heartBit = 30;
 
-	[HideInInspector]
-	public bool canShoot = true;
+    [HideInInspector]
+    public bool canShoot = true;
 
     /// <summary>
     /// Awake this instance.
@@ -172,12 +172,13 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        if (!GameManager.instance.IsPaused())
+        if (!GameManager.instance.isPaused)
         {
             transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 
             if (!stopped && !stopInputPlayer)
             {
+                Debug.Log("LIttleshit");
                 Move();
                 moveVector = inputManager.GetMoveVector();
                 DashManaging();
@@ -187,7 +188,7 @@ public class PlayerControl : MonoBehaviour
                 {
                     timerToShoot += Time.deltaTime;
                 }
-				else if (inputManager.Shoot() && canShoot == true)
+                else if (inputManager.Shoot() && canShoot == true)
                 {
                     weapon.Shoot(this.gameObject.tag);
                     source.PlayOneShot(weaponSound);
@@ -438,7 +439,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         yield return new WaitForSeconds(timer);
-		canShoot = true;
+        canShoot = true;
 
         foreach (Transform child in transform)
         {

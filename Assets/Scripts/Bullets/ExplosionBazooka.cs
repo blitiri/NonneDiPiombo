@@ -31,12 +31,12 @@ public class ExplosionBazooka : MonoBehaviour {
 
 		if (other.gameObject.tag.Equals ("Wall")) {
 			Debug.Log ("Collision With Wall");
-			explosionCollider.radius = minRadius;
+			explosionCollider.radius = maxRadius;
 			wallCollision = true;
-		} else if (other.gameObject.tag.Equals ("LevelWall")) {
+		}  if (other.gameObject.tag.Equals ("LevelWall")) {
 			explosionCollider.radius = maxRadius;
 			wallCollision = false;
-		} else if (other.gameObject.tag.StartsWith ("Player") && Utility.GetPlayerIndexFromBullet (this.gameObject.tag) == Utility.GetPlayerIndex (other.gameObject.tag)) {
+		}  if (other.gameObject.tag.StartsWith ("Player") && Utility.GetPlayerIndexFromBullet (this.gameObject.tag) == Utility.GetPlayerIndex (other.gameObject.tag)) {
 			int explosionId;
 			explosionId = Utility.GetPlayerIndexFromBullet (this.gameObject.tag);
 

@@ -102,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1329720935181398}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4106542823956310}
@@ -129,7 +129,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1473148331119034}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -44.09, y: 8.2, z: 7.27}
+  m_LocalPosition: {x: -44.09, y: 8.25, z: 7.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4459804926975842}
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66cd417f89b2e96409bbba8cc8b28b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 0.9
+  bulletSpeed: 2
   sparkVFX: {fileID: 1014289148363408, guid: 7347f52fbd53e8f42a0f3c6bbc9b6649, type: 2}
   bulletAccel: 13
   explosionDelay: 1
@@ -267,10 +267,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.18754281
+  m_Radius: 0.3
   m_Height: 1.0379812
   m_Direction: 1
-  m_Center: {x: -0.000000037252903, y: 0.5189906, z: 0.000000059604645}
+  m_Center: {x: 0, y: 0.56, z: 0}
 --- !u!198 &198314583957455384
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -326,7 +326,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -845006675
+  randomSeed: -169211649
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -2855,7 +2855,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2023152604
+  randomSeed: 313693264
   InitialModule:
     serializedVersion: 3
     enabled: 1

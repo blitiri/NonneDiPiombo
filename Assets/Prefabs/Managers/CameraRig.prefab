@@ -99,7 +99,7 @@ Camera:
     height: 1
   near clip plane: 9.52
   far clip plane: 80.63
-  field of view: 17
+  field of view: 20
   orthographic: 0
   orthographic size: 7
   m_Depth: -1
@@ -221,8 +221,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dampTime: 0.5
-  screenEdgeBuffer: 8.5
-  minSize: 9
+  screenEdgeBuffer: 10
+  minSize: 10
   maxSize: 20
   OutlineShader: {fileID: 4800000, guid: 8b7539ddad144554c8170144c43b5bc3, type: 3}
   StandardShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
@@ -295,7 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shake: 0
-  amplitude: 0.3
+  amplitude: 0.1
   duration: 2
 --- !u!114 &114655304946511780
 MonoBehaviour:

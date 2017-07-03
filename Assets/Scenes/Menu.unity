@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 248363102}
   m_Layer: 8
   m_Name: QuitButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -670,7 +670,7 @@ Transform:
   m_GameObject: {fileID: 258685564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0018518518, y: 0.0018518518, z: 0.0018518518}
+  m_LocalScale: {x: 0.0022396417, y: 0.0022396417, z: 0.0022396417}
   m_Children:
   - {fileID: 324208158}
   - {fileID: 1290857007}
@@ -712,7 +712,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1971b2fdb428bcd4293f81c214569803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadZone: 0.3
+  isHorSlider: 0
+  horDeadZone: 0.6
+  verDeadZone: 0.3
+  canSelect: 0
+  canSlide: 0
+  selectedButtonIndex: 0
   playerID: 0
   buttons:
   - {fileID: 1276495055}
@@ -955,7 +960,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1971b2fdb428bcd4293f81c214569803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadZone: 0
+  isHorSlider: 0
+  horDeadZone: 0.6
+  verDeadZone: 0.3
+  canSelect: 0
+  canSlide: 0
+  selectedButtonIndex: 0
   playerID: 0
   buttons:
   - {fileID: 1253367890}
@@ -1017,7 +1027,7 @@ GameObject:
   - component: {fileID: 437868243}
   m_Layer: 8
   m_Name: OptionsButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1486,7 +1496,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1971b2fdb428bcd4293f81c214569803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadZone: 0
+  isHorSlider: 0
+  horDeadZone: 0.6
+  verDeadZone: 0.3
+  canSelect: 0
+  canSlide: 0
+  selectedButtonIndex: 0
   playerID: 0
   buttons:
   - {fileID: 985545845}
@@ -2063,6 +2078,10 @@ Prefab:
       propertyPath: mSpriteName
       value: CloseButton
       objectReference: {fileID: 0}
+    - target: {fileID: 1610761202224866, guid: 3780461d746364c7693e935d8551c36d, type: 2}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3780461d746364c7693e935d8551c36d, type: 2}
   m_IsPrefabParent: 0
@@ -2261,7 +2280,7 @@ GameObject:
   - component: {fileID: 1253367887}
   m_Layer: 8
   m_Name: CloseButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2618,7 +2637,7 @@ GameObject:
   - component: {fileID: 1276495052}
   m_Layer: 8
   m_Name: StartButton
-  m_TagString: StartButton
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2843,13 +2862,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1920
-  mHeight: 1080
+  mWidth: 1919
+  mHeight: 893
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.7777778
+  aspectRatio: 2.1489363
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -3190,7 +3209,7 @@ GameObject:
   - component: {fileID: 1583443470}
   m_Layer: 8
   m_Name: FullScreen
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3355,7 +3374,7 @@ GameObject:
   - component: {fileID: 1634656109}
   m_Layer: 8
   m_Name: CreditsButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

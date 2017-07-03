@@ -120,7 +120,7 @@ public class EndingUIManager : AbstractUIManager
 	/// </summary>
 	public void OnCharacterSelecction ()
 	{
-		SceneController.instance.LoadSceneByName ("CharacterSelectionMenu");
+		SceneController.instance.LoadSceneByName ("CharacterSelection");
 	}
 
 	/// <summary>

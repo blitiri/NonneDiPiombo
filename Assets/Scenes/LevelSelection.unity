@@ -675,13 +675,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1920
+  mWidth: 2321
   mHeight: 1080
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.7777778
+  aspectRatio: 2.149074
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -839,6 +839,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1971b2fdb428bcd4293f81c214569803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHorSlider: 0
+  horDeadZone: 0.6
+  verDeadZone: 0.3
+  canSelect: 0
+  canSlide: 0
+  selectedButtonIndex: 0
   playerID: 0
   buttons:
   - {fileID: 518896185}
@@ -1268,7 +1274,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1645052505}
   m_LocalRotation: {x: 0, y: 0, z: 0.13052633, w: -0.9914449}
-  m_LocalPosition: {x: 389, y: 21, z: 0}
+  m_LocalPosition: {x: 490, y: 21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2085830649}
@@ -1305,8 +1311,8 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 580
-  mHeight: 414
+  mWidth: 780
+  mHeight: 557
   mDepth: 4
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
@@ -1628,13 +1634,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 630
-  mHeight: 464
+  mWidth: 830
+  mHeight: 607
   mDepth: 5
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.3577586
+  aspectRatio: 1.3673806
   mType: 0
   mFillDirection: 4
   mFillAmount: 1

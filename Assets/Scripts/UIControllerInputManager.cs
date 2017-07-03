@@ -10,34 +10,51 @@ public class UIControllerInputManager : MonoBehaviour
 	/// </summary>
 	private static UIControllerInputManager instance;
     /// <summary>
-    /// How much the controller stick must be tilted to move between buttons.
+    /// Whether the selected button is a slider or not.
+    /// </summary>
+    public bool isHorSlider;
+    /// <summary>
+    /// How much the controller stick must be tilted to move on the horizontal axis between buttons.
     /// </summary>
     [SerializeField]
-    private float deadZone;
-	/// <summary>
-	/// The tag of the current active UIControllerInputManager.
-	/// </summary>
-	public static string currentTag;
+    private float horDeadZone;
+    /// <summary>
+    /// How much the controller stick must be tilted to move on the vertical axis between buttons.
+    /// </summary>
+    [SerializeField]
+    private float verDeadZone;
+    /// <summary>
+    /// The tag of the current active UIControllerInputManager.
+    /// </summary>
+    public static string currentTag;
 	/// <summary>
 	/// The tag for Main UI Controller Input Manager containing gameobject.
 	/// </summary>
 	private const string mainTag = "Main";
 	/// <summary>
-	/// The tag for Secondary UI Controller Input Manager containing gameobject.
+	/// Slider's tag.
 	/// </summary>
 	private const string sliderTag = "Slider";
+    /// <summary>
+    /// Button's tag.
+    /// </summary>
+    private const string buttonTag = "Button";
 	/// <summary>
 	/// Component attached to the first menu in the current scene.
 	/// </summary>
 	public static UIControllerInputManager main;
-	/// <summary>
-	/// It is needed to slowly switch between buttons.
-	/// </summary>
-	private bool canSelect;
-	/// <summary>
-	/// Index for browsing between buttons.
-	/// </summary>
-	private int selectedButtonIndex;
+    /// <summary>
+    /// It is needed to slowly switch between buttons.
+    /// </summary>
+    public bool canSelect;
+    /// <summary>
+    /// Whethet you can slide or not.
+    /// </summary>
+    public bool canSlide;
+    /// <summary>
+    /// Index for browsing between buttons.
+    /// </summary>
+    public int selectedButtonIndex;
 	/// <summary>
 	/// This player's identifier.
 	/// </summary>
@@ -52,6 +69,8 @@ public class UIControllerInputManager : MonoBehaviour
 	private Player[] players;
 	public UIButton[] buttons;
 	private UIPlayTween[] playTweens;
+
+    private Dictionary<int, UISlider> sliders = new Dictionary<int, UISlider>();
 	//private UIButton startButton;
 
 	private void OnEnable ()
@@ -79,7 +98,19 @@ public class UIControllerInputManager : MonoBehaviour
 			playTweens [i] = buttons [i].gameObject.GetComponent<UIPlayTween> ();
 		}
 		canSelect = true;
-	}
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            Debug.Log("PPPPPPPPP");
+            UISlider slider;
+            slider = buttons[i].GetComponent<UISlider>();
+            if (slider != null)
+            {
+                Debug.Log("SSSSSSSSSS");
+                sliders.Add(i, slider);
+            }
+        }
+    }
 
 	private void Start ()
 	{
@@ -131,25 +162,18 @@ public class UIControllerInputManager : MonoBehaviour
 	{
 		if (buttons.Length > 0) {
 			if (canSelect) {
-				//if (ReInput.controllers.joystickCount > 0)
-				//{
-				if (players [playerID].GetAxis ("Move horizontal") < -deadZone || players [playerID].GetAxis ("Move vertical") > deadZone || players[playerID].GetAxis("Move horizontal") < -deadZone && players[playerID].GetAxis("Move vertical") > deadZone) {
-                    //Debug.Log("UpBastard");
+				if ((players [playerID].GetAxis ("Move horizontal") < -horDeadZone && players[playerID].GetAxis("Move vertical") >= -verDeadZone && players[playerID].GetAxis("Move vertical") <= verDeadZone && buttons[selectedButtonIndex].tag != sliderTag) || (players [playerID].GetAxis ("Move vertical") > verDeadZone && players[playerID].GetAxis("Move horizontal") >= -horDeadZone && players[playerID].GetAxis("Move horizontal") <= horDeadZone) || (players[playerID].GetAxis("Move horizontal") < -horDeadZone && players[playerID].GetAxis("Move vertical") > verDeadZone /*&& buttons[selectedButtonIndex].tag != sliderTag*/)) {
+
 					if (buttons [selectedButtonIndex].state != UIButtonColor.State.Normal)
 						buttons [selectedButtonIndex].SetState (UIButtonColor.State.Normal, true);
 
 					if (playTweens [selectedButtonIndex] != null)
 						playTweens [selectedButtonIndex].Play (false);
 
-					//playTweens[buttonIndex].playDirection = AnimationOrTween.Direction.Reverse;
-
-					//Debug.Log("SSSSSS");
 					if (selectedButtonIndex <= 0) {
 						selectedButtonIndex = buttons.Length - 1;
-                        //Debug.Log("UpIndex");
                     } else {
 						selectedButtonIndex -= 1;
-                        //Debug.Log("UpIndex");
                     }
 
 					if (buttons [selectedButtonIndex].state != UIButtonColor.State.Hover)
@@ -158,9 +182,21 @@ public class UIControllerInputManager : MonoBehaviour
 					if (playTweens [selectedButtonIndex] != null)
 						playTweens [selectedButtonIndex].Play (true);
 
+                    //if (!isHorSlider && buttons[selectedButtonIndex].tag == sliderTag)
+                    //{
+                    //    Debug.Log("CAZZO");
+                    //    isHorSlider = true;
+                    //}
+                    //else if(isHorSlider && buttons[selectedButtonIndex].tag == buttonTag)
+                    //{
+                    //    isHorSlider = false;
+                    //}
+
                     canSelect = false;
-                } else if (players [playerID].GetAxis ("Move horizontal") > deadZone || players [playerID].GetAxis ("Move vertical") < -deadZone || players[playerID].GetAxis("Move horizontal") > deadZone && players[playerID].GetAxis("Move vertical") < -deadZone) {
-                    //Debug.Log("DownBastard");
+                    canSlide = false;
+
+                } else if ((players [playerID].GetAxis ("Move horizontal") > horDeadZone && players[playerID].GetAxis("Move vertical") >= -verDeadZone && players[playerID].GetAxis("Move vertical") <= verDeadZone && buttons[selectedButtonIndex].tag != sliderTag) || (players [playerID].GetAxis ("Move vertical") < -verDeadZone && players[playerID].GetAxis("Move horizontal") >= -horDeadZone && players[playerID].GetAxis("Move horizontal") <= horDeadZone) || (players[playerID].GetAxis("Move horizontal") > horDeadZone && players[playerID].GetAxis("Move vertical") < -verDeadZone /*&& buttons[selectedButtonIndex].tag != sliderTag*/)) {
+
                     if (buttons [selectedButtonIndex].state != UIButtonColor.State.Normal)
 						buttons [selectedButtonIndex].SetState (UIButtonColor.State.Normal, true);
 
@@ -169,10 +205,8 @@ public class UIControllerInputManager : MonoBehaviour
 
 					if (selectedButtonIndex >= buttons.Length - 1) {
 						selectedButtonIndex = 0;
-                        //Debug.Log("DownIndex");
                     } else {
 						selectedButtonIndex += 1;
-                        //Debug.Log("DownIndex");
                     }
 
 					if (buttons [selectedButtonIndex].state != UIButtonColor.State.Hover)
@@ -181,18 +215,56 @@ public class UIControllerInputManager : MonoBehaviour
 					if (playTweens [selectedButtonIndex] != null)
 						playTweens [selectedButtonIndex].Play (true);
 
+                    //if (!isHorSlider && buttons[selectedButtonIndex].tag == sliderTag)
+                    //{
+                    //    Debug.Log("CAZZO");
+                    //    isHorSlider = true;
+                    //}
+                    //else if (isHorSlider && buttons[selectedButtonIndex].tag == buttonTag)
+                    //{
+                    //    isHorSlider = false;
+                    //}
+
                     canSelect = false;
+                    canSlide = false;
                 }
-                Debug.Log(selectedButtonIndex);
+
+                //if (isHorSlider)
+                //{
+                //    if (players[playerID].GetAxis("Move horizontal"))
+                //}
+                //Debug.Log(selectedButtonIndex);
 			} else {
-				if (players [playerID].GetAxis ("Move horizontal") >= -deadZone && players [playerID].GetAxis ("Move horizontal") <= deadZone) {
-					if (players [playerID].GetAxis ("Move vertical") >= -deadZone && players [playerID].GetAxis ("Move vertical") <= deadZone) {
-						canSelect = true;
-                        Debug.Log("canselect = " + canSelect);
-					}
-				}
+                if (!canSlide)
+                {
+                    if (players[playerID].GetAxis("Move horizontal") >= -horDeadZone && players[playerID].GetAxis("Move horizontal") <= horDeadZone)
+                    {
+                        if (players[playerID].GetAxis("Move vertical") >= -verDeadZone && players[playerID].GetAxis("Move vertical") <= verDeadZone)
+                        {
+                            if (!canSelect)
+                                canSelect = true;
+                            if (!canSlide)
+                                canSlide = true;
+                            Debug.Log("canselect = " + canSelect);
+                        }
+                    }
+                }
 			}
-		}
+            if (canSlide && buttons[selectedButtonIndex].tag == sliderTag)
+            {
+                if (players[playerID].GetAxis("Move horizontal") < -horDeadZone || players[playerID].GetAxis("Move horizontal") > horDeadZone)
+                {
+                    if (canSelect)
+                        canSelect = false;
+                    sliders[selectedButtonIndex].value += players[playerID].GetAxis("Move horizontal") * Time.deltaTime;
+                }
+                else if (players[playerID].GetAxis("Move horizontal") >= -horDeadZone && players[playerID].GetAxis("Move horizontal") <= horDeadZone)
+                {
+                    if (!canSelect)
+                        canSelect = true;
+                }
+            }
+        }
 	}
 
 	void PressSelectedButton ()

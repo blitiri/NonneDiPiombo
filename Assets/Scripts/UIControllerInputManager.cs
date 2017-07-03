@@ -9,6 +9,11 @@ public class UIControllerInputManager : MonoBehaviour
 	/// The instance of this class. It is needed to check whether the gameobject containing this component has "Main" or "Secondary" tag.
 	/// </summary>
 	private static UIControllerInputManager instance;
+    /// <summary>
+    /// How much the controller stick must be tilted to move between buttons.
+    /// </summary>
+    [SerializeField]
+    private float deadZone;
 	/// <summary>
 	/// The tag of the current active UIControllerInputManager.
 	/// </summary>
@@ -24,7 +29,7 @@ public class UIControllerInputManager : MonoBehaviour
 	/// <summary>
 	/// Component attached to the first menu in the current scene.
 	/// </summary>
-	private static UIControllerInputManager main;
+	public static UIControllerInputManager main;
 	/// <summary>
 	/// It is needed to slowly switch between buttons.
 	/// </summary>
@@ -128,7 +133,8 @@ public class UIControllerInputManager : MonoBehaviour
 			if (canSelect) {
 				//if (ReInput.controllers.joystickCount > 0)
 				//{
-				if (players [playerID].GetAxis ("Move horizontal") < -0.4f || players [playerID].GetAxis ("Move vertical") > 0.4f) {
+				if (players [playerID].GetAxis ("Move horizontal") < -deadZone || players [playerID].GetAxis ("Move vertical") > deadZone || players[playerID].GetAxis("Move horizontal") < -deadZone && players[playerID].GetAxis("Move vertical") > deadZone) {
+                    //Debug.Log("UpBastard");
 					if (buttons [selectedButtonIndex].state != UIButtonColor.State.Normal)
 						buttons [selectedButtonIndex].SetState (UIButtonColor.State.Normal, true);
 
@@ -140,17 +146,22 @@ public class UIControllerInputManager : MonoBehaviour
 					//Debug.Log("SSSSSS");
 					if (selectedButtonIndex <= 0) {
 						selectedButtonIndex = buttons.Length - 1;
-					} else {
+                        //Debug.Log("UpIndex");
+                    } else {
 						selectedButtonIndex -= 1;
-					}
+                        //Debug.Log("UpIndex");
+                    }
 
 					if (buttons [selectedButtonIndex].state != UIButtonColor.State.Hover)
 						buttons [selectedButtonIndex].SetState (UIButtonColor.State.Hover, true);
 
 					if (playTweens [selectedButtonIndex] != null)
 						playTweens [selectedButtonIndex].Play (true);
-				} else if (players [playerID].GetAxis ("Move horizontal") > 0.4f || players [playerID].GetAxis ("Move vertical") < -0.4f) {
-					if (buttons [selectedButtonIndex].state != UIButtonColor.State.Normal)
+
+                    canSelect = false;
+                } else if (players [playerID].GetAxis ("Move horizontal") > deadZone || players [playerID].GetAxis ("Move vertical") < -deadZone || players[playerID].GetAxis("Move horizontal") > deadZone && players[playerID].GetAxis("Move vertical") < -deadZone) {
+                    //Debug.Log("DownBastard");
+                    if (buttons [selectedButtonIndex].state != UIButtonColor.State.Normal)
 						buttons [selectedButtonIndex].SetState (UIButtonColor.State.Normal, true);
 
 					if (playTweens [selectedButtonIndex] != null)
@@ -158,21 +169,26 @@ public class UIControllerInputManager : MonoBehaviour
 
 					if (selectedButtonIndex >= buttons.Length - 1) {
 						selectedButtonIndex = 0;
-					} else {
+                        //Debug.Log("DownIndex");
+                    } else {
 						selectedButtonIndex += 1;
-					}
+                        //Debug.Log("DownIndex");
+                    }
 
 					if (buttons [selectedButtonIndex].state != UIButtonColor.State.Hover)
 						buttons [selectedButtonIndex].SetState (UIButtonColor.State.Hover, true);
 
 					if (playTweens [selectedButtonIndex] != null)
 						playTweens [selectedButtonIndex].Play (true);
-				}
-				canSelect = false;
+
+                    canSelect = false;
+                }
+                Debug.Log(selectedButtonIndex);
 			} else {
-				if (players [playerID].GetAxis ("Move horizontal") >= -0.4f && players [playerID].GetAxis ("Move horizontal") <= 0.4f) {
-					if (players [playerID].GetAxis ("Move vertical") >= -0.4f && players [playerID].GetAxis ("Move vertical") <= 0.4f) {
+				if (players [playerID].GetAxis ("Move horizontal") >= -deadZone && players [playerID].GetAxis ("Move horizontal") <= deadZone) {
+					if (players [playerID].GetAxis ("Move vertical") >= -deadZone && players [playerID].GetAxis ("Move vertical") <= deadZone) {
 						canSelect = true;
+                        Debug.Log("canselect = " + canSelect);
 					}
 				}
 			}

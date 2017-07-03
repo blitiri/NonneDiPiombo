@@ -9,9 +9,8 @@ public class DamageableObject : MonoBehaviour {
     public GameObject brokenVersion;
     private BoxCollider bCollider;
     private MeshRenderer meshrenderer;
-    public float maxTimer = 1.0f;
-    private float timer = 0.0f;
-    private bool rebuild = false;
+    private bool brokenHead = false;
+    public float timerHeadDestroyed = 3.0f;
 
 	private GameObject brokenObj;
 
@@ -22,25 +21,6 @@ public class DamageableObject : MonoBehaviour {
         Components();
     }
  
-    void Update()
-    {
-        if(rebuild==true)
-        {
-            if (timer <= maxTimer)
-            {
-                timer += Time.deltaTime;
-            }
-            else
-            {
-                bCollider.enabled = true;
-                bCollider.isTrigger = false;
-                meshrenderer.enabled = true;
-                rebuild = false;
-                bulletCount = 0;
-                timer = 0.0f;
-            }
-        }
-    }
 
 	void OnCollisionEnter(Collision other)
     {
@@ -48,17 +28,15 @@ public class DamageableObject : MonoBehaviour {
         {
             bulletCount++;
 
-            if (bulletCount >= bulletTaken)
+            if (bulletCount == bulletTaken)
             {
                 brokenObj = Instantiate(brokenVersion, transform.position, transform.rotation) as GameObject;
 				meshRenderers = brokenObj.GetComponentsInChildren (typeof(MeshRenderer));
 				if (meshRenderers != null) {
 					foreach (MeshRenderer mesh in meshRenderers){
-						if (mesh.gameObject.name == "Base" && mesh.gameObject.name == "Body") {
-							mesh.enabled = true;
-						} else {
-							Destroy (mesh, 8.0f);
-						}
+						if (mesh.gameObject.name == "Head" ) {
+                            Destroy(mesh.gameObject, timerHeadDestroyed);
+						} 
 					}
 				}
 
@@ -67,7 +45,6 @@ public class DamageableObject : MonoBehaviour {
                 bCollider.isTrigger = true;
                 CameraShake.instance.shake = true;
                 meshrenderer.enabled = false;
-				rebuild = false;
             }
         }
        

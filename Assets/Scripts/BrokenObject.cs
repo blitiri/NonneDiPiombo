@@ -21,9 +21,9 @@ public class BrokenObject : MonoBehaviour {
 
         foreach (Rigidbody rigid in rb)
         {
-            rigid.AddForce(rigid.transform.forward *force*Time.deltaTime /* ForceMode.Force*/);
+            rigid.AddForce(rigid.transform.forward *force*Time.deltaTime);
             source.PlayOneShot(rockFalling);
-//            Destroy(this.gameObject, lifeTime);
+//          Destroy(this.gameObject, lifeTime);
         }
     }
 }

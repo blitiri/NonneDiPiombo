@@ -146,7 +146,9 @@ public class GameManager : MonoBehaviour
             playersControls[playerIndex].SetAngleCorrection(cameraTransform.rotation.eulerAngles.y);
             if (Configuration.instance.players.Count > 0)
             {
-                playersControls[playerIndex].controllerId = Configuration.instance.players[playerIndex].id;
+                if (playersControls[playerIndex] != null) {
+                    playersControls[playerIndex].controllerId = Configuration.instance.players[playerIndex].id;
+                }
             }
             else
             {

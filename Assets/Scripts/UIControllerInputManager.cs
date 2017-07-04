@@ -77,6 +77,7 @@ public class UIControllerInputManager : MonoBehaviour
     /// <summary>
     /// Function that will be executed by pressing "Start" button on the controller.
     /// </summary>
+    [Tooltip("assign a method to this EventDelegate to execute it by pressing Start on the controller.")]
     public EventDelegate startButtonMethod;
 
     private void OnEnable()

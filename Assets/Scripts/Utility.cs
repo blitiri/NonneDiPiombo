@@ -99,7 +99,6 @@ public class Utility
     /// <param name="closeMethodName">Close method name.</param>
     public static void FadeOut(TweenAlpha tween, MonoBehaviour delegated, string closeMethodName)
     {
-        Debug.Log("BASTARD");
         tween.onFinished.Add(new EventDelegate(delegated, closeMethodName));
         tween.from = 0;
         tween.SetEndToCurrentValue();

@@ -69,14 +69,30 @@ public class UIControllerInputManager : MonoBehaviour
     private Player[] players;
     public UIButton[] buttons;
     private UIPlayTween[] playTweens;
-
+    /// <summary>
+    /// Dictionary needed to access Slider components, taken in the Awake.
+    /// </summary>
     private Dictionary<int, UISlider> sliders = new Dictionary<int, UISlider>();
     //private UIButton startButton;
+    /// <summary>
+    /// Function that will be executed by pressing "Start" button on the controller.
+    /// </summary>
+    public EventDelegate startButtonMethod;
 
     private void OnEnable()
     {
         //Debug.Log(1);
         instance = this;
+        if (buttons.Length > 0) {
+            //Debug.Log("Little MissSunshine");
+            selectedButtonIndex = 0;
+
+            if (buttons[selectedButtonIndex].state != UIButtonColor.State.Hover)
+                buttons[selectedButtonIndex].SetState(UIButtonColor.State.Hover, true);
+
+            if (playTweens[selectedButtonIndex] != null)
+                playTweens[selectedButtonIndex].Play(true);
+        }
     }
 
     private void OnDisable()
@@ -128,14 +144,17 @@ public class UIControllerInputManager : MonoBehaviour
             }
         }
 
-        if (buttons.Length > 0)
-        {
-            if (buttons[selectedButtonIndex].state != UIButtonColor.State.Hover)
-                buttons[selectedButtonIndex].SetState(UIButtonColor.State.Hover, true);
+        //if (buttons.Length > 0)
+        //{
+        //    Debug.Log("Little MissSunshine");
+        //    selectedButtonIndex = 0;
 
-            if (playTweens[selectedButtonIndex] != null)
-                playTweens[selectedButtonIndex].Play(true);
-        }
+        //    if (buttons[selectedButtonIndex].state != UIButtonColor.State.Hover)
+        //        buttons[selectedButtonIndex].SetState(UIButtonColor.State.Hover, true);
+
+        //    if (playTweens[selectedButtonIndex] != null)
+        //        playTweens[selectedButtonIndex].Play(true);
+        //}
     }
 
     private void Update()
@@ -148,7 +167,7 @@ public class UIControllerInputManager : MonoBehaviour
                 PressSelectedButton();
 
                 if (playerID == 0)
-                    PressStartButton();
+                    PressStartButton(startButtonMethod);
             }
         }
     }
@@ -302,20 +321,22 @@ public class UIControllerInputManager : MonoBehaviour
         }
     }
 
-    void PressStartButton()
+    void PressStartButton(EventDelegate eventDelegate)
     {
         foreach (Player player in players)
         {
             if (player.GetButtonDown("Start"))
             {
                 // Se non si è in una scena di livello, l'istanza del GameManager è null
-                if (GameManager.instance != null)
-                {
-                    if (!GameManager.instance.countdownIsRunning)
-                    {
-                        GameManager.instance.PauseGame();
-                    }
-                }
+                //if (GameManager.instance != null)
+                //{
+                //    if (!GameManager.instance.countdownIsRunning)
+                //    {
+                //        GameManager.instance.PauseGame();
+                //    }
+                //}
+                if (eventDelegate.isValid)
+                    eventDelegate.Execute();
             }
         }
     }

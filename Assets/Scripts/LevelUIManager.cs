@@ -11,7 +11,9 @@ public class LevelUIManager : AbstractUIManager
     /// LevelUIManager instance.
     /// </summary>
     public static LevelUIManager instance;
-
+    /// <summary>
+    /// Whether the player can pause or not. Once the player has paused he can't redo it until pause menu ha finished tweening.
+    /// </summary>
     public bool canPause;
     /// <summary>
     /// The timer for round countdown.
@@ -147,12 +149,12 @@ public class LevelUIManager : AbstractUIManager
     {
         if (visible)
         {
-            Debug.Log("Minchia di lato");
+            //Debug.Log("Minchia di lato");
             Utility.OpenPopup(pauseMenu, pauseMenuTweenAlpha);
         }
         else
         {
-            Debug.Log("Lurido pezzo di merda");
+            //Debug.Log("Lurido pezzo di merda");
             Utility.FadeOut(pauseMenuTweenAlpha, this, "ClosePauseMenu");
         }
     }
@@ -162,7 +164,7 @@ public class LevelUIManager : AbstractUIManager
     /// </summary>
     private void ClosePauseMenu()
     {
-        Debug.Log("EEEEEEEEEEEEEE");
+        //Debug.Log("EEEEEEEEEEEEEE");
         pauseMenu.gameObject.SetActive(false);
         GameManager.instance.SetPause(false);
         pauseMenuTweenAlpha.onFinished.Clear();

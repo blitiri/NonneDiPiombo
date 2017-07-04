@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         if (!countdownIsRunning && LevelUIManager.instance.canPause)
         {
             Time.timeScale = 0.0f;
-            Debug.Log("MAMMAMIA");
+            //Debug.Log("MAMMAMIA");
             LevelUIManager.instance.canPause = false;
             InvertPause();
             Debug.Log(isPaused);

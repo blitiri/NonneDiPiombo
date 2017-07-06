@@ -36,6 +36,10 @@ public class MenuUIManager : AbstractUIManager
 	/// </summary>
 	public TweenAlpha creditsTweenAlpha;
 	/// <summary>
+	/// The audio source.
+	/// </summary>
+	public AudioSource audioSource;
+	/// <summary>
 	/// Default screen width
 	/// </summary>
 	private int defWidth;
@@ -77,7 +81,7 @@ public class MenuUIManager : AbstractUIManager
 	{
 		Debug.Log ("Open - Sound volume: " + Configuration.instance.GetSoundVolume ());
 		checkedSprite.enabled = Configuration.instance.IsFullScreen ();
-		volumeSlider.value = Configuration.instance.GetSoundVolume ();
+		audioSource.volume = Configuration.instance.GetSoundVolume ();
 		Utility.OpenPopup (optionsWindow, optionsTweenAlpha);
 	}
 
@@ -87,6 +91,7 @@ public class MenuUIManager : AbstractUIManager
 	public void OnCredits ()
 	{
 		Utility.OpenPopup (creditsWindow, creditsTweenAlpha);
+		CreditsScrollManager.instance.StartScroll ();
 	}
 
 	/// <summary>
@@ -107,6 +112,14 @@ public class MenuUIManager : AbstractUIManager
 	}
 
 	/// <summary>
+	/// Update sound volume.
+	/// </summary>
+	public void OnValueChange ()
+	{
+		audioSource.volume = volumeSlider.value;
+	}
+
+	/// <summary>
 	/// Closes a window.
 	/// </summary>
 	/// <param name="window">Window to close.</param>
@@ -116,10 +129,12 @@ public class MenuUIManager : AbstractUIManager
 		if (window.name.Equals ("OptionsWindow")) {
 			Configuration.instance.SetFullScreen (checkedSprite.enabled);
 			Configuration.instance.SetSoundVolume (volumeSlider.value); 
+			audioSource.volume = Configuration.instance.GetSoundVolume ();
 			Debug.Log ("Close - Sound volume: " + Configuration.instance.GetSoundVolume ());
 			Utility.FadeOut (optionsTweenAlpha, this, "Close" + window.name);
 		} else if (window.name.Equals ("CreditsWindow")) {
 			Utility.FadeOut (creditsTweenAlpha, this, "Close" + window.name);
+			CreditsScrollManager.instance.StopScroll ();
 		}
 	}
 

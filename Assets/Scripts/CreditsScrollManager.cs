@@ -35,7 +35,6 @@ public class CreditsScrollManager : MonoBehaviour
 			AutoScrollElement (gameDesigners);
 			AutoScrollElement (conceptArtists);
 			AutoScrollElement (threeDArtists);
-			Debug.Log ("Programmers Y: " + gameDesigners.position.y);
 			AutoScrollElement (programmersArtists);
 			yield return null;
 		}

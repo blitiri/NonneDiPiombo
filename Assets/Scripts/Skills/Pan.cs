@@ -8,7 +8,13 @@ public class Pan : MonoBehaviour
     public float lifeTime = 1.0f;
     public float speedRotation = 20.0f;
     private float timer=0.0f;
+    private AudioSource source;
+    public AudioClip panHit;
 	
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
 	void Update () 
 	{
         if(timer<lifeTime)
@@ -21,7 +27,14 @@ public class Pan : MonoBehaviour
             this.gameObject.SetActive(false);
 			player.GetComponent<PlayerControl> ().isImmortal = false;
             timer = 0.0f;
-        }
-        
+        }    
 	}
+    
+    void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.tag.StartsWith("Bullet"))
+        {
+            source.PlayOneShot(panHit);
+        }
+    }
 }

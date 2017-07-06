@@ -377,7 +377,6 @@ public class PlayerControl : MonoBehaviour
 
     private IEnumerator Dashing(Vector3 moveVector)
     {
-		Debug.Log ("Dash");
         Vector3 newPosition = Vector3.zero;
 
         float dashDone = 0;

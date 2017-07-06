@@ -62,8 +62,8 @@ public class PlayerControl : MonoBehaviour
     [Range(0, 10)]
     public float dashTime;
     float dashRecordedTime = 0;
-    [Range(0, 10)]
-    public float dashDistance;
+    /*[Range(0, 10)]
+    public float dashDistance;*/
     public float dashSpeed = 10;
     public float dashLength = 5;
     [Range(0, 100)]

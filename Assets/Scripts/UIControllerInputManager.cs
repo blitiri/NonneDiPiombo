@@ -284,7 +284,7 @@ public class UIControllerInputManager : MonoBehaviour
                                 canSelect = true;
                             if (!canSlide)
                                 canSlide = true;
-                            Debug.Log("canselect = " + canSelect);
+                            //Debug.Log("canselect = " + canSelect);
                         }
                     }
                 }

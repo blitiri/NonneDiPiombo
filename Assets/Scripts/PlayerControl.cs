@@ -58,7 +58,6 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     public bool isObstacle = false;
     private bool isDashing;
-    public float dashWallDistance = 1.5f;
     [Range(0, 10)]
     public float dashTime;
     float dashRecordedTime = 0;
@@ -342,6 +341,7 @@ public class PlayerControl : MonoBehaviour
         {
             if (!isObstacle && !isDashing && dashTime <= Time.time - dashRecordedTime)
             {
+				StopCoroutine(Dashing(moveVector));
                 StartCoroutine(Dashing(moveVector));
                 InitAbility(ability);
                 StartCoroutine("Ability", timer);
@@ -377,6 +377,7 @@ public class PlayerControl : MonoBehaviour
 
     private IEnumerator Dashing(Vector3 moveVector)
     {
+		Debug.Log ("Dash");
         Vector3 newPosition = Vector3.zero;
 
         float dashDone = 0;

@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Skill Counter.
     /// </summary>
-    public int catCounter;
+    public bool catMax = false;
+    public int catCounter=0;
     public float countdownCount;
     public float timerToSpawn = 5.0f;
     public float maxTimerBeforeRespawn = 1.0f;

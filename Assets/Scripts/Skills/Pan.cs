@@ -15,7 +15,7 @@ public class Pan : MonoBehaviour
     {
         source = GetComponent<AudioSource>();
     }
-	void Update () 
+	void FixedUpdate () 
 	{
         if(timer<lifeTime)
         {

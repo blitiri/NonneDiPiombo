@@ -27,7 +27,8 @@ public class CatMine : MonoBehaviour
 	void Start()
 	{
         source.PlayOneShot(catMeow, volumeSound);
-		StartCoroutine ("CatExplosion");
+        GameManager.instance.catCounter++;
+        StartCoroutine ("CatExplosion");
 	}
 
 	void OnTriggerEnter (Collider other){

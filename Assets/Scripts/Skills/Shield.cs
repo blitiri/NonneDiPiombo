@@ -16,7 +16,7 @@ public class Shield : MonoBehaviour {
         source = GetComponent<AudioSource>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         source.PlayOneShot(holyShieldSound);
         if (timer < lifeTime)

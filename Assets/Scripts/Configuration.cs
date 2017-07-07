@@ -107,10 +107,10 @@ public class Configuration : MonoBehaviour
             if (SceneController.IsLevelSelectionScene() || SceneController.IsLevelScene() || SceneController.IsCharacterSelectionScene() || SceneController.IsMenuScene() || SceneController.IsEndingScene())
             {
                 numberOfPlayers = defaultNumberOfPlayers;
-                selectedGrannies = new GameObject[numberOfPlayers];
+                selectedGrannies = new List<GameObject>();
                 for (grannyIndex = 0; grannyIndex < numberOfPlayers; grannyIndex++)
                 {
-                    selectedGrannies[grannyIndex] = granniesPrefabs[grannyIndex % granniesPrefabs.Length];
+                    selectedGrannies.Add(granniesPrefabs[grannyIndex % granniesPrefabs.Length]);
                 }
             }
             else

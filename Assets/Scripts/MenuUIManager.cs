@@ -79,7 +79,7 @@ public class MenuUIManager : AbstractUIManager
 	/// </summary>
 	public void OnOptions ()
 	{
-		Debug.Log ("Open - Sound volume: " + Configuration.instance.GetSoundVolume ());
+		//Debug.Log ("Open - Sound volume: " + Configuration.instance.GetSoundVolume ());
 		checkedSprite.enabled = Configuration.instance.IsFullScreen ();
 		audioSource.volume = Configuration.instance.GetSoundVolume ();
 		Utility.OpenPopup (optionsWindow, optionsTweenAlpha);
@@ -130,7 +130,7 @@ public class MenuUIManager : AbstractUIManager
 			Configuration.instance.SetFullScreen (checkedSprite.enabled);
 			Configuration.instance.SetSoundVolume (volumeSlider.value); 
 			audioSource.volume = Configuration.instance.GetSoundVolume ();
-			Debug.Log ("Close - Sound volume: " + Configuration.instance.GetSoundVolume ());
+			//Debug.Log ("Close - Sound volume: " + Configuration.instance.GetSoundVolume ());
 			Utility.FadeOut (optionsTweenAlpha, this, "Close" + window.name);
 		} else if (window.name.Equals ("CreditsWindow")) {
 			Utility.FadeOut (creditsTweenAlpha, this, "Close" + window.name);

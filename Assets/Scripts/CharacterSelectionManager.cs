@@ -9,6 +9,7 @@ public class CharacterSelectionManager : MonoBehaviour
     /// It is needed to know whether countdown is running or not.
     /// </summary>
     private bool RunCountdownIsRunning;
+    private bool CountdownIsStarted;
     /// <summary>
     /// They are needed to slowly switch between button.
     /// </summary>
@@ -197,6 +198,7 @@ public class CharacterSelectionManager : MonoBehaviour
                 PressCross(players[id]);
             }
         }
+        CheckReady();
     }
 
     private void MoveControllerAxis(Player player)
@@ -371,7 +373,7 @@ public class CharacterSelectionManager : MonoBehaviour
                 tweens[id].to = frameColors[id];
                 tweens[id].PlayForward();
                 readyCount++;
-                CheckReady();
+                //CheckReady();
             }
         }
     }
@@ -387,28 +389,36 @@ public class CharacterSelectionManager : MonoBehaviour
             tweens[id].PlayReverse();
             readys[id] = false;
             readyCount--;
-            CheckReady();
+            //CheckReady();
         }
         else if (orderedPlayers.Contains(player) && !readys[id])
         {
-            //Debug.Log("BITCH");
             selectors[id].SetActive(false);
             joinLabels[id].enabled = true;
             orderedPlayers[id] = null;
+            selectedGrannies[id] = null;
+            indexes[id] = 0;
+            centrals[id].normalSprite = iconAtlasNames[indexes[id]] + "PlayerIcon";
+            weapons[id].spriteName = weaponsNames[indexes[id]];
+            playerLabels[id].text = granniesNames[indexes[id]];
             totalPlayers--;
+            //Debug.Log(indexes[id]);
             Configuration.instance.SetNumberOfPlayers(totalPlayers);
+            //CheckReady();
         }
     }
 
     private void CheckReady()
     {
-        if (readyCount == Configuration.instance.GetNumberOfPlayers())
+        if (!CountdownIsStarted && readyCount == Configuration.instance.GetNumberOfPlayers())
         {
             StartCountdown();
+            CountdownIsStarted = true;
         }
-        else
+        else if (CountdownIsStarted && readyCount != Configuration.instance.GetNumberOfPlayers())
         {
             StopCountdown();
+            CountdownIsStarted = false;
         }
     }
 
@@ -450,15 +460,15 @@ public class CharacterSelectionManager : MonoBehaviour
         if (RunCountdownIsRunning)
         {
             StopCoroutine("RunCountdown");
+            if (countdown.gameObject.activeInHierarchy)
+            {
+                countdown.gameObject.SetActive(false);
+            }
+            if (countdownCount != countdownSeconds)
+            {
+                countdownCount = countdownSeconds;
+            }
             RunCountdownIsRunning = false;
-        }
-        if (countdown.gameObject.activeInHierarchy)
-        {
-            countdown.gameObject.SetActive(false);
-        }
-        if (countdownCount != countdownSeconds)
-        {
-            countdownCount = countdownSeconds;
         }
     }
 

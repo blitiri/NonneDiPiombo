@@ -32,10 +32,14 @@ public class CameraControl : MonoBehaviour
 		targets = new Transform[players.Length];
 		playerMeshRenderer = new MeshRenderer[players.Length];
 
-		for (int playerIndex = 0; playerIndex < players.Length; playerIndex++) {
-			targets [playerIndex] = players [playerIndex].transform;
+		for (int playerIndex = 0; playerIndex < players.Length; playerIndex++)
+        {
+            if (players[playerIndex] != null)
+            {
+                targets[playerIndex] = players[playerIndex].transform;
 
-			playerMeshRenderer [playerIndex] = players [playerIndex].GetComponent<MeshRenderer> ();
+                playerMeshRenderer[playerIndex] = players[playerIndex].GetComponent<MeshRenderer>();
+            }
 		}
 		mainCamera = GetComponentInChildren<Camera> ();
 	}
@@ -66,7 +70,7 @@ public class CameraControl : MonoBehaviour
 
 		for (int i = 0; i < targets.Length; i++) {
 			
-			if (targets [i].gameObject.activeSelf) {
+			if (targets[i] != null && targets [i].gameObject.activeSelf) {
 				averagePos += targets [i].position;
 				numTargets++;
 			}
@@ -95,7 +99,7 @@ public class CameraControl : MonoBehaviour
 		float size = 0f;
 
 		for (int i = 0; i < targets.Length; i++) {
-			if (targets [i].gameObject.activeSelf) {
+			if (targets[i] != null && targets [i].gameObject.activeSelf) {
 				Vector3 targetLocalPos = transform.InverseTransformPoint (targets [i].position);
 				Vector3 desiredPosToTarget = targetLocalPos - desiredLocalPos;
 				size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.y));

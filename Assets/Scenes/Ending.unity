@@ -337,7 +337,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 436124786}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 769774229}
@@ -373,13 +373,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1921
-  mHeight: 993
+  mWidth: 1920
+  mHeight: 1080
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.1489363
+  aspectRatio: 1.9345418
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -406,7 +406,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013008863540, guid: 6a03f0fc1344c4e5e943a5b84278dedb, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -245
+      value: -244
       objectReference: {fileID: 0}
     - target: {fileID: 4000013008863540, guid: 6a03f0fc1344c4e5e943a5b84278dedb, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1740,7 +1740,7 @@ Transform:
   m_GameObject: {fileID: 769774225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0020140987, y: 0.0020140987, z: 0.0020140987}
+  m_LocalScale: {x: 0.0018518518, y: 0.0018518518, z: 0.0018518518}
   m_Children:
   - {fileID: 1325100020}
   - {fileID: 436124787}
@@ -1782,8 +1782,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHorSlider: 0
-  horDeadZone: 0
-  verDeadZone: 0
+  horDeadZone: 0.6
+  verDeadZone: 0.3
   canSelect: 0
   canSlide: 0
   selectedButtonIndex: 0
@@ -1905,7 +1905,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013008863540, guid: 6a03f0fc1344c4e5e943a5b84278dedb, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -245
+      value: -244
       objectReference: {fileID: 0}
     - target: {fileID: 4000013008863540, guid: 6a03f0fc1344c4e5e943a5b84278dedb, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2407,7 +2407,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013008863540, guid: 6a03f0fc1344c4e5e943a5b84278dedb, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 275
+      value: 276
       objectReference: {fileID: 0}
     - target: {fileID: 4000013008863540, guid: 6a03f0fc1344c4e5e943a5b84278dedb, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3434,7 +3434,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013008863540, guid: 6a03f0fc1344c4e5e943a5b84278dedb, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 275
+      value: 276
       objectReference: {fileID: 0}
     - target: {fileID: 4000013008863540, guid: 6a03f0fc1344c4e5e943a5b84278dedb, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3774,7 +3774,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4056098973610876, guid: 3780461d746364c7693e935d8551c36d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -470
+      value: -469
       objectReference: {fileID: 0}
     - target: {fileID: 4056098973610876, guid: 3780461d746364c7693e935d8551c36d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4392,8 +4392,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHorSlider: 0
-  horDeadZone: 0
-  verDeadZone: 0
+  horDeadZone: 0.6
+  verDeadZone: 0.3
   canSelect: 0
   canSlide: 0
   selectedButtonIndex: 0

@@ -361,7 +361,7 @@ public class PlayerControl : MonoBehaviour
         Vector3 rayDirection = moveVector;
 
 
-        Debug.DrawRay(ray, rayDirection, Color.blue);
+        //Debug.DrawRay(ray, rayDirection, Color.blue);
 
         if (Physics.Raycast(ray, rayDirection, playerObstacleDistanceLimit, environment))
         {

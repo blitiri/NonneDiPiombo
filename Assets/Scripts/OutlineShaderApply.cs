@@ -14,7 +14,7 @@ public class OutlineShaderApply  {
 				renderer.sharedMaterial.shader = standard;
 			}
 		}
-		Debug.DrawRay (Camera.main.transform.position,dir,Color.green);
+		//Debug.DrawRay (Camera.main.transform.position,dir,Color.green);
 	}
 
 }

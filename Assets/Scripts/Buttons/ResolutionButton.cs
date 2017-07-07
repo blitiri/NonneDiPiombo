@@ -22,7 +22,7 @@ public class ResolutionButton : MonoBehaviour
 
     public void ChangingResolution()
     {
-        Debug.Log(Screen.currentResolution);
+        //Debug.Log(Screen.currentResolution);
 
         switch (resolutionNumber)
         {

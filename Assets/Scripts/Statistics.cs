@@ -77,8 +77,8 @@ public class Statistics : MonoBehaviour
 	/// </summary>
 	public void Reset ()
 	{
-		playersKills = new int[Configuration.instance.GetNumberOfPlayers ()];
-		playersIcons = new string[Configuration.instance.GetNumberOfPlayers ()];
+		playersKills = new int[Configuration.maxNumberOfPlayers];
+		playersIcons = new string[Configuration.maxNumberOfPlayers];
 	}
 
 	/// <summary>
@@ -101,13 +101,14 @@ public class Statistics : MonoBehaviour
 		int playerIndex;
 
 		if (playersKills != null) {
-			ranking = new RankingPosition[Configuration.instance.GetNumberOfPlayers ()];
-			for (playerIndex = 0; playerIndex < Configuration.instance.GetNumberOfPlayers (); playerIndex++) {
+			ranking = new RankingPosition[Configuration.maxNumberOfPlayers];
+			for (playerIndex = 0; playerIndex < Configuration.maxNumberOfPlayers; playerIndex++) {
+                //if (playersIcons[playerIndex] != null)
 				ranking [playerIndex] = new RankingPosition (playerIndex, playersKills [playerIndex], playersIcons [playerIndex]);
 			}
 		} else {
 			// Execution is out of normal game flow, we are in a testing session
-			Debug.LogWarning ("Statistics: Execution is out of normal game flow, testing session is assumed! Test case " + debugTestCase + " executed.");
+			//Debug.LogWarning ("Statistics: Execution is out of normal game flow, testing session is assumed! Test case " + debugTestCase + " executed.");
 			ranking = TestUtilities.GetDummyRanking (debugTestCase);
 		}
 		Array.Sort (ranking);

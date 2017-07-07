@@ -115,7 +115,7 @@ public class LevelUIManager : AbstractUIManager
     public void InitUI()
     {
         GameObject[] players;
-        SpriteRenderer playerIdentifierRenderer;
+        SpriteRenderer playerIdentifierRenderer = null;
         string playerIcon;
         int playerIndex;
 
@@ -123,17 +123,22 @@ public class LevelUIManager : AbstractUIManager
         for (playerIndex = 0; playerIndex < players.Length; playerIndex++)
         {
             scores[playerIndex].text = "0";
-            playerIcon = Utility.GetPlayerIcon(players[playerIndex]);
-            Statistics.instance.SetPlayerIcon(playerIndex, playerIcon);
-            playersIcons[playerIndex].spriteName = playerIcon;
-            playersIconsBackgrounds[playerIndex].color = Configuration.instance.playersColors[playerIndex];
-            playerIdentifierRenderer = players[playerIndex].GetComponentInChildren<SpriteRenderer>();
-            if (playerIdentifierRenderer != null)
+            if (players[playerIndex] != null)
             {
-                playerIdentifierRenderer.color = Configuration.instance.playersColors[playerIndex];
+                //Debug.Log(playerIndex);
+                playerIcon = Utility.GetPlayerIcon(players[playerIndex]);
+                Statistics.instance.SetPlayerIcon(playerIndex, playerIcon);
+                playersIcons[playerIndex].spriteName = playerIcon;
+                playersIconsBackgrounds[playerIndex].color = Configuration.instance.playersColors[playerIndex];
+                playerIdentifierRenderer = players[playerIndex].GetComponentInChildren<SpriteRenderer>();
+
+                if (playerIdentifierRenderer != null)
+                {
+                    playerIdentifierRenderer.color = Configuration.instance.playersColors[playerIndex];
+                }
+                bestPlayers[playerIndex].enabled = false;
+                playersInfos[playerIndex].enabled = true;
             }
-            bestPlayers[playerIndex].enabled = false;
-            playersInfos[playerIndex].enabled = true;
         }
         for (; playerIndex < playersInfos.Length; playerIndex++)
         {

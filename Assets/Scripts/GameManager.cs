@@ -86,7 +86,6 @@ public class GameManager : MonoBehaviour
             //Debug.Log("MAMMAMIA");
             LevelUIManager.instance.canPause = false;
             InvertPause();
-            Debug.Log(isPaused);
             LevelUIManager.instance.SetPauseMenuVisible(isPaused);
         }
     }
@@ -109,7 +108,6 @@ public class GameManager : MonoBehaviour
         else
         {
             isPaused = true;
-            Debug.Log(isPaused);
         }
     }
 
@@ -123,46 +121,76 @@ public class GameManager : MonoBehaviour
         int playerIndex;
         int numberOfPlayers;
         int setPlayers = 0;
+        bool arePlayers = false;
 
         numberOfPlayers = Configuration.instance.GetNumberOfPlayers();
         //Debug.Log(numberOfPlayers);
-        players = new GameObject[numberOfPlayers];
-        playersControls = new PlayerControl[numberOfPlayers];
-        for (playerIndex = 0; playerIndex < Configuration.maxNumberOfPlayers; playerIndex++)
+        players = new GameObject[Configuration.maxNumberOfPlayers];
+        playersControls = new PlayerControl[Configuration.maxNumberOfPlayers];
+
+        for(int i = 0; i < Configuration.instance.selectedGrannies.Count; i++)
         {
-            if (setPlayers < numberOfPlayers)
+            if (Configuration.instance.selectedGrannies[i] != null)
+            {
+                arePlayers = true;
+                break;
+            }
+        }
+
+        if (arePlayers)
+        {
+            //Debug.Log("Cazzo");
+            for (playerIndex = 0; playerIndex < Configuration.maxNumberOfPlayers; playerIndex++)
             {
                 // Instantiate player
-                if (Configuration.instance.selectedGrannies[playerIndex] != null)
+                if (setPlayers < numberOfPlayers)
                 {
-                    players[playerIndex] = Instantiate(Configuration.instance.selectedGrannies[playerIndex]) as GameObject;
-                    players[playerIndex].transform.position = playersStartRespawns[playerIndex].position;
+                    if (Configuration.instance.selectedGrannies[playerIndex] != null)
+                    {
+                        //Debug.Log(playerIndex);
+                        players[playerIndex] = Instantiate(Configuration.instance.selectedGrannies[playerIndex]) as GameObject;
+                        players[playerIndex].transform.position = playersStartRespawns[playerIndex].position;
+                        playersControls[playerIndex] = players[playerIndex].GetComponent<PlayerControl>();
+                        playersControls[playerIndex].SetPlayerId(playerIndex);
+                        playersControls[playerIndex].SetAngleCorrection(cameraTransform.rotation.eulerAngles.y);
+                        if (Configuration.instance.players.Count > 0)
+                        {
+                            playersControls[playerIndex].controllerId = Configuration.instance.players[playerIndex].id;
+                        }
+                        players[playerIndex].SetActive(true);
+                        setPlayers++;
+                    }
                 }
-                else
-                {
-                    players[playerIndex] = Instantiate(Configuration.instance.granniesPrefabs[Random.Range(0, Configuration.instance.granniesPrefabs.Length)]) as GameObject;
-                    players[playerIndex].transform.position = playersStartRespawns[playerIndex].position;
-                }
-                // Initialize PlayerControl script
+            }
+        }
+        else
+        {
+            for (playerIndex = 0; playerIndex < numberOfPlayers; playerIndex++)
+            {
+                //Debug.Log("ESRESRSREESRESESESRERSERSERERSSRD");
+                players[playerIndex] = Instantiate(Configuration.instance.granniesPrefabs[Random.Range(0, Configuration.instance.granniesPrefabs.Length)]) as GameObject;
+                players[playerIndex].transform.position = playersStartRespawns[playerIndex].position;
                 playersControls[playerIndex] = players[playerIndex].GetComponent<PlayerControl>();
                 playersControls[playerIndex].SetPlayerId(playerIndex);
                 playersControls[playerIndex].SetAngleCorrection(cameraTransform.rotation.eulerAngles.y);
-                if (Configuration.instance.players.Count > 0)
-                {
-                    while (playersControls[playerIndex] == null)
-                    {
-                        playerIndex++;
-                    }
-                    playersControls[playerIndex].controllerId = Configuration.instance.players[playerIndex].id;
-                }
-                else
-                {
-                    playersControls[playerIndex].controllerId = playerIndex;
-                }
-                setPlayers++;
-                players[playerIndex].SetActive(true);
+                playersControls[playerIndex].controllerId = playerIndex;
             }
         }
+            // Initialize PlayerControl script
+            //playersControls[playerIndex] = players[playerIndex].GetComponent<PlayerControl>();
+            //playersControls[playerIndex].SetPlayerId(playerIndex);
+            //playersControls[playerIndex].SetAngleCorrection(cameraTransform.rotation.eulerAngles.y);
+            //if (Configuration.instance.players.Count <= 0)
+            //{
+            //    //while (Configuration.instance.players[playerIndex] == null)
+            //    //{
+            //    //    playerIndex++;
+            //    //    Debug.Log("playerIndex: " + playerIndex);
+            //    //}
+            //    //playersControls[playerIndex].controllerId = Configuration.instance.players[playerIndex].id;
+            //    playersControls[playerIndex].controllerId = playerIndex;
+            //}
+            //players[playerIndex].SetActive(true);
     }
 
     /// <summary>
@@ -178,11 +206,15 @@ public class GameManager : MonoBehaviour
     {
         int playerIndex;
 
-        for (playerIndex = 0; playerIndex < players.Length; playerIndex++)
+        for (playerIndex = 0; playerIndex < playersControls.Length; playerIndex++)
         {
-            if ((playersControls[playerIndex].isDead) || (playersControls[playerIndex].IsCollapsed()))
+            //Debug.Log(playerIndex);
+            if (playersControls[playerIndex] != null)
             {
-                StartCoroutine(RespawnPlayer(playerIndex));
+                if ((playersControls[playerIndex].isDead) || (playersControls[playerIndex].IsCollapsed()))
+                {
+                    StartCoroutine(RespawnPlayer(playerIndex));
+                }
             }
         }
     }

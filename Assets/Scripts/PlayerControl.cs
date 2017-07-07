@@ -361,7 +361,7 @@ public class PlayerControl : MonoBehaviour
         Vector3 rayDirection = moveVector;
 
 
-        Debug.DrawRay(ray, rayDirection, Color.blue);
+        //Debug.DrawRay(ray, rayDirection, Color.blue);
 
         if (Physics.Raycast(ray, rayDirection, playerObstacleDistanceLimit, environment))
         {
@@ -377,7 +377,6 @@ public class PlayerControl : MonoBehaviour
 
     private IEnumerator Dashing(Vector3 moveVector)
     {
-		Debug.Log ("Dash");
         Vector3 newPosition = Vector3.zero;
 
         float dashDone = 0;

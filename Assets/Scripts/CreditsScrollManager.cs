@@ -25,7 +25,7 @@ public class CreditsScrollManager : MonoBehaviour
 
 	public void StopScroll ()
 	{
-		Debug.Log ("Stop auto scroll");
+		//Debug.Log ("Stop auto scroll");
 		StopCoroutine (AutoScroll ());
 	}
 
@@ -48,7 +48,7 @@ public class CreditsScrollManager : MonoBehaviour
 		y = element.position.y + autoScrollSpeed;
 		//Debug.Log (y + " >= " + topLimitForReposition + ": " + (y >= topLimitForReposition));
 		if (y >= topLimitForReposition) {
-			Debug.Log ("Repositioned");
+			//Debug.Log ("Repositioned");
 			y = bottomReposition;
 		}
 		newPosition = new Vector3 (element.position.x, y, element.position.z);

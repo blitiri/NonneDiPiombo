@@ -16,9 +16,9 @@ public class Shield : MonoBehaviour {
         source = GetComponent<AudioSource>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        source.PlayOneShot(holyShieldSound);
+        //source.PlayOneShot(holyShieldSound);
         if (timer < lifeTime)
         {
             transform.RotateAround(player.transform.position, player.transform.up, speedRotation);

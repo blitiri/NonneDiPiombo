@@ -13,11 +13,10 @@ public class ProximityCatMine : Abilities {
 		for (int i = 0; i < players.Length; i++) 
 		{
 			if (players [i] != null) {
-				if(GameManager.instance.catCounter!= maxCatNumber)
+				if(GameManager.instance.catCounter < maxCatNumber)
 				{
 					GameObject cat = Instantiate(catPrefab, players[i].transform.position, Quaternion.identity) as GameObject;
 					cat.tag = "Bullet" + players[i].tag;
-					GameManager.instance.catCounter++;
 				}
 				players [i] = null;
 			}

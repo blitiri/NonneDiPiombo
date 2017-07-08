@@ -410,7 +410,7 @@ public class CharacterSelectionManager : MonoBehaviour
 
     private void CheckReady()
     {
-        Debug.Log(Configuration.instance + " esiste");
+        //Debug.Log(Configuration.instance + " esiste");
         if (!CountdownIsStarted && readyCount == Configuration.instance.GetNumberOfPlayers())
         {
             StartCountdown();

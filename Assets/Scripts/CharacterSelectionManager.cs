@@ -477,7 +477,11 @@ public class CharacterSelectionManager : MonoBehaviour
     {
         if (Configuration.instance)
         {
-            Configuration.instance.selectedGrannies = selectedGrannies;
+            Configuration.instance.selectedGrannies.Clear();
+            for (int i = 0; i < selectedGrannies.Length; i++)
+            {
+                Configuration.instance.selectedGrannies.Add(selectedGrannies[i]);
+            }
         }
         SceneController.instance.LoadSceneByName(scene);
     }
